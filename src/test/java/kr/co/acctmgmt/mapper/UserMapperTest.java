@@ -12,15 +12,11 @@ public class UserMapperTest {
 	
 	@Autowired
 	private UserMapper userMapper;
-	
-	@Autowired
-	private EmployeeMapper employeeMapper;
 
 	@Test
 	public void testInsert() {
 		
 		System.out.println(userMapper.getTime());
-		System.out.println(employeeMapper.getTime());
 		
 	}
 }
