@@ -5,6 +5,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,9 +37,25 @@ public class LoginController {
 		else
 			System.out.println(employee.getDId()+" : 로그인 성공!!");
 
-		// 예시로 받은 데이터를 다시 JSON 형식으로 반환
+		//받은 데이터를 다시 JSON 형식으로 반환
 		String response = "{\"email\":\"" + email + "\",\"password\":\"" + password + "\"}";
 		
+		return ResponseEntity.ok(response);
+	}
+	@GetMapping("/emp/idcheck/{checkId}")
+	public ResponseEntity<String> idCheck(@PathVariable String checkId){
+		System.out.println(checkId);
+		String id = checkId;
+		Employee employee = employeeService.getEmployee(id);
+		
+
+		if(employee.getDId().equals(id))
+		System.out.println("중복! 중복!");
+		else 
+			System.out.println("중복 된 아이디가 아닙니다.");
+		
+		
+		String response = "{\"id\" : \"" + checkId + "\")}";
 		return ResponseEntity.ok(response);
 	}
 }
