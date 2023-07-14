@@ -20,14 +20,14 @@ public class EmployeeMapperTest {
 //	@Test
 	public void getEmployee() {
 		
-		String dId = "employee1";
+		String dId = "yhy0704";
 		
 		Employee employee = employeeMapper.getEmployee(dId);
 		
 		System.out.println(employee.toString());
 	}
 	
-	@Test
+//	@Test
 	public void getEmployeeList() {
 		
 		List<Employee> employeeList = employeeMapper.getEmployeeList();
@@ -76,7 +76,7 @@ public class EmployeeMapperTest {
 		getEmployeeList();
 	}
 	
-//	@Test
+	@Test
 	public void deleteEmployee() {
 		String dId = "employee4";
 		
