@@ -9,4 +9,5 @@
 
 	<context:component-scan base-package="kr.co.acctmgmt.controller" />
 	<mvc:annotation-driven/>
+
 </beans>
