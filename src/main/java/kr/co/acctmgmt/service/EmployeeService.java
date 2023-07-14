@@ -5,9 +5,14 @@ import java.util.List;
 import kr.co.acctmgmt.domain.Employee;
 
 public interface EmployeeService {
-	
-	public List<Employee> getEmployeeList();
-	
-	public Employee getEmployee();
 
+    Employee getEmployee(String id);
+
+    List<Employee> getEmployeeList();
+
+    void insertEmployee(Employee employee);
+
+    void updateEmployee(Employee employee);
+
+    void deleteEmployee(String id);
 }
