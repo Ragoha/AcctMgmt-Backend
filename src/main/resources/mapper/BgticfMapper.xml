@@ -11,11 +11,12 @@
 		SELECT * FROM BGTICF
 	</select> -->
 	
-	<select id="getBgticfList" resultMap="bgticfResultMap">
+<!-- 	<select id="getBgticfList" resultMap="bgticfResultMap"> -->
+<select id="getBgticfList" resultType="bgticf">
     SELECT * FROM BGTICF
 </select>
 
-<resultMap id="bgticfResultMap" type="Bgticf">
+<!-- <resultMap id="bgticfResultMap" type="Bgticf">
     <result column="CO_CD" property="coCd" />
     <result column="GISU" property="gisu" />
     <result column="SQ" property="sq" />
@@ -39,7 +40,7 @@
     <result column="MODIFY_ID" property="modifyId" />
     <result column="MODIFY_DT" property="modifyDt" />
     <result column="MODIFY_IP" property="modifyIp" />
-</resultMap>
+</resultMap> -->
 	
 	<insert id="insertBgticf" parameterType="Bgticf">
 	    INSERT INTO BGTICF (
