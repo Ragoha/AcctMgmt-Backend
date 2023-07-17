@@ -6,9 +6,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
-@Configuration
-@EnableWebSecurity
+//
+//@Configuration //구성 클래스(어플리케이션 컨텍스트를 구성하늗네 사용)
+//@EnableWebSecurity // 스프링 시큐리티를 사용하여 웹 보완을 활성화
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
   
 

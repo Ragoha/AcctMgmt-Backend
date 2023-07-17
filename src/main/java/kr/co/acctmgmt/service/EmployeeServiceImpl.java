@@ -12,31 +12,30 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private final EmployeeMapper employeeMapper;
+	private final EmployeeMapper employeeMapper;
 
+	@Override
+	public Employee getEmployee(String id) {
+		return employeeMapper.getEmployee(id);
+	}
 
-    @Override
-    public Employee getEmployee(String id) {
-        return employeeMapper.getEmployee(id);
-    }
+	@Override
+	public List<Employee> getEmployeeList() {
+		return employeeMapper.getEmployeeList();
+	}
 
-    @Override
-    public List<Employee> getEmployeeList() {
-        return employeeMapper.getEmployeeList();
-    }
+	@Override
+	public void insertEmployee(Employee employee) {
+		employeeMapper.insertEmployee(employee);
+	}
 
-    @Override
-    public void insertEmployee(Employee employee) {
-        employeeMapper.insertEmployee(employee);
-    }
+	@Override
+	public void updateEmployee(Employee employee) {
+		employeeMapper.updateEmployee(employee);
+	}
 
-    @Override
-    public void updateEmployee(Employee employee) {
-        employeeMapper.updateEmployee(employee);
-    }
-
-    @Override
-    public void deleteEmployee(String id) {
-        employeeMapper.deleteEmployee(id);
-    }
+	@Override
+	public void deleteEmployee(String id) {
+		employeeMapper.deleteEmployee(id);
+	}
 }

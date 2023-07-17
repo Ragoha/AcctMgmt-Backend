@@ -7,9 +7,11 @@
 		<typeAlias type="kr.co.acctmgmt.domain.User" alias="User" />
 		<typeAlias type="kr.co.acctmgmt.domain.Board" alias="Board"/>
 		<typeAlias type="kr.co.acctmgmt.domain.SBGTCDDomain" alias="SBGTCD"/>
+		<typeAlias type="kr.co.acctmgmt.domain.Bgticf" alias="Bgticf"/>		
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapper/UserMapper.xml" />
 		<mapper resource="mapper/SBGTCDMapper.xml"/>
+		<mapper resource="mapper/BgticfMapper.xml"/>
 	</mappers>
 </configuration>

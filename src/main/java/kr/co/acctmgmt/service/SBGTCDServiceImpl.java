@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class SBGTCDServiceImpl implements SBGTCDService {
-	private final SBGTCDMapper mapper ;
+	private final SBGTCDMapper mapper;
 
 	@Override
 	public List<SBGTCDDomain> getSBGTCDData(String groupcd) {
@@ -22,7 +22,7 @@ public class SBGTCDServiceImpl implements SBGTCDService {
 	@Override
 	public List<SBGTCDDomain> getDetailInfo(String bgt_CD) {
 		List<SBGTCDDomain> list = mapper.getDetailInfo(bgt_CD);
-		return null ;
+		return null;
 	}
-	
+
 }

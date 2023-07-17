@@ -11,22 +11,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.co.acctmgmt.dto.BgtDTO;
+import kr.co.acctmgmt.dto.BgticfDTO;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-public class BudgetController {
+public class BgticfController {
 
 	@PostMapping("/budget")
 //	public void getBGT(@RequestBody Budget budget) {
-	public ResponseEntity<List<BgtDTO>> getBGT(@RequestBody Map<String, String> budget) {
+	public ResponseEntity<List<BgticfDTO>> getBGT(@RequestBody Map<String, String> budget) {
 		
 		System.out.println(budget.toString());
 		
-		List<BgtDTO> bgtList = new ArrayList<>();
+		List<BgticfDTO> bgtList = new ArrayList<>();
 
         // BgtDTO 객체 생성 및 리스트에 추가
-        BgtDTO bgt1 = new BgtDTO();
+        BgticfDTO bgt1 = new BgticfDTO();
         bgt1.setId("1");
         bgt1.setBgtCd("BGT001");
         bgt1.setBgtFg("A");
@@ -34,7 +34,7 @@ public class BudgetController {
         bgt1.setAmount(1000000L);
         bgtList.add(bgt1);
 
-        BgtDTO bgt2 = new BgtDTO();
+        BgticfDTO bgt2 = new BgticfDTO();
         bgt2.setId("2");
         bgt2.setBgtCd("BGT002");
         bgt2.setBgtFg("B");
@@ -42,7 +42,7 @@ public class BudgetController {
         bgt2.setAmount(2000000L);
         bgtList.add(bgt2);
 
-        BgtDTO bgt3 = new BgtDTO();
+        BgticfDTO bgt3 = new BgticfDTO();
         bgt3.setId("3");
         bgt3.setBgtCd("BGT003");
         bgt3.setBgtFg("C");
@@ -50,7 +50,7 @@ public class BudgetController {
         bgt3.setAmount(3000000L);
         bgtList.add(bgt3);
 
-        BgtDTO bgt4 = new BgtDTO();
+        BgticfDTO bgt4 = new BgticfDTO();
         bgt4.setId("4");
         bgt4.setBgtCd("BGT004");
         bgt4.setBgtFg("D");
@@ -58,7 +58,7 @@ public class BudgetController {
         bgt4.setAmount(4000000L);
         bgtList.add(bgt4);
 
-        BgtDTO bgt5 = new BgtDTO();
+        BgticfDTO bgt5 = new BgticfDTO();
         bgt5.setId("5");
         bgt5.setBgtCd("BGT005");
         bgt5.setBgtFg("E");
@@ -68,6 +68,6 @@ public class BudgetController {
         
         System.out.println(bgtList.toString());
 		
-		return new ResponseEntity<List<BgtDTO>>(bgtList, HttpStatus.OK); 
+		return new ResponseEntity<List<BgticfDTO>>(bgtList, HttpStatus.OK); 
 	}
 }
