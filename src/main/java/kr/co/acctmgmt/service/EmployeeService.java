@@ -6,13 +6,13 @@ import kr.co.acctmgmt.domain.Employee;
 
 public interface EmployeeService {
 
-	Employee getEmployee(String id);
+    Employee getEmployee(String id);
 
-	List<Employee> getEmployeeList();
+    List<Employee> getEmployeeList();
 
-	void insertEmployee(Employee employee);
+    void insertEmployee(Employee employee);
 
-	void updateEmployee(Employee employee);
+    void updateEmployee(Employee employee);
 
-	void deleteEmployee(String id);
+    void deleteEmployee(String id);
 }

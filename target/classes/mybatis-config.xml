@@ -3,19 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<settings>
-	   <setting name="mapUnderscoreToCamelCase" value="true"/>
-	</settings>
 	<typeAliases>
 		<typeAlias type="kr.co.acctmgmt.domain.User" alias="User" />
-		<typeAlias type="kr.co.acctmgmt.domain.Board" alias="Board"/>
-		<typeAlias type="kr.co.acctmgmt.domain.SBGTCDDomain" alias="SBGTCD"/>
-		<typeAlias type="kr.co.acctmgmt.domain.Bgticf" alias="Bgticf"/>		
+		<typeAlias type="kr.co.acctmgmt.domain.Employee" alias="Employee"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapper/UserMapper.xml" />
-		<mapper resource="mapper/SBGTCDMapper.xml"/>
-		<mapper resource="mapper/BgticfMapper.xml"/>
+		<mapper resource="mapper/EmployeeMapper.xml"/>
 	</mappers>
-
 </configuration>
