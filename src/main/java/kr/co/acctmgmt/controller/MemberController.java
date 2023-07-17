@@ -28,12 +28,12 @@
 //			if(!user.getPw().isEmpty()) {
 //			
 //			String userPw = loginService.getId(user.getId());
-//			//System.out.println(userPw); //userPw¿Í user1.getPw()¿Í ºñ±³
+//			//System.out.println(userPw); //userPwì™€ user1.getPw()ì™€ ë¹„êµ
 //			
 //			if(user.getPw().equals(userPw)) {
-//				System.out.println("·Î±×ÀÎ ¿Ï·á");
+//				System.out.println("ë¡œê·¸ì¸ ì™„ë£Œ");
 //				return new ResponseEntity<Void>(HttpStatus.OK);
-//				//ÈÄ¿¡ ¸µÅ© ´Ù¸¥ °÷À¸·Î ¿¬°á
+//				//í›„ì— ë§í¬ ë‹¤ë¥¸ ê³³ìœ¼ë¡œ ì—°ê²°
 //			}}}
 //		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 //	}
@@ -50,10 +50,10 @@
 //		
 ////		if(user.getId().equals(userId)) {
 ////			if(user.getPw().equals(userPw)) {
-////				System.out.println("·Î±×ÀÎ ¼º°ø!!!");
+////				System.out.println("ë¡œê·¸ì¸ ì„±ê³µ!!!");
 ////			}
 ////			else {
-////				System.out.println("½ÇÆĞ!!!");
+////				System.out.println("ì‹¤íŒ¨!!!");
 ////			}
 ////		}
 //		
@@ -71,10 +71,10 @@
 //			System.out.println(user.getPw());
 //			
 //			String userPw = loginService.getId(user.getId());
-//			System.out.println(userPw); //userPw¿Í user1.getPw()¿Í ºñ±³
+//			System.out.println(userPw); //userPwì™€ user1.getPw()ì™€ ë¹„êµ
 //			
 //			if(user.getPw().equals(userPw)) {
-//				System.out.println("°èÁ¤ »èÁ¦!!!");
+//				System.out.println("ê³„ì • ì‚­ì œ!!!");
 //				loginService.deleteUser(user);
 //				return new ResponseEntity<Void>(HttpStatus.OK);
 //			}}
