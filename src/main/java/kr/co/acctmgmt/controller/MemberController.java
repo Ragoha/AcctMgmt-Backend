@@ -1,80 +1,85 @@
-package kr.co.acctmgmt.controller;
-import java.util.Locale;
-
-
-
-import org.slf4j.Logger;
-
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Controller;
-
-import org.springframework.ui.Model;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestMethod;
-
-
-
-@Controller
-
-public class MemberController {
-
-
-
-	// ƒøΩ∫≈“ ∆‰¿Ã¡ˆ - æÁΩƒ∏∏
-
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
-
-
-
-	
-
-	@RequestMapping(value = "/member/loginForm")
-
-	public String loginForm(Locale locale, Model model) {
-
-		
-
-		logger.info("æ»≥Á - ∑Œ±◊¿Œ ∆˚(Hello - Login Form");
-
-		// model.addAttribute("serverTime", formattedDate );
-
-		return "member/loginForm";
-
-	}
-
-
-
-	@RequestMapping(value = "/member/accessDenied")
-
-	public String accessDenied(Locale locale, Model model) {
-
-		logger.info("¡¢±Ÿ ±›¡ˆ - ¿Ãµø(Accessed Denied)");
-
-		// model.addAttribute("serverTime", formattedDate );
-
-		return "redirect:/member/accessDeniedView";
-
-	}
-
-	
-
-	@RequestMapping(value = "/member/accessDeniedView")
-
-	public String accessDeniedView(Locale locale, Model model) {
-
-		logger.info("¡¢±Ÿ ±›¡ˆ - √‚∑¬(Accessed Denied)");
-
-		// model.addAttribute("serverTime", formattedDate );
-
-		return "member/accessDenied";
-
-
-
-	}
-
-	
-
-}
+//package kr.co.acctmgmt.controller;
+//
+//import java.util.List;
+//
+//import org.springframework.http.HttpStatus;
+//import org.springframework.http.ResponseEntity;
+//import org.springframework.web.bind.annotation.CrossOrigin;
+//import org.springframework.web.bind.annotation.DeleteMapping;
+//import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.RequestBody;
+//import org.springframework.web.bind.annotation.RestController;
+//
+//import kr.co.acctmgmt.domain.User;
+//import kr.co.acctmgmt.service.loginService;
+//import lombok.RequiredArgsConstructor;
+//
+//@CrossOrigin(origins = "http://localhost:3000")
+//@RestController
+//@RequiredArgsConstructor
+//public class MemberController {
+//	
+//	private final loginService loginService;
+//	
+//	@PostMapping("/scompany")
+//	public ResponseEntity<Void> login(@RequestBody User user) {
+//		
+//		if(!user.getId().isEmpty()) {
+//			if(!user.getPw().isEmpty()) {
+//			
+//			String userPw = loginService.getId(user.getId());
+//			//System.out.println(userPw); //userPwÏôÄ user1.getPw()ÏôÄ ÎπÑÍµê
+//			
+//			if(user.getPw().equals(userPw)) {
+//				System.out.println("Î°úÍ∑∏Ïù∏ ÏôÑÎ£å");
+//				return new ResponseEntity<Void>(HttpStatus.OK);
+//				//ÌõÑÏóê ÎßÅÌÅ¨ Îã§Î•∏ Í≥≥ÏúºÎ°ú Ïó∞Í≤∞
+//			}}}
+//		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+//	}
+//	
+//	
+//	@PostMapping("/company")
+//	public ResponseEntity<Void> insertUser(@RequestBody User user) {
+////		String userId = "fu";
+////		String userPw = "ck";
+//		System.out.println("id: "+ user.getId());
+//		System.out.println("pw: "+user.getPw());
+//		
+////		User userPerson = loginService.getUser(userPerson);
+//		
+////		if(user.getId().equals(userId)) {
+////			if(user.getPw().equals(userPw)) {
+////				System.out.println("Î°úÍ∑∏Ïù∏ ÏÑ±Í≥µ!!!");
+////			}
+////			else {
+////				System.out.println("Ïã§Ìå®!!!");
+////			}
+////		}
+//		
+//		if(user.getPw().isEmpty()) {
+//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+//		}
+//		loginService.insertUser(user);
+//		return new ResponseEntity<Void>(HttpStatus.OK);
+//	}
+//	
+//	@PostMapping("/dcompany")
+//	public ResponseEntity<Void> deleteUser(@RequestBody User user) {
+//		
+//		if(!user.getId().isEmpty()) {
+//			System.out.println(user.getPw());
+//			
+//			String userPw = loginService.getId(user.getId());
+//			System.out.println(userPw); //userPwÏôÄ user1.getPw()ÏôÄ ÎπÑÍµê
+//			
+//			if(user.getPw().equals(userPw)) {
+//				System.out.println("Í≥ÑÏ†ï ÏÇ≠Ï†ú!!!");
+//				loginService.deleteUser(user);
+//				return new ResponseEntity<Void>(HttpStatus.OK);
+//			}}
+//		
+//		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+//	}
+//	
+//}
