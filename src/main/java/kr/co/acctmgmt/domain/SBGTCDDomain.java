@@ -15,5 +15,5 @@ public class SBGTCDDomain {
 	String BGAJUST_FG;
 	String TO_DT;
 	String BOTTOM_FG;
-	String BIZ_FG;
+	String BIG_FG;
 }

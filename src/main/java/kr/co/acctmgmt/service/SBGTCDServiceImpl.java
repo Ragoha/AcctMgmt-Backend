@@ -22,7 +22,7 @@ public class SBGTCDServiceImpl implements SBGTCDService {
 	@Override
 	public List<SBGTCDDomain> getDetailInfo(String bgt_CD) {
 		List<SBGTCDDomain> list = mapper.getDetailInfo(bgt_CD);
-		return list;
+		return null ;
 	}
 	
 }

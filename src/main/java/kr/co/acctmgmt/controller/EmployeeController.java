@@ -17,12 +17,6 @@ public class EmployeeController {
 
 	private final EmployeeService employeeService;
 	
-//	@RequestMapping("/employee")
-//	public ResponseEntity<Employee> getEmployee() {
-//		
-//		return new ResponseEntity<Employee>(employeeService.getEmployee(null), HttpStatus.OK);
-//	}
-	
 	@RequestMapping("/employees")
 	public ResponseEntity<List<Employee>> getEmployeeList(){
 		
