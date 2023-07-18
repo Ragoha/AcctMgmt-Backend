@@ -14,5 +14,4 @@
       FROM sbgtcd
       WHERE BGT_CD=#{bgt_Cd};
    </select>
-   
 </mapper>
