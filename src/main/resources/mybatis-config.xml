@@ -11,6 +11,5 @@
 	<mappers>
 		<mapper resource="mapper/UserMapper.xml" />
 		<mapper resource="mapper/SBGTCDMapper.xml"/>
-    <mapper resource="mapper/loginMapper.xml" />
 	</mappers>
 </configuration>

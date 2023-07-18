@@ -25,14 +25,14 @@ public class SBGTCDController {
 	@GetMapping("/bgt/sbgtcd/getGridData")//groupcd 받아서 첫화면 데이터를 입력하는 코드
 	public List<SBGTCDDomain>  getGridData(@RequestParam String groupcd) {
 		System.out.println("controller의 getGridData로 연결!");
-		System.out.println("groupcd는 왔는가" + groupcd);
+		System.out.println("groupcd는 왔는가 ? ? ? ? ? ?" + groupcd);
 		List<SBGTCDDomain> list = service.getSBGTCDData(groupcd);
 		return list;
 	}
 	
 	@GetMapping("/bgt/sbgtcd/getDetailInfo")
 	public ResponseEntity<List<SBGTCDDomain>> getDetailInfo(@RequestParam String bgt_CD){
-		
+		System.out.println("getDetailInfno 백엔드로 요청은 들어오나 ? ?? ? ? -- O 요청은 들어오네 ...");
 		List<SBGTCDDomain> list =service.getDetailInfo(bgt_CD);
 		
 		System.out.println(list.toString());
