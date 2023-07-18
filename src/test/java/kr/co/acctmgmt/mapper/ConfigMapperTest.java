@@ -1,22 +1,29 @@
 package kr.co.acctmgmt.mapper;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import kr.co.acctmgmt.domain.Config;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml" })
-public class UserMapperTest {
+
+public class ConfigMapperTest {
 	
 	@Autowired
-	private UserMapper userMapper;
+	private ConfigMapper configMapper;
 
 	@Test
-	public void testInsert() {
+	public void getConfigList() {
+		List<Config> configList = configMapper.getConfigList();
 		
-		System.out.println(userMapper.getTime());
-		
+		configList.forEach(config ->{
+			System.out.println(config.toString());
+		});
 	}
 }
