@@ -17,9 +17,17 @@ public class SBGTCDServiceImpl implements SBGTCDService {
 	}
 
 	@Override
-	public List<SBGTCDDomain> getDetailInfo(String bgt_CD) {
-		List<SBGTCDDomain> list = mapper.getDetailInfo(bgt_CD);
-		return list;
+	public List<SBGTCDDomain> getDetailInfo(String bgt_Cd) {
+		List<SBGTCDDomain> list = mapper.getDetailInfo(bgt_Cd);
+		return list ;
+	}
+
+	@Override
+	public int updateDetailInfo(SBGTCDDomain updateData) {
+		int flag =0;
+		flag= mapper.getDetailInfo(updateData);
+		
+		return flag;
 	}
 
 	@Override

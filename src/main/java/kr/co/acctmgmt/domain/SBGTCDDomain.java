@@ -6,14 +6,14 @@ import lombok.Data;
 
 @Data
 public class SBGTCDDomain {
-	String CO_CD;
-	String BGT_CD;
-	int GISU;
-	String BGT_NM;
-	String DIV_FG;
-	String CTL_FG;
-	String BGAJUST_FG;
-	String TO_DT;
-	String BOTTOM_FG;
-	String BIZ_FG;
+	String co_Cd; //CO_CD;
+	String bgt_Cd; //BGT_CD;
+	int gisu; //GISU;
+	String bgt_Nm; //BGT_NM;
+	String div_Fg; //DIV_FG;
+	String ctl_Fg; //CTL_FG;
+	String bgajust_Fg; //BGAJUST_FG;
+	String to_Dt; //TO_DT;
+	String bottom_Fg; //BOTTOM_FG;
+	String biz_Fg; //BIZ_FG;
 }

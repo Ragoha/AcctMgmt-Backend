@@ -17,14 +17,14 @@ public class EmployeeMapperTest {
 	@Autowired
 	private EmployeeMapper employeeMapper;
 	
-	@Test
+//	@Test
 	public void getEmployee() {
 		
-		String empId = "yhy0704";
+		String dId = "yhy0704";
 		
-		Employee employee = employeeMapper.getEmployee(empId);
+		Employee employee = employeeMapper.getEmployee(dId);
 		
-		System.out.println(employee.getEmpId());
+		System.out.println(employee.toString());
 	}
 	
 //	@Test
@@ -41,15 +41,19 @@ public class EmployeeMapperTest {
 //	@Test
 	public void insertEmployee() {
 		Employee employee = Employee.builder()
-				  .coCd("COMP")
-				  .empId("employee4")
-				  .empPs("password4")
-				  .empEmail("employee4@example.com")
-				  .empTel("987654321")
-				  .empName("Jane Doe")
-				  .empSx("F")
-				  .empCd("CD4")
-				  .empOd("OD4")
+				  .coCode("COMP")
+				  .dId("employee4")
+				  .dPs("password4")
+				  .dEmail("employee4@example.com")
+				  .dTel("987654321")
+				  .dName("Jane Doe")
+				  .dBday("1993-03-03")
+				  .dAdr("789 Maple St")
+				  .dZp("54321")
+				  .dSx("F")
+				  .dBcd("BCD4")
+				  .dCd("CD4")
+				  .dOd("OD4")
 				  .build();
 
 		
@@ -65,14 +69,14 @@ public class EmployeeMapperTest {
 		
 		Employee employee = employeeMapper.getEmployee(dId);
 		
-		employee.setEmpPs("change");
+		employee.setDPs("change");
 		
 		employeeMapper.updateEmployee(employee);
 		
 		getEmployeeList();
 	}
 	
-//	@Test
+	@Test
 	public void deleteEmployee() {
 		String dId = "employee4";
 		
