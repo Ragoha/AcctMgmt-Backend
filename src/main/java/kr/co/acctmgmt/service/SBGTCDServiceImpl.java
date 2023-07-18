@@ -6,13 +6,10 @@ import org.springframework.stereotype.Service;
 
 import kr.co.acctmgmt.domain.SBGTCDDomain;
 import kr.co.acctmgmt.mapper.SBGTCDMapper;
-import kr.co.acctmgmt.mapper.UserMapper;
-import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
 public class SBGTCDServiceImpl implements SBGTCDService {
-	private final SBGTCDMapper mapper ;
+	private final SBGTCDMapper mapper = null;
 
 	@Override
 	public List<SBGTCDDomain> getSBGTCDData(String groupcd) {
@@ -23,6 +20,12 @@ public class SBGTCDServiceImpl implements SBGTCDService {
 	public List<SBGTCDDomain> getDetailInfo(String bgt_CD) {
 		List<SBGTCDDomain> list = mapper.getDetailInfo(bgt_CD);
 		return list;
+	}
+
+	@Override
+	public int updateDetailInfo(SBGTCDDomain updateData) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }
