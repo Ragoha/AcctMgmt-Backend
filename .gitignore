@@ -70,6 +70,7 @@ local.properties
 # Ignored target folder and its contents
 target/
 **/target/
+*/target/*
 
 # Ignored specific directories within target folder
 **/target/classes/
