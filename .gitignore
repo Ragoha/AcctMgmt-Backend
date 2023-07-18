@@ -5,8 +5,6 @@
 .metadata
 bin/
 tmp/
-target
-target/classes
 *.tmp
 *.bak
 *.swp
@@ -68,5 +66,14 @@ local.properties
 ### Eclipse Patch ###
 # Spring Boot Tooling
 .sts4-cache/
+
+# Ignored target folder and its contents
+target/
+**/target/
+
+# Ignored specific directories within target folder
+**/target/classes/
+**/target/m2e-wtp/
+**/target/test-classes/
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
