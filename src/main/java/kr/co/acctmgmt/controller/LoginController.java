@@ -31,11 +31,11 @@ public class LoginController {
 		
 		Employee employee = employeeService.getEmployee(email);
 //		
-		if(employee.getEmpId().equals(null)) {
+		if(employee.getDId().equals(null)) {
 			System.out.println("등록되지 않은 아이디 입니다.");
 		}
 		else
-			System.out.println(employee.getEmpId()+" : 로그인 성공!!");
+			System.out.println(employee.getDId()+" : 로그인 성공!!");
 
 		//받은 데이터를 다시 JSON 형식으로 반환
 		String response = "{\"email\":\"" + email + "\",\"password\":\"" + password + "\"}";
@@ -48,8 +48,8 @@ public class LoginController {
 		String id = checkId;
 		Employee employee = employeeService.getEmployee(id);
 		
-		
-		if(employee.getEmpId().equals(id))
+
+		if(employee.getDId().equals(id))
 		System.out.println("중복! 중복!");
 		else 
 			System.out.println("중복 된 아이디가 아닙니다.");

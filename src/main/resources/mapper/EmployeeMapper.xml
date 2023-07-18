@@ -8,22 +8,23 @@
 	</select>
 
 	<select id="getEmployee" parameterType="String" resultType="Employee">
-		SELECT CO_CD, emp_ID, emp_PS, emp_EMAIL, emp_TEL, emp_NAME, emp_SX, emp_CD, emp_OD, emp_AUTH FROM EMP WHERE emp_ID = #{empId};
+		SELECT * FROM EMPLOYEE WHERE
+		D_ID = #{dId};
 	</select>
 
 	<select id="getEmployeeList" resultType="Employee">
-		SELECT * from EMP;
+		SELECT * FROM EMPLOYEE;
 	</select>
 
 	<insert id="insertEmployee" parameterType="Employee">
-		INSERT INTO EMP 
-			(emp_ID, emp_NAME, emp_PS, emp_EMAIL, emp_SX, emp_TEL, CO_CD, emp_OD)
+		INSERT INTO EMPLOYEE 
+			(CO_CD, D_ID, D_PS, D_EMAIL, D_TEL, D_NAME, D_BDAY, D_ADR, D_ZP, D_SX, D_BCD, D_CD, D_OD)
 		VALUES 
-			(#{empId}, #{empName}, #{empPs}, #{empEmail}, #{empSx}, #{empTel}, #{coCd}, #{empOd});
+			(#{coCode}, #{dId}, #{dPs}, #{dEmail}, #{dTel}, #{dName}, #{dBday}, #{dAdr}, #{dZp}, #{dSx}, #{dBcd}, #{dCd}, #{dOd})
 	</insert>
 	
  	<update id="updateEmployee" parameterType="Employee">
-		UPDATE EMP 
+		UPDATE EMPLOYEE 
 		SET 
 			D_PS = #{dPs}, 
 			D_EMAIL = #{dEmail}, 
@@ -40,7 +41,7 @@
 	</update>
 
 	<delete id="deleteEmployee" parameterType="String">
-		DELETE FROM EMP WHERE emp_ID = #{empId}
+		DELETE FROM EMPLOYEE WHERE D_ID = #{dId}
 	</delete>
 
 </mapper>

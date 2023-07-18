@@ -12,8 +12,6 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 	<context:component-scan base-package="kr.co.acctmgmt.service" />
-	<context:component-scan base-package="kr.co.acctmgmt.config" />
-
 	<context:property-placeholder location="classpath:config/database.properties" />
 
 	<!-- Data Source -->
