@@ -77,4 +77,5 @@ target/**
 **/target/m2e-wtp/
 **/target/test-classes/
 
+*.class
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
