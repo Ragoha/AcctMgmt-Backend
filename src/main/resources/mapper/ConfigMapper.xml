@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.acctmgmt.mapper.ConfigMapper">
+
+
+	<select id="getConfigList" resultType="Config">
+		SELECT * from SYSCFG;
+	</select>
+
+
+ 	<update id="updateConfig" parameterType="Config">
+		UPDATE SYSCFG 
+		SET 
+			sys_YN = #{sysYn}
+		WHERE sys_CD = #{sysCD}
+	</update>
+
+</mapper>

@@ -5,12 +5,14 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="kr.co.acctmgmt.domain.User" alias="User" />
+		<typeAlias type="kr.co.acctmgmt.domain.Employee" alias="Employee"/>
+		<typeAlias type="kr.co.acctmgmt.domain.Config" alias="Config"/>
 		<typeAlias type="kr.co.acctmgmt.domain.SBGTCDDomain" alias="SBGTCD"/>
-    <typeAlias type="kr.co.acctmgmt.domain.Employee" alias="Employee"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapper/UserMapper.xml" />
 		<mapper resource="mapper/SBGTCDMapper.xml"/>
 		<mapper resource="mapper/EmployeeMapper.xml"/>
+		<mapper resource="mapper/ConfigMapper.xml"/>
 	</mappers>
 </configuration>
