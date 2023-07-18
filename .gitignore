@@ -68,7 +68,7 @@ local.properties
 .sts4-cache/
 
 # Ignored target folder and its contents
-target/
+target/**
 **/target/
 */target/*
 
