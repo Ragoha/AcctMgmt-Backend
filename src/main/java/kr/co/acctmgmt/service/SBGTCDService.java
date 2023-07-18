@@ -8,5 +8,7 @@ public interface SBGTCDService {
 	
 	public List<SBGTCDDomain> getSBGTCDData(String groupcd);
 
-	public List<SBGTCDDomain> getDetailInfo(String bgt_CD);
+	public List<SBGTCDDomain> getDetailInfo(String bgt_Cd);
+
+	public int updateDetailInfo(SBGTCDDomain updateData);
 }
