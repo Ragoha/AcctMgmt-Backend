@@ -30,10 +30,5 @@ public class SBGTCDServiceImpl implements SBGTCDService {
 		return flag;
 	}
 
-	@Override
-	public int updateDetailInfo(SBGTCDDomain updateData) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 	
 }
