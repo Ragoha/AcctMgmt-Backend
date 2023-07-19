@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.acctmgmt.mapper.BgtICFMapper">
+
+<!-- 	<select id="getBgticf" resultType="Bgticf">
+		SELECT * FROM BGTICF WHERE CO_CD = #{CO_CD}
+	</select> -->
+
+<!-- SELECT * FROM BGTICF WHERE CO_CD = #{CO_CD} WHERE GISU = #{GISU} -->
+<!-- 	<select id="getBgticfList" resultType="Bgticf">
+		SELECT * FROM BGTICF
+	</select> -->
+	
+	<select id="getBgtICFList" resultType="BgtICF">
+    	SELECT * FROM BGTICF
+	</select>
+	
+	<insert id="insertBgtICF" parameterType="BgtICF">
+	    INSERT INTO BGTICF (
+	        CO_CD, GISU, SQ, DIV_CD, DEPT_CD, MGT_CD, BGT_CD, BGT_FG, BGT_CNT, BOTTOM_CD,
+	        CARR_AM, CARR_AM1, CARR_AM2, CARR_AM3, EMP_CD, REM_DC, BGT_TY,
+	        INSERT_ID, INSERT_DT, INSERT_IP, MODIFY_ID, MODIFY_DT, MODIFY_IP
+	    )
+	    VALUES (
+	        #{coCd}, #{gisu}, #{sq}, #{divCd}, #{deptCd}, #{mgtCd}, #{bgtCd}, #{bgtFg}, #{bgtCnt}, #{bottomCd},
+	        #{carrAm}, #{carrAm1}, #{carrAm2}, #{carrAm3}, #{empCd}, #{remDc}, #{bgtTy},
+	        #{insertId}, #{insertDt}, #{insertIp}, #{modifyId}, #{modifyDt}, #{modifyIp}
+	    )
+	</insert>
+
+	<update id="updateBgtICF" parameterType="BgtICF">
+	    UPDATE BGTICF
+	    SET
+	        CO_CD = #{coCd},
+	        GISU = #{gisu},
+	        SQ = #{sq},
+	        DIV_CD = #{divCd},
+	        DEPT_CD = #{deptCd},
+	        MGT_CD = #{mgtCd},
+	        BGT_CD = #{bgtCd},
+	        BGT_FG = #{bgtFg},
+	        BGT_CNT = #{bgtCnt},
+	        BOTTOM_CD = #{bottomCd},
+	        CARR_AM = #{carrAm},
+	        CARR_AM1 = #{carrAm1},
+	        CARR_AM2 = #{carrAm2},
+	        CARR_AM3 = #{carrAm3},
+	        EMP_CD = #{empCd},
+	        REM_DC = #{remDc},
+	        BGT_TY = #{bgtTy},
+	        INSERT_ID = #{insertId},
+	        INSERT_DT = #{insertDt},
+	        INSERT_IP = #{insertIp},
+	        MODIFY_ID = #{modifyId},
+	        MODIFY_DT = #{modifyDt},
+	        MODIFY_IP = #{modifyIp}
+	    WHERE
+	        CO_CD = #{coCd} AND
+	        GISU = #{gisu} AND
+	        SQ = #{sq} AND
+	        DIV_CD = #{divCd} AND
+	        DEPT_CD = #{deptCd} AND
+	        MGT_CD = #{mgtCd} AND
+	        BGT_CD = #{bgtCd} AND
+	        BGT_FG = #{bgtFg} AND
+	        BGT_CNT = #{bgtCnt} AND
+	        BOTTOM_CD = #{bottomCd}
+	</update>
+	
+	<delete id="deleteBgtICF" parameterType="BgtICF">
+	    DELETE FROM BGTICF
+	    WHERE
+	        CO_CD = #{coCd} AND
+	        GISU = #{gisu}
+	</delete>
+	<!-- DELETE FROM BGTICF
+	    WHERE
+	        CO_CD = #{coCd} AND
+	        GISU = #{gisu} AND
+	        SQ = #{sq} AND
+	        DIV_CD = #{divCd} AND
+	        DEPT_CD = #{deptCd} AND
+	        MGT_CD = #{mgtCd} AND
+	        BGT_CD = #{bgtCd} AND
+	        BGT_FG = #{bgtFg} AND
+	        BGT_CNT = #{bgtCnt} AND
+	        BOTTOM_CD = #{bottomCd} -->
+
+</mapper>
