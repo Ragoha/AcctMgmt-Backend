@@ -26,10 +26,10 @@ public class SBGTCDController {
 	private final SBGTCDService service;
 
 	// http://localhost:8080/acctmgmt/bgt/sbgtcd/getGridData?groupcd=GROUP1
-	@GetMapping("/bgt/sbgtcd/getGridData") // groupcd ¹Þ¾Æ¼­ Ã¹È­¸é µ¥ÀÌÅÍ¸¦ ÀÔ·ÂÇÏ´Â ÄÚµå
+	@GetMapping("/bgt/sbgtcd/getGridData") // groupcd ï¿½Þ¾Æ¼ï¿½ Ã¹È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ô·ï¿½ï¿½Ï´ï¿½ ï¿½Úµï¿½
 	public List<SBGTCDDomain> getGridData(@RequestParam String groupcd) {
-		System.out.println("controllerÀÇ getGridData·Î ¿¬°á!");
-		System.out.println("groupcd´Â ¿Ô´Â°¡" + groupcd);
+		System.out.println("controllerï¿½ï¿½ getGridDataï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
+		System.out.println("groupcdï¿½ï¿½ ï¿½Ô´Â°ï¿½" + groupcd);
 		List<SBGTCDDomain> list = service.getSBGTCDData(groupcd);
 		System.out.println(list.toString());
 		return list;
@@ -37,7 +37,7 @@ public class SBGTCDController {
 
 	@GetMapping("/bgt/sbgtcd/getDetailInfo")
 	public ResponseEntity<List<SBGTCDDomain>> getDetailInfo(@RequestParam String bgtCd) {
-		System.out.println("°ÙµðÅÚÀÎÆ÷: " + bgtCd);
+		System.out.println("ï¿½Ùµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: " + bgtCd);
 		List<SBGTCDDomain> list = service.getDetailInfo(bgtCd);
 		System.out.println(list.toString());
 		return new ResponseEntity<>(list, HttpStatus.OK);
@@ -45,16 +45,16 @@ public class SBGTCDController {
 	//
 	@PutMapping("/bgt/sbgtcd/updateDetailInfo")
 	public String updateDetailInfo(@RequestBody SBGTCDDomain updateData) {//@RequestParam SBGTCDDomain updateData
-		System.out.println("¿©±ä updateDetailInfo¾ß ~");
-		System.out.println("updateData´Â ? : " +updateData.toString());
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ updateDetailInfoï¿½ï¿½ ~");
+		System.out.println("updateDataï¿½ï¿½ ? : " +updateData.toString());
 		service.updateDetailInfo(updateData);
-		return "¿©±ä controller¾ß ~ Àß Ã³¸®Çß¾î~" ;
+		return "ï¿½ï¿½ï¿½ï¿½ controllerï¿½ï¿½ ~ ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ß¾ï¿½~" ;
 	}
 	@DeleteMapping("/bgt/sbgtcd/deleteRow")
 	public void deleteRow(@RequestParam String bgtCd) {
-		System.out.println("¿©±ä delete¾ß Áö¿ì¸é ´Ù½Ã´Â µ¹¾Æ°¡Áö ¸øÇÏ´Â °÷ÀÌ¾ß ");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ deleteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½Ã´ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ ");
 		service.deleteRow(bgtCd);
-		System.out.println("»èÁ¦¿Ï·á ! ");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ ! ");
 	}
 	
 }

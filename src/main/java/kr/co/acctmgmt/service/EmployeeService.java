@@ -15,4 +15,6 @@ public interface EmployeeService {
     void updateEmployee(Employee employee);
 
     void deleteEmployee(String id);
+    
+    Employee loginEmployee(String id, String ps);
 }

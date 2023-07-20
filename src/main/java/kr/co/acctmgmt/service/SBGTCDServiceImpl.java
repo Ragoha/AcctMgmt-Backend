@@ -6,12 +6,10 @@ import org.springframework.stereotype.Service;
 
 import kr.co.acctmgmt.domain.SBGTCDDomain;
 import kr.co.acctmgmt.mapper.SBGTCDMapper;
-import kr.co.acctmgmt.mapper.UserMapper;
-import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
 public class SBGTCDServiceImpl implements SBGTCDService {
+	
 	private final SBGTCDMapper mapper;
 
 	@Override
@@ -33,7 +31,7 @@ public class SBGTCDServiceImpl implements SBGTCDService {
 
 	@Override
 	public void deleteRow(String bgtCd) {
-		System.out.println("³¢¿¡¿¡¿¡¿¡¿¢");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		mapper.deleteRow(bgtCd);
 		
 	}
