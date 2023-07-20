@@ -20,10 +20,13 @@ public class ConfigMapperTest {
 
 	@Test
 	public void getConfigList() {
-		List<Config> configList = configMapper.getConfigList();
+		String coCd ="dz";
+		List<Config> configList = configMapper.getConfigList(coCd);
 		
 		configList.forEach(config ->{
 			System.out.println(config.toString());
 		});
 	}
+	
+	
 }

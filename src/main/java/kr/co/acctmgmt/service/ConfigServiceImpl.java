@@ -15,8 +15,14 @@ public class ConfigServiceImpl implements ConfigService{
 	private final ConfigMapper configMapper;
 	
 	@Override
-	public List<Config> getConfigList() {
-		return configMapper.getConfigList();
+	public List<Config> getConfigList(String coCd) {
+		return configMapper.getConfigList(coCd);
+	}
+
+	@Override
+	public void updateConfig(Config config) {
+		// TODO Auto-generated method stub
+		configMapper.updateConfig(config);
 	}
 
 }

@@ -4,7 +4,7 @@
 
 
 	<select id="getConfigList" resultType="Config">
-		SELECT * from SYSCFG;
+		SELECT * from SYSCFG where co_CD = #{coCd};
 	</select>
 
 
