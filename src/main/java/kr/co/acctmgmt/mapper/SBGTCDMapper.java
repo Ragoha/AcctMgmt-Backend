@@ -7,7 +7,11 @@ import kr.co.acctmgmt.domain.SBGTCDDomain;
 public interface SBGTCDMapper {
 	public List<SBGTCDDomain> getSBGTCDData(String groupcd);
 	
-	public List<SBGTCDDomain> getDetailInfo(String bgt_Cd);
+	public List<SBGTCDDomain> getDetailInfo(String bgtCd);
 	
 	public int getDetailInfo(SBGTCDDomain updateData);
+	
+	public int updateDetailInfo(SBGTCDDomain updateData);
+
+	public void deleteRow(String bgtCd);
 }

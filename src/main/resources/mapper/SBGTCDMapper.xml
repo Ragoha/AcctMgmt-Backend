@@ -2,28 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.acctmgmt.mapper.SBGTCDMapper">
+	<select id="getDataGridData" resultType="SBGTCD">
+		SELECT * FROM SBGTCD ;
+	</select>
 	<select id="getSBGTCDData" parameterType="String"
 		resultType="SBGTCD">
-		SELECT * FROM SBGTCD where GROUP_CD=#{GROUP_CD};
+		SELECT * FROM SBGTCD where GROUPCD=#{GROUPCD};
 	</select>
 
 	<select id="getDetailInfo" parameterType="String"
 		resultType="SBGTCD">
 		SELECT
-		CTL_FG , BGAJUST_FG , TO_DT , BOTTOM_FG ,BIZ_FG
+		CTLFG , BGAJUSTFG , TODT , BOTTOMFG ,BIZFG
 		FROM sbgtcd
-		WHERE BGT_CD=#{bgt_Cd};
+		WHERE BGTCD=#{bgtCd};
 	</select>
-	<update id="updateDetailInfo" paramterType="SBGTCD" resultType=int>
-		UPDATE `SBGTCD`
-		SET 
-		BGT_NM = #{bgt_Nm},
-		CTL_FG = #{ctl_Fg},
-		BGAJUST_FG = #{bgajust_Fg},
-		TO_DT = '20241231',
-		BOTTOM_FG = #{bottom_Fg},
-		BIZ_FG = #{biz_Fg},
-		GR_FG = #{gr_Fg}
-		WHERE BGT_CD = #{bgt_cd};
+	<update id="updateDetailInfo" parameterType="SBGTCD">
+		UPDATE sbgtcd
+		<set>
+			<if test="ctlFg != null">CTLFG=#{ctlFg},</if>
+			<if test="bgajustFg != null">BGAJUSTFG=#{bgajustFg},</if>
+			<if test="toDt != null">TODT=#{toDt},</if>
+			<if test="bottomFg != null">BOTTOMFG=#{bottomFg},</if>
+			<if test="bizFg != null">BIZFG=#{bizFg},</if>
+		</set>
+		WHERE bgtCd =#{bgtCd}
 	</update>
+	<delete id="deleteRow" parameterType="String">
+		DELETE FROM sbgtcd
+		WHERE bgtCd = #{bgtCd}
+	</delete>
 </mapper>

@@ -11,4 +11,6 @@ public interface SBGTCDService {
 	public List<SBGTCDDomain> getDetailInfo(String bgt_Cd);
 
 	public int updateDetailInfo(SBGTCDDomain updateData);
+	
+	public void deleteRow(String bgtCd);
 }

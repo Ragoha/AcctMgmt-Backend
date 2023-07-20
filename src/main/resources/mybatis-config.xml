@@ -5,7 +5,6 @@
 <configuration>
 <typeAliases>
 		<typeAlias type="kr.co.acctmgmt.domain.User" alias="User" />
-		<typeAlias type="kr.co.acctmgmt.domain.Board" alias="Board"/>
 		<typeAlias type="kr.co.acctmgmt.domain.SBGTCDDomain" alias="SBGTCD"/>
 	</typeAliases>
 	<mappers>

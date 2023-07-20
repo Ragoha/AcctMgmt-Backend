@@ -5,7 +5,11 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,17 +36,25 @@ public class SBGTCDController {
 	}
 
 	@GetMapping("/bgt/sbgtcd/getDetailInfo")
-	public ResponseEntity<List<SBGTCDDomain>> getDetailInfo(@RequestParam String bgt_Cd) {
-		System.out.println("겟디텔인포: " + bgt_Cd);
-		List<SBGTCDDomain> list = service.getDetailInfo(bgt_Cd);
+	public ResponseEntity<List<SBGTCDDomain>> getDetailInfo(@RequestParam String bgtCd) {
+		System.out.println("겟디텔인포: " + bgtCd);
+		List<SBGTCDDomain> list = service.getDetailInfo(bgtCd);
 		System.out.println(list.toString());
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
-	@GetMapping("/bgt/sbgtcd/updateDetailInfo")
-	public int updateDetailInfo(@RequestParam SBGTCDDomain updateData) {
+	//
+	@PutMapping("/bgt/sbgtcd/updateDetailInfo")
+	public String updateDetailInfo(@RequestBody SBGTCDDomain updateData) {//@RequestParam SBGTCDDomain updateData
 		System.out.println("여긴 updateDetailInfo야 ~");
 		System.out.println("updateData는 ? : " +updateData.toString());
-		
-		return 1 ;
+		service.updateDetailInfo(updateData);
+		return "여긴 controller야 ~ 잘 처리했어~" ;
 	}
+	@DeleteMapping("/bgt/sbgtcd/deleteRow")
+	public void deleteRow(@RequestParam String bgtCd) {
+		System.out.println("여긴 delete야 지우면 다시는 돌아가지 못하는 곳이야 ");
+		service.deleteRow(bgtCd);
+		System.out.println("삭제완료 ! ");
+	}
+	
 }
