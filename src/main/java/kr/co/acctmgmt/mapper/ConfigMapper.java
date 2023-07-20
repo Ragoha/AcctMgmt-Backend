@@ -6,7 +6,7 @@ import kr.co.acctmgmt.domain.Config;
 
 public interface ConfigMapper {
 
-	public List<Config> getConfigList();
+	public List<Config> getConfigList(String coCd);
 	
 	public void updateConfig(Config Config);
 	

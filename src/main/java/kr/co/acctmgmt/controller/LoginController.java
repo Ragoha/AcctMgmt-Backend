@@ -2,6 +2,9 @@ package kr.co.acctmgmt.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,19 +32,36 @@ public class LoginController {
 		System.out.println(email);
 		System.out.println(password);
 		
-		Employee employee = employeeService.getEmployee(email);
-//		
-		if(employee.getDId().equals(null)) {
+		Employee employee = employeeService.loginEmployee(email, password);
+		System.out.println("boolean? : " + employee.getEmpPs().equals(password));
+		if(employee.getEmpId().equals(null)) {
 			System.out.println("등록되지 않은 아이디 입니다.");
 		}
-		else
-			System.out.println(employee.getDId()+" : 로그인 성공!!");
-
+		else if(employee.getEmpPs().equals(null))
+		{
+			System.out.println("패스워드가 달라요");
+		}
+		else {
+//			HttpSession session = request.getSession(true);
+//            session.setAttribute("employee", employee);
+//			System.out.println(employee.getEmpId()+" : 로그인 성공!!");
+		}
 		//받은 데이터를 다시 JSON 형식으로 반환
 		String response = "{\"email\":\"" + email + "\",\"password\":\"" + password + "\"}";
 		
 		return ResponseEntity.ok(response);
 	}
+	
+	@GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return "redirect:/";
+
+    }
+	
 	@GetMapping("/emp/idcheck/{checkId}")
 	public ResponseEntity<String> idCheck(@PathVariable String checkId){
 		System.out.println(checkId);
@@ -49,7 +69,7 @@ public class LoginController {
 		Employee employee = employeeService.getEmployee(id);
 		
 
-		if(employee.getDId().equals(id))
+		if(employee.getEmpId().equals(id))
 		System.out.println("중복! 중복!");
 		else 
 			System.out.println("중복 된 아이디가 아닙니다.");

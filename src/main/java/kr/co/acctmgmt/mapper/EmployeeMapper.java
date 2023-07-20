@@ -2,6 +2,8 @@ package kr.co.acctmgmt.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import kr.co.acctmgmt.domain.Employee;
 
 public interface EmployeeMapper {
@@ -17,4 +19,7 @@ public interface EmployeeMapper {
 	public void updateEmployee(Employee employee);
 	
 	public void deleteEmployee(String id);
+	
+	public Employee loginEmployee(@Param("empId") String empId, @Param("empPs") String empPs);
+	
 }
