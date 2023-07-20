@@ -39,4 +39,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deleteEmployee(String id) {
         employeeMapper.deleteEmployee(id);
     }
+
+	@Override
+	public Employee loginEmployee(String id, String ps) {
+		return employeeMapper.loginEmployee(id, ps);
+	}
 }

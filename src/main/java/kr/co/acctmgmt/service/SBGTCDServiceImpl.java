@@ -29,6 +29,5 @@ public class SBGTCDServiceImpl implements SBGTCDService {
 		
 		return flag;
 	}
-
 	
 }
