@@ -7,7 +7,6 @@
 	   <setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
 	<typeAliases>
-		<typeAlias type="kr.co.acctmgmt.domain.User" alias="User" />
 		<typeAlias type="kr.co.acctmgmt.domain.Employee" alias="Employee"/>
 		<typeAlias type="kr.co.acctmgmt.domain.Config" alias="Config"/>
 		<typeAlias type="kr.co.acctmgmt.domain.SBGTCDDomain" alias="SBGTCD"/>

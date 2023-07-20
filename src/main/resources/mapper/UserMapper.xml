@@ -5,8 +5,4 @@
     <select id="getTime" resultType="String">
 		SELECT DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s');
 	</select>
-
-	<select id="getDataGridData" resultType="SBGTCD">
-		SELECT * FROM SBGTCD ;
-	</select>
 </mapper>
