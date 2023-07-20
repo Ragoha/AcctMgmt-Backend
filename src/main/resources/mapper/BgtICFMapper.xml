@@ -70,8 +70,7 @@
 	<delete id="deleteBgtICF" parameterType="BgtICF">
 	    DELETE FROM BGTICF
 	    WHERE
-	        CO_CD = #{coCd} AND
-	        GISU = #{gisu}
+	        sq = #{sq}
 	</delete>
 	<!-- DELETE FROM BGTICF
 	    WHERE
