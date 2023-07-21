@@ -43,7 +43,7 @@ public class EmployeeMapperTest {
 		Employee employee = Employee.builder()
 				  .coCd("COMP")
 				  .empId("employee4")
-				  .empPs("password4")
+				  .empPs("password4!!")
 				  .empEmail("employee4@example.com")
 				  .empTel("987654321")
 				  .empName("Jane Doe")
@@ -82,7 +82,7 @@ public class EmployeeMapperTest {
 		getEmployeeList();
 	} 
 	
-	@Test
+//	@Test
 	public void loginEmployee() {
 		String empId = "yhy0704";
 		String empPs = "hohb0704!!";

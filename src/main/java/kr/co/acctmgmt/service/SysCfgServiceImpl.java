@@ -4,23 +4,23 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import kr.co.acctmgmt.domain.Config;
-import kr.co.acctmgmt.mapper.ConfigMapper;
+import kr.co.acctmgmt.domain.SysCfg;
+import kr.co.acctmgmt.mapper.SysCfgMapper;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ConfigServiceImpl implements ConfigService{
+public class SysCfgServiceImpl implements SysCfgService{
 
-	private final ConfigMapper configMapper;
+	private final SysCfgMapper configMapper;
 	
 	@Override
-	public List<Config> getConfigList(String coCd) {
+	public List<SysCfg> getConfigList(String coCd) {
 		return configMapper.getConfigList(coCd);
 	}
 
 	@Override
-	public void updateConfig(Config config) {
+	public void updateConfig(SysCfg config) {
 		// TODO Auto-generated method stub
 		configMapper.updateConfig(config);
 	}

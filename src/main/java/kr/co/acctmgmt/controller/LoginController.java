@@ -15,16 +15,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.co.acctmgmt.config.CustomAuthenticationSuccessHandler;
 import kr.co.acctmgmt.domain.Employee;
 import kr.co.acctmgmt.service.EmployeeService;
+import kr.co.acctmgmt.service.UserDetailsServiceImpl;
 
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:3000")
 public class LoginController {
+	
+	@Autowired
+	UserDetailsServiceImpl userService;
 	@Autowired
 	private EmployeeService employeeService;
-
+	@Autowired
+    private CustomAuthenticationSuccessHandler authenticationSuccessHandler;
 	@PostMapping("/login")
 	public ResponseEntity<String> login(@RequestBody Map<String, String> loginData) {
 		String email = loginData.get("email");
@@ -34,6 +40,8 @@ public class LoginController {
 		
 		Employee employee = employeeService.loginEmployee(email, password);
 		System.out.println("boolean? : " + employee.getEmpPs().equals(password));
+		
+		userService.loadUserByUsername(email);
 		if(employee.getEmpId().equals(null)) {
 			System.out.println("등록되지 않은 아이디 입니다.");
 		}
@@ -47,8 +55,8 @@ public class LoginController {
 //			System.out.println(employee.getEmpId()+" : 로그인 성공!!");
 		}
 		//받은 데이터를 다시 JSON 형식으로 반환
-		String response = "{\"email\":\"" + email + "\",\"password\":\"" + password + "\"}";
 		
+		String response = "{\"email\":\"" + email + "\",\"password\":\"" + password + "\"}";
 		return ResponseEntity.ok(response);
 	}
 	
