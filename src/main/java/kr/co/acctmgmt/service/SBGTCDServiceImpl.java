@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 
 import kr.co.acctmgmt.domain.SBGTCDDomain;
 import kr.co.acctmgmt.mapper.SBGTCDMapper;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class SBGTCDServiceImpl implements SBGTCDService {
 	
 	private final SBGTCDMapper mapper;
@@ -31,9 +33,7 @@ public class SBGTCDServiceImpl implements SBGTCDService {
 
 	@Override
 	public void deleteRow(String bgtCd) {
-		System.out.println("������������");
 		mapper.deleteRow(bgtCd);
-		
 	}
 
 }
