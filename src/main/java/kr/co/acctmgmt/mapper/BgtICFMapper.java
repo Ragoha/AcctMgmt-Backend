@@ -6,7 +6,7 @@ import kr.co.acctmgmt.domain.BgtICF;
 
 public interface BgtICFMapper {
 
-	BgtICF getBgtICF(BgtICF bgtICF);
+	BgtICF getBgtICF(String coCd);
 
 	List<BgtICF> getBgtICFList();
 
