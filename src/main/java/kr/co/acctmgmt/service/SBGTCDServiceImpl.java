@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class SBGTCDServiceImpl implements SBGTCDService {
-	
+
 	private final SBGTCDMapper mapper;
 
 	@Override
@@ -34,6 +34,6 @@ public class SBGTCDServiceImpl implements SBGTCDService {
 	@Override
 	public void deleteRow(String bgtCd) {
 		mapper.deleteRow(bgtCd);
-	}
 
+	}
 }

@@ -8,20 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import kr.co.acctmgmt.domain.Config;
+import kr.co.acctmgmt.domain.SysCfg;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml" })
 
-public class ConfigMapperTest {
+public class SysCfgMapperTest {
 	
 	@Autowired
-	private ConfigMapper configMapper;
+	private SysCfgMapper configMapper;
 
 	@Test
 	public void getConfigList() {
 		String coCd ="dz";
-		List<Config> configList = configMapper.getConfigList(coCd);
+		List<SysCfg> configList = configMapper.getConfigList(coCd);
 		
 		configList.forEach(config ->{
 			System.out.println(config.toString());
