@@ -5,7 +5,12 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,27 +26,35 @@ public class SBGTCDController {
 	private final SBGTCDService service;
 
 	// http://localhost:8080/acctmgmt/bgt/sbgtcd/getGridData?groupcd=GROUP1
-	@GetMapping("/bgt/sbgtcd/getGridData") // groupcd ¹Þ¾Æ¼­ Ã¹È­¸é µ¥ÀÌÅÍ¸¦ ÀÔ·ÂÇÏ´Â ÄÚµå
+	@GetMapping("/bgt/sbgtcd/getGridData") // groupcd ï¿½Þ¾Æ¼ï¿½ Ã¹È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ô·ï¿½ï¿½Ï´ï¿½ ï¿½Úµï¿½
 	public List<SBGTCDDomain> getGridData(@RequestParam String groupcd) {
-		System.out.println("controllerÀÇ getGridData·Î ¿¬°á!");
-		System.out.println("groupcd´Â ¿Ô´Â°¡" + groupcd);
+		System.out.println("controllerï¿½ï¿½ getGridDataï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
+		System.out.println("groupcdï¿½ï¿½ ï¿½Ô´Â°ï¿½" + groupcd);
 		List<SBGTCDDomain> list = service.getSBGTCDData(groupcd);
 		System.out.println(list.toString());
 		return list;
 	}
 
 	@GetMapping("/bgt/sbgtcd/getDetailInfo")
-	public ResponseEntity<List<SBGTCDDomain>> getDetailInfo(@RequestParam String bgt_Cd) {
-		System.out.println("°ÙµðÅÚÀÎÆ÷: " + bgt_Cd);
-		List<SBGTCDDomain> list = service.getDetailInfo(bgt_Cd);
+	public ResponseEntity<List<SBGTCDDomain>> getDetailInfo(@RequestParam String bgtCd) {
+		System.out.println("ï¿½Ùµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: " + bgtCd);
+		List<SBGTCDDomain> list = service.getDetailInfo(bgtCd);
 		System.out.println(list.toString());
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
-	@GetMapping("/bgt/sbgtcd/updateDetailInfo")
-	public int updateDetailInfo(@RequestParam SBGTCDDomain updateData) {
-		System.out.println("¿©±ä updateDetailInfo¾ß ~");
-		System.out.println("updateData´Â ? : " +updateData.toString());
-		
-		return 1 ;
+	//
+	@PutMapping("/bgt/sbgtcd/updateDetailInfo")
+	public String updateDetailInfo(@RequestBody SBGTCDDomain updateData) {//@RequestParam SBGTCDDomain updateData
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ updateDetailInfoï¿½ï¿½ ~");
+		System.out.println("updateDataï¿½ï¿½ ? : " +updateData.toString());
+		service.updateDetailInfo(updateData);
+		return "ï¿½ï¿½ï¿½ï¿½ controllerï¿½ï¿½ ~ ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ß¾ï¿½~" ;
 	}
+	@DeleteMapping("/bgt/sbgtcd/deleteRow")
+	public void deleteRow(@RequestParam String bgtCd) {
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ deleteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½Ã´ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ ");
+		service.deleteRow(bgtCd);
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ ! ");
+	}
+	
 }

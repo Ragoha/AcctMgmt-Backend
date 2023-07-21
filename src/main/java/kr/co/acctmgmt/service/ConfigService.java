@@ -6,5 +6,6 @@ import kr.co.acctmgmt.domain.Config;
 
 public interface ConfigService {
 
-	List<Config> getConfigList();
+	List<Config> getConfigList(String coCd);
+	public void updateConfig(Config Config);
 }

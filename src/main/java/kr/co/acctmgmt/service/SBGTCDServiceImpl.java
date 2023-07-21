@@ -9,7 +9,8 @@ import kr.co.acctmgmt.mapper.SBGTCDMapper;
 
 @Service
 public class SBGTCDServiceImpl implements SBGTCDService {
-	private final SBGTCDMapper mapper = null;
+	
+	private final SBGTCDMapper mapper;
 
 	@Override
 	public List<SBGTCDDomain> getSBGTCDData(String groupcd) {
@@ -19,16 +20,20 @@ public class SBGTCDServiceImpl implements SBGTCDService {
 	@Override
 	public List<SBGTCDDomain> getDetailInfo(String bgt_Cd) {
 		List<SBGTCDDomain> list = mapper.getDetailInfo(bgt_Cd);
-		return list ;
+		return list;
 	}
 
 	@Override
 	public int updateDetailInfo(SBGTCDDomain updateData) {
-		int flag =0;
-		flag= mapper.getDetailInfo(updateData);
-		
-		return flag;
+		int changeRow = mapper.updateDetailInfo(updateData);
+		return changeRow;
 	}
 
-	
+	@Override
+	public void deleteRow(String bgtCd) {
+		System.out.println("������������");
+		mapper.deleteRow(bgtCd);
+		
+	}
+
 }
