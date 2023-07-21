@@ -33,9 +33,7 @@ public class SBGTCDServiceImpl implements SBGTCDService {
 
 	@Override
 	public void deleteRow(String bgtCd) {
-		System.out.println("������������");
 		mapper.deleteRow(bgtCd);
-		
 	}
 
 }
