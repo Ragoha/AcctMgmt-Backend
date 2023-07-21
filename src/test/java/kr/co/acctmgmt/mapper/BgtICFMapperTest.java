@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.co.acctmgmt.domain.BgtICF;
+import lombok.ToString;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml" })
@@ -17,6 +18,14 @@ public class BgtICFMapperTest {
 
 	@Autowired
 	private BgtICFMapper bgticfMapper;
+	
+	@Test
+	public void getBgtICFTest() {
+		
+		BgtICF bgtICF = bgticfMapper.getBgtICF("ABC");
+		
+		System.out.println(bgtICF.toString());
+	}
 	
 //	@Test
 	public void getBgtICFListTest() {
