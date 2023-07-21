@@ -18,6 +18,6 @@
 		<mapper resource="mapper/EmployeeMapper.xml"/>
 		<mapper resource="mapper/ConfigMapper.xml"/>
 		<mapper resource="mapper/CoMapper.xml"/>
-    <mapper resource="mapper/BgtICFMapper.xml"/>
+    	<mapper resource="mapper/BgtICFMapper.xml"/>
 	</mappers>
 </configuration>
