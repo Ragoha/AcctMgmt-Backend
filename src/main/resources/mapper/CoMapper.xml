@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.acctmgmt.mapper.CoMapper">
+	
+	<select id="getCoList" resultType="Co">
+		SELECT * FROM co;
+	</select>
+	
+	<select id="getCo" parameterType="int" resultType="Co">
+		SELECT CO_CD, CO_NM, GISU, JONGMOK, BUSINESS_TYPE, CO_NB, CEO_NM, CO_ZIP, CO_ADDR, CO_ADDR1 
+		FROM co WHERE CO_CD = #{coCd};
+	</select>
+	
+	<insert id="insertCo" parameterType="Co">
+		INSERT INTO co 
+		(CO_CD, CO_NM, JONGMOK, BUSINESS_TYPE, CO_NB, CEO_NM, CO_ZIP, CO_ADDR, CO_ADDR1) VALUES 
+		(#{coCd}, #{coNm}, #{jongmok}, #{businessType}, #{coNb}, #{ceoNm}, #{coZip}, #{coAddr}, #{coAddr1});
+	</insert> 
+
+</mapper>
