@@ -12,6 +12,7 @@
 		<typeAlias type="kr.co.acctmgmt.domain.SysCfg" alias="SysCfg"/>
 		<typeAlias type="kr.co.acctmgmt.domain.BgtICF" alias="BgtICF"/>
 		<typeAlias type="kr.co.acctmgmt.domain.Co" alias="Co"/>
+		<typeAlias type="kr.co.acctmgmt.domain.User" alias="User"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="./mapper/BgtCDMapper.xml"/>
@@ -19,6 +20,7 @@
 		<mapper resource="./mapper/SysCfgMapper.xml"/>
     	<mapper resource="./mapper/BgtICFMapper.xml"/>
 		<mapper resource="./mapper/CoMapper.xml"/>
+		<mapper resource="./mapper/UserMapper.xml"/>
 
 	</mappers>
 </configuration>
