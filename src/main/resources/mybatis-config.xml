@@ -12,7 +12,6 @@
 		<typeAlias type="kr.co.acctmgmt.domain.BgtICF" alias="BgtICF"/>
 		<typeAlias type="kr.co.acctmgmt.domain.Employee" alias="Employee"/>
 		<typeAlias type="kr.co.acctmgmt.domain.User" alias="User"/>
-		<typeAlias type="kr.co.acctmgmt.domain.UserRole" alias="UserRole"/>
 		<typeAlias type="kr.co.acctmgmt.domain.SysCfg" alias="SysCfg"/>
 		<typeAlias type="kr.co.acctmgmt.domain.ExpRefToken" alias="ExpRefToken"/>
 	</typeAliases>
@@ -22,7 +21,6 @@
 		<mapper resource="./mapper/BgtCDMapper.xml"/>
     	<mapper resource="./mapper/BgtICFMapper.xml"/>
 		<mapper resource="./mapper/UserMapper.xml"/>
-		<mapper resource="./mapper/UserRoleMapper.xml"/>
 		<mapper resource="./mapper/SysCfgMapper.xml"/>
 		<mapper resource="./mapper/ExpRefTokenMapper.xml"/>
 

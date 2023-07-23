@@ -70,11 +70,14 @@ public class JwtUtil {
   }
 
   public String resolveAccessToken(HttpServletRequest request) {
+	  System.out.println("resolveAccessToken1");
       String token = request.getHeader("access-token");
+      System.out.println(token);
       return token;
   }
 
   public String resolveRefreshToken(HttpServletRequest request) {
+	  System.out.println("resolveRefreshToken");
       String token = null;
       Cookie cookie = WebUtils.getCookie(request, "refresh-token");
       if (cookie != null)

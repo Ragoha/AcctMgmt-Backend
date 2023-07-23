@@ -1,7 +1,5 @@
 package kr.co.acctmgmt.controller;
 
-import java.util.Collections;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +19,6 @@ import jakarta.validation.Valid;
 import kr.co.acctmgmt.config.jwt.ExpiredRefreshTokenService;
 import kr.co.acctmgmt.config.jwt.JwtUtil;
 import kr.co.acctmgmt.domain.User;
-import kr.co.acctmgmt.domain.UserRole;
 import kr.co.acctmgmt.dto.UserDTO;
 import kr.co.acctmgmt.dto.UserLoginReq;
 import kr.co.acctmgmt.service.UserService;
@@ -77,8 +74,8 @@ public class UserAPI {
             expiredRefreshTokenService.addExpiredToken(expiredToken);
         }
 
-        String accessToken = jwtUtil.createAccessToken(user.getEmail(), user.getRoles().get(0));
-        String refreshToken = jwtUtil.createRefreshToken(user.getEmail(), user.getRoles().get(0));
+        String accessToken = jwtUtil.createAccessToken(user.getEmail(), user.getRole().get(0));
+        String refreshToken = jwtUtil.createRefreshToken(user.getEmail(), user.getRole().get(0));
 
         Cookie refreshTokenCookie = new Cookie("refresh-token", refreshToken);
         response.setHeader("access-token", accessToken);
@@ -88,20 +85,31 @@ public class UserAPI {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping("/logout")
+    @PostMapping("/logouta")
     public void logout(HttpServletResponse response){
-        Cookie cookie = new Cookie("X-AUTH-TOKEN", null);
-        cookie.setHttpOnly(true);
-        cookie.setSecure(false);
-        cookie.setMaxAge(0);
-        cookie.setPath("/");
-        response.addCookie(cookie);
+        System.out.println("logout");
+        
+        // access-token 삭제
+        response.setHeader("access-token", null);
+
+        // refresh-token 삭제
+        Cookie refreshTokenCookie = new Cookie("refresh-token", null);
+        refreshTokenCookie.setHttpOnly(true);
+        refreshTokenCookie.setSecure(false);
+        refreshTokenCookie.setMaxAge(0);
+        refreshTokenCookie.setPath("/");
+        response.addCookie(refreshTokenCookie);
     }
 
     @GetMapping("/info")
     public UserDTO getInfo(){
+
         Object details = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(details != null && !(details instanceof  String)) return new UserDTO((User) details);
+    	System.out.println(details);
+        if(details != null && !(details instanceof  String)) {
+        	System.out.println(details);
+        	return new UserDTO((User) details);
+        }
         return null;
     }
 

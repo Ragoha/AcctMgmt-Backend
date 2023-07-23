@@ -32,11 +32,11 @@ public class User implements UserDetails{
     private String phoneNumber ="";
     private String name ="";
     
-    private List<String> roles = new ArrayList<>();
+    private List<String> role = new ArrayList<>();
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.roles.stream()
+		return this.role.stream()
         .map(SimpleGrantedAuthority::new)
         .collect(Collectors.toList());
 	}
@@ -64,6 +64,10 @@ public class User implements UserDetails{
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return true;
+	}
+	
+	public void setRole(String role) {
+		this.role.add(role);
 	}
 
 	@Override

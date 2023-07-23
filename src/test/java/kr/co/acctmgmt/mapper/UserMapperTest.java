@@ -15,14 +15,14 @@ public class UserMapperTest {
 	@Autowired
 	private UserMapper userMapper;
 	
-//	@Test
+	@Test
 	public void test() {
 		
-		User user = userMapper.findByEmail("test");
+		User user = userMapper.findByEmail("test1");
 		System.out.println(user.toString());
 	}
 	
-	@Test
+//	@Test
 	public void save() {
 		
 		User user = User.builder()
