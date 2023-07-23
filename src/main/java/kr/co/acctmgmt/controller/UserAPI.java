@@ -3,9 +3,13 @@ package kr.co.acctmgmt.controller;
 import java.util.Collections;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,72 +17,92 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.co.acctmgmt.config.jwt.JwtAuthenticationProvider;
+import jakarta.validation.Valid;
+import kr.co.acctmgmt.config.jwt.ExpiredRefreshTokenService;
+import kr.co.acctmgmt.config.jwt.JwtUtil;
 import kr.co.acctmgmt.domain.User;
+import kr.co.acctmgmt.domain.UserRole;
 import kr.co.acctmgmt.dto.UserDTO;
-import kr.co.acctmgmt.mapper.UserMapper;
+import kr.co.acctmgmt.dto.UserLoginReq;
+import kr.co.acctmgmt.service.UserService;
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 public class UserAPI {
 
-    @Autowired private UserMapper userMapper;
-    @Autowired private PasswordEncoder passwordEncoder;
-    @Autowired private JwtAuthenticationProvider jwtAuthenticationProvider;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
+    private final ExpiredRefreshTokenService expiredRefreshTokenService;
+    private final JwtUtil jwtUtil;
 
     @PostMapping("/join")
     public void join(@RequestBody UserDTO user){
     	System.out.println("조인");
-        userMapper.save(User.builder()
+    	userService.save(User.builder()
                 .email(user.getEmail())
                 .password(passwordEncoder.encode(user.getPassword()))
                 .name(user.getName())
                 .phoneNumber(user.getPhoneNumber())
-                .roles(Collections.singletonList("ROLE_USER"))
                 .build());
+
 
     }
 
     @PostMapping("/login")
-    public UserDTO login(@RequestBody UserDTO user, HttpServletResponse response) {
-    	
+    public ResponseEntity<User> login(@RequestBody(required = false) @Valid UserLoginReq req,
+        HttpServletRequest request,
+        HttpServletResponse response) {
     	System.out.println("로그인");
-        User rUser = userMapper.findByEmail(user.getEmail());
-                
-		if (rUser == null) {
-            throw new IllegalArgumentException("가입되지 않은 E-MAIL 입니다.");
+        User user = null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
+            user = (User)authentication.getPrincipal();
+        } else {
+            if (req != null) {
+                user = userService.findByEmail(req.getEmail());
+                if (!passwordEncoder.matches(req.getPassword(), user.getPassword())) {
+                    //아이디 비밀번호 미일치 시 처리할 로직
+                }
+            }
         }
-        if (!passwordEncoder.matches(user.getPassword(), rUser.getPassword())) {
-            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+        System.out.println("11");
+        if (user == null) {
+            //유저객체를 제대로 불러오지 못할때 처리할 로직
         }
 
-        String token = jwtAuthenticationProvider.createToken(rUser.getUsername(), rUser.getRoles());
-        response.setHeader("X-AUTH-TOKEN", token);
+        String expiredToken = jwtUtil.resolveRefreshToken(request);
+        if (expiredToken != null && !expiredToken.isBlank()) {
+            expiredRefreshTokenService.addExpiredToken(expiredToken);
+        }
 
-        Cookie cookie = new Cookie("X-AUTH-TOKEN", token);
-        cookie.setPath("/");
-        cookie.setHttpOnly(true);
-        cookie.setSecure(true);
-        response.addCookie(cookie);
-        System.out.println("로그인 성공");
+        String accessToken = jwtUtil.createAccessToken(user.getEmail(), user.getRoles().get(0));
+        String refreshToken = jwtUtil.createRefreshToken(user.getEmail(), user.getRoles().get(0));
 
-        return new UserDTO(rUser);
+        Cookie refreshTokenCookie = new Cookie("refresh-token", refreshToken);
+        response.setHeader("access-token", accessToken);
+        response.addCookie(refreshTokenCookie);
+
+        System.out.println("22");
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
-//
-//    @PostMapping("/logout")
-//    public void logout(HttpServletResponse response){
-//        Cookie cookie = new Cookie("X-AUTH-TOKEN", null);
-//        cookie.setHttpOnly(true);
-//        cookie.setSecure(false);
-//        cookie.setMaxAge(0);
-//        cookie.setPath("/");
-//        response.addCookie(cookie);
-//    }
-//
-//    @GetMapping("/info")
-//    public UserDto getInfo(){
-//        Object details = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        if(details != null && !(details instanceof  String)) return new UserDto((User) details);
-//        return null;
-//    }
+
+    @PostMapping("/logout")
+    public void logout(HttpServletResponse response){
+        Cookie cookie = new Cookie("X-AUTH-TOKEN", null);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(false);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+    }
+
+    @GetMapping("/info")
+    public UserDTO getInfo(){
+        Object details = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(details != null && !(details instanceof  String)) return new UserDTO((User) details);
+        return null;
+    }
 
 }

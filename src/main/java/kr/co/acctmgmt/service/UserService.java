@@ -1,12 +1,9 @@
-package kr.co.acctmgmt.mapper;
+package kr.co.acctmgmt.service;
 
 import kr.co.acctmgmt.domain.User;
 
-public interface UserMapper {
-
+public interface UserService {
 	public User findByEmail(String email);
 	
 	public void save(User user);
-	
-	public Long getIdByEmail(String email);
 }

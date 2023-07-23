@@ -24,15 +24,20 @@ public class UserMapperTest {
 	
 	@Test
 	public void save() {
-		userMapper.save(User.builder()
-				.email("test1")
+		
+		User user = User.builder()
+				.email("test99")
 				.password("password")
 				.phoneNumber("010")
 				.name("Å×½ºÆ®")
-				.build());
+				.build();
 		
-		User user = userMapper.findByEmail("test");
-		System.out.println(user.toString());
+		userMapper.save(user);
+		
+		System.out.println(user.getId());
+		
+		User user1 = userMapper.findByEmail("test");
+		System.out.println(user1.toString());
 	}
 
 }

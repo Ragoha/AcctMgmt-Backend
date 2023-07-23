@@ -25,12 +25,12 @@ import lombok.ToString;
 @NoArgsConstructor
 public class User implements UserDetails{
 	
-	private Long id;
+	private Long id= 0L;
 
-    private String email;
-    private String password;
-    private String phoneNumber;
-    private String name;
+    private String email = "";
+    private String password ="";
+    private String phoneNumber ="";
+    private String name ="";
     
     private List<String> roles = new ArrayList<>();
 

@@ -10,5 +10,10 @@
 		INSERT INTO user (email, password, phoneNumber, name)
 			VALUES
   		(#{email}, #{password}, #{phoneNumber}, #{name})
+
 	</insert>
+	
+	<select id="getIdByEmail" parameterType="String" resultType="Long">
+		SELECT id FROM USER WHERE EMAIL = #{email}
+	</select>
 </mapper>

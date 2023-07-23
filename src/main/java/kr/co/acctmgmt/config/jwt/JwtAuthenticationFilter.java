@@ -11,24 +11,35 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-public class JwtAuthenticationFilter extends OncePerRequestFilter{
-	
-	private final JwtAuthenticationProvider jwtAuthenticationProvider;
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-	public JwtAuthenticationFilter(JwtAuthenticationProvider provider) {
-        jwtAuthenticationProvider = provider;
+    private final JwtUtil jwtUtil;
+
+    public JwtAuthenticationFilter(JwtUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String token = jwtAuthenticationProvider.resolveToken(request);
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
 
-        if(token != null && jwtAuthenticationProvider.validateToken(token)){
-            Authentication authentication = jwtAuthenticationProvider.getAuthentication(token);
+        String accessToken = jwtUtil.resolveAccessToken(request);
+        boolean isAccessTokenValid = accessToken != null && jwtUtil.validateToken(accessToken);
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        try {
+            if (isAccessTokenValid) {
+                Authentication authentication = jwtUtil.getAuthentication(accessToken);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            } else {
+                String refreshToken = jwtUtil.resolveRefreshToken(request);
+                if (refreshToken != null && jwtUtil.validateRefreshToken((refreshToken))) {
+                    Authentication authentication = jwtUtil.getAuthentication(refreshToken);
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+            }
+        } catch (Exception e) {
+
         }
-
         filterChain.doFilter(request, response);
     }
 }
