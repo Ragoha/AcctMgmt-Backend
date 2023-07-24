@@ -3,12 +3,12 @@
 <mapper namespace="kr.co.acctmgmt.mapper.SysCfgMapper">
 
 
-	<select id="getConfigList" resultType="Config">
+	<select id="getConfigList" resultType="SysCfg">
 		SELECT * from SYSCFG where co_CD = #{coCd};
 	</select>
 
 
- 	<update id="updateConfig" parameterType="Config">
+ 	<update id="updateConfig" parameterType="SysCfg">
 		UPDATE SYSCFG 
 		SET 
 			sys_YN = #{sysYn}
