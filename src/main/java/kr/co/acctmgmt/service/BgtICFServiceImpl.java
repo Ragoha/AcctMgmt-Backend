@@ -20,8 +20,9 @@ public class BgtICFServiceImpl implements BgtICFService{
 	public BgtICFDTO getBgtICF(BgtICFDTO bgtICFDTO) {
 		
 		BgtICF bgtICF = BgtICFConverter.convertToModel(bgtICFDTO);
-		
-		BgtICF rBgtICF = bgtICFMapper.getBgtICF(bgtICFDTO.getCoCd());
+
+		BgtICF rBgtICF = bgtICFMapper.getBgtICF("ABC");
+
 		
 		return BgtICFConverter.convertToDto(rBgtICF);
 	}

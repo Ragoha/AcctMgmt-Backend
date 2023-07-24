@@ -12,7 +12,6 @@ import kr.co.acctmgmt.domain.SysCfg;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml" })
-
 public class SysCfgMapperTest {
 	
 	@Autowired
