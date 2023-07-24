@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.co.acctmgmt.domain.Divs;
 import kr.co.acctmgmt.dto.BgtICFDTO;
 import kr.co.acctmgmt.service.BgtICFService;
+import kr.co.acctmgmt.service.DivsService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -24,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class BgtICFController {
 	
 	private final BgtICFService bgtICFService;
+	private final DivsService divsService;
 
 //	@GetMapping("/bgt/bgticf")
 //	public void getBGT(@RequestBody Budget budget) {
@@ -63,6 +67,20 @@ public class BgtICFController {
 		System.out.println(bgtICFDTO);
 //		bgtICFService.updateBgtICF(bgtICFDTO);
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/bgt/bgticf/div")
+	public ResponseEntity<List<Divs>> findDivCdAndDivNmByCoCd(Divs divs){
+		
+		List<Divs> rDivs = divsService.findDivCdAndDivNmByCoCd(divs.getCoCd());
+		return new ResponseEntity<List<Divs>>(rDivs,HttpStatus.OK);
+	}
+	
+	@GetMapping("/bgt/bgticf/div")
+	public ResponseEntity<List<Divs>> findDivCdAndDivNmByCoCdAndKeyword(Divs divs){
+		
+		List<Divs> rDivs = divsService.findDivCdAndDivNmByCoCd(divs.getCoCd());
+		return new ResponseEntity<List<Divs>>(rDivs,HttpStatus.OK);
 	}
 	
 	

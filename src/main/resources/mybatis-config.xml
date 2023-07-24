@@ -8,6 +8,7 @@
 	</settings> 
 	<typeAliases>
 		<typeAlias type="kr.co.acctmgmt.domain.Co" alias="Co"/>
+		<typeAlias type="kr.co.acctmgmt.domain.Divs" alias="Divs"/>
 		<typeAlias type="kr.co.acctmgmt.domain.BgtCD" alias="BgtCD"/>
 		<typeAlias type="kr.co.acctmgmt.domain.BgtICF" alias="BgtICF"/>
 		<typeAlias type="kr.co.acctmgmt.domain.Employee" alias="Employee"/>
@@ -17,6 +18,7 @@
 	</typeAliases>
 	<mappers>
 		<mapper resource="./mapper/CoMapper.xml"/>
+		<mapper resource="./mapper/DivsMapper.xml"/>
 		<mapper resource="./mapper/EmployeeMapper.xml"/>
 		<mapper resource="./mapper/BgtCDMapper.xml"/>
     	<mapper resource="./mapper/BgtICFMapper.xml"/>
