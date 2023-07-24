@@ -27,7 +27,7 @@ public class EmployeeMapperTest {
 		System.out.println(employee.getEmpId());
 	}
 	
-//	@Test
+	@Test
 	public void getEmployeeList() {
 		
 		List<Employee> employeeList = employeeMapper.getEmployeeList();
@@ -43,12 +43,12 @@ public class EmployeeMapperTest {
 		Employee employee = Employee.builder()
 				  .coCd("COMP")
 				  .empId("employee4")
-				  .empPs("password4!!")
+				  .empPw("password4!!")
 				  .empEmail("employee4@example.com")
 				  .empTel("987654321")
 				  .empName("Jane Doe")
 				  .empSx("F")
-				  .empCd("CD4")
+				  .divCd("CD4")
 				  .empOd("OD4")
 				  .build();
 
@@ -65,7 +65,7 @@ public class EmployeeMapperTest {
 		
 		Employee employee = employeeMapper.getEmployee(dId);
 		
-		employee.setEmpPs("change");
+		employee.setEmpPw("change");
 		
 		employeeMapper.updateEmployee(employee);
 		
