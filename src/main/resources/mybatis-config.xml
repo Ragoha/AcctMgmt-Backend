@@ -23,6 +23,5 @@
 		<mapper resource="./mapper/UserMapper.xml"/>
 		<mapper resource="./mapper/SysCfgMapper.xml"/>
 		<mapper resource="./mapper/ExpRefTokenMapper.xml"/>
-
 	</mappers>
 </configuration>
