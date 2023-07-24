@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.acctmgmt.mapper.ExpRefTokenMapper">
+	
+	<select id="existsByToken" resultType="boolean" parameterType="string">
+  		SELECT COUNT(*) > 0
+  		FROM EXP_REF_TOKEN
+  		WHERE token = #{token}
+	</select>
+	
+	<insert id="saveToken" parameterType="String">
+		INSERT INTO EXP_REF_TOKEN (TOKEN) VALUES(#{token})
+	</insert>
+
+</mapper>
