@@ -139,9 +139,10 @@ public class UserAPI {
 	public EmployeeDTO getInfo() {
 
 		Object details = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println(details);
+		System.out.println("details : "+details);
+		System.out.println("details.toString : "+details.toString());
 		if (details != null && !(details instanceof String)) {
-			System.out.println(details);
+			System.out.println("hihi:" + details.toString());
 			return new EmployeeDTO((Employee) details);
 		}
 		return null;
