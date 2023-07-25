@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.acctmgmt.converter.DivsConverter;
 import kr.co.acctmgmt.domain.Divs;
+import kr.co.acctmgmt.dto.DivsDTO;
 import kr.co.acctmgmt.mapper.DivsMapper;
 import lombok.RequiredArgsConstructor;
 
@@ -24,10 +26,14 @@ public class DivsServiceImpl implements DivsService{
 	}
 
 	@Override
-	public List<Divs> findDivCdAndDivNmByCoCd(List<String> keyword) {
+	public List<DivsDTO> findDivCdAndDivNmByCoCdAndKeyword(DivsDTO divsDTO) {
 		
-//		List<Divs> divss = divsMapper.findDivCdAndDivNmByCoCd(keyword);
-		return null;
+		Divs divs = DivsConverter.convertToModel(divsDTO);
+		
+		List<Divs> divsList = divsMapper.findDivCdAndDivNmByCoCdAndKeyword(divs);
+		
+		List<DivsDTO> divsDTOList = DivsConverter.convertToDtoList(divsList);
+		return divsDTOList;
 	}
 
 }

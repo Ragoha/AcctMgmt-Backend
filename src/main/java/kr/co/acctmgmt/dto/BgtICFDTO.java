@@ -13,21 +13,20 @@ import lombok.ToString;
 @Builder
 public class BgtICFDTO {
 
-    private String coCd = "";
+	private int coCd = 0;
+    private int divCd = 0;
+    private int deptCd = 0;
     private int gisu = 0;
     private int sq = 0;
-    private String divCd = "";
-    private String deptCd = "";
-    private String mgtCd = "";
+    private int mgtCd = 0;
     private String bgtCd = "";
-    private String bgtFg = "";
-    private String bgtCnt = "";
-    private String bottomCd ="";
+    private int bgtFg = 0;
+    private String bottomNm ="";
     private Long carrAm = 0L;
     private Long carrAm1 = 0L;;
     private Long carrAm2 = 0L;;
     private Long carrAm3 = 0L;;
-    private String empCd = "";
+    private int empCd = 0;
     private String remDc = "";
     private String bgtTy = "";
     private String insertId = "";

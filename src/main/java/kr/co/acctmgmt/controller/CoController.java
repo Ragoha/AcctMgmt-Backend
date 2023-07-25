@@ -38,15 +38,29 @@ public class CoController {
 	}
 	
 	@PostMapping("/ozt/ico")
-	public void insertCo(@RequestBody Co co) {
+	public List<Co> insertCo(@RequestBody Co co) {
 		coService.insertCo(co);
-		
 		System.out.println(co);
+		
+		List<Co> coList = coService.getCoList();
+		return coList;
 	}
 	
 	@PostMapping("/ozt/dco")
-	public void deleteCo(@RequestBody int coCd) {
-		System.out.println(coCd);
-		coService.deleteCo(coCd);
+	public List<Co> deleteCo(@RequestBody Co co) {
+		System.out.println(co.getCoCd());
+		coService.deleteCo(co.getCoCd());
+		List<Co> coList = coService.getCoList();
+		return coList;
+	}
+	
+	@PostMapping("/ozt/uco")
+	public List<Co> updateCo(@RequestBody Co co){
+		System.out.println(co.getCoCd());
+		System.out.println(co.toString());
+		
+		coService.updateCo(co.getCoCd());
+		List<Co> coList = coService.getCoList();
+		return coList;
 	}
 }
