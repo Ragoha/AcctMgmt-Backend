@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.acctmgmt.mapper.CoMapper">
-	
+
 	<select id="getCoList" resultType="Co">
 		SELECT * FROM CO;
 	</select>
-	
+
 	<select id="getCo" parameterType="int" resultType="Co">
-		SELECT CO_CD, CO_NM, GISU, JONGMOK, BUSINESS_TYPE, CO_NB, CEO_NM, CO_ZIP, CO_ADDR, CO_ADDR1 
+		SELECT CO_CD, CO_NM, GISU, JONGMOK, BUSINESS_TYPE, CO_NB, CEO_NM, CO_ZIP, CO_ADDR, CO_ADDR1
 		FROM CO WHERE CO_CD = #{coCd};
 	</select>
-	
+
+	<select id="getNum" resultType="int">
+		SELECT subquery.NUMBER
+		FROM (SELECT COUNT(*) AS NUMBER FROM co) AS subquery;
+	</select>
+
 	<insert id="insertCo" parameterType="Co">
-		INSERT INTO CO 
-		(CO_CD, CO_NM, JONGMOK, BUSINESS_TYPE, CO_NB, CEO_NM, CO_ZIP, CO_ADDR, CO_ADDR1) VALUES 
-		(#{coCd}, #{coNm}, #{jongmok}, #{businessType}, #{coNb}, #{ceoNm}, #{coZip}, #{coAddr}, #{coAddr1});
-	</insert> 
+		INSERT INTO CO
+		(CO_CD, CO_NM,
+		JONGMOK, BUSINESS_TYPE, CO_NB, CEO_NM, CO_ZIP, CO_ADDR,
+		CO_ADDR1)
+		VALUES
+		(#{coCd}, #{coNm}, #{jongmok}, #{businessType}, #{coNb},
+		#{ceoNm}, #{coZip},
+		#{coAddr}, #{coAddr1});
+	</insert>
+	
+	<delete id="deleteCo" parameterType="int">
+		DELETE from co WHERE CO_CD = #{coCd}; 
+	</delete>
 
 </mapper>
