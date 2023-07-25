@@ -31,11 +31,18 @@ public class CoMapperTest {
 		System.out.println(num);
 	}
 	
-	@Test
+//	@Test
 	public void deleteCo() {
 		int coCd = 2;
 		
 		coMapper.deleteCo(coCd);
+	}
+	
+//	@Test
+	public void updateCo() {
+		int coCd = 1007;
+		String coAddr="º≠√ ±∏";
+		coMapper.updateCo(coCd);
 	}
 
 }

@@ -18,16 +18,23 @@
 
 	<insert id="insertCo" parameterType="Co">
 		INSERT INTO CO
-		(CO_CD, CO_NM,
+		(CO_NM,
 		JONGMOK, BUSINESS_TYPE, CO_NB, CEO_NM, CO_ZIP, CO_ADDR,
 		CO_ADDR1)
 		VALUES
-		(#{coCd}, #{coNm}, #{jongmok}, #{businessType}, #{coNb},
+		(#{coNm}, #{jongmok}, #{businessType}, #{coNb},
 		#{ceoNm}, #{coZip},
 		#{coAddr}, #{coAddr1});
 	</insert>
 	
-	<delete id="deleteCo" parameterType="int">
+	<update id="updateCo" parameterType="Co" >
+		UPDATE CO SET 
+		CO_NM = #{coNm}, JONGMOK = #{jongmok}, BUSINESS_TYPE = #{businessType}, CO_NB = #{coNb}, CEO_NM = #{ceoNm}, 
+		CO_ZIP = #{coZip}, CO_ADDR = #{coAddr}, CO_ADDR1 = #{coAddr1}
+		WHERE CO_CD=#{coCd}
+	</update>
+	
+	<delete id="deleteCo" parameterType="int" >
 		DELETE from co WHERE CO_CD = #{coCd}; 
 	</delete>
 
