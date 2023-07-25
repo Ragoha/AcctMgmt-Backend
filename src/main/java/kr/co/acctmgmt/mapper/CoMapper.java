@@ -15,4 +15,6 @@ public interface CoMapper {
 	public int getNum(); //안쓸 것 같음 지우자!
 	
 	public void deleteCo(int coCd);
+	
+	public void updateCo(int coCd);
 }

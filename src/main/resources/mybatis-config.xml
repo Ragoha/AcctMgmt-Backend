@@ -10,10 +10,12 @@
 		<typeAlias type="kr.co.acctmgmt.domain.Co" alias="Co"/>
 		<typeAlias type="kr.co.acctmgmt.domain.Divs" alias="Divs"/>
 		<typeAlias type="kr.co.acctmgmt.domain.BgtCD" alias="BgtCD"/>
+		<typeAlias type="kr.co.acctmgmt.domain.BgtGr" alias="BgtGr"/>
 		<typeAlias type="kr.co.acctmgmt.domain.BgtICF" alias="BgtICF"/>
 		<typeAlias type="kr.co.acctmgmt.domain.Employee" alias="Employee"/>
 		<typeAlias type="kr.co.acctmgmt.domain.User" alias="User"/>
 		<typeAlias type="kr.co.acctmgmt.domain.SysCfg" alias="SysCfg"/>
+		<typeAlias type="kr.co.acctmgmt.domain.BgtCDTerm" alias="BgtCDTerm"/>
 		<typeAlias type="kr.co.acctmgmt.domain.ExpRefToken" alias="ExpRefToken"/>
 	</typeAliases>
 	<mappers>
@@ -21,7 +23,8 @@
 		<mapper resource="./mapper/DivsMapper.xml"/>
 		<mapper resource="./mapper/EmployeeMapper.xml"/>
 		<mapper resource="./mapper/BgtCDMapper.xml"/>
-    	<mapper resource="./mapper/BgtICFMapper.xml"/>
+		<mapper resource="./mapper/BgtGrMapper.xml"/>
+    <mapper resource="./mapper/BgtICFMapper.xml"/>
 		<mapper resource="./mapper/UserMapper.xml"/>
 		<mapper resource="./mapper/SysCfgMapper.xml"/>
 		<mapper resource="./mapper/ExpRefTokenMapper.xml"/>

@@ -13,4 +13,6 @@ public interface CoService {
 	public List<Co> getCo(int coCd);
 	
 	public void deleteCo(int coCd);
+	
+	public void updateCo(int coCd);
 }

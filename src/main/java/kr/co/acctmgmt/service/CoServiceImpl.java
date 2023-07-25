@@ -35,6 +35,13 @@ public class CoServiceImpl implements CoService{
 	@Override
 	public void deleteCo(int coCd) {
 		coMapper.deleteCo(coCd);
+		
+	}
+
+	@Override
+	public void updateCo(int coCd) {
+		coMapper.updateCo(coCd);
+		
 	}
 
 }

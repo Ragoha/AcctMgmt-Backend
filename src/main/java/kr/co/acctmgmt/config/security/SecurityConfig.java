@@ -42,14 +42,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
-        // origin ÇöÀç´Â port ¸¦ "*" ·Î ÀüºÎ ´Ù ¿­¾îÁÖ¾ú°í ÃßÈÄ¿¡ º¯°æ½Ã
-        // Arrays.asList("<http://localhost:3000>") °°ÀÌ Æ÷Æ®¸¦ ³Ö¾î ¿­¾îÁÖÀÚ.
+        // origin ï¿½ï¿½ï¿½ï¿½ï¿½ port ï¿½ï¿½ "*" ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+        // Arrays.asList("<http://localhost:3000>") ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
         corsConfiguration.setAllowedOriginPatterns(Arrays.asList("*"));
-        // Çã¿ëÇÒ method "*" ·Î "GET", "POST", "PUT", "DELETE", "OPTIONS" ÇöÀç ´Ù ¿­¾î³õÀ½
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ method "*" ï¿½ï¿½ "GET", "POST", "PUT", "DELETE", "OPTIONS" ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         corsConfiguration.setAllowedMethods(Arrays.asList("*"));
-        // Çã¿ëÇÒ header
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ header
         corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
-        // ÀÀ´ä¿äÃ»À¸·Î Çã¿ëÇÒ header
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ header
         corsConfiguration.setExposedHeaders(Arrays.asList("Authorization", "refresh-token", "access-token"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -73,6 +73,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/join").permitAll()
             .antMatchers("/emp/**").permitAll()
             .antMatchers("/bgt/**").permitAll()
+            .antMatchers("/syscfg/**").permitAll()
+            .antMatchers("/info/**").permitAll()
+            .antMatchers("/ozt/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
