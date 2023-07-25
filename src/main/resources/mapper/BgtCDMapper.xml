@@ -13,7 +13,20 @@
 	<select id="getDetailInfo" parameterType="String" resultType="BgtCD">
 		SELECT CTL_FG ,BGAJUST_FG ,TO_DT , BOTTOM_FG , BIZ_FG FROM BGTCD WHERE BGT_CD=#{bgtCd};
 	</select>
+	<select id="getDefNmFromBGTCD_TERM" parameterType="String" resultType="String">
+		SELECT DEF_NM from BGTCD_TERM where DIV_FG =#{divFg};
+	</select>
 	
+	<delete id="deleteRow" parameterType="String">
+		DELETE FROM BGTCD
+		WHERE bgt_Cd = #{bgtCd}
+	</delete>
+	
+	<select id="getSbgtCDTerm" parameterType="String" resultType="BgtCDTerm">
+		SELECT * FROM 
+		BGTCD_TERM
+		where CO_CD = #{CO_CD}
+	</select>
 	<update id="updateDetailInfo" parameterType="BgtCD">
 		UPDATE BGTCD
 		<set>
@@ -25,8 +38,10 @@
 		</set>
 		WHERE bgt_Cd =#{bgtCd}
 	</update>
-	<delete id="deleteRow" parameterType="String">
-		DELETE FROM BGTCD
-		WHERE bgt_Cd = #{bgtCd}
-	</delete>
+	<update id = "updateBgtCDTerm" parameterType="BgtCDTerm">
+		UPDATE BGTCD_TERM
+		SET DEF_NM=#{defNm}
+		WHERE
+		CO_CD=#{coCd} and DIV_FG=#{divFg}
+	</update>
 </mapper>

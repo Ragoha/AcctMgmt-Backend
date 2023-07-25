@@ -35,10 +35,10 @@ public class DivsMapperTest {
 	    
 	    Divs divs = Divs.builder()
 	            .coCd(1)
-	            .keyword(keywords)
+	            .keyword("02")
 	            .build();
 	    
-	    List<Divs> divsList = divsMapper.findDivCdAndDivNmByKeyword(divs); 
+	    List<Divs> divsList = divsMapper.findDivCdAndDivNmByCoCdAndKeyword(divs); 
 	    divsList.forEach(div -> {
 	        System.out.println(div.toString());
 	    });
