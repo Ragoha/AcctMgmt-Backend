@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.acctmgmt.domain.Divs;
 import kr.co.acctmgmt.dto.BgtICFDTO;
+import kr.co.acctmgmt.dto.DivsDTO;
 import kr.co.acctmgmt.service.BgtICFService;
 import kr.co.acctmgmt.service.DivsService;
 import lombok.RequiredArgsConstructor;
@@ -76,11 +77,16 @@ public class BgtICFController {
 		return new ResponseEntity<List<Divs>>(rDivs,HttpStatus.OK);
 	}
 	
-//	@GetMapping("/bgt/bgticf/div")
-	public ResponseEntity<List<Divs>> findDivCdAndDivNmByCoCdAndKeyword(Divs divs){
+	@GetMapping("/bgt/bgticf/div/search")
+	public ResponseEntity<List<DivsDTO>> findDivCdAndDivNmByCoCdAndKeyword(DivsDTO divsDTO){
 		
-		List<Divs> rDivs = divsService.findDivCdAndDivNmByCoCd(divs.getCoCd());
-		return new ResponseEntity<List<Divs>>(rDivs,HttpStatus.OK);
+		List<DivsDTO> rDivsDTOList = divsService.findDivCdAndDivNmByCoCdAndKeyword(divsDTO);
+		
+		rDivsDTOList.forEach(rDivs -> {
+		System.out.println(rDivs.toString());
+		});
+		
+		return new ResponseEntity<List<DivsDTO>>(rDivsDTOList, HttpStatus.OK);
 	}
 	
 	
