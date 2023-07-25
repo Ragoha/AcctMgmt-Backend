@@ -2,7 +2,20 @@ package kr.co.acctmgmt.domain;
 
 import java.util.Date;
 
-public class Div {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Divs {
 	private int coCd;  //회사코드
 	private int divCd;  //사업장코드
 	private String divNm;  //사업장명
