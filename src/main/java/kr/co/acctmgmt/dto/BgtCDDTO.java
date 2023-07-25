@@ -16,6 +16,7 @@ public class BgtCDDTO {
 	int gisu=0; //GISU;
 	String bgtNm=""; //BGTNM;
 	String divFg=""; //DIVFG;
+	String defNm="";
 	String ctlFg=""; //CTLFG;
 	String bgajustFg=""; //BGAJUSTFG;
 	Date toDt=new Date(); //TODT;

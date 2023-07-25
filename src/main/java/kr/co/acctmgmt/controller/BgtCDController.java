@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.acctmgmt.domain.BgtCD;
+import kr.co.acctmgmt.domain.BgtCDTerm;
+import kr.co.acctmgmt.dto.BgtCDTermDTO;
 import kr.co.acctmgmt.service.BgtCDService;
 import lombok.RequiredArgsConstructor;
 
@@ -25,11 +27,13 @@ public class BgtCDController {
 
 	private final BgtCDService service;
 
+	/*조회 start*/
 	// http://localhost:8080/acctmgmt/bgt/sbgtcd/getGridData?groupcd=GROUP1
 	@GetMapping("/bgt/bgtcd/getGridData") // groupcd 
 	public List<BgtCD> getGridData(@RequestParam String groupcd) {
 		System.out.println("groupcd를 찾아야함");
 		List<BgtCD> list = service.getSBGTCDData(groupcd);
+		System.out.println("여아래 값에서 defNm찾아보자");
 		System.out.println(list.toString());
 		return list;
 	}
@@ -41,12 +45,33 @@ public class BgtCDController {
 		System.out.println(list.toString());
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
-	//
+	@GetMapping("/bgt/bgtcd/getSbgtCDTerm")
+	public List<BgtCDTermDTO> getSbgtCDTerm(@RequestParam String CO_CD){
+		//System.out.println("controller의 getSbgtCDTerm");
+		List<BgtCDTermDTO> list = service.getSbgtCDTerm(CO_CD);
+		//System.out.println(">>>>>>>>>>>>>>>>>>>: " + list.toString());
+		return list;
+	}
+	/*조회end*/
+	
+	
+	/*업데이트 start */
 	@PutMapping("/bgt/bgtcd/updateDetailInfo")
 	public String updateDetailInfo(@RequestBody BgtCD updateData) {//@RequestParam SBGTCDDomain updateData
-		service.updateDetailInfo(updateData);
+		System.out.println("으에에에에에엑");
+		System.out.println(updateData.toString());
+		//service.updateDetailInfo(updateData);
 		return "여기가 컨트롤러야~ "  ;
 	}
+	@PutMapping("/bgt/bgtcd/updateBgtCDTerm")
+	public List<BgtCDTermDTO> updateBgtCDTerm(@RequestBody List<BgtCDTermDTO> dataList) {//2중배열을 받을때 front에선 params : {data:data} 로보내는게 아니라 경로 뒤에 바로 axios.pust(/path  ,  data) 로 보낸다
+		
+		System.out.println("여긴 컨트롤러 updateBgtCDTerm");
+		System.out.println(dataList.toString());
+		return service.updateBgtCDTerm(dataList);
+	}
+	/*업데이트 end */
+	/*삭제 start */
 	@DeleteMapping("/bgt/bgtcd/deleteRow")
 	public void deleteRow(@RequestParam String bgtCd) {
 		service.deleteRow(bgtCd);
