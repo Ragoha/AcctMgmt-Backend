@@ -7,7 +7,7 @@
 	</select>
 	
 	<select id="findDivCdAndDivNmByCoCdAndKeyword" parameterType="Divs" resultType="Divs">
-	  SELECT *
+	  SELECT DIV_CD, DIV_NM
 	  FROM Divs
 	  WHERE 
 	  	CO_CD = #{coCd}

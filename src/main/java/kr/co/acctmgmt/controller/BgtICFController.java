@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.acctmgmt.domain.Divs;
+import kr.co.acctmgmt.dto.BgtGrDTO;
 import kr.co.acctmgmt.dto.BgtICFDTO;
 import kr.co.acctmgmt.dto.DivsDTO;
+import kr.co.acctmgmt.service.BgtGrService;
 import kr.co.acctmgmt.service.BgtICFService;
 import kr.co.acctmgmt.service.DivsService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,7 @@ public class BgtICFController {
 	
 	private final BgtICFService bgtICFService;
 	private final DivsService divsService;
+	private final BgtGrService bgtGrService;
 
 //	@GetMapping("/bgt/bgticf")
 //	public void getBGT(@RequestBody Budget budget) {
@@ -87,6 +90,18 @@ public class BgtICFController {
 		});
 		
 		return new ResponseEntity<List<DivsDTO>>(rDivsDTOList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/bgt/bgticf/bgtgr")
+	public void findBgtGrCdAndBgtGrNmByCoCd(BgtGrDTO bgtGrDTO) {
+		
+		System.out.println(bgtGrDTO.toString());
+		
+		List<BgtGrDTO> rBgtGrDTOList = bgtGrService.findBgtGrCdAndBgtGrNmByCoCd(bgtGrDTO);
+		
+		rBgtGrDTOList.forEach(rBgtGrDTO -> {
+			System.out.println(rBgtGrDTO.toString());
+		});
 	}
 	
 	

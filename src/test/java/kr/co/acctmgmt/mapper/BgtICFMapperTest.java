@@ -19,7 +19,7 @@ public class BgtICFMapperTest {
 	@Autowired
 	private BgtICFMapper bgticfMapper;
 	
-	@Test
+//	@Test
 	public void getBgtICFTest() {
 		
 		BgtICF bgtICF = bgticfMapper.getBgtICF("ABC");
@@ -27,7 +27,7 @@ public class BgtICFMapperTest {
 		System.out.println(bgtICF.toString());
 	}
 	
-//	@Test
+	@Test
 	public void getBgtICFListTest() {
 		
 		List<BgtICF> bgticfList = bgticfMapper.getBgtICFList();
@@ -40,21 +40,20 @@ public class BgtICFMapperTest {
 //	@Test
 	public void insertBgtICFTest() {
 		BgtICF bgticf = BgtICF.builder()
-	            .coCd("MNO")
+	            .coCd(1)
 	            .gisu(456)
 	            .sq(5)
-	            .divCd("VWX")
-	            .deptCd("PQR")
-	            .mgtCd("MGT005")
+	            .divCd(1000)
+	            .deptCd(1000)
+	            .mgtCd(1000)
 	            .bgtCd("BGT005")
-	            .bgtFg("FG005")
-	            .bgtCnt("1")
-	            .bottomCd("BT005")
+	            .bgtFg(1)
+	            .bottomNm("BT005")
 	            .carrAm((long) 1900.65)
 	            .carrAm1((long) 1600.65)
 	            .carrAm2((long) 2400.55)
 	            .carrAm3((long) 2100.75)
-	            .empCd("EMP005")
+	            .empCd(1000)
 	            .remDc("Dummy description 5")
 	            .bgtTy("A")
 	            .insertId("ID005")
@@ -73,23 +72,22 @@ public class BgtICFMapperTest {
     
 //	@Test
 	public void updateBgtICFTest() {
-	    BgtICF bgticf = BgtICF.builder()
-	            .coCd("MNO")
+		BgtICF bgticf = BgtICF.builder()
+	            .coCd(1)
 	            .gisu(456)
 	            .sq(5)
-	            .divCd("VWX")
-	            .deptCd("PQR")
-	            .mgtCd("MGT005")
+	            .divCd(1000)
+	            .deptCd(1000)
+	            .mgtCd(1000)
 	            .bgtCd("BGT005")
-	            .bgtFg("FG005")
-	            .bgtCnt("1")
-	            .bottomCd("BT005")
+	            .bgtFg(1)
+	            .bottomNm("BT005")
 	            .carrAm((long) 1900.65)
 	            .carrAm1((long) 1600.65)
 	            .carrAm2((long) 2400.55)
 	            .carrAm3((long) 2100.75)
-	            .empCd("EMP005")
-	            .remDc("Dummy description 11111")
+	            .empCd(1000)
+	            .remDc("Dummy description 5")
 	            .bgtTy("A")
 	            .insertId("ID005")
 	            .insertDt(new Date())
@@ -108,7 +106,7 @@ public class BgtICFMapperTest {
 //    @Test
     public void deleteBgticfTest() {
     	BgtICF bgticf = BgtICF.builder()
-        		.coCd("MNO")
+        		.coCd(1)
         		.gisu(456)
         		.build();
         
