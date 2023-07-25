@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Data
-//@Builder
+@Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class BgtCD {
@@ -17,6 +17,7 @@ public class BgtCD {
 	int gisu=0; //GISU;
 	String bgtNm=""; //BGTNM;
 	String divFg=""; //DIVFG;
+	String defNm="";
 	String ctlFg=""; //CTLFG;
 	String bgajustFg=""; //BGAJUSTFG;
 	Date toDt=new Date(); //TODT;

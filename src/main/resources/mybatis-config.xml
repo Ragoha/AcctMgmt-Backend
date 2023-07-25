@@ -12,6 +12,7 @@
 		<typeAlias type="kr.co.acctmgmt.domain.SysCfg" alias="SysCfg"/>
 		<typeAlias type="kr.co.acctmgmt.domain.BgtICF" alias="BgtICF"/>
 		<typeAlias type="kr.co.acctmgmt.domain.Co" alias="Co"/>
+		<typeAlias type="kr.co.acctmgmt.domain.BgtCDTerm" alias="BgtCDTerm"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="./mapper/BgtCDMapper.xml"/>
