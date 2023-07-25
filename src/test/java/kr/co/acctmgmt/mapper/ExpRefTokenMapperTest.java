@@ -1,41 +1,34 @@
 package kr.co.acctmgmt.mapper;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import kr.co.acctmgmt.domain.Co;
+import kr.co.acctmgmt.domain.ExpRefToken;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml" })
-public class CoMapperTest {
-	
+public class ExpRefTokenMapperTest {
+
 	@Autowired
-	private CoMapper coMapper;
+	private ExpRefTokenMapper expRefTokenMapper;
 	
 //	@Test
-	public void getCo(){
-		int coCd = 1;
+	public void existsByTokenTest() {
 		
-		List<Co> sco= coMapper.getCo(coCd);
-		System.out.println(sco.toString());
-	}
-	
-//	@Test
-	public void getNum() {
-		int num = coMapper.getNum();
-		System.out.println(num);
+		System.out.println(expRefTokenMapper.existsByToken("abcd"));
 	}
 	
 	@Test
-	public void deleteCo() {
-		int coCd = 2;
+	public void saveTokenTest() {
 		
-		coMapper.deleteCo(coCd);
+		ExpRefToken expRefToken = ExpRefToken.builder()
+				.token("abcd")
+				.build();
+		expRefTokenMapper.saveToken(expRefToken);
+		
+		existsByTokenTest();
 	}
-
 }
