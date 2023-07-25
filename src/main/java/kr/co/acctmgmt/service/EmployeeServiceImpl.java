@@ -44,4 +44,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public Employee loginEmployee(String id, String ps) {
 		return employeeMapper.loginEmployee(id, ps);
 	}
+
+	@Override
+	public Employee findByEmail(String email) {
+		Employee employee = employeeMapper.findByEmail(email);
+		
+		return employee;
+	}
+
+	@Override
+	public void save(Employee employee) {
+		employeeMapper.save(employee);
+		
+		Long id = employeeMapper.getIdByEmail(employee.getEmpEmail());
+		
+	}
 }

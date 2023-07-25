@@ -32,4 +32,9 @@ public class CoServiceImpl implements CoService{
 		return co;
 	}
 
+	@Override
+	public void deleteCo(int coCd) {
+		coMapper.deleteCo(coCd);
+	}
+
 }

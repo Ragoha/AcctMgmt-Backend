@@ -1,0 +1,13 @@
+package kr.co.acctmgmt.mapper;
+
+import java.util.List;
+
+import kr.co.acctmgmt.domain.Divs;
+
+public interface DivsMapper {
+
+	public List<Divs> findDivCdAndDivNmByCoCd(int coCd);
+	
+	public List<Divs> findDivCdAndDivNmByCoCdAndKeyword(Divs divs);
+	
+}

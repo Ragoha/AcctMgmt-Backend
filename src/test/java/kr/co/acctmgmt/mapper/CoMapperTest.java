@@ -17,12 +17,25 @@ public class CoMapperTest {
 	@Autowired
 	private CoMapper coMapper;
 	
-	@Test
+//	@Test
 	public void getCo(){
-		int coCd = 0;
+		int coCd = 1;
 		
 		List<Co> sco= coMapper.getCo(coCd);
 		System.out.println(sco.toString());
+	}
+	
+//	@Test
+	public void getNum() {
+		int num = coMapper.getNum();
+		System.out.println(num);
+	}
+	
+	@Test
+	public void deleteCo() {
+		int coCd = 2;
+		
+		coMapper.deleteCo(coCd);
 	}
 
 }

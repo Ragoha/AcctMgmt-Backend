@@ -29,13 +29,13 @@ public class SignUpController {
 	public ResponseEntity<String> sign(@RequestBody Employee signUpData) {
 
 		String id = signUpData.getEmpId();
-        String password = signUpData.getEmpPs();
+        String password = signUpData.getEmpPw();
         System.out.println("sign값은? : " + signUpData.toString());
         System.out.println("password @@@@: " + password);
 
         // 패스워드 암호화
         String encodedPassword = passwordEncoder.encode(password);
-        signUpData.setEmpPs(encodedPassword);
+        signUpData.setEmpPw(encodedPassword);
 
         // 회원가입 로직
         Employee employee = employeeService.getEmployee(id);
