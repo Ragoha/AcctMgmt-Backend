@@ -8,4 +8,6 @@ public interface DivsMapper {
 
 	public List<Divs> findDivCdAndDivNmByCoCd(int coCd);
 	
+	public List<Divs> findDivCdAndDivNmByKeyword(Divs divs);
+	
 }

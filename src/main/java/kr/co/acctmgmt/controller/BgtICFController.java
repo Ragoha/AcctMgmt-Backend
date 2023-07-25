@@ -76,7 +76,7 @@ public class BgtICFController {
 		return new ResponseEntity<List<Divs>>(rDivs,HttpStatus.OK);
 	}
 	
-	@GetMapping("/bgt/bgticf/div")
+//	@GetMapping("/bgt/bgticf/div")
 	public ResponseEntity<List<Divs>> findDivCdAndDivNmByCoCdAndKeyword(Divs divs){
 		
 		List<Divs> rDivs = divsService.findDivCdAndDivNmByCoCd(divs.getCoCd());

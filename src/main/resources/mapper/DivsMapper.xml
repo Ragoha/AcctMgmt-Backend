@@ -6,10 +6,16 @@
 		SELECT DIV_CD, DIV_NM FROM DIVS WHERE CO_CD = #{coCd};
 	</select>
 	
-	<select id="findDivCdAndDivNmBySearch" parameterType="String" resultType="Divs">
-	  SELECT *
-	  FROM Divs
-	  WHERE CONCAT(CO_CD, DIV_NM) LIKE '%${keyword}%'
-	</select>
+	<select id="findDivCdAndDivNmByKeyword" parameterType="Divs" resultType="Divs">
+  SELECT *
+  FROM Divs
+  WHERE CO_CD = #{coCd}
+    AND (
+      <foreach item="item" collection="keyword" separator="OR">
+        CONCAT(DIV_CD, DIV_NM) LIKE CONCAT('%', #{item}, '%')
+      </foreach>
+    )
+</select>
+
 
 </mapper>
