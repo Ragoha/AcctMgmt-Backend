@@ -1,5 +1,6 @@
 package kr.co.acctmgmt.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -17,7 +18,7 @@ public class DivsMapperTest {
 	@Autowired
 	private DivsMapper divsMapper;
 	
-	@Test
+//	@Test
 	public void findDivCdAndDivNmByCoCdTest() {
 		
 		List<Divs> divsList = divsMapper.findDivCdAndDivNmByCoCd(1); 
@@ -25,4 +26,22 @@ public class DivsMapperTest {
 			System.out.println(divs.toString());
 		});
 	}
+	
+	@Test
+	public void findDivCdAndDivNmByKeywordTest() {
+	    List<String> keywords = new ArrayList<>();
+	    keywords.add("101");
+	    keywords.add("È¸»ç");
+	    
+	    Divs divs = Divs.builder()
+	            .coCd(1)
+	            .keyword(keywords)
+	            .build();
+	    
+	    List<Divs> divsList = divsMapper.findDivCdAndDivNmByKeyword(divs); 
+	    divsList.forEach(div -> {
+	        System.out.println(div.toString());
+	    });
+	}
+
 }

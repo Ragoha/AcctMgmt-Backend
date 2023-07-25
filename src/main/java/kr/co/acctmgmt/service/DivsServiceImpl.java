@@ -23,4 +23,11 @@ public class DivsServiceImpl implements DivsService{
 		return divss;
 	}
 
+	@Override
+	public List<Divs> findDivCdAndDivNmByCoCd(List<String> keyword) {
+		
+//		List<Divs> divss = divsMapper.findDivCdAndDivNmByCoCd(keyword);
+		return null;
+	}
+
 }

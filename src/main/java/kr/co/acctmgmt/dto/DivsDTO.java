@@ -1,4 +1,4 @@
-package kr.co.acctmgmt.domain;
+package kr.co.acctmgmt.dto;
 
 import java.util.Date;
 import java.util.List;
@@ -16,7 +16,7 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Divs {
+public class DivsDTO {
 	private int coCd;  //회사코드
 	private int divCd;  //사업장코드
 	private String divNm;  //사업장명
