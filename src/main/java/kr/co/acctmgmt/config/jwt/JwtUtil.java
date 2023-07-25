@@ -14,17 +14,16 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import kr.co.acctmgmt.domain.User;
-import kr.co.acctmgmt.service.UserService;
+import kr.co.acctmgmt.domain.Employee;
+import kr.co.acctmgmt.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 
 @Component
 @RequiredArgsConstructor
 public class JwtUtil {
 
   private final ExpiredRefreshTokenService expiredRefreshTokenService;
-  private final UserService userService;
+  private final EmployeeService userService;
 
 //  @Value("${jwt.secret}")
   private String secretKey = "acctmgmt";
@@ -61,8 +60,8 @@ public class JwtUtil {
 
   public Authentication getAuthentication(String token) {
       String email = getUserPk(token);
-      User user = userService.findByEmail(email);
-      return new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities());
+      Employee employee = userService.findByEmail(email);
+      return new UsernamePasswordAuthenticationToken(employee, "", employee.getAuthorities());
   }
 
   public String getUserPk(String token) {

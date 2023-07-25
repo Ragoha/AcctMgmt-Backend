@@ -26,7 +26,7 @@ import lombok.ToString;
 public class User implements UserDetails{
 	
 	private Long id= 0L;
-
+	
     private String email = "";
     private String password ="";
     private String phoneNumber ="";

@@ -1,8 +1,22 @@
-package kr.co.acctmgmt.domain;
+package kr.co.acctmgmt.dto;
 
 import java.util.Date;
+import java.util.List;
 
-public class Div {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class DivsDTO {
 	private int coCd;  //회사코드
 	private int divCd;  //사업장코드
 	private String divNm;  //사업장명
@@ -20,4 +34,7 @@ public class Div {
 	private String coZip;  //우편번호
 	private String coAddr;  //주소
 	private String coAddr1;  //상세주소
+	
+	
+	private List<String> keyword;
 }
