@@ -21,6 +21,7 @@ public class BgtGrConverter {
 				.modifyId(bgtGr.getModifyId())
 				.modifyDt(bgtGr.getModifyDt())
 				.modifyIp(bgtGr.getModifyIp())
+				.keyword(bgtGr.getKeyword())
 				.build();
 		
 		return bgtGrDTO;
@@ -39,6 +40,7 @@ public class BgtGrConverter {
 				.modifyId(bgtGrDTO.getModifyId())
 				.modifyDt(bgtGrDTO.getModifyDt())
 				.modifyIp(bgtGrDTO.getModifyIp())
+				.keyword(bgtGrDTO.getKeyword())
 				.build();
 		
 		return bgtGr;

@@ -19,11 +19,21 @@ public class BgtGrServiceImpl implements BgtGrService {
 	@Override
 	public List<BgtGrDTO> findBgtGrCdAndBgtGrNmByCoCd(BgtGrDTO bgtGrDTO) {
 		
-		List<BgtGr> rBgtGrList = bgtGrMapper.findBgtGrCdAndBgtGrNmByCoCd(bgtGrDTO.getCoCd());
+		BgtGr bgtgr = BgtGrConverter.convertToModel(bgtGrDTO);
 		
-		List<BgtGrDTO> rBgtGrDTOList = BgtGrConverter.convertToDtoList(rBgtGrList);
+		List<BgtGr> rBgtGrList = bgtGrMapper.findBgtGrByCoCdAndKeyword(bgtgr);
 		
-		return rBgtGrDTOList;
+		return BgtGrConverter.convertToDtoList(rBgtGrList);
+	}
+
+	@Override
+	public List<BgtGrDTO> findBgtGrCdAndBgtGrNmByKeyword(BgtGrDTO bgtGrDTO) {
+		
+		BgtGr bgtgr = BgtGrConverter.convertToModel(bgtGrDTO);
+		
+		List<BgtGr> rBgtGrList = bgtGrMapper.findBgtGrByCoCdAndKeyword(bgtgr);
+		
+		return BgtGrConverter.convertToDtoList(rBgtGrList);
 	}
 
 }

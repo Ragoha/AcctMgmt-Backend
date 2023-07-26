@@ -29,7 +29,7 @@
 	
 	<update id="updateCo" parameterType="Co" >
 		UPDATE CO SET 
-		CO_NM = #{coNm}, JONGMOK = #{jongmok}, BUSINESS_TYPE = #{businessType}, CO_NB = #{coNb}, CEO_NM = #{ceoNm}, 
+		CO_CD =#{coCd}, CO_NM = #{coNm}, JONGMOK = #{jongmok}, BUSINESS_TYPE = #{businessType}, CO_NB = #{coNb}, CEO_NM = #{ceoNm}, 
 		CO_ZIP = #{coZip}, CO_ADDR = #{coAddr}, CO_ADDR1 = #{coAddr1}
 		WHERE CO_CD=#{coCd}
 	</update>
