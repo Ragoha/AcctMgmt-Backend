@@ -42,14 +42,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
-        // origin ����� port �� "*" �� ���� �� �����־��� ���Ŀ� �����
-        // Arrays.asList("<http://localhost:3000>") ���� ��Ʈ�� �־� ��������.
+        // origin 占쏙옙占쏙옙占� port 占쏙옙 "*" 占쏙옙 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쌍억옙占쏙옙 占쏙옙占식울옙 占쏙옙占쏙옙占�
+        // Arrays.asList("<http://localhost:3000>") 占쏙옙占쏙옙 占쏙옙트占쏙옙 占쌍억옙 占쏙옙占쏙옙占쏙옙占쏙옙.
         corsConfiguration.setAllowedOriginPatterns(Arrays.asList("*"));
-        // ����� method "*" �� "GET", "POST", "PUT", "DELETE", "OPTIONS" ���� �� �������
+        // 占쏙옙占쏙옙占� method "*" 占쏙옙 "GET", "POST", "PUT", "DELETE", "OPTIONS" 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쏙옙占�
         corsConfiguration.setAllowedMethods(Arrays.asList("*"));
-        // ����� header
+        // 占쏙옙占쏙옙占� header
         corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
-        // �����û���� ����� header
+        // 占쏙옙占쏙옙占시삼옙占쏙옙占� 占쏙옙占쏙옙占� header
         corsConfiguration.setExposedHeaders(Arrays.asList("Authorization", "refresh-token", "access-token"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -72,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/join/**").permitAll()
             .antMatchers("/join").permitAll()
             .antMatchers("/emp/**").permitAll()
-            .antMatchers("/bgt/**").permitAll()
+            .antMatchers("/bgticf/**").permitAll()
             .antMatchers("/syscfg/**").permitAll()
             .antMatchers("/info/**").permitAll()
             .antMatchers("/ozt/**").permitAll()

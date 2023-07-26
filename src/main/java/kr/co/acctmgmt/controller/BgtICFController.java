@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,7 +47,7 @@ public class BgtICFController {
 		return new ResponseEntity<List<BgtICFDTO>>(bgtList, HttpStatus.OK); 
 	}
 	
-	@GetMapping("/bgt/bgticf")
+	@GetMapping("/bgticf")
 //	public void getBGT(@RequestBody Budget budget) {
 	public ResponseEntity<List<BgtICFDTO>> getBgtICFList() {
 		
@@ -56,7 +57,7 @@ public class BgtICFController {
 		return new ResponseEntity<List<BgtICFDTO>>(rBgtICFList, HttpStatus.OK); 
 	}
 	
-	@DeleteMapping("/bgt/bgticf/{sq}")
+	@DeleteMapping("/bgticf/{sq}")
 	public ResponseEntity<Void> deleteBgtICFList(@PathVariable String sq){
 		bgtICFService.deleteBgtICF(BgtICFDTO.builder()
 				.sq(Integer.valueOf(sq))
@@ -66,24 +67,24 @@ public class BgtICFController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@PutMapping("/bgt/bgticf/")
+	@PutMapping("/bgticf")
 	public ResponseEntity<Void> updateBgtICF(BgtICFDTO bgtICFDTO){
 		System.out.println(bgtICFDTO);
 //		bgtICFService.updateBgtICF(bgtICFDTO);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@GetMapping("/bgt/bgticf/div")
-	public ResponseEntity<List<Divs>> findDivCdAndDivNmByCoCd(Divs divs){
+	@GetMapping("/bgticf/div")
+	public ResponseEntity<List<DivsDTO>> findDivCdAndDivNmByCoCd(DivsDTO divsDTO){
 		
-		List<Divs> rDivs = divsService.findDivCdAndDivNmByCoCd(divs.getCoCd());
-		return new ResponseEntity<List<Divs>>(rDivs,HttpStatus.OK);
+		List<DivsDTO> rDivsDTOList = divsService.findDivsByCoCd(divsDTO);
+		return new ResponseEntity<List<DivsDTO>>(rDivsDTOList,HttpStatus.OK);
 	}
 	
-	@GetMapping("/bgt/bgticf/div/search")
+	@GetMapping("/bgticf/div/search")
 	public ResponseEntity<List<DivsDTO>> findDivCdAndDivNmByCoCdAndKeyword(DivsDTO divsDTO){
 		
-		List<DivsDTO> rDivsDTOList = divsService.findDivCdAndDivNmByCoCdAndKeyword(divsDTO);
+		List<DivsDTO> rDivsDTOList = divsService.findDivsByCoCdAndKeyword(divsDTO);
 		
 		rDivsDTOList.forEach(rDivs -> {
 		System.out.println(rDivs.toString());
@@ -92,16 +93,27 @@ public class BgtICFController {
 		return new ResponseEntity<List<DivsDTO>>(rDivsDTOList, HttpStatus.OK);
 	}
 	
-	@GetMapping("/bgt/bgticf/bgtgr")
-	public void findBgtGrCdAndBgtGrNmByCoCd(BgtGrDTO bgtGrDTO) {
+	@GetMapping("/bgticf/bgtgr")
+	public ResponseEntity<List<BgtGrDTO>> findBgtGrCdAndBgtGrNmByCoCd(BgtGrDTO bgtGrDTO) {
 		
 		System.out.println(bgtGrDTO.toString());
 		
 		List<BgtGrDTO> rBgtGrDTOList = bgtGrService.findBgtGrCdAndBgtGrNmByCoCd(bgtGrDTO);
 		
-		rBgtGrDTOList.forEach(rBgtGrDTO -> {
-			System.out.println(rBgtGrDTO.toString());
-		});
+		return new ResponseEntity<List<BgtGrDTO>>(rBgtGrDTOList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/bgticf/bgtgr/search")
+	public ResponseEntity<List<BgtGrDTO>> findBgtGrCdAndBgtGrNmByKeyword(BgtGrDTO bgtGrDTO) {
+		
+		System.out.println(bgtGrDTO.toString());
+		
+		List<BgtGrDTO> rBgtGrDTOList = bgtGrService.findBgtGrCdAndBgtGrNmByKeyword(bgtGrDTO);
+		
+		
+		
+		System.out.println(rBgtGrDTOList.toString());
+		return new ResponseEntity<List<BgtGrDTO>>(rBgtGrDTOList, HttpStatus.OK);
 	}
 	
 	

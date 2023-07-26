@@ -28,4 +28,6 @@ public class BgtGrDTO {
     private Date modifyDt;
     private String modifyIp;
     
+    private String keyword;
+    
 }
