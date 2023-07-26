@@ -18,19 +18,21 @@ public class DivsServiceImpl implements DivsService{
 	private final DivsMapper divsMapper;
 
 	@Override
-	public List<Divs> findDivCdAndDivNmByCoCd(int coCd) {
+	public List<DivsDTO> findDivsByCoCd(DivsDTO divsDTO) {
 		
-		List<Divs> divss = divsMapper.findDivCdAndDivNmByCoCd(coCd);
+		Divs dvis = DivsConverter.convertToModel(divsDTO);
 		
-		return divss;
+		List<Divs> divsList = divsMapper.findDivsByCoCdAndKeyword(dvis);
+		
+		return DivsConverter.convertToDtoList(divsList);
 	}
 
 	@Override
-	public List<DivsDTO> findDivCdAndDivNmByCoCdAndKeyword(DivsDTO divsDTO) {
+	public List<DivsDTO> findDivsByCoCdAndKeyword(DivsDTO divsDTO) {
 		
 		Divs divs = DivsConverter.convertToModel(divsDTO);
 		
-		List<Divs> divsList = divsMapper.findDivCdAndDivNmByCoCdAndKeyword(divs);
+		List<Divs> divsList = divsMapper.findDivsByCoCdAndKeyword(divs);
 		
 		List<DivsDTO> divsDTOList = DivsConverter.convertToDtoList(divsList);
 		return divsDTOList;

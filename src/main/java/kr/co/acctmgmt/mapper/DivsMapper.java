@@ -6,8 +6,6 @@ import kr.co.acctmgmt.domain.Divs;
 
 public interface DivsMapper {
 
-	public List<Divs> findDivCdAndDivNmByCoCd(int coCd);
-	
-	public List<Divs> findDivCdAndDivNmByCoCdAndKeyword(Divs divs);
+	public List<Divs> findDivsByCoCdAndKeyword(Divs divs);
 	
 }

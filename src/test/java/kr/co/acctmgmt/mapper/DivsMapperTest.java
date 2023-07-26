@@ -18,30 +18,28 @@ public class DivsMapperTest {
 	@Autowired
 	private DivsMapper divsMapper;
 	
-//	@Test
-	public void findDivCdAndDivNmByCoCdTest() {
-		
-		List<Divs> divsList = divsMapper.findDivCdAndDivNmByCoCd(1); 
-		divsList.forEach(divs -> {
-			System.out.println(divs.toString());
-		});
-	}
-	
 	@Test
-	public void findDivCdAndDivNmByKeywordTest() {
-	    List<String> keywords = new ArrayList<>();
-	    keywords.add("101");
-	    keywords.add("È¸»ç");
-	    
-	    Divs divs = Divs.builder()
-	            .coCd(1)
-	            .keyword("02")
-	            .build();
-	    
-	    List<Divs> divsList = divsMapper.findDivCdAndDivNmByCoCdAndKeyword(divs); 
-	    divsList.forEach(div -> {
-	        System.out.println(div.toString());
-	    });
+	public void findDivsByCoCdAndKeywordTest() {
+		
+		Divs divs1 = Divs.builder()
+				.coCd(1)
+				.build();
+		
+		Divs divs2 = Divs.builder()
+				.coCd(1)
+				.keyword("·ì1")
+				.build();
+		
+		
+		List<Divs> divsList1 = divsMapper.findDivsByCoCdAndKeyword(divs1);
+		List<Divs> divsList2 = divsMapper.findDivsByCoCdAndKeyword(divs2);
+		
+		System.out.println(divsList1);
+		System.out.println();
+		System.out.println(divsList2);
+		
+		
+		
 	}
 
 }
