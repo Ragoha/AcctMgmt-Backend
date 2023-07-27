@@ -7,17 +7,17 @@ import kr.co.acctmgmt.domain.BgtCDTerm;
 import kr.co.acctmgmt.dto.BgtCDTermDTO;
 
 public interface BgtCDService {
-   public List<BgtCD> getSBGTCDData(String groupcd);
+   public List<BgtCD> getBGTCDData(String groupcd);
    
    public String getDefNmFromBGTCD_TERM(String divFg);
 
    public List<BgtCD> getDetailInfo(String bgt_Cd);
    
-	public int updateDetailInfo(BgtCD updateData);
+	public void updateDetailInfo(BgtCD updateData);
 	
 	public void deleteRow(String bgtCd);
 	
-	public List<BgtCDTermDTO> getSbgtCDTerm(String CO_CD);
+	public List<BgtCDTermDTO> getBgtCDTerm(String CO_CD);
 
 	public List<BgtCDTermDTO> updateBgtCDTerm(List<BgtCDTermDTO> dataList);
 	

@@ -8,17 +8,17 @@ import kr.co.acctmgmt.dto.BgtCDTermDTO;
 
 public interface BgtCDMapper {
 	
-	public List<BgtCD> getSBGTCDData(String groupcd);
+	public List<BgtCD> getBGTCDData(String groupcd);
 	
 	public List<BgtCD> getDetailInfo(String bgtCd);
 	
 	public int getDetailInfo(BgtCD updateData);
 	
-	public int updateDetailInfo(BgtCD updateData);
+	public void updateDetailInfo(BgtCD updateData);
 
 	public void deleteRow(String bgtCd);
 	
-	public List<BgtCDTerm> getSbgtCDTerm(String CO_CD);
+	public List<BgtCDTerm> getBgtCDTerm(String CO_CD);
 	
 	public int updateBgtCDTerm(BgtCDTerm dataList);
 	
