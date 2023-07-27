@@ -63,4 +63,12 @@ public class CoController {
 		List<Co> coList = coService.getCoList();
 		return coList;
 	}
+	
+	@GetMapping("/ozt/co/search")
+	public List<Co> getCoBycoCdAndcoNm(Co co){
+		
+		List<Co> searchCo = coService.getCoBycoCdAndcoNm(co);
+		System.out.println(searchCo);
+		return searchCo;
+	}
 }
