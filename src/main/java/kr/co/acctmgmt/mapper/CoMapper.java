@@ -16,5 +16,7 @@ public interface CoMapper {
 	
 	public void deleteCo(int coCd);
 	
-	public void updateCo(int coCd);
+	public void updateCo(Co co);
+	
+	public List<Co> getCoBycoCdAndcoNm(Co co);
 }

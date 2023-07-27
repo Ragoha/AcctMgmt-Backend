@@ -31,4 +31,5 @@ public class Co {
 	private String coAddr;  //주소
 	private String coAddr1;  //상세주소
 	
+	private String keyword; //임시검색변수
 }

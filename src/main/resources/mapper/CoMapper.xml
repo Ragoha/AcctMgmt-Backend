@@ -29,7 +29,7 @@
 	
 	<update id="updateCo" parameterType="Co" >
 		UPDATE CO SET 
-		CO_NM = #{coNm}, JONGMOK = #{jongmok}, BUSINESS_TYPE = #{businessType}, CO_NB = #{coNb}, CEO_NM = #{ceoNm}, 
+		CO_CD =#{coCd}, CO_NM = #{coNm}, JONGMOK = #{jongmok}, BUSINESS_TYPE = #{businessType}, CO_NB = #{coNb}, CEO_NM = #{ceoNm}, 
 		CO_ZIP = #{coZip}, CO_ADDR = #{coAddr}, CO_ADDR1 = #{coAddr1}
 		WHERE CO_CD=#{coCd}
 	</update>
@@ -37,5 +37,15 @@
 	<delete id="deleteCo" parameterType="int" >
 		DELETE from co WHERE CO_CD = #{coCd}; 
 	</delete>
+	
+	<select id="getCoBycoCdAndcoNm" parameterType="Co" resultType="Co">
+	 SELECT CO_CD, CO_NM 
+	    FROM CO
+	    WHERE (
+	            CO_CD LIKE CONCAT('%', #{keyword}, '%')
+	            OR
+	            CO_NM LIKE CONCAT('%', #{keyword}, '%')
+	        );
+	</select>
 
 </mapper>

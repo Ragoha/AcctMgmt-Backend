@@ -39,9 +39,15 @@ public class CoServiceImpl implements CoService{
 	}
 
 	@Override
-	public void updateCo(int coCd) {
-		coMapper.updateCo(coCd);
+	public void updateCo(Co co) {
+		coMapper.updateCo(co);
 		
+	}
+
+	@Override
+	public List<Co> getCoBycoCdAndcoNm(Co co) {
+		List<Co> searchCo = coMapper.getCoBycoCdAndcoNm(co);
+		return searchCo;
 	}
 
 }

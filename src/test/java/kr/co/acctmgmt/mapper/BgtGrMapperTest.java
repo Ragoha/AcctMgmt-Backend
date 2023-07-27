@@ -18,12 +18,24 @@ public class BgtGrMapperTest {
 	private BgtGrMapper bgtGrMapper;
 	
 	@Test
-	public void findBgtGrCdAndBgtGrNmByCoCdTest() {
+	public void findBgtGrByCoCdOrKeywordTest() {
 		
-		List<BgtGr> bgtGrList = bgtGrMapper.findBgtGrCdAndBgtGrNmByCoCd(1);
+		BgtGr bgtGr1 = BgtGr.builder()
+				.coCd(1)
+				.build();
 		
-		bgtGrList.forEach(bgtGr -> {
-			System.out.println(bgtGr.toString());
-		});
+		BgtGr bgtGr2 = BgtGr.builder()
+				.coCd(1)
+				.keyword("·ì1")
+				.build();
+		
+		List<BgtGr> bgtGrList1 = bgtGrMapper.findBgtGrByCoCdAndKeyword(bgtGr1);
+		List<BgtGr> bgtGrList2 = bgtGrMapper.findBgtGrByCoCdAndKeyword(bgtGr2);
+		
+		System.out.println(bgtGrList1);
+		System.out.println("");
+		System.out.println(bgtGrList2);
+		
 	}
+	
 }
