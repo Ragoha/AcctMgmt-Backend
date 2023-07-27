@@ -19,13 +19,17 @@ public class BgtCDServiceImpl implements BgtCDService {
 	private final BgtCDMapper mapper;
 
 	@Override
-	public List<BgtCD> getSBGTCDData(String groupcd) {
-		List<BgtCD> list= mapper.getSBGTCDData(groupcd); //defNm이 필요함 .
+	public List<BgtCD> getBGTCDData(String groupcd) {
+		List<BgtCD> list= mapper.getBGTCDData(groupcd); //defNm이 필요함 .
 		
 		for(int i =0 ; i<list.size();i++) {
 			String temp = list.get(i).getDivFg()+"lv";
 			list.get(i).setDefNm(getDefNmFromBGTCD_TERM(temp));
+			
+			//list.get(i).set
 		}
+		System.out.println("여기서 찍어봐");
+		System.out.println(list.toString());
 		return list;
 	}
 	@Override
@@ -42,9 +46,8 @@ public class BgtCDServiceImpl implements BgtCDService {
 	}
 
 	@Override
-	public int updateDetailInfo(BgtCD updateData) {
-		int changeRow = mapper.updateDetailInfo(updateData);
-		return changeRow;
+	public void updateDetailInfo(BgtCD updateData) {
+		mapper.updateDetailInfo(updateData);
 	}
 
 	@Override
@@ -54,9 +57,9 @@ public class BgtCDServiceImpl implements BgtCDService {
 	}
 
 	@Override
-	public List<BgtCDTermDTO> getSbgtCDTerm(String CO_CD) {
+	public List<BgtCDTermDTO> getBgtCDTerm(String CO_CD) {
 		System.out.println("getSbgtCDTerm로 오긴하니 ?");
-		List<BgtCDTerm> list = mapper.getSbgtCDTerm(CO_CD);
+		List<BgtCDTerm> list = mapper.getBgtCDTerm(CO_CD);
 		return BgtCDTermConverter.convertToDtoList(list);
 	}
 
@@ -68,7 +71,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 	        BgtCDTerm temp= BgtCDTermConverter.convertToModel(data);
 	        mapper.updateBgtCDTerm(temp);
 	    }
-		List<BgtCDTerm> list = mapper.getSbgtCDTerm(coCD);
+		List<BgtCDTerm> list = mapper.getBgtCDTerm(coCD);
 		
 		return BgtCDTermConverter.convertToDtoList(list);
 	}

@@ -32,7 +32,7 @@ public class BgtCDController {
 	@GetMapping("/bgt/bgtcd/getGridData") // groupcd 
 	public List<BgtCD> getGridData(@RequestParam String groupcd) {
 		System.out.println("groupcd를 찾아야함");
-		List<BgtCD> list = service.getSBGTCDData(groupcd);
+		List<BgtCD> list = service.getBGTCDData(groupcd);
 		System.out.println("여아래 값에서 defNm찾아보자");
 		System.out.println(list.toString());
 		return list;
@@ -42,26 +42,31 @@ public class BgtCDController {
 	public ResponseEntity<List<BgtCD>> getDetailInfo(@RequestParam String bgtCd) {
 		System.out.println("getDetailINfo 입니다 : " + bgtCd);
 		List<BgtCD> list = service.getDetailInfo(bgtCd);
+		System.out.println("아래가 contorller에서 보내기 직전 값");
 		System.out.println(list.toString());
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
-	@GetMapping("/bgt/bgtcd/getSbgtCDTerm")
-	public List<BgtCDTermDTO> getSbgtCDTerm(@RequestParam String CO_CD){
+	@GetMapping("/bgt/bgtcd/getBgtCDTerm")
+	public List<BgtCDTermDTO> getBgtCDTerm(@RequestParam String CO_CD){
 		//System.out.println("controller의 getSbgtCDTerm");
-		List<BgtCDTermDTO> list = service.getSbgtCDTerm(CO_CD);
+		List<BgtCDTermDTO> list = service.getBgtCDTerm(CO_CD);
 		//System.out.println(">>>>>>>>>>>>>>>>>>>: " + list.toString());
 		return list;
+	}
+	@PutMapping("/bgt/bgtcd/getPath")
+	public String getPath(@RequestBody String bgtCd) {
+		System.out.println(bgtCd);
+		return "path받았어 ?";
 	}
 	/*조회end*/
 	
 	
 	/*업데이트 start */
 	@PutMapping("/bgt/bgtcd/updateDetailInfo")
-	public String updateDetailInfo(@RequestBody BgtCD updateData) {//@RequestParam SBGTCDDomain updateData
+	public void updateDetailInfo(@RequestBody BgtCD updateData) {//@RequestParam SBGTCDDomain updateData
 		System.out.println("으에에에에에엑");
 		System.out.println(updateData.toString());
-		//service.updateDetailInfo(updateData);
-		return "여기가 컨트롤러야~ "  ;
+		service.updateDetailInfo(updateData);
 	}
 	@PutMapping("/bgt/bgtcd/updateBgtCDTerm")
 	public List<BgtCDTermDTO> updateBgtCDTerm(@RequestBody List<BgtCDTermDTO> dataList) {//2중배열을 받을때 front에선 params : {data:data} 로보내는게 아니라 경로 뒤에 바로 axios.pust(/path  ,  data) 로 보낸다

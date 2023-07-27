@@ -31,4 +31,5 @@ public class BgtCD {
 	String modifyId=""; //수정
 	Date modifyDt= new Date(); //수정 일_
 	String modifyIp="";
+	String dataPath="";
 }
