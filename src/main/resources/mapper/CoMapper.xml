@@ -37,5 +37,15 @@
 	<delete id="deleteCo" parameterType="int" >
 		DELETE from co WHERE CO_CD = #{coCd}; 
 	</delete>
+	
+	<select id="getCoBycoCdAndcoNm" parameterType="Co" resultType="Co">
+	 SELECT CO_CD, CO_NM 
+	    FROM CO
+	    WHERE (
+	            CO_CD LIKE CONCAT('%', #{keyword}, '%')
+	            OR
+	            CO_NM LIKE CONCAT('%', #{keyword}, '%')
+	        );
+	</select>
 
 </mapper>

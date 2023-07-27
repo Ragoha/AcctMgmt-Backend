@@ -39,10 +39,10 @@ public class CoMapperTest {
 	}
 	
 //	@Test
-	public void updateCo() {
-		int coCd = 1007;
-		String coAddr="서초구";
-		coMapper.updateCo(coCd);
-	}
+//	public void updateCo() {
+//		int coCd = 1007;
+//		String coAddr="서초구";
+//		coMapper.updateCo(coCd);
+//	}
 
 }

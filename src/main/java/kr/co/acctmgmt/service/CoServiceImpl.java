@@ -44,4 +44,10 @@ public class CoServiceImpl implements CoService{
 		
 	}
 
+	@Override
+	public List<Co> getCoBycoCdAndcoNm(Co co) {
+		List<Co> searchCo = coMapper.getCoBycoCdAndcoNm(co);
+		return searchCo;
+	}
+
 }

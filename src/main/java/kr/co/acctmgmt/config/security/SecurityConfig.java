@@ -44,6 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // origin 占쏙옙占쏙옙占� port 占쏙옙 "*" 占쏙옙 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쌍억옙占쏙옙 占쏙옙占식울옙 占쏙옙占쏙옙占�
         // Arrays.asList("<http://localhost:3000>") 占쏙옙占쏙옙 占쏙옙트占쏙옙 占쌍억옙 占쏙옙占쏙옙占쏙옙占쏙옙.
+        corsConfiguration.setAllowCredentials(true); // 'Access-Control-Allow-Credentials' 헤더를 true로 설정
+
         corsConfiguration.setAllowedOriginPatterns(Arrays.asList("*"));
         // 占쏙옙占쏙옙占� method "*" 占쏙옙 "GET", "POST", "PUT", "DELETE", "OPTIONS" 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쏙옙占�
         corsConfiguration.setAllowedMethods(Arrays.asList("*"));
@@ -72,10 +74,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/join/**").permitAll()
             .antMatchers("/join").permitAll()
             .antMatchers("/emp/**").permitAll()
-            .antMatchers("/bgticf/**").permitAll()
+            .antMatchers("/bgt/**").permitAll()
             .antMatchers("/syscfg/**").permitAll()
             .antMatchers("/info/**").permitAll()
             .antMatchers("/ozt/**").permitAll()
+            .antMatchers("/logouta/**").permitAll()
+            .antMatchers("/message").permitAll()
             .anyRequest().authenticated()
             .and()
             .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
