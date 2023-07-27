@@ -13,33 +13,33 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtUtil jwtUtil;
+	private final JwtUtil jwtUtil;
 
-    public JwtAuthenticationFilter(JwtUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
-    }
+	public JwtAuthenticationFilter(JwtUtil jwtUtil) {
+		this.jwtUtil = jwtUtil;
+	}
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+	@Override
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException {
 
-        String accessToken = jwtUtil.resolveAccessToken(request);
-        boolean isAccessTokenValid = accessToken != null && jwtUtil.validateToken(accessToken);
+		String accessToken = jwtUtil.resolveAccessToken(request);
+		boolean isAccessTokenValid = accessToken != null && jwtUtil.validateToken(accessToken);
 
-        try {
-            if (isAccessTokenValid) {
-                Authentication authentication = jwtUtil.getAuthentication(accessToken);
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            } else {
-                String refreshToken = jwtUtil.resolveRefreshToken(request);
-                if (refreshToken != null && jwtUtil.validateRefreshToken((refreshToken))) {
-                    Authentication authentication = jwtUtil.getAuthentication(refreshToken);
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
-            }
-        } catch (Exception e) {
-
-        }
-        filterChain.doFilter(request, response);
-    }
+		try {
+			if (isAccessTokenValid) {
+				Authentication authentication = jwtUtil.getAuthentication(accessToken);
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+			} else {
+				String refreshToken = jwtUtil.resolveRefreshToken(request);
+				if (refreshToken != null && jwtUtil.validateRefreshToken((refreshToken))) {
+					Authentication authentication = jwtUtil.getAuthentication(refreshToken);
+					SecurityContextHolder.getContext().setAuthentication(authentication);
+				}
+			}
+		} catch (Exception e) {
+			SecurityContextHolder.clearContext();
+		}
+		filterChain.doFilter(request, response);
+	}
 }

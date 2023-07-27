@@ -10,8 +10,8 @@
 //    @Override
 //    public void addCorsMappings(CorsRegistry registry) {
 //        registry.addMapping("/**")
-//                .exposedHeaders("X-AUTH-TOKEN")
+//                .allowedOrigins("http://localhost:3000")
 //                .allowCredentials(true)
-//                .allowedOrigins("http://localhost:3000");
+//                .allowedMethods("GET", "POST", "PUT", "DELETE");
 //    }
 //}
