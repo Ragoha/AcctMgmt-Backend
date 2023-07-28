@@ -75,6 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/join").permitAll()
             .antMatchers("/emp/**").permitAll()
             .antMatchers("/bgt/**").permitAll()
+            .antMatchers("/bgticf/**").permitAll()
             .antMatchers("/syscfg/**").permitAll()
             .antMatchers("/info/**").permitAll()
             .antMatchers("/ozt/**").permitAll()

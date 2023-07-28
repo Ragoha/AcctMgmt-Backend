@@ -15,7 +15,7 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BgtGrDTO {
+public class BgtGrDTO extends UserDTO{
 
 	private int coCd;
 	private int bgtGrCd;
