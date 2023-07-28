@@ -48,7 +48,7 @@ public class UserAPI {
 		System.out.println(user.toString());
 		userService.save(Employee.builder().empId(user.getEmpId()).empPw(passwordEncoder.encode(user.getEmpPw()))
 				.empName(user.getEmpName()).empTel(user.getEmpTel()).empEmail(user.getEmpEmail()).empSx(user.getEmpSx())
-				.coCd(user.getCoCd()).empOd(user.getEmpOd()).empAuth("ROLE_USER").build());
+				.coCd(user.getCoCd()).empOd(user.getEmpOd()).empAuth(user.getEmpAuth()).build());
 	}
 
 	@GetMapping("/emp/idcheck/{checkId}")
@@ -86,7 +86,8 @@ public class UserAPI {
 
 		} else {
 			if (emp != null) {
-				user = userService.findByEmail(emp.getEmpId());
+				user = userService.findByEmails(emp.getEmpId());
+				System.out.println("user??: " + user.toString());
 				System.out.println("여기까지3");
 				System.out.println(user.getPassword());
 				if (!passwordEncoder.matches(emp.getPassword(), user.getPassword())) {
@@ -97,7 +98,6 @@ public class UserAPI {
 			}
 			System.out.println("여기까지4");
 		}
-		System.out.println("11");
 		if (user == null) {
 			// 유저객체를 제대로 불러오지 못할때 처리할 로직
 		}
@@ -175,24 +175,27 @@ public class UserAPI {
 	
 	
 	@GetMapping("/info")
-	public EmployeeDTO getInfo() {
-//	    Object details = SecurityContextHolder.getContext().getAuthentication().getName();
-//	    System.out.println("details.toString : " + details.toString());
-//	    System.out.println("details : " + details);
-//	    if (details != null && !(details instanceof String)) {
-//	        System.out.println("hihi:" + details.toString());
-//	        return new EmployeeDTO((Employee) details);
-//	    }
+	public ResponseEntity<Object> getInfo() {
+		Authentication details = SecurityContextHolder.getContext().getAuthentication();
+	    System.out.println("details.toString : " + details.toString());
+	    System.out.println("details : " + details);
+	    if (details != null && (details.isAuthenticated())) {
+	        System.out.println("hihi:" + details.toString());
+	        return new ResponseEntity<>(details, HttpStatus.OK);
+	    }
 	 // 인증 여부 확인
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication != null && authentication.isAuthenticated()) {
-		    System.out.println("사용자 이름: " + authentication.getName());
-
-		    authentication.getAuthorities().forEach(authority -> System.out.println("사용자 권한: " + authority.getAuthority()));
-		} else {
-		    System.out.println("사용자가 인증되지 않았습니다.");
-		}
-		
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		System.out.println("$$$$$$$" + authentication);
+//		System.out.println("$$$$$$$" + authentication.toString());
+//		if (authentication != null && authentication.isAuthenticated()) {
+//		    System.out.println("사용자 이름: " + authentication.getName());
+//
+//		    authentication.getAuthorities().forEach(authority -> System.out.println("사용자 권한:22 " + authority.getAuthority()));
+//		} else {
+//		    System.out.println("사용자가 인증되지 않았습니다.");
+//		    return null;
+//		}
+//		
 //		boolean isAuthenticated = authentication.isAuthenticated();
 //
 //		if (isAuthenticated) {
@@ -218,6 +221,8 @@ public class UserAPI {
 //		    System.out.println("사용자가 인증되지 않았습니다.");
 //		}
 		return null;
+		
+//		return new ResponseEntity<String>(authentication, HttpStatus.OK);
 	}
 //	}
 //	@GetMapping("/info")

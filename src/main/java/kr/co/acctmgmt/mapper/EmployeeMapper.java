@@ -24,6 +24,8 @@ public interface EmployeeMapper {
 	public Employee loginEmployee(@Param("empId") String empId, @Param("empPs") String empPs);
 
 	public Employee findByEmail(String email);
+	
+	public Employee findByEmails(String email);
 
 	public void save(Employee Employee);
 
