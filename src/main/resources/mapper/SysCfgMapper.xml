@@ -4,15 +4,24 @@
 
 
 	<select id="getConfigList" resultType="SysCfg">
-		SELECT * from SYSCFG where co_CD = #{coCd};
+		SELECT * FROM SYSCFG
+		WHERE
+		co_CD = #{coCd}
+		ORDER BY sys_CD
 	</select>
 
+	<select id="getConfig" resultType="SysCfg">
+		SELECT * FROM SYSCFG
+		WHERE
+		co_CD = #{coCd}
+		AND
+		sys_CD =#{sysCd}
+	</select>
 
- 	<update id="updateConfig" parameterType="SysCfg">
-		UPDATE SYSCFG 
-		SET 
-			sys_YN = #{sysYn}
-		WHERE sys_CD = #{sysCD}
+	<update id="updateConfig" parameterType="SysCfg">
+		UPDATE SYSCFG
+		SET sys_YN = #{sysYn}, modify_DT = NOW()
+		WHERE sys_CD = #{sysCd}
 	</update>
 
 </mapper>

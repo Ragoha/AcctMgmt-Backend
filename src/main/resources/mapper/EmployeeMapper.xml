@@ -19,10 +19,10 @@
 
 	<insert id="save" parameterType="Employee">
 		INSERT INTO EMP
-		(emp_ID, emp_NAME, emp_PW, emp_EMAIL, emp_SX, emp_TEL, CO_CD, emp_OD)
+		(emp_ID, emp_NAME, emp_PW, emp_EMAIL, emp_SX, emp_TEL, CO_CD, emp_OD, emp_AUTH)
 		VALUES
 		(#{empId}, #{empName}, #{empPw}, #{empEmail}, #{empSx}, #{empTel}, #{coCd},
-		#{empOd});
+		#{empOd}, #{empAuth});
 	</insert>
 
 	<update id="updateEmployee" parameterType="Employee">
@@ -53,6 +53,10 @@
 
 
 	<select id="findByEmail" resultType="Employee">
+		SELECT * FROM EMP where emp_EMAIL = #{empEmail}
+	</select>
+	
+	<select id="findByEmails" resultType="Employee">
 		SELECT * FROM EMP where emp_ID = #{empId}
 	</select>
 	
