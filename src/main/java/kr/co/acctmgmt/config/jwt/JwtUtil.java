@@ -29,7 +29,7 @@ public class JwtUtil {
 //  @Value("${jwt.secret}")
   private String secretKey = "acctmgmt";
 
-  private final long ACCESS_TOKEN_VALID_TIME = 1000L * 60 * 60; //1시간
+  private final long ACCESS_TOKEN_VALID_TIME = 1000L * 60 * 60 * 24; //1시간
   private final long REFRESH_TOKEN_VALID_TIME = 1000L * 60 * 60 * 24 * 60; // 2달
 
   public String createAccessToken(String userPk, String role) {

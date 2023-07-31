@@ -44,4 +44,19 @@
 		WHERE
 		CO_CD=#{coCd} and DIV_FG=#{divFg}
 	</update>
+	
+	<select id = "findBgcCDByGroupCdAndToDtAndKeyword" parameterType="BgtCD" resultType="BgtCD">
+		SELECT *
+		FROM BGTCD
+		WHERE CO_CD = #{coCd} 
+		AND TO_DT > #{toDt} 
+		AND GROUP_CD = #{groupCd}
+		<if test="keyword != null and keyword != ''">
+	        AND (
+	            BGT_CD LIKE CONCAT('%', #{keyword}, '%')
+	            OR
+	            BGT_NM LIKE CONCAT('%', #{keyword}, '%')
+	        )
+	    </if>
+	</select>
 </mapper>

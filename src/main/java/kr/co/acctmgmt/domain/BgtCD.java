@@ -32,4 +32,6 @@ public class BgtCD {
 	Date modifyDt= new Date(); //¼öÁ¤ ÀÏ_
 	String modifyIp="";
 	String dataPath="";
+	
+	String keyword="";
 }

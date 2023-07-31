@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.acctmgmt.domain.BgtCD;
 import kr.co.acctmgmt.domain.BgtCDTerm;
+import kr.co.acctmgmt.dto.BgtCDDTO;
 import kr.co.acctmgmt.dto.BgtCDTermDTO;
 
 public interface BgtCDService {
@@ -20,6 +21,8 @@ public interface BgtCDService {
 	public List<BgtCDTermDTO> getBgtCDTerm(String CO_CD);
 
 	public List<BgtCDTermDTO> updateBgtCDTerm(List<BgtCDTermDTO> dataList);
+	
+	public List<BgtCDDTO> findBgcCDByGroupCdAndToDtAndKeyword(BgtCDDTO bgtCDDTO);
 	
 	
 }

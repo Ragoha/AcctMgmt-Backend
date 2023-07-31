@@ -8,6 +8,7 @@ import kr.co.acctmgmt.converter.BgtCDConverter;
 import kr.co.acctmgmt.converter.BgtCDTermConverter;
 import kr.co.acctmgmt.domain.BgtCD;
 import kr.co.acctmgmt.domain.BgtCDTerm;
+import kr.co.acctmgmt.dto.BgtCDDTO;
 import kr.co.acctmgmt.dto.BgtCDTermDTO;
 import kr.co.acctmgmt.mapper.BgtCDMapper;
 import lombok.RequiredArgsConstructor;
@@ -74,6 +75,15 @@ public class BgtCDServiceImpl implements BgtCDService {
 		List<BgtCDTerm> list = mapper.getBgtCDTerm(coCD);
 		
 		return BgtCDTermConverter.convertToDtoList(list);
+	}
+	@Override
+	public List<BgtCDDTO> findBgcCDByGroupCdAndToDtAndKeyword(BgtCDDTO bgtCDDTO) {
+		
+		BgtCD bgtCD = BgtCDConverter.convertToModel(bgtCDDTO);
+		
+		List<BgtCD> bgtCDList = mapper.findBgcCDByGroupCdAndToDtAndKeyword(bgtCD);
+		
+		return BgtCDConverter.convertToDtoList(bgtCDList);
 	}
 	
 

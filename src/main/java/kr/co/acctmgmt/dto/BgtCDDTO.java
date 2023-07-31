@@ -2,6 +2,8 @@ package kr.co.acctmgmt.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -19,14 +21,19 @@ public class BgtCDDTO {
 	String defNm="";
 	String ctlFg=""; //CTLFG;
 	String bgajustFg=""; //BGAJUSTFG;
-	Date toDt=new Date(); //TODT;
+//	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	Date toDt= new Date(); //TODT;
 	String bottomFg=""; //BOTTOMFG;
 	String bizFg=""; //BIZFG;
+	String groupCd="";
 	String insertId=""; //입력자
 	Date insertDt=new Date() ; //입력일
 	String insertIp=""; //입력IP
 	String modifyId=""; //수정
 	Date modifyDt= new Date(); //수정 일_
 	String modifyIp="";
+	
+	String keyword="";
+	String bgtCDMark="";
 	
 }

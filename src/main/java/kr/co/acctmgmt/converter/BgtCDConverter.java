@@ -1,9 +1,13 @@
 package kr.co.acctmgmt.converter;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import kr.co.acctmgmt.domain.BgtCD;
+import kr.co.acctmgmt.domain.BgtCDTerm;
 import kr.co.acctmgmt.dto.BgtCDDTO;
+import kr.co.acctmgmt.dto.BgtCDTermDTO;
 
 public class BgtCDConverter {
 	
@@ -20,6 +24,7 @@ public class BgtCDConverter {
 				.toDt(bgtcdDomain.getToDt())
 				.bottomFg(bgtcdDomain.getBottomFg())
 				.bizFg(bgtcdDomain.getBizFg())
+				.groupCd(bgtcdDomain.getGroupCd())
 				.insertId(bgtcdDomain.getInsertId())
 				.insertDt(bgtcdDomain.getInsertDt())
 				.insertIp(bgtcdDomain.getInsertIp())
@@ -42,6 +47,7 @@ public class BgtCDConverter {
                 .toDt(bgtcdDTO.getToDt())
                 .bottomFg(bgtcdDTO.getBottomFg())
                 .bizFg(bgtcdDTO.getBizFg())
+                .groupCd(bgtcdDTO.getGroupCd())
                 .insertId(bgtcdDTO.getInsertId())
                 .insertDt(bgtcdDTO.getInsertDt())
                 .insertIp(bgtcdDTO.getInsertIp())
@@ -52,4 +58,8 @@ public class BgtCDConverter {
 
         return bgtCDDomain;
     }
+	
+	public static List<BgtCDDTO> convertToDtoList(List<BgtCD> bgtCDList){
+		return bgtCDList.stream().map(BgtCDConverter::convertToDto).collect(Collectors.toList());
+	}
 }

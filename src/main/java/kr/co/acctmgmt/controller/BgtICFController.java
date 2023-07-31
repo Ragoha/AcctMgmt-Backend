@@ -17,9 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.acctmgmt.domain.Divs;
+import kr.co.acctmgmt.domain.Employee;
+import kr.co.acctmgmt.dto.BgtCDDTO;
 import kr.co.acctmgmt.dto.BgtGrDTO;
 import kr.co.acctmgmt.dto.BgtICFDTO;
 import kr.co.acctmgmt.dto.DivsDTO;
+import kr.co.acctmgmt.dto.EmployeeDTO;
+import kr.co.acctmgmt.service.BgtCDService;
 import kr.co.acctmgmt.service.BgtGrService;
 import kr.co.acctmgmt.service.BgtICFService;
 import kr.co.acctmgmt.service.DivsService;
@@ -32,6 +36,7 @@ public class BgtICFController {
 	
 	private final BgtICFService bgtICFService;
 	private final DivsService divsService;
+	private final BgtCDService bgtCDService; 
 	private final BgtGrService bgtGrService;
 
 //	@GetMapping("/bgt/bgticf")
@@ -74,14 +79,14 @@ public class BgtICFController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@GetMapping("/bgticf/div")
+//	@GetMapping("/bgticf/div")
 	public ResponseEntity<List<DivsDTO>> findDivCdAndDivNmByCoCd(DivsDTO divsDTO){
 		
 		List<DivsDTO> rDivsDTOList = divsService.findDivsByCoCd(divsDTO);
 		return new ResponseEntity<List<DivsDTO>>(rDivsDTOList,HttpStatus.OK);
 	}
 	
-	@GetMapping("/bgticf/div/search")
+	@GetMapping("/bgticf/div")
 	public ResponseEntity<List<DivsDTO>> findDivCdAndDivNmByCoCdAndKeyword(DivsDTO divsDTO){
 		
 		List<DivsDTO> rDivsDTOList = divsService.findDivsByCoCdAndKeyword(divsDTO);
@@ -94,26 +99,27 @@ public class BgtICFController {
 	}
 	
 	@GetMapping("/bgticf/bgtgr")
-	public ResponseEntity<List<BgtGrDTO>> findBgtGrCdAndBgtGrNmByCoCd(BgtGrDTO bgtGrDTO) {
+	public ResponseEntity<List<BgtGrDTO>> findBgtGrByCoCdAndKeyword(BgtGrDTO bgtGrDTO) {
 		
 		System.out.println(bgtGrDTO.toString());
 		
-		List<BgtGrDTO> rBgtGrDTOList = bgtGrService.findBgtGrCdAndBgtGrNmByCoCd(bgtGrDTO);
-		
-		return new ResponseEntity<List<BgtGrDTO>>(rBgtGrDTOList, HttpStatus.OK);
-	}
-	
-	@GetMapping("/bgticf/bgtgr/search")
-	public ResponseEntity<List<BgtGrDTO>> findBgtGrCdAndBgtGrNmByKeyword(BgtGrDTO bgtGrDTO) {
-		
-		System.out.println(bgtGrDTO.toString());
-		
-		List<BgtGrDTO> rBgtGrDTOList = bgtGrService.findBgtGrCdAndBgtGrNmByKeyword(bgtGrDTO);
+		List<BgtGrDTO> rBgtGrDTOList = bgtGrService.findBgtGrByCoCdAndKeyword(bgtGrDTO);
 		
 		
 		
 		System.out.println(rBgtGrDTOList.toString());
 		return new ResponseEntity<List<BgtGrDTO>>(rBgtGrDTOList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/bgticf/bgtcd/search")
+	public ResponseEntity<List<BgtCDDTO>> findBgtCDByKeyword(BgtCDDTO bgtCDDTO){
+		System.out.println(bgtCDDTO.toString());
+		
+		List<BgtCDDTO> rBgtCDDTOList = bgtCDService.findBgcCDByGroupCdAndToDtAndKeyword(bgtCDDTO);
+		
+		System.out.println(rBgtCDDTOList.toString());
+		
+		return new ResponseEntity<List<BgtCDDTO>>(rBgtCDDTOList, HttpStatus.OK);
 	}
 	
 	
