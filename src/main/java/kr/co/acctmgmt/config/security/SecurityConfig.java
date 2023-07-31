@@ -80,7 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/ozt/**").permitAll()
             .antMatchers("/logouta/**").permitAll()
             .antMatchers("/message").permitAll()
-            .antMatchers("/api/config/**").permitAll()
+            .antMatchers("/api/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);

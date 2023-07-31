@@ -30,9 +30,9 @@ public class CoController {
 	}
 	
 	@GetMapping("/ozt/sco")
-	public List<Co> getCo(@RequestParam int coCd){
+	public Co getCo(@RequestParam int coCd){
 		
-		List<Co> sco = coService.getCo(coCd);
+		Co sco = coService.getCo(coCd);
 		System.out.println(sco);
 		return sco;
 	}

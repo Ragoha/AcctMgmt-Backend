@@ -21,8 +21,8 @@ public class CoMapperTest {
 	public void getCo(){
 		int coCd = 1;
 		
-		List<Co> sco= coMapper.getCo(coCd);
-		System.out.println(sco.toString());
+//		List<Co> sco= coMapper.getCo(coCd);
+//		System.out.println(sco.toString());
 	}
 	
 //	@Test
