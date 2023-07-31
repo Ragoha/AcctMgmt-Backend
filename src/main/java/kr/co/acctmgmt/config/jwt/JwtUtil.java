@@ -34,7 +34,7 @@ public class JwtUtil {
 
   public String createAccessToken(String userPk, String role) {
       Claims claims = Jwts.claims().setSubject(userPk);
-      claims.put("role", role);
+      claims.put("empAuth", role);
       Date now = new Date();
 
       return Jwts.builder()

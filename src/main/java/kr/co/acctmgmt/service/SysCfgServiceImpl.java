@@ -13,16 +13,23 @@ import lombok.RequiredArgsConstructor;
 public class SysCfgServiceImpl implements SysCfgService{
 
 	private final SysCfgMapper configMapper;
-	
-	@Override
-	public List<SysCfg> getConfigList(String coCd) {
-		return configMapper.getConfigList(coCd);
-	}
 
 	@Override
 	public void updateConfig(SysCfg config) {
 		// TODO Auto-generated method stub
 		configMapper.updateConfig(config);
+	}
+
+	@Override
+	public List<SysCfg> getConfigList(int coCd) {
+		// TODO Auto-generated method stub
+		return configMapper.getConfigList(coCd);
+	}
+
+	@Override
+	public SysCfg getConfig(int coCd, String sysCd) {
+		// TODO Auto-generated method stub
+		return configMapper.getConfig(coCd, sysCd);
 	}
 
 }

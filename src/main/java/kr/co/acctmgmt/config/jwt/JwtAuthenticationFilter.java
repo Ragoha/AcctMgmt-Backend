@@ -25,20 +25,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 		String accessToken = jwtUtil.resolveAccessToken(request);
 		boolean isAccessTokenValid = accessToken != null && jwtUtil.validateToken(accessToken);
-
+		System.out.println("과연? " + isAccessTokenValid);
 		try {
 			if (isAccessTokenValid) {
+				System.out.println("사용자 인증!!!!!!!!!!!!!!@!@@@@@@@@@@@@@@@@@");
 				Authentication authentication = jwtUtil.getAuthentication(accessToken);
-				SecurityContextHolder.getContext().setAuthentication(authentication);
+				SecurityContextHolder.getContext().setAuthentication(authentication); //사용자 인증 설정 
 			} else {
 				String refreshToken = jwtUtil.resolveRefreshToken(request);
+				System.out.println("리프토큰: " + refreshToken);
 				if (refreshToken != null && jwtUtil.validateRefreshToken((refreshToken))) {
 					Authentication authentication = jwtUtil.getAuthentication(refreshToken);
 					SecurityContextHolder.getContext().setAuthentication(authentication);
 				}
 			}
 		} catch (Exception e) {
-			SecurityContextHolder.clearContext();
+			System.out.println("사용자 인증 실패!!!!!!!@@@@@@@@@@@");
+			SecurityContextHolder.clearContext(); // 예외 시 인증 삭제
 		}
 		filterChain.doFilter(request, response);
 	}
