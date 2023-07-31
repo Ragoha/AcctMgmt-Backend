@@ -59,4 +59,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Long id = employeeMapper.getIdByEmail(employee.getEmpEmail());
 		
 	}
+
+	@Override
+	public Employee findByEmails(String email) {
+		Employee employee = employeeMapper.findByEmails(email);
+		return employee;
+	}
 }

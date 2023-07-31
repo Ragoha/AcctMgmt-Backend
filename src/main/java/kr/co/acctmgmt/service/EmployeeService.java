@@ -20,6 +20,8 @@ public interface EmployeeService {
 	Employee loginEmployee(String id, String ps);
 
 	public Employee findByEmail(String email);
+	
+	public Employee findByEmails(String email);
 
 	public void save(Employee employee);
 }
