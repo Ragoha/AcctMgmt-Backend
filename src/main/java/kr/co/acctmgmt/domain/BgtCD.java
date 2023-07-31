@@ -34,4 +34,6 @@ public class BgtCD {
 	int MultiCk= 0;  //중복여부
 	int MultiNum; //중복이 Y일때 몇번재 중복인가 .
 	String dataPath="";
+	
+	String keyword="";
 }

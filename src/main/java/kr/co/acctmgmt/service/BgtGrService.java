@@ -8,5 +8,5 @@ public interface BgtGrService {
 	
 	public List<BgtGrDTO> findBgtGrCdAndBgtGrNmByCoCd(BgtGrDTO bgtGrDTO);
 	
-	public List<BgtGrDTO> findBgtGrCdAndBgtGrNmByKeyword(BgtGrDTO bgtGrDTO);
+	public List<BgtGrDTO> findBgtGrByCoCdAndKeyword(BgtGrDTO bgtGrDTO);
 }

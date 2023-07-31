@@ -12,6 +12,7 @@ import kr.co.acctmgmt.converter.BgtCDConverter;
 import kr.co.acctmgmt.converter.BgtCDTermConverter;
 import kr.co.acctmgmt.domain.BgtCD;
 import kr.co.acctmgmt.domain.BgtCDTerm;
+import kr.co.acctmgmt.dto.BgtCDDTO;
 import kr.co.acctmgmt.dto.BgtCDTermDTO;
 import kr.co.acctmgmt.mapper.BgtCDMapper;
 import lombok.RequiredArgsConstructor;
@@ -24,27 +25,27 @@ public class BgtCDServiceImpl implements BgtCDService {
 
 	@Override
 	public List<BgtCD> getBGTCDData(String groupcd) {
-		List<BgtCD> list = mapper.getBGTCDData(groupcd); // defNmÀÌ ÇÊ¿äÇÔ .
-		System.out.println("ServiceÀÇ getBGTCDData ½ÃÀÛ.");
-		System.out.println("groupCd´Â ?" + groupcd);
+		List<BgtCD> list = mapper.getBGTCDData(groupcd); // defNmì´ í•„ìš”í•¨ .
+		System.out.println("Serviceì˜ getBGTCDData ì‹œì‘.");
+		System.out.println("groupCdëŠ” ?" + groupcd);
 		for (int i = 0; i < list.size(); i++) {
-			// º¯¼ö¼±¾ğ
+			// ë³€ìˆ˜ì„ ì–¸
 			String space = " ";
 			String dataPath = "";
-			// 1.¼öÀÔ¼öÃâ¿©ºÎ È®ÀÎ
+			// 1.ìˆ˜ì…ìˆ˜ì¶œì—¬ë¶€ í™•ì¸
 			String inOut = list.get(i).getGrFg();
-			// 2-1.¼öÀÔÀÌ¸é..
+			// 2-1.ìˆ˜ì…ì´ë©´..
 			if (inOut.equals("0")) {
-				dataPath = dataPath + "¼öÀÔ";
-			// 2-2.¼öÃâÀÌ¸é..
+				dataPath = dataPath + "ìˆ˜ì…";
+			// 2-2.ìˆ˜ì¶œì´ë©´..
 			} else if (inOut.equals("1")) {
-				dataPath = dataPath + "¼öÃâ";
+				dataPath = dataPath + "ìˆ˜ì¶œ";
 			} else {
-				System.out.println("nullµé¾î¿È ¹®Á¦ÀÖÀ½.");
+				System.out.println("nullë“¤ì–´ì˜´ ë¬¸ì œìˆìŒ.");
 			}
-			// 3.path °æ·Î¸¦ °¡Á®¿À´Â ·ÎÁ÷
-			// 3-1. path ¼ıÀÚ
-			int cycle = Integer.parseInt(list.get(i).getDivFg()); // ¹İº¹µÇ¾î¾ß ÇÒ ¼ıÀÚ
+			// 3.path ê²½ë¡œë¥¼ ê°€ì ¸ì˜¤ëŠ” ë¡œì§
+			// 3-1. path ìˆ«ì
+			int cycle = Integer.parseInt(list.get(i).getDivFg()); // ë°˜ë³µë˜ì–´ì•¼ í•  ìˆ«ì
 
 			for (int j = 1; j < cycle + 1; j++) {
 				BgtCD tempBgtCD = new BgtCD();
@@ -88,7 +89,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 
 	@Override
 	public List<BgtCDTermDTO> getBgtCDTerm(String CO_CD) {
-		System.out.println("ServiceÀÇ getBgtCDTerm");
+		System.out.println("Serviceì˜ getBgtCDTerm");
 		List<BgtCDTerm> list = mapper.getBgtCDTerm(CO_CD);
 		return BgtCDTermConverter.convertToDtoList(list);
 	}
@@ -104,6 +105,16 @@ public class BgtCDServiceImpl implements BgtCDService {
 		List<BgtCDTerm> list = mapper.getBgtCDTerm(coCD);
 
 		return BgtCDTermConverter.convertToDtoList(list);
+	}
+  
+	@Override
+	public List<BgtCDDTO> findBgcCDByGroupCdAndToDtAndKeyword(BgtCDDTO bgtCDDTO) {
+		
+		BgtCD bgtCD = BgtCDConverter.convertToModel(bgtCDDTO);
+		
+		List<BgtCD> bgtCDList = mapper.findBgcCDByGroupCdAndToDtAndKeyword(bgtCD);
+		
+		return BgtCDConverter.convertToDtoList(bgtCDList);
 	}
 
 }

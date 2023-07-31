@@ -4,13 +4,14 @@ import java.util.List;
 
 import kr.co.acctmgmt.domain.BgtCD;
 import kr.co.acctmgmt.domain.BgtCDTerm;
+import kr.co.acctmgmt.dto.BgtCDDTO;
 import kr.co.acctmgmt.dto.BgtCDTermDTO;
 
 public interface BgtCDService {
-	//GroupCD·Î µ¥ÀÌÅÍ Á¶È¸ => ÀÓ½Ã°ª ³Ö¾î¼­ ‹š¿ì´Â Áß ..[230727]
+	//GroupCDë¡œ ë°ì´í„° ì¡°íšŒ => ì„ì‹œê°’ ë„£ì–´ì„œ Â‹Âšìš°ëŠ” ì¤‘ ..[230727]
 	public List<BgtCD> getBGTCDData(String groupcd);
 
-	//GroupCD·Î µ¥ÀÌÅÍ¸¦ Á¶È¸ÇÏ±â Àü¤· 
+	//GroupCDë¡œ ë°ì´í„°ë¥¼ ì¡°íšŒí•˜ê¸° ì „ã…‡ 
 
 //	public String getDefNmFromBGTCD_TERM(int divFg);
 
@@ -23,5 +24,7 @@ public interface BgtCDService {
 	public List<BgtCDTermDTO> getBgtCDTerm(String CO_CD);
 
 	public List<BgtCDTermDTO> updateBgtCDTerm(List<BgtCDTermDTO> dataList);
+	
+	public List<BgtCDDTO> findBgcCDByGroupCdAndToDtAndKeyword(BgtCDDTO bgtCDDTO);
 
 }

@@ -27,7 +27,7 @@ public class BgtGrServiceImpl implements BgtGrService {
 	}
 
 	@Override
-	public List<BgtGrDTO> findBgtGrCdAndBgtGrNmByKeyword(BgtGrDTO bgtGrDTO) {
+	public List<BgtGrDTO> findBgtGrByCoCdAndKeyword(BgtGrDTO bgtGrDTO) {
 		
 		BgtGr bgtgr = BgtGrConverter.convertToModel(bgtGrDTO);
 		
