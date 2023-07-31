@@ -5,12 +5,15 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.co.acctmgmt.domain.Co;
 import kr.co.acctmgmt.domain.SysCfg;
+import kr.co.acctmgmt.service.CoService;
 import kr.co.acctmgmt.service.SysCfgService;
 import lombok.RequiredArgsConstructor;
 
@@ -20,7 +23,8 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin(origins = "http://localhost:3000")
 public class SysCfgController {
 	private final SysCfgService sysCfg;
-
+	private final CoService coService;
+	
 	@PostMapping("/config/{option}/{optionValue}/{coCd}")
 	public ResponseEntity<String> configCheck(@PathVariable("option") String option,
 			@PathVariable("optionValue") String optionValue, @PathVariable("coCd") int coCd) {
@@ -49,8 +53,21 @@ public class SysCfgController {
 		System.out.println("회사코드잘 받았니? : " + coCd);
 		List<SysCfg> sys = sysCfg.getConfigList(coCd);
 		System.out.println("잘 찾았니?" + sys);
-		return null;
+		
+		Co co = coService.getCo(coCd);
+		System.out.println("회사명 갖고와 당장:"+co.getCoNm());
+		
+		
+		return ResponseEntity.ok(co.getCoNm());
 		
 	}
 
+	@GetMapping("/configdate/{coCd}")
+	public ResponseEntity<List> configData(@PathVariable("coCd") int coCd){
+		
+		System.out.println("설정 값 갖고오기");
+		List<SysCfg> sys = sysCfg.getConfigList(coCd);
+		System.out.println(sys.toString());
+		return ResponseEntity.ok(sys);
+	}
 }

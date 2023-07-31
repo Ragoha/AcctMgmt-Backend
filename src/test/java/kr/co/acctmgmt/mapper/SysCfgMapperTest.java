@@ -17,7 +17,7 @@ public class SysCfgMapperTest {
 	@Autowired
 	private SysCfgMapper configMapper;
 
-//	@Test
+	@Test
 	public void getConfigList() {
 		int coCd =2000;
 		List<SysCfg> configList = configMapper.getConfigList(coCd);
@@ -27,7 +27,7 @@ public class SysCfgMapperTest {
 		});
 	}
 	
-	@Test
+//	@Test
 	public void updateConfig()
 	{
 		int coCd =2000;
