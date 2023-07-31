@@ -10,7 +10,7 @@ public interface CoMapper {
 	
 	public void insertCo(Co co);
 	
-	public List<Co> getCo(int coCd);
+	public Co getCo(int coCd);
 	
 	public int getNum(); //안쓸 것 같음 지우자!
 	
