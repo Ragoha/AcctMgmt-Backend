@@ -31,5 +31,7 @@ public class BgtCD {
 	String modifyId=""; //수정
 	Date modifyDt= new Date(); //수정 일_
 	String modifyIp="";
+	int MultiCk= 0;  //중복여부
+	int MultiNum; //중복이 Y일때 몇번재 중복인가 .
 	String dataPath="";
 }
