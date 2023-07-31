@@ -7,7 +7,7 @@
 	</select>
 
 	<select id="getCo" parameterType="int" resultType="Co">
-		SELECT CO_CD, CO_NM, GISU, JONGMOK, BUSINESS_TYPE, CO_NB, CEO_NM, CO_ZIP, CO_ADDR, CO_ADDR1
+		SELECT CO_CD, CO_NM, GISU, FR_DT, TO_DT, JONGMOK, BUSINESS_TYPE, CO_NB, CEO_NM, CO_ZIP, CO_ADDR, CO_ADDR1
 		FROM CO WHERE CO_CD = #{coCd};
 	</select>
 
@@ -18,18 +18,18 @@
 
 	<insert id="insertCo" parameterType="Co">
 		INSERT INTO CO
-		(CO_NM,
+		(CO_NM, GISU, FR_DT,TO_DT,
 		JONGMOK, BUSINESS_TYPE, CO_NB, CEO_NM, CO_ZIP, CO_ADDR,
 		CO_ADDR1)
 		VALUES
-		(#{coNm}, #{jongmok}, #{businessType}, #{coNb},
+		(#{coNm}, #{gisu}, #{frDt}, #{toDt}, #{jongmok}, #{businessType}, #{coNb},
 		#{ceoNm}, #{coZip},
 		#{coAddr}, #{coAddr1});
 	</insert>
 	
 	<update id="updateCo" parameterType="Co" >
 		UPDATE CO SET 
-		CO_CD =#{coCd}, CO_NM = #{coNm}, JONGMOK = #{jongmok}, BUSINESS_TYPE = #{businessType}, CO_NB = #{coNb}, CEO_NM = #{ceoNm}, 
+		CO_CD =#{coCd}, CO_NM = #{coNm},GISU = #{gisu}, FR_DT = #{frDt}, TO_DT = #{toDt}, JONGMOK = #{jongmok}, BUSINESS_TYPE = #{businessType}, CO_NB = #{coNb}, CEO_NM = #{ceoNm}, 
 		CO_ZIP = #{coZip}, CO_ADDR = #{coAddr}, CO_ADDR1 = #{coAddr1}
 		WHERE CO_CD=#{coCd}
 	</update>

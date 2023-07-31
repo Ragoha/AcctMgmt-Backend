@@ -22,5 +22,13 @@ public interface BgtCDMapper {
 	
 	public int updateBgtCDTerm(BgtCDTerm dataList);
 	
-	public String getDefNmFromBGTCD_TERM(String divFg);
+
+	public List<BgtCD> findBgcCDByGroupCdAndToDtAndKeyword(BgtCD bgtCD);
+
+	public String getDefNmFromBGTCD_TERM(int divFg);
+	
+	public String getDataPath(BgtCD tempBgtCD);
+	
+//	public String getGrFg(String bgtCd);
+
 }
