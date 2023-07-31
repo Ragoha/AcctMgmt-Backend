@@ -25,7 +25,12 @@
 	<select id="getBgtCDTerm" parameterType="String" resultType="BgtCDTerm">
 		SELECT * FROM 
 		BGTCD_TERM
-		where CO_CD = #{CO_CD}
+		where CO_CD = #{coCd}
+	</select>
+	<select id="getDataPath" parameterType="BgtCD" resultType="String">
+		SELECT DEF_NM FROM 
+		BGTCD_TERM
+		WHERE CO_CD=#{coCd} AND DIV_FG=#{divFg}
 	</select>
 	<update id="updateDetailInfo" parameterType="BgtCD">
 		UPDATE BGTCD
@@ -44,4 +49,19 @@
 		WHERE
 		CO_CD=#{coCd} and DIV_FG=#{divFg}
 	</update>
+	
+	<select id = "findBgcCDByGroupCdAndToDtAndKeyword" parameterType="BgtCD" resultType="BgtCD">
+		SELECT *
+		FROM BGTCD
+		WHERE CO_CD = #{coCd} 
+		AND TO_DT > #{toDt} 
+		AND GROUP_CD = #{groupCd}
+		<if test="keyword != null and keyword != ''">
+	        AND (
+	            BGT_CD LIKE CONCAT('%', #{keyword}, '%')
+	            OR
+	            BGT_NM LIKE CONCAT('%', #{keyword}, '%')
+	        )
+	    </if>
+	</select>
 </mapper>

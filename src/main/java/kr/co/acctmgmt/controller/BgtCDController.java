@@ -48,16 +48,14 @@ public class BgtCDController {
 	}
 	@GetMapping("/bgt/bgtcd/getBgtCDTerm")
 	public List<BgtCDTermDTO> getBgtCDTerm(@RequestParam String CO_CD){
-		//System.out.println("controller의 getSbgtCDTerm");
 		List<BgtCDTermDTO> list = service.getBgtCDTerm(CO_CD);
-		//System.out.println(">>>>>>>>>>>>>>>>>>>: " + list.toString());
 		return list;
 	}
-	@PutMapping("/bgt/bgtcd/getPath")
-	public String getPath(@RequestBody String bgtCd) {
-		System.out.println(bgtCd);
-		return "path받았어 ?";
-	}
+//	@PutMapping("/bgt/bgtcd/getPath")
+//	public String getPath(@RequestBody String bgtCd) {
+//		System.out.println(bgtCd);
+//		return "path받았어 ?";
+//	}
 	/*조회end*/
 	
 	
