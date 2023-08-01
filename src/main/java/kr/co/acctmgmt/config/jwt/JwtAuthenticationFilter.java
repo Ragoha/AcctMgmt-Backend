@@ -33,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				SecurityContextHolder.getContext().setAuthentication(authentication); //사용자 인증 설정 
 			} else {
 				String refreshToken = jwtUtil.resolveRefreshToken(request);
-				System.out.println("리프토큰: " + refreshToken);
+//				System.out.println("리프토큰: " + refreshToken);
 				if (refreshToken != null && jwtUtil.validateRefreshToken((refreshToken))) {
 					Authentication authentication = jwtUtil.getAuthentication(refreshToken);
 					SecurityContextHolder.getContext().setAuthentication(authentication);

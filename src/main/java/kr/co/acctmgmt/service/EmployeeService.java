@@ -24,4 +24,6 @@ public interface EmployeeService {
 	public Employee findByEmails(String email);
 
 	public void save(Employee employee);
+	
+	int findByEmpCd(int coCd);
 }

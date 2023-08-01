@@ -20,4 +20,5 @@ public class SysCfg {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date modifyDt= new Date();
 	private String modifyIp; //
+	private String cfgvalue;
 }	
