@@ -16,18 +16,16 @@
 	<select id="getDefNmFromBGTCD_TERM" parameterType="String" resultType="String">
 		SELECT DEF_NM from BGTCD_TERM where DIV_FG =#{divFg};
 	</select>
-	
-	<delete id="deleteRow" parameterType="String">
-		DELETE FROM BGTCD
-		WHERE bgt_Cd = #{bgtCd}
-	</delete>
-	
+	<select id="getBgtCDDataForPath" parameterType="String" resultType="BgtCD">
+		SELECT * FROM BGTCD
+		WHERE BGT_CD=#{bgtCd}
+	</select>
 	<select id="getBgtCDTerm" parameterType="String" resultType="BgtCDTerm">
 		SELECT * FROM 
 		BGTCD_TERM
 		where CO_CD = #{coCd}
 	</select>
-	<select id="getDataPath" parameterType="BgtCD" resultType="String">
+	<select id="getDataPath" parameterType="BgtCd" resultType="String">
 		SELECT DEF_NM FROM 
 		BGTCD_TERM
 		WHERE CO_CD=#{coCd} AND DIV_FG=#{divFg}
@@ -53,15 +51,23 @@
 	<select id = "findBgcCDByGroupCdAndToDtAndKeyword" parameterType="BgtCD" resultType="BgtCD">
 		SELECT *
 		FROM BGTCD
-		WHERE CO_CD = #{coCd} 
-		AND TO_DT > #{toDt} 
-		AND GROUP_CD = #{groupCd}
+		LEFT JOIN BGTGR ON BGTCD.GROUP_CD = BGTGR.BGTGR_CD
+		WHERE BGTCD.CO_CD = #{coCd} 
+		AND BGTCD.GISU = #{gisu}
+		AND BGTCD.TO_DT >= #{toDt} 
+		<if test="groupCd != null and groupCd != ''">
+			AND BGTCD.GROUP_CD = #{groupCd}
+		</if>
 		<if test="keyword != null and keyword != ''">
 	        AND (
-	            BGT_CD LIKE CONCAT('%', #{keyword}, '%')
+	            BGTCD.BGT_CD LIKE CONCAT('%', #{keyword}, '%')
 	            OR
-	            BGT_NM LIKE CONCAT('%', #{keyword}, '%')
+	            BGTCD.BGT_NM LIKE CONCAT('%', #{keyword}, '%')
 	        )
 	    </if>
 	</select>
+	<delete id="deleteRow" parameterType="String">
+		DELETE FROM BGTCD
+		WHERE bgt_Cd = #{bgtCd}
+	</delete>
 </mapper>

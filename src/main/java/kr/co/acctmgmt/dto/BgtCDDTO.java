@@ -35,5 +35,6 @@ public class BgtCDDTO {
 	
 	String keyword="";
 	String bgtCDMark="";
+	String bgtGrNm="";
 	
 }

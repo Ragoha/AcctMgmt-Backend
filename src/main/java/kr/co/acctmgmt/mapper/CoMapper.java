@@ -12,6 +12,8 @@ public interface CoMapper {
 	
 	public Co getCo(int coCd);
 	
+	public List<Co> getCompany(int coCd);
+	
 	public int getNum(); //안쓸 것 같음 지우자!
 	
 	public void deleteCo(int coCd);
