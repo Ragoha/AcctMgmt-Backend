@@ -13,6 +13,56 @@
 	            DIV_NM LIKE CONCAT('%', #{keyword}, '%')
 	        )
 	    </if>
+  </select>
+
+	<select id="findDivsByCoCdAndKeyword" parameterType="Divs"
+		resultType="Divs">
+		SELECT DIV_CD, DIV_NM
+		FROM DIVS
+		WHERE CO_CD = #{coCd}
+		<if test="keyword != null and keyword != ''">
+			AND (
+			DIV_CD LIKE CONCAT('%', #{keyword}, '%')
+			OR
+			DIV_NM LIKE
+			CONCAT('%', #{keyword}, '%')
+			)
+		</if>
 	</select>
+
+	<select id="getDivsList" resultType="Divs">
+		SELECT * FROM DIVS;
+	</select>
+
+	<select id="getDivision" parameterType="int" resultType="Divs">
+		SELECT
+		CO_CD, DIV_CD, DIV_NM, CEO_NM, JONGMOK, BUSINESS_TYPE, DIV_NB, TO_NB,
+		DIV_ZIP, DIV_ADDR, DIV_ADDR1
+		FROM DIVS WHERE DIV_CD = #{divCd};
+	</select>
+
+	<delete id="deleteDivs" parameterType="int">
+		DELETE from DIVS WHERE
+		DIV_CD = #{divCd};
+	</delete>
+
+	<update id="updateDivs" parameterType="Divs">
+		UPDATE DIVS SET
+		DIV_NM = #{divNm},CEO_NM = #{ceoNm}, JONGMOK = #{jongmok}, BUSINESS_TYPE = #{businessType}, DIV_NB= #{divNb},TO_NB=#{toNb},
+		DIV_ZIP = #{divZip}, DIV_ADDR = #{divAddr}, DIV_ADDR1 = #{divAddr1}
+		WHERE
+		DIV_CD=#{divCd}
+	</update>
+
+	<insert id="insertDivs" parameterType="Divs">
+		INSERT INTO DIVS
+		(CO_CD,
+		DIV_NM, CEO_NM, JONGMOK, BUSINESS_TYPE, DIV_NB, TO_NB, DIV_ZIP,
+		DIV_ADDR, DIV_ADDR1)
+		VALUES
+		(#{coCd}, #{divNm}, #{ceoNm}, #{jongmok},
+		#{businessType}, #{divNb},
+		#{toNb}, #{divZip},#{divAddr}, #{divAddr1});
+	</insert>
 
 </mapper>
