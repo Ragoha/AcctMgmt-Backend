@@ -31,6 +31,7 @@ public class BgtCDConverter {
 				.modifyId(bgtcdDomain.getModifyId())
 				.modifyDt(bgtcdDomain.getModifyDt())
 				.modifyIp(bgtcdDomain.getModifyIp())
+				.bgtGrNm(bgtcdDomain.getBgtGrNm())
 				.build();
 		return bgtCDDTO;
 	}
@@ -54,6 +55,8 @@ public class BgtCDConverter {
                 .modifyId(bgtcdDTO.getModifyId())
                 .modifyDt(bgtcdDTO.getModifyDt())
                 .modifyIp(bgtcdDTO.getModifyIp())
+				.keyword(bgtcdDTO.getKeyword())
+				.bgtGrNm(bgtcdDTO.getBgtGrNm())
                 .build();
 
         return bgtCDDomain;

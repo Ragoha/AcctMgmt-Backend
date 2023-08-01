@@ -10,7 +10,7 @@
 	<select id="getEmployee" parameterType="String"
 		resultType="Employee">
 		SELECT CO_CD, emp_ID, emp_PW, emp_EMAIL, emp_TEL, emp_NAME,
-		emp_SX, div_CD, dept_CD, emp_OD, emp_AUTH FROM EMP WHERE emp_ID = #{empId};
+		emp_SX, div_CD, dept_CD, emp_OD, emp_AUTH, emp_Cd FROM EMP WHERE emp_ID = #{empId};
 	</select>
 
 	<select id="getEmployeeList" resultType="Employee">
@@ -19,10 +19,10 @@
 
 	<insert id="save" parameterType="Employee">
 		INSERT INTO EMP
-		(emp_ID, emp_NAME, emp_PW, emp_EMAIL, emp_SX, emp_TEL, CO_CD, emp_OD, emp_AUTH)
+		(emp_ID, emp_NAME, emp_PW, emp_EMAIL, emp_SX, emp_TEL, CO_CD, emp_OD, emp_AUTH, emp_CD)
 		VALUES
 		(#{empId}, #{empName}, #{empPw}, #{empEmail}, #{empSx}, #{empTel}, #{coCd},
-		#{empOd}, #{empAuth});
+		#{empOd}, #{empAuth}, #{empCd});
 	</insert>
 
 	<update id="updateEmployee" parameterType="Employee">
@@ -62,5 +62,9 @@
 	
 	<select id="getIdByEmail" parameterType="String" resultType="Long">
 		SELECT emp_Id FROM EMP WHERE emp_ID = #{empId}
+	</select>
+	
+	<select id="findByEmpCd" resultType="int">
+		SELECT MAX(emp_Cd) FROM EMP where CO_CD = #{coCd}
 	</select>
 </mapper>
