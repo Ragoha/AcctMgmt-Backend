@@ -7,7 +7,5 @@ import kr.co.acctmgmt.dto.DivsDTO;
 
 public interface DivsService {
 
-	public List<DivsDTO> findDivsByCoCd(DivsDTO divsDTO);
-	
-	public List<DivsDTO> findDivsByCoCdAndKeyword(DivsDTO divsDTO);
+	public List<DivsDTO> findDivByCoCdAndKeyword(DivsDTO divsDTO);
 }

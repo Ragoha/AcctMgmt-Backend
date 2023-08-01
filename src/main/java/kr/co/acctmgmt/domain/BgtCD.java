@@ -36,4 +36,5 @@ public class BgtCD {
 	String dataPath="";
 	
 	String keyword="";
+	String bgtGrNm="";
 }

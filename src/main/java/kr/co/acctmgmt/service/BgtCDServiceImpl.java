@@ -25,27 +25,27 @@ public class BgtCDServiceImpl implements BgtCDService {
 
 	@Override
 	public List<BgtCD> getBGTCDData(String groupcd) {
-		List<BgtCD> list = mapper.getBGTCDData(groupcd); // defNm이 필요함 .
-		System.out.println("Service의 getBGTCDData 시작.");
-		System.out.println("groupCd는 ?" + groupcd);
+		List<BgtCD> list = mapper.getBGTCDData(groupcd); // defNm�씠 �븘�슂�븿 .
+		System.out.println("Service�쓽 getBGTCDData �떆�옉.");
+		System.out.println("groupCd�뒗 ?" + groupcd);
 		for (int i = 0; i < list.size(); i++) {
-			// 변수선언
+			// 蹂��닔�꽑�뼵
 			String space = " ";
 			String dataPath = "";
-			// 1.수입수출여부 확인
+			// 1.�닔�엯�닔異쒖뿬遺� �솗�씤
 			String inOut = list.get(i).getGrFg();
-			// 2-1.수입이면..
+			// 2-1.�닔�엯�씠硫�..
 			if (inOut.equals("0")) {
 				dataPath = dataPath + "수입";
-			// 2-2.수출이면..
+			// 2-2.�닔異쒖씠硫�..
 			} else if (inOut.equals("1")) {
 				dataPath = dataPath + "수출";
 			} else {
-				System.out.println("null들어옴 문제있음.");
+				System.out.println("null�뱾�뼱�샂 臾몄젣�엳�쓬.");
 			}
-			// 3.path 경로를 가져오는 로직
-			// 3-1. path 숫자
-			int cycle = Integer.parseInt(list.get(i).getDivFg()); // 반복되어야 할 숫자
+			// 3.path 寃쎈줈瑜� 媛��졇�삤�뒗 濡쒖쭅
+			// 3-1. path �닽�옄
+			int cycle = Integer.parseInt(list.get(i).getDivFg()); // 諛섎났�릺�뼱�빞 �븷 �닽�옄
 
 			for (int j = 1; j < cycle + 1; j++) {
 				BgtCD tempBgtCD = new BgtCD();
@@ -89,7 +89,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 
 	@Override
 	public List<BgtCDTermDTO> getBgtCDTerm(String CO_CD) {
-		System.out.println("Service의 getBgtCDTerm");
+		System.out.println("Service�쓽 getBgtCDTerm");
 		List<BgtCDTerm> list = mapper.getBgtCDTerm(CO_CD);
 		return BgtCDTermConverter.convertToDtoList(list);
 	}
@@ -110,9 +110,15 @@ public class BgtCDServiceImpl implements BgtCDService {
 	@Override
 	public List<BgtCDDTO> findBgcCDByGroupCdAndToDtAndKeyword(BgtCDDTO bgtCDDTO) {
 		
+		System.out.println(bgtCDDTO.toString());
+		
 		BgtCD bgtCD = BgtCDConverter.convertToModel(bgtCDDTO);
 		
+		System.out.println(bgtCD.toString());
+		
 		List<BgtCD> bgtCDList = mapper.findBgcCDByGroupCdAndToDtAndKeyword(bgtCD);
+		
+		System.out.println(bgtCDList.toString());
 		
 		return BgtCDConverter.convertToDtoList(bgtCDList);
 	}

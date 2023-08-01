@@ -31,8 +31,8 @@ public class DivsMapperTest {
 				.build();
 		
 		
-		List<Divs> divsList1 = divsMapper.findDivsByCoCdAndKeyword(divs1);
-		List<Divs> divsList2 = divsMapper.findDivsByCoCdAndKeyword(divs2);
+		List<Divs> divsList1 = divsMapper.findDivByCoCdAndKeyword(divs1);
+		List<Divs> divsList2 = divsMapper.findDivByCoCdAndKeyword(divs2);
 		
 		System.out.println(divsList1);
 		System.out.println();
