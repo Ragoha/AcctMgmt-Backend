@@ -51,14 +51,18 @@
 	<select id = "findBgcCDByGroupCdAndToDtAndKeyword" parameterType="BgtCD" resultType="BgtCD">
 		SELECT *
 		FROM BGTCD
-		WHERE CO_CD = #{coCd} 
-		AND TO_DT > #{toDt} 
-		AND GROUP_CD = #{groupCd}
+		LEFT JOIN BGTGR ON BGTCD.GROUP_CD = BGTGR.BGTGR_CD
+		WHERE BGTCD.CO_CD = #{coCd} 
+		AND BGTCD.GISU = #{gisu}
+		AND BGTCD.TO_DT >= #{toDt} 
+		<if test="groupCd != null and groupCd != ''">
+			AND BGTCD.GROUP_CD = #{groupCd}
+		</if>
 		<if test="keyword != null and keyword != ''">
 	        AND (
-	            BGT_CD LIKE CONCAT('%', #{keyword}, '%')
+	            BGTCD.BGT_CD LIKE CONCAT('%', #{keyword}, '%')
 	            OR
-	            BGT_NM LIKE CONCAT('%', #{keyword}, '%')
+	            BGTCD.BGT_NM LIKE CONCAT('%', #{keyword}, '%')
 	        )
 	    </if>
 	</select>

@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.acctmgmt.mapper.DivsMapper">
+	
+	<select id="findDivByCoCdAndKeyword" parameterType="Divs" resultType="Divs">
+	    SELECT DIV_CD, DIV_NM 
+	    FROM DIVS 
+	    WHERE CO_CD = #{coCd}
+	    <if test="keyword != null and keyword != ''">
+	        AND (
+	            DIV_CD LIKE CONCAT('%', #{keyword}, '%')
+	            OR
+	            DIV_NM LIKE CONCAT('%', #{keyword}, '%')
+	        )
+	    </if>
+  </select>
 
 	<select id="findDivsByCoCdAndKeyword" parameterType="Divs"
 		resultType="Divs">
