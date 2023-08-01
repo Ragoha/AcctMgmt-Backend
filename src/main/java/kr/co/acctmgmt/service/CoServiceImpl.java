@@ -50,4 +50,10 @@ public class CoServiceImpl implements CoService{
 		return searchCo;
 	}
 
+	@Override
+	public List<Co> getCompany(int coCd) {
+		List<Co> company = coMapper.getCompany(coCd);
+		return company;
+	}
+
 }

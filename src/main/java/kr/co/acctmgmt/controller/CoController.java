@@ -37,6 +37,14 @@ public class CoController {
 		return sco;
 	}
 	
+	@GetMapping("/ozt/scom")
+	public List<Co> getCompany(@RequestParam int coCd){
+		
+		List<Co> scompany = coService.getCompany(coCd);
+		System.out.println(scompany);
+		return scompany;
+	}
+	
 	@PostMapping("/ozt/ico")
 	public List<Co> insertCo(@RequestBody Co co) {
 		coService.insertCo(co);
