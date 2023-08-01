@@ -30,4 +30,6 @@ public interface EmployeeMapper {
 	public void save(Employee Employee);
 
 	public Long getIdByEmail(String email);
+	
+	public int findByEmpCd(int coCd);
 }

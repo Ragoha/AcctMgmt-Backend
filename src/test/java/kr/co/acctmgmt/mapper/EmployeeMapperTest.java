@@ -27,7 +27,7 @@ public class EmployeeMapperTest {
 		System.out.println(employee.getEmpId());
 	}
 	
-	@Test
+//	@Test
 	public void getEmployeeList() {
 		
 		List<Employee> employeeList = employeeMapper.getEmployeeList();
@@ -90,4 +90,10 @@ public class EmployeeMapperTest {
 		System.out.println(employee.toString());
 	}
 
+	@Test
+	public void findByEmpCd() {
+		int cocd = 1000;
+		int empcd = employeeMapper.findByEmpCd(cocd);
+		System.out.println("°ú¿¬ ??????????" + empcd);
+	}
 }

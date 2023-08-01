@@ -38,6 +38,7 @@ public class Employee implements UserDetails {
 	private String empOd;
 	
 	private String empAuth;
+	private int empCd;
 	
 	private String accessToken;
 	private String refreshToken;

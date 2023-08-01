@@ -1,13 +1,14 @@
 package kr.co.acctmgmt.config.jwt;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
 
@@ -65,6 +66,12 @@ public class JwtUtil {
       System.out.println("그래서 나온 eamil: " + email);
       Employee employee = userService.findByEmail(email);
       System.out.println("그래서 나온 객체 클:" + employee.toString());
+      
+      List<GrantedAuthority> authorities = (List<GrantedAuthority>) employee.getAuthorities();
+      for (GrantedAuthority authority : authorities) {
+          System.out.println("@@@@@사용자 권한: " + authority.getAuthority());
+      }
+      
       return new UsernamePasswordAuthenticationToken(employee, "", employee.getAuthorities());
   }
 

@@ -20,7 +20,8 @@
 
 	<update id="updateConfig" parameterType="SysCfg">
 		UPDATE SYSCFG
-		SET sys_YN = #{sysYn}, modify_DT = NOW()
+		SET sys_YN = #{sysYn}, modify_DT = NOW(),
+		cfg_value = #{cfgvalue}
 		WHERE sys_CD = #{sysCd}
 	</update>
 

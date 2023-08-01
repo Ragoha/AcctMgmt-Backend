@@ -41,6 +41,20 @@ public class UserAPI {
 	private final ExpiredRefreshTokenService expiredRefreshTokenService;
 	private final JwtUtil jwtUtil;
 
+	public int generateMemberCode(int coCd) {
+		int lastMemberCode = userService.findByEmpCd(coCd);
+		int memberCode=0;
+		if (lastMemberCode == 0) {
+			memberCode = (coCd * 10000) + (lastMemberCode);
+		}
+		else
+		{
+			memberCode = (1000 + lastMemberCode);
+		}
+		return memberCode;
+	}
+
+	
 	@PostMapping("/join")
 	public void join(@RequestBody Employee user) {
 
@@ -48,7 +62,8 @@ public class UserAPI {
 		System.out.println(user.toString());
 		userService.save(Employee.builder().empId(user.getEmpId()).empPw(passwordEncoder.encode(user.getEmpPw()))
 				.empName(user.getEmpName()).empTel(user.getEmpTel()).empEmail(user.getEmpEmail()).empSx(user.getEmpSx())
-				.coCd(user.getCoCd()).empOd(user.getEmpOd()).empAuth(user.getEmpAuth()).build());
+				.coCd(user.getCoCd()).empOd(user.getEmpOd()).empAuth(user.getEmpAuth())
+				.empCd(generateMemberCode(Integer.parseInt(user.getCoCd()))).build());
 	}
 
 	@GetMapping("/emp/idcheck/{checkId}")
@@ -122,10 +137,11 @@ public class UserAPI {
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
+	
 	@PostMapping("/logouta")
 	public void logout(HttpServletResponse response) {
 		System.out.println("logout");
-		
+
 		// access-token 삭제
 		response.setHeader("access-token", null);
 
@@ -139,51 +155,50 @@ public class UserAPI {
 	}
 
 	@GetMapping("/message")
-	public ResponseEntity<Map<String, String>> refreshAccessToken(HttpServletRequest request, HttpServletResponse response) {
-	    // 기존 리프레시 토큰 가져오기
-	    String refreshToken = jwtUtil.resolveRefreshToken(request);
-	    
-	    // 리프레시 토큰 검증
-	    if (jwtUtil.validateRefreshToken(refreshToken)) {
-	        // 리프레시 토큰에서 사용자 정보 가져오기
-	        String email = jwtUtil.getUserPk(refreshToken);
-	        Employee user = userService.findByEmail(email);
-	        
-	        // 새로운 엑세스 토큰 생성
-	        String newAccessToken = jwtUtil.createAccessToken(user.getEmpEmail(), user.getEmpAuth());
-	        
-	        // 응답 헤더에 새로운 엑세스 토큰 설정
-	        response.setHeader("access-token", newAccessToken);
-	        
-	        // 응답으로 새로운 엑세스 토큰과 리프레시 토큰을 보냅니다.
-	        Map<String, String> tokens = new HashMap<>();
-	        tokens.put("access-token", newAccessToken);
-	        tokens.put("refresh-token", refreshToken);
-	        return new ResponseEntity<>(tokens, HttpStatus.OK);
-	    } else {
-	        // 리프레시 토큰이 유효하지 않은 경우 에러 응답
-	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-	    }
+	public ResponseEntity<Map<String, String>> refreshAccessToken(HttpServletRequest request,
+			HttpServletResponse response) {
+		// 기존 리프레시 토큰 가져오기
+		String refreshToken = jwtUtil.resolveRefreshToken(request);
+
+		// 리프레시 토큰 검증
+		if (jwtUtil.validateRefreshToken(refreshToken)) {
+			// 리프레시 토큰에서 사용자 정보 가져오기
+			String email = jwtUtil.getUserPk(refreshToken);
+			Employee user = userService.findByEmail(email);
+
+			// 새로운 엑세스 토큰 생성
+			String newAccessToken = jwtUtil.createAccessToken(user.getEmpEmail(), user.getEmpAuth());
+
+			// 응답 헤더에 새로운 엑세스 토큰 설정
+			response.setHeader("access-token", newAccessToken);
+
+			// 응답으로 새로운 엑세스 토큰과 리프레시 토큰을 보냅니다.
+			Map<String, String> tokens = new HashMap<>();
+			tokens.put("access-token", newAccessToken);
+			tokens.put("refresh-token", refreshToken);
+			return new ResponseEntity<>(tokens, HttpStatus.OK);
+		} else {
+			// 리프레시 토큰이 유효하지 않은 경우 에러 응답
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
-	
 //	@GetMapping(path = "/message", headers = "Authorization")
 	public ResponseEntity<String> messageForHeader(@RequestHeader HttpHeaders header) {
-		
-	    return ResponseEntity.ok().body(header.getFirst("Authorization"));
+
+		return ResponseEntity.ok().body(header.getFirst("Authorization"));
 	}
-	
-	
+
 	@GetMapping("/info")
 	public ResponseEntity<Object> getInfo() {
 		Authentication details = SecurityContextHolder.getContext().getAuthentication();
-	    System.out.println("details.toString : " + details.toString());
-	    System.out.println("details : " + details);
-	    if (details != null && (details.isAuthenticated())) {
-	        System.out.println("hihi:" + details.toString());
-	        return new ResponseEntity<>(details, HttpStatus.OK);
-	    }
-	 // 인증 여부 확인
+		System.out.println("details.toString : " + details.toString());
+		System.out.println("details : " + details);
+		if (details != null && (details.isAuthenticated())) {
+			System.out.println("hihi:" + details.toString());
+			return new ResponseEntity<>(details, HttpStatus.OK);
+		}
+		// 인증 여부 확인
 //		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //		System.out.println("$$$$$$$" + authentication);
 //		System.out.println("$$$$$$$" + authentication.toString());
@@ -221,7 +236,7 @@ public class UserAPI {
 //		    System.out.println("사용자가 인증되지 않았습니다.");
 //		}
 		return null;
-		
+
 //		return new ResponseEntity<String>(authentication, HttpStatus.OK);
 	}
 //	}

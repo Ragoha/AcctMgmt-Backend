@@ -65,4 +65,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Employee employee = employeeMapper.findByEmails(email);
 		return employee;
 	}
+
+	@Override
+	public int findByEmpCd(int coCd) {
+		int empCd = employeeMapper.findByEmpCd(coCd);
+		return empCd;
+	}
 }
