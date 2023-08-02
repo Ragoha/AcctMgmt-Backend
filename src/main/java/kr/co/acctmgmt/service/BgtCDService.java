@@ -8,10 +8,8 @@ import kr.co.acctmgmt.dto.BgtCDDTO;
 import kr.co.acctmgmt.dto.BgtCDTermDTO;
 
 public interface BgtCDService {
-	//GroupCD로 데이터 조회 => 임시값 넣어서 우는 중 ..[230727]
 	public List<BgtCD> getBGTCDData(String groupcd);
 
-	//GroupCD로 데이터를 조회하기 전ㅇ 
 
 //	public String getDefNmFromBGTCD_TERM(int divFg);
 
@@ -19,7 +17,7 @@ public interface BgtCDService {
 
 	public void updateDetailInfo(BgtCD updateData);
 
-	public void deleteRow(String bgtCd);
+	public int deleteRow(String bgtCd);
 
 	public List<BgtCDTermDTO> getBgtCDTerm(String CO_CD);
 

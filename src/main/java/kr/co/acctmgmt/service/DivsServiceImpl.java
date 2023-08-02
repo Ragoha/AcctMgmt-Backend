@@ -19,11 +19,8 @@ public class DivsServiceImpl implements DivsService{
 
 	@Override
 	public List<DivsDTO> findDivByCoCdAndKeyword(DivsDTO divsDTO) {
-		
 		Divs divs = DivsConverter.convertToModel(divsDTO);
-		
 		List<Divs> divsList = divsMapper.findDivByCoCdAndKeyword(divs);
-		
 		List<DivsDTO> divsDTOList = DivsConverter.convertToDtoList(divsList);
 		return divsDTOList;
 	}
@@ -54,5 +51,11 @@ public class DivsServiceImpl implements DivsService{
 	@Override
 	public void updateDivs(Divs divs) {
 		divsMapper.updateDivs(divs);
+	}
+
+	@Override
+	public List<DivsDTO> findDivsByCoCd(DivsDTO divsDTO) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
