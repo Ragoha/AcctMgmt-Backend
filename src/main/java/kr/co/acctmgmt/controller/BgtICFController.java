@@ -104,7 +104,7 @@ public class BgtICFController {
 		return new ResponseEntity<List<BgtGrDTO>>(rBgtGrDTOList, HttpStatus.OK);
 	}
 	
-	@GetMapping("/bgticf/bgtcd/search")
+	@GetMapping("/bgticf/bgtcd")
 	public ResponseEntity<List<BgtCDDTO>> findBgtCDByKeyword(BgtCDDTO bgtCDDTO){
 		System.out.println(bgtCDDTO.toString());
 		
