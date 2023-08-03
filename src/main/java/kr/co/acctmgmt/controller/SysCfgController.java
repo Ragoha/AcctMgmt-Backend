@@ -38,6 +38,7 @@ public class SysCfgController {
 		sys.setCfgvalue(settingvalue);
 		Date now = new Date();
 		sys.setModifyDt(now);
+		sys.setCoCd(coCd);
 		
 		
 		sysCfg.updateConfig(sys);
