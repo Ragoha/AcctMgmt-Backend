@@ -52,10 +52,4 @@ public class DivsServiceImpl implements DivsService{
 	public void updateDivs(Divs divs) {
 		divsMapper.updateDivs(divs);
 	}
-
-	@Override
-	public List<DivsDTO> findDivsByCoCd(DivsDTO divsDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

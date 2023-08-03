@@ -22,7 +22,7 @@
 		UPDATE SYSCFG
 		SET sys_YN = #{sysYn}, modify_DT = NOW(),
 		cfg_value = #{cfgvalue}
-		WHERE sys_CD = #{sysCd}
+		WHERE co_CD = #{coCd} AND sys_CD = #{sysCd}
 	</update>
 
 </mapper>
