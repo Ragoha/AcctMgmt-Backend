@@ -34,6 +34,8 @@ public interface BgtCDMapper {
 	public BgtCD getBgtCDDataForPath(String bgtCd);
 	
 	public String getBgtCd_TermForDataPath(String ivFg);
+	
+	public String getPath(String bgtCd);
 
 	/*---DELETE---*/
 	public int findUseParentCdSubject(String bgtCd); //[230801]S.H method for find rows who have parentCd of bgtCd variable 
