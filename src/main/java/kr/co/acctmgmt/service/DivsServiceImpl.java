@@ -55,4 +55,5 @@ public class DivsServiceImpl implements DivsService{
 	public void updateDivs(Divs divs) {
 		divsMapper.updateDivs(divs);
 	}
+
 }
