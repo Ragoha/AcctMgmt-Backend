@@ -92,7 +92,7 @@ public class EmployeeMapperTest {
 
 	@Test
 	public void findByEmpCd() {
-		int cocd = 1000;
+		int cocd = 3000;
 		int empcd = employeeMapper.findByEmpCd(cocd);
 		System.out.println("°ú¿¬ ??????????" + empcd);
 	}

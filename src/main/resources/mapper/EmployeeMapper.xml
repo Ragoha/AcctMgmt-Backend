@@ -10,7 +10,8 @@
 	<select id="getEmployee" parameterType="String"
 		resultType="Employee">
 		SELECT CO_CD, emp_ID, emp_PW, emp_EMAIL, emp_TEL, emp_NAME,
-		emp_SX, div_CD, dept_CD, emp_OD, emp_AUTH, emp_Cd FROM EMP WHERE emp_ID = #{empId};
+		emp_SX, div_CD, dept_CD, emp_OD, emp_AUTH, emp_Cd FROM EMP WHERE
+		emp_ID = #{empId};
 	</select>
 
 	<select id="getEmployeeList" resultType="Employee">
@@ -19,27 +20,19 @@
 
 	<insert id="save" parameterType="Employee">
 		INSERT INTO EMP
-		(emp_ID, emp_NAME, emp_PW, emp_EMAIL, emp_SX, emp_TEL, CO_CD, emp_OD, emp_AUTH, emp_CD)
+		(emp_ID,
+		emp_NAME, emp_PW, emp_EMAIL, emp_SX, emp_TEL, CO_CD, emp_OD, emp_AUTH,
+		emp_CD)
 		VALUES
-		(#{empId}, #{empName}, #{empPw}, #{empEmail}, #{empSx}, #{empTel}, #{coCd},
+		(#{empId}, #{empName}, #{empPw}, #{empEmail}, #{empSx},
+		#{empTel}, #{coCd},
 		#{empOd}, #{empAuth}, #{empCd});
 	</insert>
 
 	<update id="updateEmployee" parameterType="Employee">
-		<!-- UPDATE EMP
-		SET
-		D_PS = #{dPs},
-		D_EMAIL = #{dEmail},
-		D_TEL = #{dTel},
-		D_NAME = #{dName},
-		D_BDAY = #{dBday},
-		D_ADR = #{dAdr},
-		D_ZP = #{dZp},
-		D_SX = #{dSx},
-		D_BCD = #{dBcd},
-		D_CD = #{dCd},
-		D_OD = #{dOd}
-		WHERE D_ID = #{dId} -->
+		<!-- UPDATE EMP SET D_PS = #{dPs}, D_EMAIL = #{dEmail}, D_TEL = #{dTel}, 
+			D_NAME = #{dName}, D_BDAY = #{dBday}, D_ADR = #{dAdr}, D_ZP = #{dZp}, D_SX 
+			= #{dSx}, D_BCD = #{dBcd}, D_CD = #{dCd}, D_OD = #{dOd} WHERE D_ID = #{dId} -->
 	</update>
 
 	<delete id="deleteEmployee" parameterType="String">
@@ -47,24 +40,32 @@
 		emp_ID = #{empId}
 	</delete>
 
-	<select id="loginEmployee" parameterType="String" resultType="Employee">
-		SELECT * from EMP where emp_ID = #{empId} and emp_PS = #{empPs}
+	<select id="loginEmployee" parameterType="String"
+		resultType="Employee">
+		SELECT * from EMP where emp_ID = #{empId} and emp_PS =
+		#{empPs}
 	</select>
 
 
 	<select id="findByEmail" resultType="Employee">
-		SELECT * FROM EMP where emp_EMAIL = #{empEmail}
+		SELECT * FROM EMP where
+		emp_EMAIL = #{empEmail}
 	</select>
-	
+
 	<select id="findByEmails" resultType="Employee">
-		SELECT * FROM EMP where emp_ID = #{empId}
+		SELECT * FROM EMP where
+		emp_ID = #{empId}
 	</select>
-	
-	<select id="getIdByEmail" parameterType="String" resultType="Long">
+
+	<select id="getIdByEmail" parameterType="String"
+		resultType="Long">
 		SELECT emp_Id FROM EMP WHERE emp_ID = #{empId}
 	</select>
-	
-	<select id="findByEmpCd" resultType="int">
-		SELECT MAX(emp_Cd) FROM EMP where CO_CD = #{coCd}
+
+	<!-- <select id="findByEmpCd" resultType="Integer"> SELECT MAX(emp_Cd) FROM 
+		EMP where CO_CD = #{coCd} </select> -->
+
+	<select id="findByEmpCd" resultType="Integer">
+		SELECT IFNULL(MAX(emp_Cd), 0) FROM EMP where CO_CD = #{coCd}
 	</select>
 </mapper>

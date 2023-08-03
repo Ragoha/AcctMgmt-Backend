@@ -43,6 +43,7 @@ public class UserAPI {
 
 	public int generateMemberCode(int coCd) {
 		int lastMemberCode = userService.findByEmpCd(coCd);
+		System.out.println("찍어보기 : " + lastMemberCode);
 		int memberCode=0;
 		if (lastMemberCode == 0) {
 			memberCode = (coCd * 10000) + (lastMemberCode);
@@ -60,6 +61,10 @@ public class UserAPI {
 
 		System.out.println("조인");
 		System.out.println(user.toString());
+		
+		int i = Integer.parseInt(user.getCoCd());
+		System.out.println("i 출력: " + (i+5));
+		
 		userService.save(Employee.builder().empId(user.getEmpId()).empPw(passwordEncoder.encode(user.getEmpPw()))
 				.empName(user.getEmpName()).empTel(user.getEmpTel()).empEmail(user.getEmpEmail()).empSx(user.getEmpSx())
 				.coCd(user.getCoCd()).empOd(user.getEmpOd()).empAuth(user.getEmpAuth())
