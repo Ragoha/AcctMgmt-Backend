@@ -76,9 +76,10 @@ public class BgtCDController {
 	/*업데이트 end */
 	/*삭제 start */
 	@DeleteMapping("/bgt/bgtcd/deleteRow")
-	public void deleteRow(@RequestParam String bgtCd) {
-		service.deleteRow(bgtCd);
+	public int deleteRow(@RequestParam String bgtCd) {
+		
 		System.out.println("여기가 딜리트야 ~");
+		return service.deleteRow(bgtCd);
 	}
 	
 }

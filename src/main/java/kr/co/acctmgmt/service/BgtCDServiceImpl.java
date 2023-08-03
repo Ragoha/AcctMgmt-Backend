@@ -137,9 +137,24 @@ public class BgtCDServiceImpl implements BgtCDService {
 	}
 
 	@Override
-	public void deleteRow(String bgtCd) {
-		mapper.deleteRow(bgtCd);
-
+	public int deleteRow(String bgtCd) {
+		/*
+		 * 먼저 받아온 예산코드를 부모값으로 갖고있는 자식 코드가 있는지 확인한다. 여기서 부모 코드라 함은 
+		 * 'parentCd'를 의미한다.
+		 * 
+		 */
+		System.out.println("deleteRow입니다.");
+		int data=0;
+		if(mapper.findUseParentCdSubject(bgtCd)!=0) {
+			data =mapper.findUseParentCdSubject(bgtCd) ;
+			System.out.println("얘를 부모로 갖고있는 애들이 있다...지울 수 없어....");
+		}else {
+			System.out.println("부모없음 걍 지워도됨 ");
+			mapper.deleteRow(bgtCd);
+		}
+		System.out.println("리턴값은?"+data);
+		//변경못하는 이-유 
+		return data;
 	}
 
 	@Override
