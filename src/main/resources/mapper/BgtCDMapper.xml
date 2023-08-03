@@ -66,6 +66,9 @@
 	        )
 	    </if>
 	</select>
+	<select id="findUseParentCdSubject"  parameterType="String">
+		SELECT COUNT(*) FROM BGTCD WHERE parentCd = #{bgtCd}
+	</select>
 	<delete id="deleteRow" parameterType="String">
 		DELETE FROM BGTCD
 		WHERE bgt_Cd = #{bgtCd}
