@@ -60,7 +60,9 @@
 		FROM BGTCD
 		LEFT JOIN BGTGR ON BGTCD.GROUP_CD = BGTGR.BGTGR_CD
 		WHERE BGTCD.CO_CD = #{coCd} 
-		AND BGTCD.GISU = #{gisu}
+		<if test="gisu != 0 or (gisu != null and gisu != '')">
+	    AND BGTCD.GISU = #{gisu}
+	 	</if>
 		AND BGTCD.TO_DT >= #{toDt} 
 		<if test="groupCd != null and groupCd != ''">
 			AND BGTCD.GROUP_CD = #{groupCd}
@@ -80,4 +82,32 @@
 		DELETE FROM BGTCD
 		WHERE bgt_Cd = #{bgtCd}
 	</delete>
+	
+	
+	<select id="findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd" parameterType="BgtCD" resultType="BgtCD">
+		SELECT 
+		    BGTICF.BGT_CD AS BGT_CD,
+		    COALESCE(BGTCD_TERM.DEF_NM, BGTCD.DIV_FG) AS DIV_FG,
+		    (
+		        SELECT CONCAT(
+		            IFNULL(GROUP_CONCAT(BGT_NM SEPARATOR '-'), ''),
+		            IF(BGTCD.BGT_NM IS NOT NULL AND dataPath IS NOT NULL, '-', ''),
+		            BGTCD.BGT_NM
+		        )
+		        FROM BGTCD bgtcd_sub
+		        WHERE FIND_IN_SET(bgtcd_sub.BGT_CD, BGTCD.dataPath)
+		    ) AS dataPath
+		FROM
+		    BGTCD
+		JOIN
+		    BGTICF ON BGTCD.BGT_CD = BGTICF.BGT_CD
+		LEFT JOIN
+		    BGTCD_TERM ON BGTCD.CO_CD = BGTCD_TERM.CO_CD AND BGTCD_TERM.DIV_FG = BGTCD.DIV_FG
+		WHERE
+		    BGTCD.GISU = #{gisu}
+		    AND BGTICF.DIV_CD = #{divCd}
+		    AND BGTCD.GROUP_CD = #{groupCd}
+		    AND BGTCD.GR_FG = #{grFg}
+		    AND BGTCD.CO_CD = #{coCd};
+	</select>
 </mapper>

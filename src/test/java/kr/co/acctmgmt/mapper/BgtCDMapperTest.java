@@ -2,6 +2,7 @@ package kr.co.acctmgmt.mapper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class BgtCDMapperTest {
 	@Autowired
 	private BgtCDMapper bgtCDMapper;
 	
-	@Test
+//	@Test
     public void findBgcCDByKeywordTest() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date toDt = null;
@@ -41,5 +42,25 @@ public class BgtCDMapperTest {
 
         System.out.println(bgtCDList.toString());
     }
+	
+	@Test
+	public void findBgtCdByGisuAndGroupCdAndGrFgAndBgtCdTest() {
+		BgtCD bgtCD = BgtCD.builder()
+				.coCd(1)
+				.divCd(1003)
+				.groupCd("101")
+				.grFg("0")
+				.bgtCd("B003")
+				.build();
+		List<BgtCD> bgtCDList = bgtCDMapper.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(bgtCD);
+		bgtCDList.forEach(rBgtCD -> {
+		    System.out.println(rBgtCD.getDataPath());
+		    String[] rDataPath = rBgtCD.getDataPath().split(",");
+		    List<String> rDataPathList = Arrays.asList(rDataPath);
+		    System.out.println(rDataPathList);
+		});
+		
+//		System.out.println(bgtCDList.toString());
+	}
 
 }

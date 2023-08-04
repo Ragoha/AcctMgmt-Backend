@@ -188,6 +188,17 @@ public class BgtCDServiceImpl implements BgtCDService {
 	}
 
 	@Override
+	public List<BgtCDDTO> findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(BgtCDDTO bgtCDDTO) {
+		
+		BgtCD bgtCD = BgtCDConverter.convertToModel(bgtCDDTO);
+		
+		List<BgtCD> rBgtCDList = mapper.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(bgtCD);
+		
+		return BgtCDConverter.convertToDtoList(rBgtCDList);
+	}
+
+
+	@Override
 	public String getPath(String bgtCd) {
 		// TODO Auto-generated method stub
 		return mapper.getPath(bgtCd);

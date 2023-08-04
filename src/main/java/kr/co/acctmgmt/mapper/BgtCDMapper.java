@@ -40,4 +40,5 @@ public interface BgtCDMapper {
 	/*---DELETE---*/
 	public int findUseParentCdSubject(String bgtCd); //[230801]S.H method for find rows who have parentCd of bgtCd variable 
 
+	public List<BgtCD> findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(BgtCD bgtCD);
 }
