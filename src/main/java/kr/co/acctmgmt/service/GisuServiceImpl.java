@@ -32,4 +32,11 @@ public class GisuServiceImpl implements GisuService{
 		return GisuConverter.convertToDtoList(rGisuList);
 	}
 
+
+	@Override
+	public List<Gisu> getGisu(int coCd) {
+		List<Gisu> sgisu= gisuMapper.getGisu(coCd);
+		return sgisu;
+	}
+
 }
