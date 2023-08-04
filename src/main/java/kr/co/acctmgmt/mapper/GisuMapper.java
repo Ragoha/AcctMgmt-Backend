@@ -7,5 +7,7 @@ import kr.co.acctmgmt.domain.Gisu;
 public interface GisuMapper {
 
 	List<Gisu> findGisuByCoCd(Gisu gisu);
+	
+	List<Gisu> getGisu(int coCd);
 
 }

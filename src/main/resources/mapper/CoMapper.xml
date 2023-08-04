@@ -43,6 +43,10 @@
 		DELETE from co WHERE CO_CD = #{coCd}; 
 	</delete>
 	
+	<select id="getCoNm" parameterType="String" resultType="Co">
+		SELECT CO_CD FROM CO WHERE CO_NM = #{coNm};
+	</select>
+	
 	<select id="getCoBycoCdAndcoNm" parameterType="Co" resultType="Co">
 	 SELECT CO_CD, CO_NM 
 	    FROM CO

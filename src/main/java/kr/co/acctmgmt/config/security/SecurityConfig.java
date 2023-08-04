@@ -42,16 +42,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
-        // origin 占쏙옙占쏙옙占� port 占쏙옙 "*" 占쏙옙 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쌍억옙占쏙옙 占쏙옙占식울옙 占쏙옙占쏙옙占�
-        // Arrays.asList("<http://localhost:3000>") 占쏙옙占쏙옙 占쏙옙트占쏙옙 占쌍억옙 占쏙옙占쏙옙占쏙옙占쏙옙.
-        corsConfiguration.setAllowCredentials(true); // 'Access-Control-Allow-Credentials' 헤더를 true로 설정
+        // origin �뜝�룞�삕�뜝�룞�삕�뜝占� port �뜝�룞�삕 "*" �뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�뙇�뼲�삕�뜝�룞�삕 �뜝�룞�삕�뜝�떇�슱�삕 �뜝�룞�삕�뜝�룞�삕�뜝占�
+        // Arrays.asList("<http://localhost:3000>") �뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�듃�뜝�룞�삕 �뜝�뙇�뼲�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕.
+        corsConfiguration.setAllowCredentials(true); // 'Access-Control-Allow-Credentials' �뿤�뜑瑜� true濡� �꽕�젙
 
         corsConfiguration.setAllowedOriginPatterns(Arrays.asList("*"));
-        // 占쏙옙占쏙옙占� method "*" 占쏙옙 "GET", "POST", "PUT", "DELETE", "OPTIONS" 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쏙옙占�
+        // �뜝�룞�삕�뜝�룞�삕�뜝占� method "*" �뜝�룞�삕 "GET", "POST", "PUT", "DELETE", "OPTIONS" �뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝占�
         corsConfiguration.setAllowedMethods(Arrays.asList("*"));
-        // 占쏙옙占쏙옙占� header
+        // �뜝�룞�삕�뜝�룞�삕�뜝占� header
         corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
-        // 占쏙옙占쏙옙占시삼옙占쏙옙占� 占쏙옙占쏙옙占� header
+        // �뜝�룞�삕�뜝�룞�삕�뜝�떆�궪�삕�뜝�룞�삕�뜝占� �뜝�룞�삕�뜝�룞�삕�뜝占� header
         corsConfiguration.setExposedHeaders(Arrays.asList("Authorization", "refresh-token", "access-token"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

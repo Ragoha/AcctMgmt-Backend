@@ -4,13 +4,17 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 
+import lombok.RequiredArgsConstructor;
+
 @Data
 @Builder
-@Getter
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class BgtCDDTO {
 	
 	int coCd =0; //COCD;
@@ -21,20 +25,21 @@ public class BgtCDDTO {
 	String defNm="";
 	String ctlFg=""; //CTLFG;
 	String bgajustFg=""; //BGAJUSTFG;
-//	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date toDt= new Date(); //TODT;
 	String bottomFg=""; //BOTTOMFG;
 	String bizFg=""; //BIZFG;
 	String groupCd="";
-	String insertId=""; //ÀÔ·ÂÀÚ
-	Date insertDt=new Date() ; //ÀÔ·ÂÀÏ
-	String insertIp=""; //ÀÔ·ÂIP
-	String modifyId=""; //¼öÁ¤
-	Date modifyDt= new Date(); //¼öÁ¤ ÀÏ_
+	String insertId=""; //ì…ë ¥ì
+	Date insertDt=new Date() ; //ì…ë ¥ì¼
+	String insertIp=""; //ì…ë ¥IP
+	String modifyId=""; //ìˆ˜ì •
+	Date modifyDt= new Date(); //ìˆ˜ì • ì¼_
 	String modifyIp="";
+	int MultiCk= 0;  //ì¤‘ë³µì—¬ë¶€
+	int MultiNum=0; //ì¤‘ë³µì´ Yì¼ë•Œ ëª‡ë²ˆì¬ ì¤‘ë³µì¸ê°€ .
+	String dataPath="";
 	
 	String keyword="";
-	String bgtCDMark="";
 	String bgtGrNm="";
 	
 }
