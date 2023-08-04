@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.acctmgmt.mapper.PjtMapper">
+
+
+	<select id="getPjtList" resultType="Pjt">
+		SELECT * FROM PJT
+		WHERE
+		co_CD = #{coCd}
+		ORDER BY co_CD
+	</select>
+	
+	<update id="updatePjt" parameterType="Pjt">
+		UPDATE PJT
+		SET pgr_NM = #{pgrNm}, 
+		WHERE co_CD = #{coCd}
+	</update>
+
+
+	<!-- <select id="getPjtList" resultType="Pjt">
+		SELECT * FROM PJT
+	</select> -->
+	
+	
+</mapper>
