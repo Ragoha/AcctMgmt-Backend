@@ -30,6 +30,13 @@
 		BGTCD_TERM
 		WHERE CO_CD=#{coCd} AND DIV_FG=#{divFg}
 	</select>
+	<select id="getPath" parameterType="String" resultType="String">
+		SELECT dataPath 
+		FROM BGTCD
+		WHERE BGT_CD=#{bgtCd}
+	
+	</select>
+	
 	<update id="updateDetailInfo" parameterType="BgtCD">
 		UPDATE BGTCD
 		<set>

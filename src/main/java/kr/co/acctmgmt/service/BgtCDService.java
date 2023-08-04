@@ -27,4 +27,6 @@ public interface BgtCDService {
 	
 	public List<BgtCDDTO> findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(BgtCDDTO bgtCDDTO);
 
+	public String getPath(String bgtCd);//Get this dataPath for using insert into DataGrid in Front
+
 }

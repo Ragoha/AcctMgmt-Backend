@@ -159,7 +159,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 
 	@Override
 	public List<BgtCDTermDTO> getBgtCDTerm(String CO_CD) {
-		System.out.println("Service�쓽 getBgtCDTerm");
+		System.out.println("Service's getBgtCDTerm");
 		List<BgtCDTerm> list = mapper.getBgtCDTerm(CO_CD);
 		return BgtCDTermConverter.convertToDtoList(list);
 	}
@@ -196,28 +196,44 @@ public class BgtCDServiceImpl implements BgtCDService {
 		
 		return BgtCDConverter.convertToDtoList(rBgtCDList);
 	}
-	// refer when you need to make insert dataPath
-	/*
-	 * /*
-	 * 
-	 * @Override public List<BgtCD> getBGTCDData(String groupcd) { List<BgtCD> list
-	 * = mapper.getBGTCDData(groupcd); // defN
-	 * System.out.println("Service  getBGTCDData."); System.out.println("groupCd ?"
-	 * + groupcd); for (int i = 0; i < list.size(); i++) { // String space = " ";
-	 * String dataPath = ""; // 1. String inOut = list.get(i).getGrFg(); // 2-1 if
-	 * (inOut.equals("0")) { dataPath = dataPath + "수입"; // 2-2. } else if
-	 * (inOut.equals("1")) { dataPath = dataPath + "수출"; } else {
-	 * System.out.println("null."); } // 3.path // 3-1. path int cycle =
-	 * Integer.parseInt(list.get(i).getDivFg()); //
-	 * 
-	 * for (int j = 1; j < cycle + 1; j++) { BgtCD tempBgtCD = new BgtCD(); String
-	 * divFg = j + "lv"; tempBgtCD.setDivFg(divFg); // list.get(0).setDivFg(j);
-	 * tempBgtCD.setCoCd(list.get(i).getCoCd()); String defNm =
-	 * mapper.getDataPath(tempBgtCD); dataPath = dataPath + "," + defNm; }
-	 * if(list.get(i).getMultiCk()==1) { for(int k=0
-	 * ;k<list.get(i).getMultiNum();k++) { dataPath=dataPath + space; } }
-	 * list.get(i).setDataPath(dataPath); } return list; }
-	 * 
-	 */
 
+
+	@Override
+	public String getPath(String bgtCd) {
+		// TODO Auto-generated method stub
+		return mapper.getPath(bgtCd);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
