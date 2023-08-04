@@ -1,0 +1,54 @@
+package kr.co.acctmgmt.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import kr.co.acctmgmt.domain.Pjt;
+import kr.co.acctmgmt.mapper.PjtMapper;
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class PjtServiceImpl implements PjtService {
+
+	private final PjtMapper pjtMapper;
+	
+
+	@Override
+	public void insertCo(Pjt pjt) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Pjt getPjt(int coCd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Pjt> getPjtList(int coCd) {
+		// TODO Auto-generated method stub
+		return pjtMapper.getPjtList(coCd);
+	}
+
+	@Override
+	public void deletePjt(int coCd) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void updatePjt(Pjt pjt) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<Pjt> getPjtList() {
+		// TODO Auto-generated method stub
+		return pjtMapper.getPjtList();
+	}
+
+}
