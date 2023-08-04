@@ -7,10 +7,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 @Data
 @Builder
 @Getter
+@Setter
 public class BgtCDDTO {
 	
 	int coCd =0; //COCD;

@@ -26,10 +26,11 @@ public class BgtCDServiceImpl implements BgtCDService {
 	@Override
 	public List<BgtCD> getBGTCDData(String groupcd) {
 		List<BgtCD> list = mapper.getBGTCDData(groupcd); // defN
-		System.out.println("Service  getBGTCDData.");
-		System.out.println("groupCd ?" + groupcd);
-		System.out.println(list.get(0).toString());
+System.out.println("*********Service  getBGTCDData***********.");
+System.out.println("groupCd ? " + groupcd);
+System.out.println(list.get(0).toString());
 		int cocd=list.get(0).getCoCd(); //Integer.parseInt(groupcd);
+System.out.println("cocd? : "+ cocd);
 		// String dataPath = "";
 
 		/*
@@ -46,27 +47,32 @@ public class BgtCDServiceImpl implements BgtCDService {
 			String tempDataPath = list.get(i).getDataPath(); //
 			//수입수출여부
 			//B002의 path는 수출이다 .
-			System.out.println("수입일까 수출일까 : ? "+ list.get(i).getGrFg());
+	System.out.println("몇번째 i 인가 :?"+i+"   이건 수입일까 수출일까 : ? "+ list.get(i).getGrFg());
 			if (list.get(i).getGrFg().equals("0")) {
 				TreeViewPath = TreeViewPath + "수입,";
 			} else if (list.get(i).getGrFg().equals("1")) {
 				TreeViewPath = TreeViewPath + "수출,";
 			}
-			System.out.println("수입수출 적용됐는지 확인 : "+ TreeViewPath);
+	System.out.println("수입수출 적용됐는지 확인 : "+ TreeViewPath);
+	System.out.println("tempDataPaht?:" + tempDataPath);
+			
+			
+			
 			if (tempDataPath != null) {
 				// 2.패스경로를 나눈다.->BgtCd값을 갖고있음 "B001,B002 ...."
 				String[] tempList = tempDataPath.split(",");//--> 만약 B002다 
 				//여기서 할건 부모의 정보로 장 관 항 세 목 정하기 
 				for(int p=0;p<tempList.length;p++) { //B002의 .. B003의 ...
-					System.out.println("tempList?"+tempList[p]);
+		System.out.println("tempList?"+tempList[p]);
 					BgtCD initRow = mapper.getBgtCDDataForPath(tempList[p]); //-->B002의 정보
-					System.out.println("divFg는?:"+initRow.getDivFg());
-					String pathPiece = initRow.getDivFg()+"lv"; //Bgt_Cd Term에서 가져온 값.
+		System.out.println("divFg는?:"+initRow.getDivFg());
+					String pathPiece = initRow.getDivFg(); //Bgt_Cd Term에서 가져온 값.
+		System.out.println("pathPiece :          ->" + pathPiece);
 					BgtCD temp = new BgtCD();
 					temp.setCoCd(cocd);
 					temp.setDivFg(pathPiece);
 					pathPiece = mapper.getDataPath(temp);
-					System.out.println("pathPiece 1차는 ?:" + pathPiece);
+		System.out.println("pathPiece 1차는 ?:" + pathPiece);
 					if(initRow.getMultiCk()==1) {
 						for(int a = 0 ; a<initRow.getMultiNum();a++) {
 							pathPiece = pathPiece+" ";
@@ -76,14 +82,14 @@ public class BgtCDServiceImpl implements BgtCDService {
 				}//int p for마무리
 				
 				BgtCD temp = new BgtCD();
-				String a = list.get(i).getDivFg()+"lv";
+				String a = list.get(i).getDivFg();
 				temp.setCoCd(cocd);
 				temp.setDivFg(a);
 				String pathPiece2=mapper.getDataPath(temp);// <<<defNm
 				for(int z =0; z<list.get(i).getMultiNum();z++) {
 					pathPiece2 = pathPiece2+" ";
 				}
-				System.out.println("pathPiece2는?"+pathPiece2);
+		System.out.println("pathPiece2는?"+pathPiece2);
 				TreeViewPath = TreeViewPath +pathPiece2+",";
 				
 				TreeViewPath= TreeViewPath.substring(0, TreeViewPath.length() - 1);
@@ -91,8 +97,8 @@ public class BgtCDServiceImpl implements BgtCDService {
 			
 			//null이다 ? 
 			else if(tempDataPath==null) {
-				System.out.println("넌 널이야");
-				String a = list.get(i).getDivFg()+"lv";
+	System.out.println("넌 널이야");
+				String a = list.get(i).getDivFg();
 				int cycle1 = list.get(i).getMultiNum();
 				BgtCD temp = new BgtCD();
 				temp.setCoCd(cocd);
@@ -106,16 +112,16 @@ public class BgtCDServiceImpl implements BgtCDService {
 				TreeViewPath = TreeViewPath+defNm;
 				System.out.println("널의 트리뷰:  "+ TreeViewPath);
 			} 
-			
-			
-			
 			list.get(i).setDataPath(TreeViewPath);
+	System.out.println();
+	System.out.println();
+	System.out.println();
 		} // For i
-		System.out.println("------");
+	System.out.println("------");
 		for(int q = 0 ; q<list.size();q++) {
-			System.out.println(list.get(q).getBgtCd()+":"+list.get(q).getDataPath());
+	System.out.println(list.get(q).getBgtCd()+":"+list.get(q).getDataPath());
 		}
-		System.out.println("------");
+	System.out.println("------");
 		
 		return list;
 	}
@@ -159,8 +165,13 @@ public class BgtCDServiceImpl implements BgtCDService {
 
 	@Override
 	public List<BgtCDTermDTO> getBgtCDTerm(String CO_CD) {
-		System.out.println("Service's getBgtCDTerm");
+System.out.println("Service's getBgtCDTerm");
 		List<BgtCDTerm> list = mapper.getBgtCDTerm(CO_CD);
+
+		for(int i =0;i<list.size();i++) {
+			list.get(i).setDivFg(list.get(i).getDivFg()+"lv");
+		}
+		
 		return BgtCDTermConverter.convertToDtoList(list);
 	}
 
