@@ -4,13 +4,16 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Builder
-@Getter
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class BgtCDDTO {
 	
 	int coCd =0; //COCD;
@@ -21,7 +24,6 @@ public class BgtCDDTO {
 	String defNm="";
 	String ctlFg=""; //CTLFG;
 	String bgajustFg=""; //BGAJUSTFG;
-//	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date toDt= new Date(); //TODT;
 	String bottomFg=""; //BOTTOMFG;
 	String bizFg=""; //BIZFG;
@@ -32,9 +34,11 @@ public class BgtCDDTO {
 	String modifyId=""; //수정
 	Date modifyDt= new Date(); //수정 일_
 	String modifyIp="";
+	int MultiCk= 0;  //중복여부
+	int MultiNum=0; //중복이 Y일때 몇번재 중복인가 .
+	String dataPath="";
 	
 	String keyword="";
-	String bgtCDMark="";
 	String bgtGrNm="";
 	
 }

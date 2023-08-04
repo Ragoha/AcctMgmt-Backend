@@ -55,7 +55,7 @@
 		CO_CD=#{coCd} and DIV_FG=#{divFg}
 	</update>
 	
-	<select id = "findBgcCDByGroupCdAndToDtAndKeyword" parameterType="BgtCD" resultType="BgtCD">
+	<!-- <select id = "findBgcCDByGroupCdAndToDtAndKeyword" parameterType="BgtCD" resultType="BgtCD">
 		SELECT *
 		FROM BGTCD
 		LEFT JOIN BGTGR ON BGTCD.GROUP_CD = BGTGR.BGTGR_CD
@@ -74,7 +74,41 @@
 	            BGTCD.BGT_NM LIKE CONCAT('%', #{keyword}, '%')
 	        )
 	    </if>
+	</select> -->
+	
+	
+	<select id ="findBgcCDByGroupCdAndToDtAndKeyword" parameterType="BgtCD" resultType="BgtCD">
+		SELECT
+		    BGTCD.GISU,
+		    BGTGR.BGTGR_NM,
+		    BGTCD.BGT_CD AS BGT_CD,
+		    BGTCD.BGT_NM,
+		    (
+		        SELECT GROUP_CONCAT(BGT_NM SEPARATOR ' > ')
+		        FROM BGTCD bgtcd_sub
+		        WHERE FIND_IN_SET(bgtcd_sub.BGT_CD, BGTCD.DATAPATH)
+		    ) AS DATA_PATH
+		FROM
+		    BGTCD
+		LEFT JOIN
+		    BGTGR ON BGTCD.GROUP_CD = BGTGR.BGTGR_CD
+		    WHERE BGTCD.CO_CD = #{coCd} 
+		<if test="gisu != 0 or (gisu != null and gisu != '')">
+	    AND BGTCD.GISU = #{gisu}
+	 	</if>
+		AND BGTCD.TO_DT >= #{toDt} 
+		<if test="groupCd != null and groupCd != ''">
+			AND BGTCD.GROUP_CD = #{groupCd}
+		</if>
+		<if test="keyword != null and keyword != ''">
+	        AND (
+	            BGTCD.BGT_CD LIKE CONCAT('%', #{keyword}, '%')
+	            OR
+	            BGTCD.BGT_NM LIKE CONCAT('%', #{keyword}, '%')
+	        )
+	    </if>
 	</select>
+	
 	<select id="findUseParentCdSubject"  parameterType="String">
 		SELECT COUNT(*) FROM BGTCD WHERE parentCd = #{bgtCd}
 	</select>
@@ -85,29 +119,32 @@
 	
 	
 	<select id="findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd" parameterType="BgtCD" resultType="BgtCD">
-		SELECT 
-		    BGTICF.BGT_CD AS BGT_CD,
-		    COALESCE(BGTCD_TERM.DEF_NM, BGTCD.DIV_FG) AS DIV_FG,
-		    (
-		        SELECT CONCAT(
-		            IFNULL(GROUP_CONCAT(BGT_NM SEPARATOR '-'), ''),
-		            IF(BGTCD.BGT_NM IS NOT NULL AND dataPath IS NOT NULL, '-', ''),
-		            BGTCD.BGT_NM
+		SELECT DISTINCT 
+		    BgtCD.bgt_Cd AS bgt_Cd,
+		    CASE 
+		        WHEN bgtcd.div_Fg BETWEEN '1' AND '8' THEN (
+		            SELECT BgtCD_Term.def_Nm
+		            FROM BgtCD_Term
+		            WHERE BgtCD_Term.co_Cd = bgtcd.co_Cd AND BgtCD_Term.div_Fg = bgtcd.div_Fg
 		        )
-		        FROM BGTCD bgtcd_sub
-		        WHERE FIND_IN_SET(bgtcd_sub.BGT_CD, BGTCD.dataPath)
-		    ) AS dataPath
+		        ELSE bgtcd.div_Fg
+		    END AS div_Fg,
+		    CASE
+		        WHEN BgtCD.dataPath IS NULL THEN BgtCD.bgt_nm
+		        ELSE (
+		            SELECT CONCAT(
+		                GROUP_CONCAT(bgt_nm SEPARATOR ' > '),
+		                ' > ',
+		                BgtCD.bgt_nm
+		            )
+		            FROM BgtCD bgtcd_sub
+		            WHERE FIND_IN_SET(bgtcd_sub.bgt_Cd, BgtCD.dataPath)
+		        )
+		    END AS dataPath
 		FROM
-		    BGTCD
-		JOIN
-		    BGTICF ON BGTCD.BGT_CD = BGTICF.BGT_CD
+		    BgtCD
 		LEFT JOIN
-		    BGTCD_TERM ON BGTCD.CO_CD = BGTCD_TERM.CO_CD AND BGTCD_TERM.DIV_FG = BGTCD.DIV_FG
-		WHERE
-		    BGTCD.GISU = #{gisu}
-		    AND BGTICF.DIV_CD = #{divCd}
-		    AND BGTCD.GROUP_CD = #{groupCd}
-		    AND BGTCD.GR_FG = #{grFg}
-		    AND BGTCD.CO_CD = #{coCd};
+		    BgtICF ON BgtCD.bgt_Cd = BgtICF.bgt_Cd
+		ORDER BY BgtCD.BGT_Cd
 	</select>
 </mapper>

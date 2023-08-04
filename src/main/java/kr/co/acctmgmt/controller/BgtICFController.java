@@ -136,6 +136,7 @@ public class BgtICFController {
 		
 		List<BgtCDDTO> rBgtCDDTOList = bgtCDService.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(bgtCDDTO);
 		
+		System.out.println("asdf");
 		System.out.println(rBgtCDDTOList.toString());
 		
 		return new ResponseEntity<List<BgtCDDTO>>(rBgtCDDTOList, HttpStatus.OK);
