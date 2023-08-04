@@ -38,4 +38,5 @@ public class BgtCD {
 	
 	String keyword="";
 	String bgtGrNm="";
+	int divCd=0;
 }

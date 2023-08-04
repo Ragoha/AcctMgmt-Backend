@@ -104,7 +104,7 @@ public class BgtICFController {
 		return new ResponseEntity<List<BgtGrDTO>>(rBgtGrDTOList, HttpStatus.OK);
 	}
 	
-	@GetMapping("/bgticf/bgtcd/search")
+	@GetMapping("/bgticf/bgtcd")
 	public ResponseEntity<List<BgtCDDTO>> findBgtCDByKeyword(BgtCDDTO bgtCDDTO){
 		System.out.println(bgtCDDTO.toString());
 		
@@ -126,6 +126,19 @@ public class BgtICFController {
 		
 		return new ResponseEntity<List<GisuDTO>>(rGisuDTOList, HttpStatus.OK);
 		
+	}
+	
+	@GetMapping("/bgticf/bgtcd/search")
+	public ResponseEntity<List<BgtCDDTO>> findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(BgtCDDTO bgtCDDTO) {
+		
+		System.out.println(bgtCDDTO.toString());
+		
+		
+		List<BgtCDDTO> rBgtCDDTOList = bgtCDService.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(bgtCDDTO);
+		
+		System.out.println(rBgtCDDTOList.toString());
+		
+		return new ResponseEntity<List<BgtCDDTO>>(rBgtCDDTOList, HttpStatus.OK);
 	}
 	
 	
