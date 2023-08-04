@@ -186,6 +186,16 @@ public class BgtCDServiceImpl implements BgtCDService {
 
 		return BgtCDConverter.convertToDtoList(bgtCDList);
 	}
+
+	@Override
+	public List<BgtCDDTO> findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(BgtCDDTO bgtCDDTO) {
+		
+		BgtCD bgtCD = BgtCDConverter.convertToModel(bgtCDDTO);
+		
+		List<BgtCD> rBgtCDList = mapper.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(bgtCD);
+		
+		return BgtCDConverter.convertToDtoList(rBgtCDList);
+	}
 	// refer when you need to make insert dataPath
 	/*
 	 * /*
