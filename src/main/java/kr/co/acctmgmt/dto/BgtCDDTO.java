@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
+
 import lombok.RequiredArgsConstructor;
 
 @Data
@@ -28,14 +29,14 @@ public class BgtCDDTO {
 	String bottomFg=""; //BOTTOMFG;
 	String bizFg=""; //BIZFG;
 	String groupCd="";
-	String insertId=""; //ÀÔ·ÂÀÚ
-	Date insertDt=new Date() ; //ÀÔ·ÂÀÏ
-	String insertIp=""; //ÀÔ·ÂIP
-	String modifyId=""; //¼öÁ¤
-	Date modifyDt= new Date(); //¼öÁ¤ ÀÏ_
+	String insertId=""; //ì…ë ¥ì
+	Date insertDt=new Date() ; //ì…ë ¥ì¼
+	String insertIp=""; //ì…ë ¥IP
+	String modifyId=""; //ìˆ˜ì •
+	Date modifyDt= new Date(); //ìˆ˜ì • ì¼_
 	String modifyIp="";
-	int MultiCk= 0;  //Áßº¹¿©ºÎ
-	int MultiNum=0; //Áßº¹ÀÌ YÀÏ¶§ ¸î¹øÀç Áßº¹ÀÎ°¡ .
+	int MultiCk= 0;  //ì¤‘ë³µì—¬ë¶€
+	int MultiNum=0; //ì¤‘ë³µì´ Yì¼ë•Œ ëª‡ë²ˆì¬ ì¤‘ë³µì¸ê°€ .
 	String dataPath="";
 	
 	String keyword="";

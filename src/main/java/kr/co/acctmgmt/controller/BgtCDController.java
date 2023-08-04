@@ -48,7 +48,9 @@ public class BgtCDController {
 	}
 	@GetMapping("/bgt/bgtcd/getBgtCDTerm")
 	public List<BgtCDTermDTO> getBgtCDTerm(@RequestParam String CO_CD){
+		System.out.println("****Controller - getBgtCDTerm****");
 		List<BgtCDTermDTO> list = service.getBgtCDTerm(CO_CD);
+		System.out.println("****Controller - getBgtCDTerm END ****");
 		return list;
 	}
 	@GetMapping("/bgt/bgtcd/getPath")
