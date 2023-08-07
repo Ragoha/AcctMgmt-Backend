@@ -120,6 +120,7 @@
 	
 	<select id="findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd" parameterType="BgtCD" resultType="BgtCD">
 		SELECT DISTINCT 
+			BGTCD.CO_CD,
 		    BgtCD.bgt_Cd AS bgt_Cd,
 		    CASE 
 		        WHEN bgtcd.div_Fg BETWEEN '1' AND '8' THEN (
@@ -145,6 +146,16 @@
 		    BgtCD
 		LEFT JOIN
 		    BgtICF ON BgtCD.bgt_Cd = BgtICF.bgt_Cd
+		WHERE 
+			BGTICF.DIV_CD = #{divCd}
+			AND
+			BGTCD.GISU = #{gisu}
+			AND
+			BGTCD.GROUP_CD = #{groupCd}
+			AND
+			BGTCD.GR_FG = #{grFg}
+			AND
+			BGTCD.BGT_CD = #{bgtCd}
 		ORDER BY BgtCD.BGT_Cd
 	</select>
 </mapper>

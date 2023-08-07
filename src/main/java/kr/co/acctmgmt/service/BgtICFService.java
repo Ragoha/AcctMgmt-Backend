@@ -8,7 +8,7 @@ public interface BgtICFService {
 
 	BgtICFDTO getBgtICF(BgtICFDTO bgtICFDTO);
 
-	List<BgtICFDTO> getBgtICFList();
+	List<BgtICFDTO> getBgtICFList(BgtICFDTO bgtICFDTO);
 
 	void insertBgtICF(BgtICFDTO bgtICFDTO);
 

@@ -51,4 +51,10 @@ public class PjtServiceImpl implements PjtService {
 		return pjtMapper.getPjtList();
 	}
 
+	@Override
+	public List<Pjt> getSelPjtList(String pjtCd) {
+		// TODO Auto-generated method stub
+		return pjtMapper.getSelPjtList(pjtCd);
+	}
+
 }

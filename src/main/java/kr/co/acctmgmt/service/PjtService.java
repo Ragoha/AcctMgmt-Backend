@@ -18,4 +18,6 @@ public interface PjtService {
 
 	public void updatePjt(Pjt pjt);
 
+	public List<Pjt> getSelPjtList(String pjtCd);
+
 }

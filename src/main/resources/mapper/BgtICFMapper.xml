@@ -13,6 +13,8 @@
 	
 	<select id="getBgtICFList" resultType="BgtICF">
     	SELECT * FROM BGTICF
+    	WHERE CO_CD = #{coCd}
+    		AND BGT_CD = #{bgtCd}
 	</select>
 	
 	<insert id="insertBgtICF" parameterType="BgtICF">
@@ -72,6 +74,12 @@
 	    WHERE
 	        sq = #{sq}
 	</delete>
+	
+	<select id="getSumBgtICFByCoCdAndBgtCd" parameterType="BgtCD" resultType="int">
+		SELECT nvl(SUM(CARR_AM), 0) FROM BGTICF
+		WHERE CO_CD = #{coCd} AND BGT_CD = #{bgtCd}
+	</select>
+	
 	<!-- DELETE FROM BGTICF
 	    WHERE
 	        CO_CD = #{coCd} AND

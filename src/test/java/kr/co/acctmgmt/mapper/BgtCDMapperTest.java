@@ -48,7 +48,7 @@ public class BgtCDMapperTest {
 		BgtCD bgtCD = BgtCD.builder()
 				.coCd(1)
 				.gisu(1)
-				.divCd(1001)
+//				.divCd(1001)
 				.groupCd("101")
 				.grFg("0")
 //				.bgtCd("B003")

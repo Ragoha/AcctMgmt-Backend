@@ -21,5 +21,10 @@
 		SELECT * FROM PJT
 	</select> -->
 	
+	<select id="getSelPjtList" resultType="Pjt">
+		SELECT * FROM PJT
+		WHERE
+		pjt_CD = #{pjtCd}
+	</select>
 	
 </mapper>
