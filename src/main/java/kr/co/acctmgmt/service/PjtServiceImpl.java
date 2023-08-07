@@ -40,9 +40,8 @@ public class PjtServiceImpl implements PjtService {
 	}
 
 	@Override
-	public void updatePjt(Pjt pjt) {
-		// TODO Auto-generated method stub
-
+	public void updatePjt(Pjt pjt, int coCd) {
+		pjtMapper.updatePjt(pjt, coCd);
 	}
 
 	@Override
@@ -52,9 +51,15 @@ public class PjtServiceImpl implements PjtService {
 	}
 
 	@Override
-	public List<Pjt> getSelPjtList(String pjtCd) {
+	public List<Pjt> getSelPjtList(String pjtCd, int coCd) {
 		// TODO Auto-generated method stub
-		return pjtMapper.getSelPjtList(pjtCd);
+		return pjtMapper.getSelPjtList(pjtCd, coCd);
+	}
+
+	@Override
+	public Pjt getSelPjt(int coCd, String pjtCd) {
+		// TODO Auto-generated method stub
+		return pjtMapper.getSelPjt(coCd, pjtCd);
 	}
 
 }

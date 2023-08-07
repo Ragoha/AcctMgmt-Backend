@@ -2,23 +2,27 @@ package kr.co.acctmgmt.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import kr.co.acctmgmt.domain.Pjt;
 
 
 public interface PjtMapper {
 	public List<Pjt> getPjtList(); //회사 상관없이 다 불러오기
 
-	public void insertCo(Pjt pjt);
+	public void insertPjt(Pjt pjt);
 
 	public Pjt getPjt(int coCd);
+	
+	public Pjt getSelPjt(@Param("coCd") int coCd, @Param("pjtCd") String pjtCd);
 
 	public List<Pjt> getPjtList(int coCd); //특정 회사만 불러오기
 
 	public void deletePjt(int coCd);
 
-	public void updatePjt(Pjt pjt);
+	public void updatePjt(Pjt pjt, int coCd);
 	
-	public List<Pjt> getSelPjtList(String pjtCd);
+	public List<Pjt> getSelPjtList(@Param("pjtCd") String pjtCd, @Param("coCd") int coCd);
 }
 
 //프로젝트코드
