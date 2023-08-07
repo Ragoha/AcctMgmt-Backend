@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.acctmgmt.domain.BgtCD;
 import kr.co.acctmgmt.domain.BgtCDTerm;
+import kr.co.acctmgmt.domain.BgtGr;
 import kr.co.acctmgmt.dto.BgtCDTermDTO;
 
 public interface BgtCDMapper {
@@ -20,6 +21,9 @@ public interface BgtCDMapper {
 	
 	/*BgtCDDevFgCustom.js>>>*/
 	public List<BgtCDTerm> getBgtCDTerm(String CO_CD);
+	
+	//getBgtGrData
+	public List<BgtGr> getBgtGrData(String coCd);
 	
 	public int updateBgtCDTerm(BgtCDTerm dataList);
 	/*<<<BgtCDDevFgCustom.js */

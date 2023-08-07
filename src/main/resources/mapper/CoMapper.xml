@@ -23,11 +23,11 @@
 
 	<insert id="insertCo" parameterType="Co">
 		INSERT INTO CO
-		(CO_NM, GISU, FR_DT,TO_DT,
+		(CO_CD,CO_NM, GISU, FR_DT,TO_DT,
 		JONGMOK, BUSINESS_TYPE, CO_NB, CEO_NM, CO_ZIP, CO_ADDR,
 		CO_ADDR1)
 		VALUES
-		(#{coNm}, #{gisu}, #{frDt}, #{toDt}, #{jongmok}, #{businessType}, #{coNb},
+		(LAST_INSERT_ID(NEXT VALUE FOR s_seq), #{coNm}, #{gisu}, #{frDt}, #{toDt}, #{jongmok}, #{businessType}, #{coNb},
 		#{ceoNm}, #{coZip},
 		#{coAddr}, #{coAddr1});
 	</insert>

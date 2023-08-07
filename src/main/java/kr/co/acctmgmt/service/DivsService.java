@@ -22,5 +22,7 @@ public interface DivsService {
 	public void updateDivs(Divs divs);
 	
 	public List<Divs> getDivBydivCdAnddivNm(Divs divs);
+	
+	public Integer getCoCd(int divCd);
 
 }

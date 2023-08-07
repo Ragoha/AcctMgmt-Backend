@@ -50,10 +50,12 @@ public class BgtICFServiceImpl implements BgtICFService{
 	@Override
 	public void updateBgtICF(BgtICFDTO bgtICFDTO) {
 		
-		Long sum = bgtICFDTO.getCarrAm() + bgtICFDTO.getCarrAm1();
-		bgtICFDTO.setCarrAm2(sum);
+		Long sum = bgtICFDTO.getCarrAm1() + bgtICFDTO.getCarrAm2() - bgtICFDTO.getCarrAm3();
+		bgtICFDTO.setCarrAm(sum);
 		
 		BgtICF bgtICF = BgtICFConverter.convertToModel(bgtICFDTO);
+	
+		System.out.println(bgtICF.toString());
 		
 		bgtICFMapper.updateBgtICF(BgtICFConverter.convertToModel(bgtICFDTO));
 		
