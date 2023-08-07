@@ -65,4 +65,10 @@ public class DivsServiceImpl implements DivsService{
 		return division;
 	}
 
+	@Override
+	public Integer getCoCd(int divCd){
+		Integer coCd = divsMapper.getCoCd(divCd);
+		return coCd;
+	}
+
 }
