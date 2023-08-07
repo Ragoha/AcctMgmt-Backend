@@ -15,6 +15,7 @@ import kr.co.acctmgmt.domain.BgtCDTerm;
 import kr.co.acctmgmt.dto.BgtCDDTO;
 import kr.co.acctmgmt.dto.BgtCDTermDTO;
 import kr.co.acctmgmt.mapper.BgtCDMapper;
+import kr.co.acctmgmt.mapper.BgtICFMapper;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -22,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class BgtCDServiceImpl implements BgtCDService {
 
 	private final BgtCDMapper mapper;
+	private final BgtICFMapper bgtICFMapper;
 
 	@Override
 	public List<BgtCD> getBGTCDData(String groupcd) {
@@ -205,7 +207,17 @@ System.out.println("Service's getBgtCDTerm");
 		
 		List<BgtCD> rBgtCDList = mapper.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(bgtCD);
 		
-		return BgtCDConverter.convertToDtoList(rBgtCDList);
+		List<BgtCD> nBgtCDList = new ArrayList();
+		
+		rBgtCDList.forEach(rBgtCD -> {
+			System.out.println(rBgtCD.toString());
+			int carrAm = bgtICFMapper.getSumBgtICFByCoCdAndBgtCd(rBgtCD);
+			System.out.println(carrAm);
+			rBgtCD.setCarrAm(carrAm);
+			nBgtCDList.add(rBgtCD);
+		});
+		
+		return BgtCDConverter.convertToDtoList(nBgtCDList);
 	}
 
 

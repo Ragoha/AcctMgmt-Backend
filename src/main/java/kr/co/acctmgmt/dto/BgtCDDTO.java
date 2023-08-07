@@ -29,17 +29,20 @@ public class BgtCDDTO {
 	String bottomFg=""; //BOTTOMFG;
 	String bizFg=""; //BIZFG;
 	String groupCd="";
-	String insertId=""; //입력자
-	Date insertDt=new Date() ; //입력일
-	String insertIp=""; //입력IP
-	String modifyId=""; //수정
-	Date modifyDt= new Date(); //수정 일_
+	String grFg = "";
+	String insertId=""; //�엯�젰�옄
+	Date insertDt=new Date() ; //�엯�젰�씪
+	String insertIp=""; //�엯�젰IP
+	String modifyId=""; //�닔�젙
+	Date modifyDt= new Date(); //�닔�젙 �씪_
 	String modifyIp="";
-	int MultiCk= 0;  //중복여부
-	int MultiNum=0; //중복이 Y일때 몇번재 중복인가 .
+	int MultiCk= 0;  //以묐났�뿬遺�
+	int MultiNum=0; //以묐났�씠 Y�씪�븣 紐뉖쾲�옱 以묐났�씤媛� .
 	String dataPath="";
 	
 	String keyword="";
 	String bgtGrNm="";
+	int divCd=0;
+	int carrAm=0;
 	
 }

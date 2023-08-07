@@ -25,6 +25,7 @@ public class BgtCDConverter {
 				.bottomFg(bgtcdDomain.getBottomFg())
 				.bizFg(bgtcdDomain.getBizFg())
 				.groupCd(bgtcdDomain.getGroupCd())
+				.grFg(bgtcdDomain.getGrFg())
 				.insertId(bgtcdDomain.getInsertId())
 				.insertDt(bgtcdDomain.getInsertDt())
 				.insertIp(bgtcdDomain.getInsertIp())
@@ -33,6 +34,8 @@ public class BgtCDConverter {
 				.modifyIp(bgtcdDomain.getModifyIp())
 				.bgtGrNm(bgtcdDomain.getBgtGrNm())
 				.dataPath(bgtcdDomain.getDataPath())
+				.carrAm(bgtcdDomain.getCarrAm())
+				.divCd(bgtcdDomain.getDivCd())
 				.build();
 		return bgtCDDTO;
 	}
@@ -50,6 +53,7 @@ public class BgtCDConverter {
                 .bottomFg(bgtcdDTO.getBottomFg())
                 .bizFg(bgtcdDTO.getBizFg())
                 .groupCd(bgtcdDTO.getGroupCd())
+                .grFg(bgtcdDTO.getGrFg())
                 .insertId(bgtcdDTO.getInsertId())
                 .insertDt(bgtcdDTO.getInsertDt())
                 .insertIp(bgtcdDTO.getInsertIp())
@@ -59,6 +63,8 @@ public class BgtCDConverter {
 				.keyword(bgtcdDTO.getKeyword())
 				.bgtGrNm(bgtcdDTO.getBgtGrNm())
 				.dataPath(bgtcdDTO.getDataPath())
+				.carrAm(bgtcdDTO.getCarrAm())
+				.divCd(bgtcdDTO.getDivCd())
                 .build();
 
         return bgtCDDomain;

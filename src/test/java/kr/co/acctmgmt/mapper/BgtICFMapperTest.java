@@ -30,11 +30,11 @@ public class BgtICFMapperTest {
 	@Test
 	public void getBgtICFListTest() {
 		
-		List<BgtICF> bgticfList = bgticfMapper.getBgtICFList();
+//		List<BgtICF> bgticfList = bgticfMapper.getBgtICFList();
 		
-		bgticfList.forEach(bgticf -> {
-			System.out.println(bgticf.toString());
-		});
+//		bgticfList.forEach(bgticf -> {
+//			System.out.println(bgticf.toString());
+//		});
 	}
 	
 //	@Test

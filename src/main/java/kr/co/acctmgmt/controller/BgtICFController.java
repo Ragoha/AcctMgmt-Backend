@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,12 +27,15 @@ import kr.co.acctmgmt.service.BgtGrService;
 import kr.co.acctmgmt.service.BgtICFService;
 import kr.co.acctmgmt.service.DivsService;
 import kr.co.acctmgmt.service.GisuService;
+import kr.co.acctmgmt.util.ClientUtil;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
 public class BgtICFController {
+	
+	private final HttpServletRequest request;
 	
 	private final BgtICFService bgtICFService;
 	private final DivsService divsService;
@@ -53,9 +58,10 @@ public class BgtICFController {
 	
 	@GetMapping("/bgticf")
 //	public void getBGT(@RequestBody Budget budget) {
-	public ResponseEntity<List<BgtICFDTO>> getBgtICFList() {
+	public ResponseEntity<List<BgtICFDTO>> getBgtICFList(BgtICFDTO bgtICFDTO) {
 		
-		List<BgtICFDTO> rBgtICFList = bgtICFService.getBgtICFList();
+		
+		List<BgtICFDTO> rBgtICFList = bgtICFService.getBgtICFList(bgtICFDTO);
         
 		
 		return new ResponseEntity<List<BgtICFDTO>>(rBgtICFList, HttpStatus.OK); 
@@ -133,6 +139,9 @@ public class BgtICFController {
 		
 		System.out.println(bgtCDDTO.toString());
 		
+		String ip = ClientUtil.getRemoteIP(request);
+		
+		System.out.println(ip);
 		
 		List<BgtCDDTO> rBgtCDDTOList = bgtCDService.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(bgtCDDTO);
 		
