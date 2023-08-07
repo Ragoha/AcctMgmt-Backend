@@ -24,5 +24,9 @@ public interface BgtCDService {
 	public List<BgtCDTermDTO> updateBgtCDTerm(List<BgtCDTermDTO> dataList);
 	
 	public List<BgtCDDTO> findBgcCDByGroupCdAndToDtAndKeyword(BgtCDDTO bgtCDDTO);
+	
+	public List<BgtCDDTO> findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(BgtCDDTO bgtCDDTO);
+
+	public String getPath(String bgtCd);//Get this dataPath for using insert into DataGrid in Front
 
 }

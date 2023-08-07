@@ -20,5 +20,7 @@ public interface CoMapper {
 	
 	public void updateCo(Co co);
 	
+	public List<Co> getCoNm(String coNm);
+	
 	public List<Co> getCoBycoCdAndcoNm(Co co);
 }

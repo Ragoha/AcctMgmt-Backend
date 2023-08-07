@@ -48,14 +48,16 @@ public class BgtCDController {
 	}
 	@GetMapping("/bgt/bgtcd/getBgtCDTerm")
 	public List<BgtCDTermDTO> getBgtCDTerm(@RequestParam String CO_CD){
+		System.out.println("****Controller - getBgtCDTerm****");
 		List<BgtCDTermDTO> list = service.getBgtCDTerm(CO_CD);
+		System.out.println("****Controller - getBgtCDTerm END ****");
 		return list;
 	}
-//	@PutMapping("/bgt/bgtcd/getPath")
-//	public String getPath(@RequestBody String bgtCd) {
-//		System.out.println(bgtCd);
-//		return "path받았어 ?";
-//	}
+	@GetMapping("/bgt/bgtcd/getPath")
+	public String getPath(@RequestParam String bgtCd) {
+		System.out.println("controller: getPath");
+		return service.getPath(bgtCd);
+	}
 	/*조회end*/
 	
 	
@@ -78,7 +80,8 @@ public class BgtCDController {
 	@DeleteMapping("/bgt/bgtcd/deleteRow")
 	public int deleteRow(@RequestParam String bgtCd) {
 		
-		System.out.println("여기가 딜리트야 ~");
+		System.out.println("여기가 딜리트야 ~"+bgtCd+"<<<<");
+		System.out.println();
 		return service.deleteRow(bgtCd);
 	}
 	

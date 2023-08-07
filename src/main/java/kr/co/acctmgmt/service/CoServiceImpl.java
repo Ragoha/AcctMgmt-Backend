@@ -56,4 +56,10 @@ public class CoServiceImpl implements CoService{
 		return company;
 	}
 
+	@Override
+	public List<Co> getCoNm(String coNm) {
+		List<Co> company = coMapper.getCoNm(coNm);
+		return company;
+	}
+
 }

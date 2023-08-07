@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -78,5 +77,13 @@ public class CoController {
 		List<Co> searchCo = coService.getCoBycoCdAndcoNm(co);
 		System.out.println(searchCo);
 		return searchCo;
+	}
+	
+	@GetMapping("/ozt/sconm")
+	public List<Co> getCoNm(@RequestParam String coNm){
+		
+		List<Co> coCd = coService.getCoNm(coNm);
+		System.out.println(coCd);
+		return coCd;
 	}
 }
