@@ -67,20 +67,19 @@ public class BgtICFController {
 		return new ResponseEntity<List<BgtICFDTO>>(rBgtICFList, HttpStatus.OK); 
 	}
 	
-	@DeleteMapping("/bgticf/{sq}")
-	public ResponseEntity<Void> deleteBgtICFList(@PathVariable String sq){
-		bgtICFService.deleteBgtICF(BgtICFDTO.builder()
-				.sq(Integer.valueOf(sq))
-				.build()
-				);
+	@DeleteMapping("/bgticf")
+	public ResponseEntity<Void> deleteBgtICFList(BgtICFDTO bgtICFDTO){
+		bgtICFService.deleteBgtICF(bgtICFDTO);
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	@PutMapping("/bgticf")
-	public ResponseEntity<Void> updateBgtICF(BgtICFDTO bgtICFDTO){
-		System.out.println(bgtICFDTO);
-//		bgtICFService.updateBgtICF(bgtICFDTO);
+	public ResponseEntity<Void> updateBgtICF(@RequestBody BgtICFDTO bgtICFDTO){
+		System.out.println("ででででででででででで");
+
+		bgtICFService.updateBgtICF(bgtICFDTO);
+		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	

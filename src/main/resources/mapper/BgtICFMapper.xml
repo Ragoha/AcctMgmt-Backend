@@ -41,8 +41,7 @@
 	        MGT_CD = #{mgtCd},
 	        BGT_CD = #{bgtCd},
 	        BGT_FG = #{bgtFg},
-	        BGT_CNT = #{bgtCnt},
-	        BOTTOM_CD = #{bottomCd},
+	        BOTTOM_NM = #{bottomNm},
 	        CARR_AM = #{carrAm},
 	        CARR_AM1 = #{carrAm1},
 	        CARR_AM2 = #{carrAm2},
@@ -50,9 +49,6 @@
 	        EMP_CD = #{empCd},
 	        REM_DC = #{remDc},
 	        BGT_TY = #{bgtTy},
-	        INSERT_ID = #{insertId},
-	        INSERT_DT = #{insertDt},
-	        INSERT_IP = #{insertIp},
 	        MODIFY_ID = #{modifyId},
 	        MODIFY_DT = #{modifyDt},
 	        MODIFY_IP = #{modifyIp}
@@ -64,20 +60,50 @@
 	        DEPT_CD = #{deptCd} AND
 	        MGT_CD = #{mgtCd} AND
 	        BGT_CD = #{bgtCd} AND
-	        BGT_FG = #{bgtFg} AND
-	        BGT_CNT = #{bgtCnt} AND
-	        BOTTOM_CD = #{bottomCd}
+	        BGT_FG = #{bgtFg}
 	</update>
 	
 	<delete id="deleteBgtICF" parameterType="BgtICF">
 	    DELETE FROM BGTICF
 	    WHERE
-	        sq = #{sq}
+	    	CO_CD = #{coCd}
+    		AND BGT_CD = #{bgtCd} 
+	        AND sq = #{sq}
 	</delete>
 	
-	<select id="getSumBgtICFByCoCdAndBgtCd" parameterType="BgtCD" resultType="int">
-		SELECT nvl(SUM(CARR_AM), 0) FROM BGTICF
-		WHERE CO_CD = #{coCd} AND BGT_CD = #{bgtCd}
+	<select id="getSumBgtICFByCoCdAndBgtCd" parameterType="BgtCD" resultType="double">
+		WITH RECURSIVE CTE AS (
+		    SELECT
+		        bgtcd.BGT_CD,
+		        bgtcd.BGT_NM,
+		        bgtcd.PARENTCD,
+		        bgtcd.BGT_CD AS CD_PATH,
+		        1 AS LEVEL,
+		         nvl(bgticf.CARR_AM, 0) AS carr_am
+		    FROM bgtcd
+		    LEFT JOIN bgticf ON bgticf.BGT_CD = bgtcd.BGT_CD
+		    WHERE PARENTCD IS NULL
+		    AND bgtcd.CO_CD = #{coCd}
+		    UNION ALL
+		    SELECT
+		        P.BGT_CD,
+		        P.BGT_NM,
+		        P.parentCd,
+		        CONCAT(CTE.CD_PATH, '>', P.BGT_NM) AS CD_PATH,
+		        1 + LEVEL AS LEVEL,
+		         nvl(bgticf.CARR_AM, 0) AS carr_am
+		    FROM bgtcd P
+		    INNER JOIN CTE ON P.parentCd = CTE.BGT_CD
+		    LEFT JOIN bgticf ON bgticf.BGT_CD = P.BGT_CD
+		    WHERE P.CO_CD = #{coCd}
+		)
+		SELECT
+		  SUM(CARR_AM)as CARR_AM
+		FROM CTE
+		WHERE 
+		    CTE.CD_PATH LIKE (
+		        SELECT CONCAT(CD_PATH, '%') FROM CTE WHERE BGT_CD = #{bgtCd} LIMIT 1
+		    )
 	</select>
 	
 	<!-- DELETE FROM BGTICF
