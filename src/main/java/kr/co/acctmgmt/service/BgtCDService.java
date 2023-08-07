@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.acctmgmt.domain.BgtCD;
 import kr.co.acctmgmt.domain.BgtCDTerm;
+import kr.co.acctmgmt.domain.BgtGr;
 import kr.co.acctmgmt.dto.BgtCDDTO;
 import kr.co.acctmgmt.dto.BgtCDTermDTO;
 
@@ -28,5 +29,8 @@ public interface BgtCDService {
 	public List<BgtCDDTO> findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(BgtCDDTO bgtCDDTO);
 
 	public String getPath(String bgtCd);//Get this dataPath for using insert into DataGrid in Front
+
+
+	public List<BgtGr> getBgtGrData(String coCd);
 
 }

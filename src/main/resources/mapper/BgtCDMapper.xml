@@ -36,6 +36,9 @@
 		WHERE BGT_CD=#{bgtCd}
 	
 	</select>
+	<select id="getBgtGrData" parameterType="String" resultType="BgtGr">
+		SELECT * FROM BGTGR WHERE CO_CD=#{coCd};
+	</select>
 	
 	<update id="updateDetailInfo" parameterType="BgtCD">
 		UPDATE BGTCD
