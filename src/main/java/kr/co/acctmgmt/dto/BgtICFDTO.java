@@ -2,8 +2,10 @@ package kr.co.acctmgmt.dto;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -11,6 +13,8 @@ import lombok.ToString;
 @Getter
 @ToString
 @Builder
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class BgtICFDTO {
 
 	private int coCd = 0;

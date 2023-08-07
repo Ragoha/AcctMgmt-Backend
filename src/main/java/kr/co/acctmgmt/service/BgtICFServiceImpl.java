@@ -28,9 +28,13 @@ public class BgtICFServiceImpl implements BgtICFService{
 	}
 
 	@Override
-	public List<BgtICFDTO> getBgtICFList() {
+	public List<BgtICFDTO> getBgtICFList(BgtICFDTO bgtICFDTO) {
 		
-		List<BgtICF> rBgtICF = bgtICFMapper.getBgtICFList();
+		BgtICF bgtICF = BgtICFConverter.convertToModel(bgtICFDTO);
+		
+		System.out.println(bgtICF.toString());
+		
+		List<BgtICF> rBgtICF = bgtICFMapper.getBgtICFList(bgtICF);
 		
 		return BgtICFConverter.convertToDtoList(rBgtICF);
 		
