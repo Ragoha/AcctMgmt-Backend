@@ -17,6 +17,8 @@ public interface PjtMapper {
 	public void deletePjt(int coCd);
 
 	public void updatePjt(Pjt pjt);
+	
+	public List<Pjt> getSelPjtList(String pjtCd);
 }
 
 //프로젝트코드
