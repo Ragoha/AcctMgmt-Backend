@@ -3,8 +3,10 @@ package kr.co.acctmgmt.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,12 +32,12 @@ public class DivsController {
 	}
 	
 	@PostMapping("/ozt/idiv")
-	public List<Divs> insertDivs(@RequestBody Divs divs) {
+	public void insertDivs(@RequestBody Divs divs) {
 		divsService.insertDivs(divs);
 		System.out.println(divs);
 		
-		List<Divs> divsList = divsService.getDivsList();
-		return divsList;
+//		List<Divs> divsList = divsService.getDivsList();
+//		return divsList;
 	}
 	
 	@GetMapping("/ozt/sdiv")
@@ -54,23 +56,34 @@ public class DivsController {
 		return division;
 	}
 	
-	@PostMapping("/ozt/ddiv")
-	public List<Divs> deleteDivs(@RequestBody Divs divs) {
-		System.out.println(divs.getDivCd());
-		divsService.deleteDivs(divs.getDivCd());
+//	@GetMapping("/ozt/scodi")
+//	public Divs getCoCd(@RequestParam int divCd){
+//		
+//		Divs coCd = divsService.getCoCd(divCd);
+//		System.out.println(coCd);
+//		return coCd;
+//	}
+	
+	@DeleteMapping("/ozt/ddiv")
+	public void deleteDivs(@RequestParam int divCd) {  
+//		System.out.println(divs.getDivCd());
+		divsService.deleteDivs(divCd);
 		
-		List<Divs> divsList = divsService.getDivsList();
-		return divsList;
+//		Integer coCd = divsService.getCoCd(divCd);
+//		System.out.println(coCd);
+//		List<Divs> divsList = divsService.getDivision(coCd);
+//		return divsList;
 	}
 	
-	@PostMapping("/ozt/udiv")
-	public List<Divs> updateDivs(@RequestBody Divs divs){
-		System.out.println(divs.getCoCd());
-		System.out.println(divs.toString());
+	@PutMapping("/ozt/udiv")
+	public void updateDivs(@RequestBody Divs divs){
+//		System.out.println(divs.getCoCd());
+//		System.out.println(divs.toString());
 		
 		divsService.updateDivs(divs);
-		List<Divs> divsList = divsService.getDivsList();
-		return divsList;
+		
+//		List<Divs> divsList = divsService.getDivision(coCd);
+//		return divsList;
 	}
 	
 	@GetMapping("/ozt/div/search")
