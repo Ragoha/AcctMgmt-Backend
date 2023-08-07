@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.co.acctmgmt.domain.Co;
 import kr.co.acctmgmt.domain.Divs;
 import kr.co.acctmgmt.service.DivsService;
 import lombok.RequiredArgsConstructor;
@@ -38,9 +39,17 @@ public class DivsController {
 	}
 	
 	@GetMapping("/ozt/sdiv")
-	public List<Divs> getDivision(@RequestParam int divCd){
+	public List<Divs> getDivision(@RequestParam int coCd){
 		
-		List<Divs> division = divsService.getDivision(divCd);
+		List<Divs> division = divsService.getDivision(coCd);
+		System.out.println(division);
+		return division;
+	}
+	
+	@GetMapping("/ozt/sdivi")
+	public List<Divs> getDiv(@RequestParam int divCd){
+		
+		List<Divs> division = divsService.getDiv(divCd);
 		System.out.println(division);
 		return division;
 	}
@@ -62,6 +71,14 @@ public class DivsController {
 		divsService.updateDivs(divs);
 		List<Divs> divsList = divsService.getDivsList();
 		return divsList;
+	}
+	
+	@GetMapping("/ozt/div/search")
+	public List<Divs> getDivBydivCdAnddivNm(Divs divs){
+		
+		List<Divs> searchDiv = divsService.getDivBydivCdAnddivNm(divs);
+		System.out.println(searchDiv);
+		return searchDiv;
 	}
 
 }

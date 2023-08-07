@@ -42,16 +42,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
-        // origin �뜝�룞�삕�뜝�룞�삕�뜝占� port �뜝�룞�삕 "*" �뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�뙇�뼲�삕�뜝�룞�삕 �뜝�룞�삕�뜝�떇�슱�삕 �뜝�룞�삕�뜝�룞�삕�뜝占�
-        // Arrays.asList("<http://localhost:3000>") �뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�듃�뜝�룞�삕 �뜝�뙇�뼲�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕.
-        corsConfiguration.setAllowCredentials(true); // 'Access-Control-Allow-Credentials' �뿤�뜑瑜� true濡� �꽕�젙
+        // origin 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻�뜝占� port 占쎈쐻占쎈짗占쎌굲 "*" 占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈솂占쎈섣占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈뻼占쎌뒻占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻�뜝占�
+        // Arrays.asList("<http://localhost:3000>") 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈뱜占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈솂占쎈섣占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲.
+        corsConfiguration.setAllowCredentials(true); // 'Access-Control-Allow-Credentials' 占쎈엘占쎈쐭�몴占� true嚥∽옙 占쎄퐬占쎌젟
 
         corsConfiguration.setAllowedOriginPatterns(Arrays.asList("*"));
-        // �뜝�룞�삕�뜝�룞�삕�뜝占� method "*" �뜝�룞�삕 "GET", "POST", "PUT", "DELETE", "OPTIONS" �뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝占�
+        // 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻�뜝占� method "*" 占쎈쐻占쎈짗占쎌굲 "GET", "POST", "PUT", "DELETE", "OPTIONS" 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻�뜝占�
         corsConfiguration.setAllowedMethods(Arrays.asList("*"));
-        // �뜝�룞�삕�뜝�룞�삕�뜝占� header
+        // 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻�뜝占� header
         corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
-        // �뜝�룞�삕�뜝�룞�삕�뜝�떆�궪�삕�뜝�룞�삕�뜝占� �뜝�룞�삕�뜝�룞�삕�뜝占� header
+        // 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈뻻占쎄땔占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻�뜝占� 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻�뜝占� header
         corsConfiguration.setExposedHeaders(Arrays.asList("Authorization", "refresh-token", "access-token"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -77,7 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/bgt/**").permitAll()
             .antMatchers("/syscfg/**").permitAll()
             .antMatchers("/info/**").permitAll()
-            .antMatchers("/ozt/**").permitAll()
+//            .antMatchers("/ozt/**").permitAll()
             .antMatchers("/logouta/**").permitAll()
             .antMatchers("/message").permitAll()
             .antMatchers("/api/**").permitAll()
