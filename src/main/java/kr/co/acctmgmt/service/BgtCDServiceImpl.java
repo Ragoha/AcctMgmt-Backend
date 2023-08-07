@@ -210,12 +210,11 @@ System.out.println("Service's getBgtCDTerm");
 		List<BgtCD> nBgtCDList = new ArrayList();
 		
 		rBgtCDList.forEach(rBgtCD -> {
-			System.out.println(rBgtCD.toString());
-			int carrAm = bgtICFMapper.getSumBgtICFByCoCdAndBgtCd(rBgtCD);
-			System.out.println(carrAm);
-			rBgtCD.setCarrAm(carrAm);
+			double carrAm = bgtICFMapper.getSumBgtICFByCoCdAndBgtCd(rBgtCD);
+			rBgtCD.setCarrAm(Integer.parseInt(String.valueOf(Math.round(carrAm))));
 			nBgtCDList.add(rBgtCD);
 		});
+		
 		
 		return BgtCDConverter.convertToDtoList(nBgtCDList);
 	}

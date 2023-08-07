@@ -17,5 +17,5 @@ public interface BgtICFMapper {
 
 	void deleteBgtICF(BgtICF bgticf);
 	
-	int getSumBgtICFByCoCdAndBgtCd(BgtCD bgtCD);
+	double getSumBgtICFByCoCdAndBgtCd(BgtCD bgtCD);
 }
