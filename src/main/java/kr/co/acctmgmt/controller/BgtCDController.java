@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.acctmgmt.domain.BgtCD;
 import kr.co.acctmgmt.domain.BgtCDTerm;
+import kr.co.acctmgmt.domain.BgtGr;
 import kr.co.acctmgmt.dto.BgtCDTermDTO;
 import kr.co.acctmgmt.service.BgtCDService;
 import lombok.RequiredArgsConstructor;
@@ -57,6 +58,13 @@ public class BgtCDController {
 	public String getPath(@RequestParam String bgtCd) {
 		System.out.println("controller: getPath");
 		return service.getPath(bgtCd);
+	}
+	@GetMapping("/bgt/bgtcd/getBgtGrData")
+	public List<BgtGr> getBgtGrData(@RequestParam String coCd) {
+		System.out.println("여기는 BgtGr Controller");
+		List<BgtGr> bgtGr = service.getBgtGrData(coCd);
+		System.out.println(bgtGr.toString());
+		return bgtGr;
 	}
 	/*조회end*/
 	

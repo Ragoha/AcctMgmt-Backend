@@ -12,6 +12,7 @@ import kr.co.acctmgmt.converter.BgtCDConverter;
 import kr.co.acctmgmt.converter.BgtCDTermConverter;
 import kr.co.acctmgmt.domain.BgtCD;
 import kr.co.acctmgmt.domain.BgtCDTerm;
+import kr.co.acctmgmt.domain.BgtGr;
 import kr.co.acctmgmt.dto.BgtCDDTO;
 import kr.co.acctmgmt.dto.BgtCDTermDTO;
 import kr.co.acctmgmt.mapper.BgtCDMapper;
@@ -47,6 +48,8 @@ System.out.println("cocd? : "+ cocd);
 			String TreeViewPath = "";
 			// 1.부모의 경로
 			String tempDataPath = list.get(i).getDataPath(); //
+	System.out.println("체크체크");
+	System.out.println(list.get(i).toString());
 			//수입수출여부
 			//B002의 path는 수출이다 .
 	System.out.println("몇번째 i 인가 :?"+i+"   이건 수입일까 수출일까 : ? "+ list.get(i).getGrFg());
@@ -67,6 +70,8 @@ System.out.println("cocd? : "+ cocd);
 				for(int p=0;p<tempList.length;p++) { //B002의 .. B003의 ...
 		System.out.println("tempList?"+tempList[p]);
 					BgtCD initRow = mapper.getBgtCDDataForPath(tempList[p]); //-->B002의 정보
+		System.out.println("initRow?");
+		System.out.println(initRow.toString());
 		System.out.println("divFg는?:"+initRow.getDivFg());
 					String pathPiece = initRow.getDivFg(); //Bgt_Cd Term에서 가져온 값.
 		System.out.println("pathPiece :          ->" + pathPiece);
@@ -176,6 +181,12 @@ System.out.println("Service's getBgtCDTerm");
 		
 		return BgtCDTermConverter.convertToDtoList(list);
 	}
+	@Override
+	public List<BgtGr> getBgtGrData(String coCd) {
+System.out.println("getBgtGrData 서비스");
+		
+		return mapper.getBgtGrData(coCd);
+	}
 
 	@Override
 	public List<BgtCDTermDTO> updateBgtCDTerm(List<BgtCDTermDTO> dataList) {
@@ -226,6 +237,8 @@ System.out.println("Service's getBgtCDTerm");
 		// TODO Auto-generated method stub
 		return mapper.getPath(bgtCd);
 	}
+
+	
 }
 
 
