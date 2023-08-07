@@ -15,7 +15,7 @@ public class Pjt {
 	private int pgrCd ;		//프로젝트그룹 코드
 	private String pgrNm; 	//프로젝트그룹 이름
 	private String pjtCd;	//프로젝트코드
-	private String pjtNM;   //프로젝트이름
+	private String pjtNm;   //프로젝트이름
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date prDt= new Date(); //프로젝트 시작일
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

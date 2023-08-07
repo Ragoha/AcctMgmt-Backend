@@ -81,6 +81,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/logouta/**").permitAll()
             .antMatchers("/message").permitAll()
             .antMatchers("/api/**").permitAll()
+            .antMatchers("/pjtDate/**").permitAll()
+            .antMatchers("/pjtSelDate/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
