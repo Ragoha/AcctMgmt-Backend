@@ -29,12 +29,29 @@
 			)
 		</if>
 	</select>
+	
+	<select id="getDivBydivCdAnddivNm" parameterType="Divs" resultType="Divs">
+	 SELECT DIV_CD, DIV_NM 
+	    FROM DIVS
+	    WHERE (
+	            DIV_CD LIKE CONCAT('%', #{keyword}, '%')
+	            OR
+	            DIV_NM LIKE CONCAT('%', #{keyword}, '%')
+	        );
+	</select>
 
 	<select id="getDivsList" resultType="Divs">
 		SELECT * FROM DIVS;
 	</select>
 
 	<select id="getDivision" parameterType="int" resultType="Divs">
+		SELECT
+		CO_CD, DIV_CD, DIV_NM, CEO_NM, JONGMOK, BUSINESS_TYPE, DIV_NB, TO_NB,
+		DIV_ZIP, DIV_ADDR, DIV_ADDR1
+		FROM DIVS WHERE CO_CD = #{coCd};
+	</select>
+	
+	<select id="getDiv" parameterType="int" resultType="Divs">
 		SELECT
 		CO_CD, DIV_CD, DIV_NM, CEO_NM, JONGMOK, BUSINESS_TYPE, DIV_NB, TO_NB,
 		DIV_ZIP, DIV_ADDR, DIV_ADDR1
@@ -64,5 +81,6 @@
 		#{businessType}, #{divNb},
 		#{toNb}, #{divZip},#{divAddr}, #{divAddr1});
 	</insert>
+	
 
 </mapper>

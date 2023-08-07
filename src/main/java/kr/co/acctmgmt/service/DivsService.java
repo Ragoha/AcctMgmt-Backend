@@ -13,10 +13,14 @@ public interface DivsService {
 	
 	public List<Divs> getDivsList();
 	
-	public List<Divs> getDivision(int divCd);
+	public List<Divs> getDivision(int coCd);
+	
+	public List<Divs> getDiv(int divCd);
 	
 	public void deleteDivs(int divCd);
 	
 	public void updateDivs(Divs divs);
+	
+	public List<Divs> getDivBydivCdAnddivNm(Divs divs);
 
 }

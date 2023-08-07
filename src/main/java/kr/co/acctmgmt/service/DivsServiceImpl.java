@@ -38,8 +38,8 @@ public class DivsServiceImpl implements DivsService{
 	}
 
 	@Override
-	public List<Divs> getDivision(int divCd) {
-		List<Divs> division = divsMapper.getDivision(divCd);
+	public List<Divs> getDivision(int coCd) {
+		List<Divs> division = divsMapper.getDivision(coCd);
 		return division;
 	}
 
@@ -51,6 +51,18 @@ public class DivsServiceImpl implements DivsService{
 	@Override
 	public void updateDivs(Divs divs) {
 		divsMapper.updateDivs(divs);
+	}
+
+	@Override
+	public List<Divs> getDivBydivCdAnddivNm(Divs divs) {
+		List<Divs> searchDiv = divsMapper.getDivBydivCdAnddivNm(divs);
+		return searchDiv;
+	}
+
+	@Override
+	public List<Divs> getDiv(int divCd) {
+		List<Divs> division = divsMapper.getDiv(divCd);
+		return division;
 	}
 
 }
