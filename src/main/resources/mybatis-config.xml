@@ -10,6 +10,7 @@
 		<typeAlias type="kr.co.acctmgmt.domain.Co" alias="Co"/>
 		<typeAlias type="kr.co.acctmgmt.domain.BgtCDTerm" alias="BgtCDTerm"/>
 		<typeAlias type="kr.co.acctmgmt.domain.Divs" alias="Divs"/>
+		<typeAlias type="kr.co.acctmgmt.domain.Dept" alias="Dept"/>
 		<typeAlias type="kr.co.acctmgmt.domain.BgtCD" alias="BgtCD"/>
 		<typeAlias type="kr.co.acctmgmt.domain.BgtGr" alias="BgtGr"/>
 		<typeAlias type="kr.co.acctmgmt.domain.BgtICF" alias="BgtICF"/>
@@ -25,6 +26,7 @@
 	<mappers>
 		<mapper resource="./mapper/CoMapper.xml"/>
 		<mapper resource="./mapper/DivsMapper.xml"/>
+		<mapper resource="./mapper/DeptMapper.xml"/>
 		<mapper resource="./mapper/EmployeeMapper.xml"/>
 		<mapper resource="./mapper/BgtCDMapper.xml"/>
 		<mapper resource="./mapper/BgtGrMapper.xml"/>
