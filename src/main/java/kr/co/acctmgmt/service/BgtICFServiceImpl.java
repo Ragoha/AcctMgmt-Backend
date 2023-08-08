@@ -43,6 +43,8 @@ public class BgtICFServiceImpl implements BgtICFService{
 	@Override
 	public void insertBgtICF(BgtICFDTO bgtICFDTO) {
 		
+		bgtICFDTO.setCarrAm(bgtICFDTO.getCarrAm1() + bgtICFDTO.getCarrAm2() - bgtICFDTO.getCarrAm3());
+		
 		bgtICFMapper.insertBgtICF(BgtICFConverter.convertToModel(bgtICFDTO));
 		
 	}
@@ -54,7 +56,7 @@ public class BgtICFServiceImpl implements BgtICFService{
 		bgtICFDTO.setCarrAm(sum);
 		
 		BgtICF bgtICF = BgtICFConverter.convertToModel(bgtICFDTO);
-	
+		System.out.println("¼öÁ¤Áß");
 		System.out.println(bgtICF.toString());
 		
 		bgtICFMapper.updateBgtICF(BgtICFConverter.convertToModel(bgtICFDTO));
