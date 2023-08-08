@@ -83,6 +83,20 @@ public class BgtCDController {
 		System.out.println(dataList.toString());
 		return service.updateBgtCDTerm(dataList);
 	}
+	
+	@GetMapping("/bgt/bgtcd/getAddRowData") //[230808]make new AddRow data 
+	public BgtCD getAddRowData(@RequestParam String bgtCd , String coCd) {
+		System.out.println("getAddRowData");
+		System.out.println("bgtcd : "+bgtCd);
+		System.out.println("coCd : "+coCd);
+		
+		BgtCD info =  service.addRowData(bgtCd , coCd);
+		
+		
+		return null;
+	}
+	
+	
 	/*업데이트 end */
 	/*삭제 start */
 	@DeleteMapping("/bgt/bgtcd/deleteRow")
