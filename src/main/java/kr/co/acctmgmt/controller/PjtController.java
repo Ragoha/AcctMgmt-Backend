@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.co.acctmgmt.domain.Co;
 import kr.co.acctmgmt.domain.Pjt;
 import kr.co.acctmgmt.service.PjtService;
 import lombok.RequiredArgsConstructor;
@@ -126,5 +127,12 @@ public class PjtController {
 		System.out.println("»èÁ¦ ÄÆ");
 		return ResponseEntity.ok(null);
 
+	}
+	@GetMapping("/pjtDate/pgrSearch")
+	public List<Pjt> getCoBycoCdAndcoNm(Pjt pjt){
+		
+		List<Co> searchPgr = pjtService.getPgrBy(pjt);
+		System.out.println(searchPgr);
+		return searchPgr;
 	}
 }
