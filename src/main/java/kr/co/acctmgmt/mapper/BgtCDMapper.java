@@ -1,6 +1,7 @@
 package kr.co.acctmgmt.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.acctmgmt.domain.BgtCD;
 import kr.co.acctmgmt.domain.BgtCDTerm;
@@ -25,6 +26,8 @@ public interface BgtCDMapper {
 	//getBgtGrData
 	public List<BgtGr> getBgtGrData(String coCd);
 	
+	public BgtCD getMaxMultiNum(Map<String, String> params);
+	
 	public int updateBgtCDTerm(BgtCDTerm dataList);
 	/*<<<BgtCDDevFgCustom.js */
 	//ÅÂ¿µÇü²¨ 
@@ -45,4 +48,6 @@ public interface BgtCDMapper {
 	public int findUseParentCdSubject(String bgtCd); //[230801]S.H method for find rows who have parentCd of bgtCd variable 
 
 	public List<BgtCD> findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(BgtCD bgtCD);
+
+	public BgtCD getAddRowData(Map<String, String> params);
 }
