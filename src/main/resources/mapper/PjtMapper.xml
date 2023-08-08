@@ -56,4 +56,15 @@
 		pjt_CD = #{pjt.pjtCd}
 	</delete>
 	
+	<select id="getPgrBy" parameterType="Pjt" resultType="Pjt">
+	 SELECT pgr_CD, pgr_NM 
+	    FROM PJT
+	    WHERE (
+	            pgr_CD LIKE CONCAT('%', #{keyword}, '%')
+	            OR
+	            pgr_NM LIKE CONCAT('%', #{keyword}, '%')
+	            AND
+	            CO_CD = #{pjt.coCd}
+	        );
+	</select>
 </mapper>
