@@ -15,20 +15,25 @@
     	SELECT * FROM BGTICF
     	WHERE CO_CD = #{coCd}
     		AND BGT_CD = #{bgtCd}
+    	ORDER BY MODIFY_DT
 	</select>
 	
 	<insert id="insertBgtICF" parameterType="BgtICF">
+	    <selectKey keyProperty="sq" resultType="int" order="BEFORE">
+	        SELECT MAX(SQ) + 1 AS sq FROM BGTICF WHERE CO_CD = #{coCd} AND BGT_CD = #{bgtCd}
+	    </selectKey>
 	    INSERT INTO BGTICF (
-	        CO_CD, GISU, SQ, DIV_CD, DEPT_CD, MGT_CD, BGT_CD, BGT_FG, BGT_CNT, BOTTOM_CD,
+	        CO_CD, GISU, SQ, DIV_CD, DEPT_CD, MGT_CD, BGT_CD, BGT_FG, BOTTOM_NM,
 	        CARR_AM, CARR_AM1, CARR_AM2, CARR_AM3, EMP_CD, REM_DC, BGT_TY,
 	        INSERT_ID, INSERT_DT, INSERT_IP, MODIFY_ID, MODIFY_DT, MODIFY_IP
 	    )
 	    VALUES (
-	        #{coCd}, #{gisu}, #{sq}, #{divCd}, #{deptCd}, #{mgtCd}, #{bgtCd}, #{bgtFg}, #{bgtCnt}, #{bottomCd},
+	        #{coCd}, #{gisu}, #{sq}, #{divCd}, #{deptCd}, #{mgtCd}, #{bgtCd}, #{bgtFg},#{bottomNm},
 	        #{carrAm}, #{carrAm1}, #{carrAm2}, #{carrAm3}, #{empCd}, #{remDc}, #{bgtTy},
-	        #{insertId}, #{insertDt}, #{insertIp}, #{modifyId}, #{modifyDt}, #{modifyIp}
+	        #{insertId}, now(), #{insertIp}, #{modifyId}, now(), #{modifyIp}
 	    )
 	</insert>
+
 
 	<update id="updateBgtICF" parameterType="BgtICF">
 	    UPDATE BGTICF
@@ -58,7 +63,6 @@
 	        SQ = #{sq} AND
 	        DIV_CD = #{divCd} AND
 	        DEPT_CD = #{deptCd} AND
-	        MGT_CD = #{mgtCd} AND
 	        BGT_CD = #{bgtCd} AND
 	        BGT_FG = #{bgtFg}
 	</update>

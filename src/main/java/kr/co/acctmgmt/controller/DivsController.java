@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.co.acctmgmt.domain.Co;
 import kr.co.acctmgmt.domain.Divs;
 import kr.co.acctmgmt.service.DivsService;
 import lombok.RequiredArgsConstructor;
