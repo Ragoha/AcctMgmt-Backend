@@ -4,14 +4,17 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import kr.co.acctmgmt.domain.Pjt;
 import kr.co.acctmgmt.service.PjtService;
 import lombok.RequiredArgsConstructor;
@@ -77,16 +80,21 @@ public class PjtController {
 	    return ResponseEntity.ok(pjtList);
 	}
 
-	@PostMapping("/pjtDate/update/{coCd}/{date}")
-	public ResponseEntity<?> updatePjt(@PathVariable("coCd") int coCd, Pjt data) {
-		
-		System.out.println("업데이트 할 값 갖고오기");
-		System.out.println("프론트에서 쏘아올린 값" + data.toString());
+	@PostMapping("/pjtDate/update/{coCd}")
+	public ResponseEntity<?> updatePjt(@PathVariable("coCd") int coCd, @RequestBody Pjt data) {
+	    System.out.println("hih: " + coCd);
+	    System.out.println("업데이트 할 값 갖고오기");
+	    System.out.println("프론트에서 쏘아올린 값 : " + data.toString());
+	    
+	    Pjt pjt = data;
+	    
+	    System.out.println("가공된 데이터 : " + pjt.toString());
 
-		pjtService.updatePjt(data, coCd);
-		Pjt pjt = pjtService.getSelPjt(coCd, data.getPjtCd());
-		
-		System.out.println("잘 반영 됐나? " + pjt.toString());
-		return ResponseEntity.ok(null);
+	    pjtService.updatePjt(pjt, coCd);
+	    Pjt pjtt = pjtService.getSelPjt(coCd, data.getPjtCd());
+
+	    System.out.println("잘 반영 됐나? " + pjtt.toString());
+	    return ResponseEntity.ok(null);
 	}
+	
 }
