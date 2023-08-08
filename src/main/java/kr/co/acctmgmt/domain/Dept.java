@@ -2,6 +2,15 @@ package kr.co.acctmgmt.domain;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Dept {
 	private int coCd;  //회사코드
 	private int divCd;  //사업장코드

@@ -6,19 +6,18 @@
 	<select id="getPjtList" resultType="Pjt">
 		SELECT * FROM PJT
 		WHERE
-		co_CD = #{coCd}
+		co_CD =
+		#{coCd}
 		ORDER BY co_CD
 	</select>
-	
-	<!-- <update id="updatePjt" parameterType="Pjt">
-		UPDATE PJT
-		SET pgr_NM = #{pgrNm}, 
-		WHERE co_CD = #{coCd}
-	</update> -->
+
+	<!-- <update id="updatePjt" parameterType="Pjt"> UPDATE PJT SET pgr_NM = 
+		#{pgrNm}, WHERE co_CD = #{coCd} </update> -->
 
 
 	<select id="getSelPjt" resultType="Pjt">
-		SELECT * FROM PJT WHERE co_CD = #{coCd} AND pjt_CD = #{pjtCd}
+		SELECT * FROM PJT WHERE co_CD
+		= #{coCd} AND pjt_CD = #{pjtCd}
 	</select>
 
 	<select id="getSelPjtList" resultType="Pjt">
@@ -32,8 +31,40 @@
 	<update id="updatePjt" parameterType="Pjt">
 		UPDATE PJT
 		SET
-		pgr_CD = #{pgrCd}, pgr_NM = #{pgrNm}, pjt_NM = #{pjtNm}, pr_DT = #{prDt}, to_DT = #{toDt}, prog_FG = #{progFg}, apjt_NM = #{apjtNm}, start_DT = #{stDt}
-		WHERE co_CD = #{coCd} AND pjt_CD = #{pjtCd}
+		pgr_CD = #{pjt.pgrCd}, pgr_NM = #{pjt.pgrNm}, pjt_NM = #{pjt.pjtNm},
+		pr_DT = #{pjt.prDt}, to_DT = #{pjt.toDt}, prog_FG = #{pjt.progFg},
+		apjt_NM = #{pjt.apjtNm}, start_DT = #{pjt.startDt}, note = #{pjt.note}
+		WHERE co_CD = #{coCd} AND pjt_CD = #{pjt.pjtCd}
 	</update>
+
+
+	<insert id="insertPjt" parameterType="Pjt">
+		INSERT INTO PJT
+		(co_CD, pgr_CD, pgr_NM, pjt_CD, pjt_NM, pr_DT, to_DT, prog_FG, apjt_NM,
+		start_DT, note)
+		VALUES
+		(
+		#{pjt.coCd}, #{pjt.pgrCd}, #{pjt.pgrNm}, #{pjt.pjtCd}, #{pjt.pjtNm}, #{pjt.prDt}, #{pjt.toDt}, #{pjt.progFg},
+		#{pjt.apjtNm}, #{pjt.startDt}, #{pjt.note}
+		)
+	</insert>
+	<delete id="deletePjt" parameterType="Pjt">
+		DELETE FROM PJT
+		WHERE
+		CO_CD = #{pjt.coCd}
+		AND
+		pjt_CD = #{pjt.pjtCd}
+	</delete>
 	
+	<select id="getPgrBy" parameterType="Pjt" resultType="Pjt">
+	 SELECT pgr_CD, pgr_NM 
+	    FROM PJT
+	    WHERE (
+	            pgr_CD LIKE CONCAT('%', #{keyword}, '%')
+	            OR
+	            pgr_NM LIKE CONCAT('%', #{keyword}, '%')
+	            AND
+	            CO_CD = #{pjt.coCd}
+	        );
+	</select>
 </mapper>

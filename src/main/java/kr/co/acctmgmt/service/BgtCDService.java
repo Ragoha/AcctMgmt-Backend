@@ -33,4 +33,7 @@ public interface BgtCDService {
 
 	public List<BgtGr> getBgtGrData(String coCd);
 
+
+	public BgtCD addRowData(String bgtCd, String coCd);
+
 }
