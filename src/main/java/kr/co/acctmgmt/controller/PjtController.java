@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.validation.Valid;
 import kr.co.acctmgmt.domain.Pjt;
 import kr.co.acctmgmt.service.PjtService;
 import lombok.RequiredArgsConstructor;
@@ -25,10 +24,10 @@ import lombok.RequiredArgsConstructor;
 public class PjtController {
 
 	private final PjtService pjtService;
-	
+
 	@GetMapping("/pjtDate/{coCd}")
-	public ResponseEntity<List> pjtDataList(@PathVariable int coCd){
-		
+	public ResponseEntity<List> pjtDataList(@PathVariable int coCd) {
+
 		System.out.println("프로젝트 값 갖고오기");
 		List<Pjt> pjt = pjtService.getPjtList(coCd);
 		System.out.println(pjt.toString());
@@ -41,7 +40,7 @@ public class PjtController {
 ////		System.out.println(coList.toString());
 //		return coList;
 //	}
-	
+
 //	@GetMapping("/ozt/scom")
 //	public List<Co> getCompany(@RequestParam int coCd){
 //		
@@ -50,51 +49,82 @@ public class PjtController {
 //		return scompany;
 //	}
 	@GetMapping("/pjtSelDate/{pjtCd}/{coCd}")
-	public ResponseEntity<List<Pjt>> getSelPjtList(@PathVariable("pjtCd") String pjtCd, @PathVariable("coCd") int coCd) {
-	    System.out.println("pjtcd : " + pjtCd + " / coCd: " + coCd);
-	    
-	    List<Pjt> pjtList = pjtService.getSelPjtList(pjtCd, coCd);
-	    
-	    // 날짜 필드를 원하는 형식으로 가공하여 설정
-	    SimpleDateFormat targetDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	    for (Pjt pjt : pjtList) {
-	        try {
-	            Date formattedPrDt = targetDateFormat.parse(targetDateFormat.format(pjt.getPrDt()));
-	            pjt.setPrDt(formattedPrDt);
-	            
-	            Date formattedToDt = targetDateFormat.parse(targetDateFormat.format(pjt.getToDt()));
-	            pjt.setToDt(formattedToDt);
-	            
-	            Date formattedStDt = targetDateFormat.parse(targetDateFormat.format(pjt.getStDt()));
-	            pjt.setStDt(formattedStDt);
-	        } catch (ParseException e) {
-	            e.printStackTrace();
-	        }
-	    }
-	    
-	    // 가공된 데이터를 출력
-	    for (Pjt pjt : pjtList) {
-	        System.out.println("가공된 데이터: " + pjt);
-	    }
-	    
-	    return ResponseEntity.ok(pjtList);
+	public ResponseEntity<List<Pjt>> getSelPjtList(@PathVariable("pjtCd") String pjtCd,
+			@PathVariable("coCd") int coCd) {
+		System.out.println("pjtcd : " + pjtCd + " / coCd: " + coCd);
+
+		List<Pjt> pjtList = pjtService.getSelPjtList(pjtCd, coCd);
+
+		// 날짜 필드를 원하는 형식으로 가공하여 설정
+		SimpleDateFormat targetDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		for (Pjt pjt : pjtList) {
+			try {
+				Date formattedPrDt = targetDateFormat.parse(targetDateFormat.format(pjt.getPrDt()));
+				pjt.setPrDt(formattedPrDt);
+
+				Date formattedToDt = targetDateFormat.parse(targetDateFormat.format(pjt.getToDt()));
+				pjt.setToDt(formattedToDt);
+
+				Date formattedStDt = targetDateFormat.parse(targetDateFormat.format(pjt.getStartDt()));
+				pjt.setStartDt(formattedStDt);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+
+		// 가공된 데이터를 출력
+		for (Pjt pjt : pjtList) {
+			System.out.println("가공된 데이터: " + pjt);
+		}
+
+		return ResponseEntity.ok(pjtList);
 	}
 
 	@PostMapping("/pjtDate/update/{coCd}")
-	public ResponseEntity<?> updatePjt(@PathVariable("coCd") int coCd, @RequestBody Pjt data) {
-	    System.out.println("hih: " + coCd);
-	    System.out.println("업데이트 할 값 갖고오기");
-	    System.out.println("프론트에서 쏘아올린 값 : " + data.toString());
-	    
-	    Pjt pjt = data;
-	    
-	    System.out.println("가공된 데이터 : " + pjt.toString());
+	public ResponseEntity<?> updatePjt(@PathVariable("coCd") int coCd, @RequestBody Pjt pjt) {
+		System.out.println("hih: " + coCd);
+		System.out.println("업데이트 할 값 갖고오기");
+		System.out.println("프론트에서 쏘아올린 값 : " + pjt.toString());
 
-	    pjtService.updatePjt(pjt, coCd);
-	    Pjt pjtt = pjtService.getSelPjt(coCd, data.getPjtCd());
 
-	    System.out.println("잘 반영 됐나? " + pjtt.toString());
-	    return ResponseEntity.ok(null);
+		System.out.println("가공된 데이터 : " + pjt.toString());
+
+		pjtService.updatePjt(pjt, coCd);
+
+		// 업데이트 작업 완료 후 새로운 Pjt 객체를 가져올 때 사용한 data 대신 pjt 객체를 사용합니다.
+		Pjt pjtt = pjtService.getSelPjt(coCd, pjt.getPjtCd()); // 수정된 부분
+
+		System.out.println("잘 반영 됐나? " + pjtt.toString());
+		return ResponseEntity.ok(null);
 	}
 	
+	@PostMapping("/pjtDate/insert/{coCd}")
+	public ResponseEntity<?> insertPjt(@PathVariable("coCd") int coCd, @RequestBody Pjt pjt) {
+		System.out.println("hih: " + coCd);
+		System.out.println("인서트 할 값 갖고오기");
+		System.out.println("프론트에서 쏘아올린 값 : " + pjt.toString());
+
+
+		System.out.println("가공된 데이터 : " + pjt.toString());
+
+		pjtService.insertPjt(pjt, coCd);
+
+		// 업데이트 작업 완료 후 새로운 Pjt 객체를 가져올 때 사용한 data 대신 pjt 객체를 사용합니다.
+		Pjt pjtt = pjtService.getSelPjt(coCd, pjt.getPjtCd()); // 수정된 부분
+
+		System.out.println("잘 반영 됐나? " + pjtt.toString());
+		return ResponseEntity.ok(null);
+
+	}
+	
+	@PostMapping("/pjtDate/delete/")
+	public ResponseEntity<?> deletePjt(@RequestBody Pjt pjt) {
+		System.out.println("삭제할 값 갖고오기");
+		System.out.println("프론트에서 쏘아올린 값 : " + pjt.toString());
+
+		pjtService.deletePjt(pjt);
+		System.out.println("삭제 컷");
+		return ResponseEntity.ok(null);
+
+	}
 }

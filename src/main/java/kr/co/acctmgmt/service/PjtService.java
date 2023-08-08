@@ -10,7 +10,7 @@ public interface PjtService {
 
 	public List<Pjt> getPjtList();
 
-	public void insertCo(Pjt pjt);
+	public void insertPjt(Pjt pjt, int coCd);
 
 	public Pjt getPjt(int coCd);
 
@@ -18,7 +18,7 @@ public interface PjtService {
 	
 	public List<Pjt> getPjtList(int coCd);
 
-	public void deletePjt(int coCd);
+	public void deletePjt(@Param("pjt") Pjt pjt);
 
 	public void updatePjt(Pjt pjt, int coCd);
 

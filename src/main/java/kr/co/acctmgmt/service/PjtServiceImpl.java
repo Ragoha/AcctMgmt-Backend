@@ -16,8 +16,8 @@ public class PjtServiceImpl implements PjtService {
 	
 
 	@Override
-	public void insertCo(Pjt pjt) {
-		// TODO Auto-generated method stub
+	public void insertPjt(Pjt pjt, int coCd) {
+	    pjtMapper.insertPjt(pjt, coCd);
 
 	}
 
@@ -34,14 +34,13 @@ public class PjtServiceImpl implements PjtService {
 	}
 
 	@Override
-	public void deletePjt(int coCd) {
-		// TODO Auto-generated method stub
-
+	public void deletePjt(Pjt pjt) {	
+		pjtMapper.deletePjt(pjt);
 	}
 
 	@Override
 	public void updatePjt(Pjt pjt, int coCd) {
-		pjtMapper.updatePjt(pjt, coCd);
+	    pjtMapper.updatePjt(pjt, coCd);
 	}
 
 	@Override
