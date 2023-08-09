@@ -55,28 +55,22 @@ public class PjtController {
 		System.out.println("pjtcd : " + pjtCd + " / coCd: " + coCd);
 
 		List<Pjt> pjtList = pjtService.getSelPjtList(pjtCd, coCd);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		for (Pjt pjt : pjtList) {
+		    String formattedPrDtOrEmpty = ""; // 기본적으로 빈 칸으로 초기화
+
+		    if (pjt.getPrDt() != null) {
+		        formattedPrDtOrEmpty = dateFormat.format(pjt.getPrDt());
+		    }
+
+		    pjt.setFormattedPrDt(formattedPrDtOrEmpty);
+		}
+
+
 
 		// 날짜 필드를 원하는 형식으로 가공하여 설정
-		SimpleDateFormat targetDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		for (Pjt pjt : pjtList) {
-			try {
-				Date formattedPrDt = targetDateFormat.parse(targetDateFormat.format(pjt.getPrDt()));
-				pjt.setPrDt(formattedPrDt);
-
-				Date formattedToDt = targetDateFormat.parse(targetDateFormat.format(pjt.getToDt()));
-				pjt.setToDt(formattedToDt);
-
-				Date formattedStDt = targetDateFormat.parse(targetDateFormat.format(pjt.getStartDt()));
-				pjt.setStartDt(formattedStDt);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-		}
-
-		// 가공된 데이터를 출력
-		for (Pjt pjt : pjtList) {
-			System.out.println("가공된 데이터: " + pjt);
-		}
+		
 
 		return ResponseEntity.ok(pjtList);
 	}
@@ -128,11 +122,11 @@ public class PjtController {
 		return ResponseEntity.ok(null);
 
 	}
-	@GetMapping("/pjtDate/pgrSearch")
-	public List<Pjt> getCoBycoCdAndcoNm(Pjt pjt){
+//	@GetMapping("/pjtDate/pgrSearch")
+//	public List<Pjt> getCoBycoCdAndcoNm(Pjt pjt){
 		
-		List<Co> searchPgr = pjtService.getPgrBy(pjt);
-		System.out.println(searchPgr);
-		return searchPgr;
-	}
+//		List<Co> searchPgr = pjtService.getPgrBy(pjt);
+//		System.out.println(searchPgr);
+//		return searchPgr;
+//	}
 }
