@@ -79,4 +79,18 @@
 	            
 	        );
 	</select>
+	
+	<select id="findPjtByCoCdAndKeyword" parameterType="Pjt" resultType="Pjt">
+		SELECT PJT_CD, PJT_NM
+			FROM PJT
+			WHERE CO_CD = #{coCd}
+			<if test="keyword != null and keyword != ''">
+				AND (
+				PJT_CD LIKE CONCAT('%', #{keyword}, '%')
+				OR
+				PJT_NM LIKE
+				CONCAT('%', #{keyword}, '%')
+				)
+			</if>
+	</select>
 </mapper>

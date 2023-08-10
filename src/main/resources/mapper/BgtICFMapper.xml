@@ -13,9 +13,11 @@
 	
 	<select id="getBgtICFList" resultType="BgtICF">
     	SELECT * FROM BGTICF
-    	WHERE CO_CD = #{coCd}
-    		AND BGT_CD = #{bgtCd}
-    	ORDER BY MODIFY_DT
+    	LEFT JOIN BGTCD ON BGTCD.BGT_CD = BGTICF.BGT_CD
+    	WHERE BGTICF.CO_CD = #{coCd}
+    		AND BGTICF.BGT_CD = #{bgtCd}
+    		AND BGTCD.BOTTOM_fG = 0
+    	ORDER BY BGTICF.INSERT_DT
 	</select>
 	
 	<insert id="insertBgtICF" parameterType="BgtICF">
@@ -77,39 +79,41 @@
 	
 	<select id="getSumBgtICFByCoCdAndBgtCd" parameterType="BgtCD" resultType="double">
 		WITH RECURSIVE CTE AS (
-    SELECT
-        bgtcd.BGT_CD,
-        bgtcd.BGT_NM,
-        bgtcd.PARENTCD,
-        bgtcd.BGT_CD AS CD_PATH,
-        1 AS LEVEL,
-        NVL(bgticf.CARR_AM, 0) AS carr_am
-    FROM bgtcd
-    LEFT JOIN bgticf ON bgticf.BGT_CD = bgtcd.BGT_CD
-    WHERE PARENTCD IS NULL
-    AND bgtcd.CO_CD = #{coCd}
-    UNION ALL
-    SELECT
-        P.BGT_CD,
-        P.BGT_NM,
-        P.parentCd,
-        CONCAT(CTE.CD_PATH, '>', P.BGT_NM) AS CD_PATH,
-        1 + LEVEL AS LEVEL,
-         nvl(bgticf.CARR_AM, 0) AS carr_am
-    FROM bgtcd P
-    INNER JOIN CTE ON P.parentCd = CTE.BGT_CD
-    LEFT JOIN bgticf ON bgticf.BGT_CD = P.BGT_CD
-    WHERE P.CO_CD = #{coCd}
-)
-SELECT
-  SUM(CARR_AM) as CARR_AM
-FROM (
-    SELECT DISTINCT BGT_CD, CARR_AM
-    FROM CTE
-    WHERE CTE.CD_PATH LIKE (
-        SELECT CONCAT(CD_PATH, '%') FROM CTE WHERE BGT_CD = #{bgtCd} LIMIT 1
-    )
-) TempTable;
+		    SELECT
+		        bgtcd.BGT_CD,
+		        bgtcd.BGT_NM,
+		        bgtcd.PARENTCD,
+		        bgtcd.BGT_CD AS CD_PATH,
+		        1 AS LEVEL,
+		        NVL(bgticf.CARR_AM, 0) AS carr_am,
+		        BGTICF.SQ
+		    FROM bgtcd
+		    LEFT JOIN bgticf ON bgticf.BGT_CD = bgtcd.BGT_CD
+		    WHERE PARENTCD IS NULL
+		    AND bgtcd.CO_CD = #{coCd}
+		    UNION ALL
+		    SELECT
+		        P.BGT_CD,
+		        P.BGT_NM,
+		        P.parentCd,
+		        CONCAT(CTE.CD_PATH, '>', P.BGT_NM) AS CD_PATH,
+		        1 + LEVEL AS LEVEL,
+	            nvl(bgticf.CARR_AM, 0) AS carr_am,
+	            BGTICF.SQ
+		    FROM bgtcd P
+		    INNER JOIN CTE ON P.parentCd = CTE.BGT_CD
+		    LEFT JOIN bgticf ON bgticf.BGT_CD = P.BGT_CD
+		    WHERE P.CO_CD = #{coCd}
+		)
+		SELECT
+		  SUM(CARR_AM) as CARR_AM
+		FROM (
+		    SELECT DISTINCT BGT_CD, CARR_AM, SQ
+		    FROM CTE
+		    WHERE CTE.CD_PATH LIKE (
+		        SELECT CONCAT(CD_PATH, '%') FROM CTE WHERE BGT_CD = #{bgtCd} LIMIT 1
+		    )
+		) TempTable;
 
 
 	</select>
