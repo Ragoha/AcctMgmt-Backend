@@ -37,7 +37,7 @@ public class PjtMapperTest {
 	    System.out.println("sibal : " + pjtList.toString());
 	}
 	
-	@Test
+//	@Test
 	public void updatePjt() {
 		int coCd=2000;
 		String pjtCd = "100";
@@ -51,4 +51,12 @@ public class PjtMapperTest {
 		getSelPjtList();
 	}
 
+	@Test
+	public void findPjtByCoCdAndKeywordTest() {
+		Pjt pjt = Pjt.builder().coCd(1000).build();
+		
+		List<Pjt> rPjtList = pjtMapper.findPjtByCoCdAndKeyword(pjt);
+		
+		System.out.println(rPjtList.toString());
+	}
 }

@@ -18,6 +18,7 @@ import kr.co.acctmgmt.domain.BgtCD;
 import kr.co.acctmgmt.domain.BgtCDTerm;
 import kr.co.acctmgmt.domain.BgtGr;
 import kr.co.acctmgmt.dto.BgtCDTermDTO;
+import kr.co.acctmgmt.dto.BgtICFDTO;
 import kr.co.acctmgmt.service.BgtCDService;
 import lombok.RequiredArgsConstructor;
 
@@ -31,9 +32,9 @@ public class BgtCDController {
 	/*조회 start*/
 	// http://localhost:8080/acctmgmt/bgt/sbgtcd/getGridData?groupcd=GROUP1
 	@GetMapping("/bgt/bgtcd/getGridData") // groupcd 
-	public List<BgtCD> getGridData(@RequestParam String groupcd) {
+	public List<BgtCD> getGridData(@RequestParam String coCd) {
 		System.out.println("groupcd를 찾아야함");
-		List<BgtCD> list = service.getBGTCDData(groupcd);
+		List<BgtCD> list = service.getBGTCDData(coCd);
 		System.out.println("여아래 값에서 defNm찾아보자");
 		System.out.println(list.toString());
 		return list;
@@ -91,13 +92,21 @@ public class BgtCDController {
 		System.out.println("coCd : "+coCd);
 		
 		BgtCD info =  service.addRowData(bgtCd , coCd);
-		
-		
+		return info;
+	}
+	/*업데이트 end */
+	/*삽입 start */
+	@PostMapping("/bgt/bgtcd/insertAddRow")
+	public BgtCD insertAddRow(@RequestBody BgtCD bgtcd) {
+		System.out.println("===insertAddRow start ===");
+		service.insertAddRow(bgtcd);
+		System.out.println("===insertAddRow end ===");
 		return null;
 	}
 	
+	/*삽입 end*/
 	
-	/*업데이트 end */
+	
 	/*삭제 start */
 	@DeleteMapping("/bgt/bgtcd/deleteRow")
 	public int deleteRow(@RequestParam String bgtCd) {

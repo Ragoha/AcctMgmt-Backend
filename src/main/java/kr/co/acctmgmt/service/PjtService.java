@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import kr.co.acctmgmt.domain.Pjt;
+import kr.co.acctmgmt.dto.PjtDTO;
 
 public interface PjtService {
 
@@ -23,5 +24,11 @@ public interface PjtService {
 	public void updatePjt(Pjt pjt, int coCd);
 
 	public List<Pjt> getSelPjtList(String pjtCd, int coCd);
+	
+	public List<Pjt> getPjtBy(@Param("keyword")String keyword, @Param("coCd") int coCd);
+	
+	public Pjt getPgrBy(String keyword, int coCd);
+	
+	public List<PjtDTO> findPjtByCoCdAndKeyword(PjtDTO pjtDTO);
 
 }

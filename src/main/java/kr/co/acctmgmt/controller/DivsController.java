@@ -41,7 +41,6 @@ public class DivsController {
 	
 	@GetMapping("/ozt/sdiv")
 	public List<Divs> getDivision(@RequestParam int coCd){
-		
 		List<Divs> division = divsService.getDivision(coCd);
 		System.out.println(division);
 		return division;
