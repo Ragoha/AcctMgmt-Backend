@@ -21,11 +21,13 @@ import kr.co.acctmgmt.dto.BgtGrDTO;
 import kr.co.acctmgmt.dto.BgtICFDTO;
 import kr.co.acctmgmt.dto.DivsDTO;
 import kr.co.acctmgmt.dto.GisuDTO;
+import kr.co.acctmgmt.dto.PjtDTO;
 import kr.co.acctmgmt.service.BgtCDService;
 import kr.co.acctmgmt.service.BgtGrService;
 import kr.co.acctmgmt.service.BgtICFService;
 import kr.co.acctmgmt.service.DivsService;
 import kr.co.acctmgmt.service.GisuService;
+import kr.co.acctmgmt.service.PjtService;
 import kr.co.acctmgmt.util.ClientUtil;
 import lombok.RequiredArgsConstructor;
 
@@ -41,6 +43,7 @@ public class BgtICFController {
 	private final BgtCDService bgtCDService; 
 	private final BgtGrService bgtGrService;
 	private final GisuService gisuService;
+	private final PjtService pjtService;
 
 //	@GetMapping("/bgt/bgticf")
 //	public void getBGT(@RequestBody Budget budget) {
@@ -140,6 +143,20 @@ public class BgtICFController {
 		System.out.println(rGisuDTOList.toString());
 		
 		return new ResponseEntity<List<GisuDTO>>(rGisuDTOList, HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/bgticf/pjt")
+	public ResponseEntity<List<PjtDTO>> findPjtByCoCdAndKeyword(PjtDTO pjtDTO){
+		
+
+		System.out.println(pjtDTO.toString());
+		List<PjtDTO> rPjtDTOList = pjtService.findPjtByCoCdAndKeyword(pjtDTO);
+				
+		
+		System.out.println(rPjtDTOList.toString());
+		
+		return new ResponseEntity<List<PjtDTO>>(rPjtDTOList, HttpStatus.OK);
 		
 	}
 	

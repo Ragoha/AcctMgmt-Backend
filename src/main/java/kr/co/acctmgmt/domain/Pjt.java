@@ -4,13 +4,16 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import kr.co.acctmgmt.dto.PjtDTO;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
-//@Builder
 public class Pjt {
 	
 //	private int coCd;		//회사코드
@@ -39,6 +42,8 @@ public class Pjt {
 	    private String apjtNm;
 	    private Date startDt;
 	    private String note;
+	    
+	    private String keyword;
 
 	    // Getter와 Setter 메서드 생략
 

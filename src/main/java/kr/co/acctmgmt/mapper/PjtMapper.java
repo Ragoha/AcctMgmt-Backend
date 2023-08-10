@@ -23,6 +23,8 @@ public interface PjtMapper {
 	public void updatePjt(@Param("pjt") Pjt pjt, @Param("coCd") int coCd);
 	
 	public List<Pjt> getSelPjtList(@Param("pjtCd") String pjtCd, @Param("coCd") int coCd);
+
+	public List<Pjt> findPjtByCoCdAndKeyword(Pjt pjt);
 }
 
 //프로젝트코드
