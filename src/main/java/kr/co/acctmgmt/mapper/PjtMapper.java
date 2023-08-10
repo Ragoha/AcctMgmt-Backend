@@ -6,33 +6,35 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.co.acctmgmt.domain.Pjt;
 
-
 public interface PjtMapper {
-	public List<Pjt> getPjtList(); //È¸»ç »ó°ü¾øÀÌ ´Ù ºÒ·¯¿À±â
+	public List<Pjt> getPjtList(); // È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	public void insertPjt(@Param("pjt") Pjt pjt, @Param("coCd") int coCd);
 
 	public Pjt getPjt(int coCd);
-	
+
 	public Pjt getSelPjt(@Param("coCd") int coCd, @Param("pjtCd") String pjtCd);
 
-	public List<Pjt> getPjtList(int coCd); //Æ¯Á¤ È¸»ç¸¸ ºÒ·¯¿À±â
+	public List<Pjt> getPjtList(int coCd); // Æ¯ï¿½ï¿½ È¸ï¿½ç¸¸ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	public void deletePjt(@Param("pjt") Pjt pjt);
 
 	public void updatePjt(@Param("pjt") Pjt pjt, @Param("coCd") int coCd);
-	
-	public List<Pjt> getSelPjtList(@Param("pjtCd") String pjtCd, @Param("coCd") int coCd);
 
+	public List<Pjt> getSelPjtList(@Param("pjtCd") String pjtCd, @Param("coCd") int coCd);
+	
+	public List<Pjt> getPjtBy(@Param("keyword")String keyword, @Param("coCd")int coCd);
+
+	public Pjt getPgrBy(String keyword, int coCd);
 	public List<Pjt> findPjtByCoCdAndKeyword(Pjt pjt);
 }
 
-//ÇÁ·ÎÁ§Æ®ÄÚµå
-//ÇÁ·ÎÁ§Æ® ±¸ºÐ : 1. ÁøÇàÁß
-// ÇÁ·ÎÁ§Æ® ¸í: 
-// ÇÁ·ÎÁ§Æ® ¾àÄª
-//ÇÁ·ÎÁ§Æ® ºÐ·ù: 2000, ºñ¿µ¸®(±×·ìÄÚµå, ¸í)
-// »ç¿ë±ÇÇÑ ¼³Á¤ : ÀÌ°Ç ¾îµð¼­ °®°í¿Í¾ßÇÒ±î ¾Æ´Ï Å×ÀÌºí ´Ù½Ã ¸¸µé¾î¾ßÇÔ?
-// ÇÁ·ÎÁ§Æ® ±â°£ : :
-// ÇÁ·ÎÁ§Æ® ½ÃÀÛÀÏ
-// ºñ°í
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Úµï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ : 1. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½: 
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Äª
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ð·ï¿½: 2000, ï¿½ñ¿µ¸ï¿½(ï¿½×·ï¿½ï¿½Úµï¿½, ï¿½ï¿½)
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Í¾ï¿½ï¿½Ò±ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½â°£ : :
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½

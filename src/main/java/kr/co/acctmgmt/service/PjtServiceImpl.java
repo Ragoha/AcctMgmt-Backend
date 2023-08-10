@@ -64,6 +64,16 @@ public class PjtServiceImpl implements PjtService {
 	}
 
 	@Override
+	public List<Pjt> getPjtBy(String keyword, int coCd) {
+		// TODO Auto-generated method stub
+		return pjtMapper.getPjtBy(keyword, coCd);
+	}
+
+	@Override
+	public Pjt getPgrBy(String keyword, int coCd) {
+		// TODO Auto-generated method stub
+		return pjtMapper.getPgrBy(keyword, coCd);
+	}
 	public List<PjtDTO> findPjtByCoCdAndKeyword(PjtDTO pjtDTO) {
 	
 		Pjt pjt = PjtConverter.convertToModel(pjtDTO);
