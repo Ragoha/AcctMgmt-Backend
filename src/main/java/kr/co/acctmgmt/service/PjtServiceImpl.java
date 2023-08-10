@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.acctmgmt.converter.PjtConverter;
 import kr.co.acctmgmt.domain.Pjt;
+import kr.co.acctmgmt.dto.PjtDTO;
 import kr.co.acctmgmt.mapper.PjtMapper;
 import lombok.RequiredArgsConstructor;
 
@@ -59,6 +61,19 @@ public class PjtServiceImpl implements PjtService {
 	public Pjt getSelPjt(int coCd, String pjtCd) {
 		// TODO Auto-generated method stub
 		return pjtMapper.getSelPjt(coCd, pjtCd);
+	}
+
+	@Override
+	public List<PjtDTO> findPjtByCoCdAndKeyword(PjtDTO pjtDTO) {
+	
+		Pjt pjt = PjtConverter.convertToModel(pjtDTO);
+		
+		System.out.println(pjt.toString());
+		
+		List<Pjt> rPjtList = pjtMapper.findPjtByCoCdAndKeyword(pjt);
+	
+		
+		return PjtConverter.convertToDtoList(rPjtList);
 	}
 
 }
