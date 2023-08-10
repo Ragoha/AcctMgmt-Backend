@@ -36,4 +36,7 @@ public interface BgtCDService {
 
 	public BgtCD addRowData(String bgtCd, String coCd);
 
+
+	public void insertAddRow(BgtCD bgtcd);
+
 }

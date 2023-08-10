@@ -8,7 +8,7 @@
 	</select>
 	<select id="getBGTCDData" parameterType="String"
 		resultType="BgtCD">
-		SELECT * FROM BGTCD where GROUP_CD=#{GROUPCD};
+		SELECT * FROM BGTCD where CO_CD=#{coCd};
 	</select>
 
 	<select id="getDetailInfo" parameterType="String"
@@ -62,6 +62,12 @@
 		ORDER BY Multi_Num DESC
 		LIMIT 1;
 	</select>
+	<insert id="insertAddRow" parameterType="BgtCD">
+		 INSERT INTO BGTCD
+		(CO_CD, BGT_CD,parentCd, GISU, BGT_NM, DIV_FG, CTL_FG, BGAJUST_FG, TO_DT, BOTTOM_FG, BIZ_FG, GROUP_CD, GR_FG, INSERT_ID,INSERT_DT, INSERT_IP, MODIFY_ID, MODIFY_DT, MODIFY_IP,Multi_Ck,Multi_Num,dataPath)
+		VALUES 
+		(#{coCd},#{bgtCd},#{parentCd},#{gisu},#{bgtNm},#{divFg},#{ctlFg},#{bgajustFg},#{toDt},#{bottomFg},#{bizFg},#{groupCd},#{grFg},#{insertId},#{insertDt},#{insertIp},#{modifyId},#{modifyDt},#{modifyIp},#{MultiCk},#{MultiNum},#{dataPath});
+	</insert>
 
 	<update id="updateDetailInfo" parameterType="BgtCD">
 		UPDATE BGTCD

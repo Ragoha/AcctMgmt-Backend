@@ -16,19 +16,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Pjt {
 	
-//	private int coCd;		//È¸»çÄÚµå
-//	private int pgrCd;		//ÇÁ·ÎÁ§Æ®±×·ì ÄÚµå
-//	private String pgrNm; 	//ÇÁ·ÎÁ§Æ®±×·ì ÀÌ¸§
-//	private String pjtCd;	//ÇÁ·ÎÁ§Æ®ÄÚµå
-//	private String pjtNm;   //ÇÁ·ÎÁ§Æ®ÀÌ¸§
+//	private int coCd;		//íšŒì‚¬ì½”ë“œ
+//	private int pgrCd;		//í”„ë¡œì íŠ¸ê·¸ë£¹ ì½”ë“œ
+//	private String pgrNm; 	//í”„ë¡œì íŠ¸ê·¸ë£¹ ì´ë¦„
+//	private String pjtCd;	//í”„ë¡œì íŠ¸ì½”ë“œ
+//	private String pjtNm;   //í”„ë¡œì íŠ¸ì´ë¦„
 //	@DateTimeFormat(pattern = "yyyy-MM-dd")
-//	private Date prDt= new Date(); //ÇÁ·ÎÁ§Æ® ½ÃÀÛÀÏ
+//	private Date prDt= new Date(); //í”„ë¡œì íŠ¸ ì‹œì‘ì¼
 //	@DateTimeFormat(pattern = "yyyy-MM-dd")
-//	private Date toDt= new Date();//ÇÁ·ÎÁ§Æ® Á¾·áÀÏ
-//	private String progFg; //ÇÁ·ÎÁ§Æ® ÁøÇà»óÅÂ
-//	private String apjtNm; //ÇÁ·ÎÁ§Æ® ÁÙÀÓ¸»
+//	private Date toDt= new Date();//í”„ë¡œì íŠ¸ ì¢…ë£Œì¼
+//	private String progFg; //í”„ë¡œì íŠ¸ ì§„í–‰ìƒíƒœ
+//	private String apjtNm; //í”„ë¡œì íŠ¸ ì¤„ì„ë§
 //	@DateTimeFormat(pattern = "yyyy-MM-dd")
-//	private Date stDt= new Date();//ÇÁ·ÎÁ§Æ® ½ÃÀÛÀÏ2
+//	private Date stDt= new Date();//í”„ë¡œì íŠ¸ ì‹œì‘ì¼2
 //	private String note;
 
 	    private int coCd;
@@ -42,9 +42,11 @@ public class Pjt {
 	    private String apjtNm;
 	    private Date startDt;
 	    private String note;
+
 	    
 	    private String keyword;
 
-	    // Getter¿Í Setter ¸Ş¼­µå »ı·«
+
+	    // Getterì™€ Setter ë©”ì„œë“œ ìƒëµ
 
 }
