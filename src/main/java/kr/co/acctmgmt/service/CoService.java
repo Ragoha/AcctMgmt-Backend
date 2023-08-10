@@ -20,5 +20,5 @@ public interface CoService {
 	
 	public List<Co> getCoNm(String coNm);
 	
-	public List<Co> getCoBycoCdAndcoNm(Co co);
+	public List<Co> getCoBycoCdAndcoNm(String keyword);
 }
