@@ -13,14 +13,16 @@
 	
 	<select id="getBgtICFList" resultType="BgtICF">
     	SELECT * FROM BGTICF
-    	WHERE CO_CD = #{coCd}
-    		AND BGT_CD = #{bgtCd}
-    	ORDER BY MODIFY_DT
+    	LEFT JOIN BGTCD ON BGTCD.BGT_CD = BGTICF.BGT_CD
+    	WHERE BGTICF.CO_CD = #{coCd}
+    		AND BGTICF.BGT_CD = #{bgtCd}
+    		AND BGTCD.BOTTOM_fG = 0
+    	ORDER BY BGTICF.INSERT_DT
 	</select>
 	
 	<insert id="insertBgtICF" parameterType="BgtICF">
 	    <selectKey keyProperty="sq" resultType="int" order="BEFORE">
-	        SELECT MAX(SQ) + 1 AS sq FROM BGTICF WHERE CO_CD = #{coCd} AND BGT_CD = #{bgtCd}
+	        SELECT NVL(MAX(SQ),0) + 1 AS sq FROM BGTICF WHERE CO_CD = #{coCd} AND BGT_CD = #{bgtCd}
 	    </selectKey>
 	    INSERT INTO BGTICF (
 	        CO_CD, GISU, SQ, DIV_CD, DEPT_CD, MGT_CD, BGT_CD, BGT_FG, BOTTOM_NM,
@@ -83,7 +85,8 @@
 		        bgtcd.PARENTCD,
 		        bgtcd.BGT_CD AS CD_PATH,
 		        1 AS LEVEL,
-		         nvl(bgticf.CARR_AM, 0) AS carr_am
+		        NVL(bgticf.CARR_AM, 0) AS carr_am,
+		        BGTICF.SQ
 		    FROM bgtcd
 		    LEFT JOIN bgticf ON bgticf.BGT_CD = bgtcd.BGT_CD
 		    WHERE PARENTCD IS NULL
@@ -95,19 +98,24 @@
 		        P.parentCd,
 		        CONCAT(CTE.CD_PATH, '>', P.BGT_NM) AS CD_PATH,
 		        1 + LEVEL AS LEVEL,
-		         nvl(bgticf.CARR_AM, 0) AS carr_am
+	            nvl(bgticf.CARR_AM, 0) AS carr_am,
+	            BGTICF.SQ
 		    FROM bgtcd P
 		    INNER JOIN CTE ON P.parentCd = CTE.BGT_CD
 		    LEFT JOIN bgticf ON bgticf.BGT_CD = P.BGT_CD
 		    WHERE P.CO_CD = #{coCd}
 		)
 		SELECT
-		  SUM(CARR_AM)as CARR_AM
-		FROM CTE
-		WHERE 
-		    CTE.CD_PATH LIKE (
+		  SUM(CARR_AM) as CARR_AM
+		FROM (
+		    SELECT DISTINCT BGT_CD, CARR_AM, SQ
+		    FROM CTE
+		    WHERE CTE.CD_PATH LIKE (
 		        SELECT CONCAT(CD_PATH, '%') FROM CTE WHERE BGT_CD = #{bgtCd} LIMIT 1
 		    )
+		) TempTable;
+
+
 	</select>
 	
 	<!-- DELETE FROM BGTICF
