@@ -59,12 +59,24 @@
 	<select id="getPgrBy" parameterType="Pjt" resultType="Pjt">
 	 SELECT pgr_CD, pgr_NM 
 	    FROM PJT
-	    WHERE (
+	    WHERE CO_CD = #{coCd} 
+	    AND
+	            (
 	            pgr_CD LIKE CONCAT('%', #{keyword}, '%')
 	            OR
 	            pgr_NM LIKE CONCAT('%', #{keyword}, '%')
-	            AND
-	            CO_CD = #{pjt.coCd}
+	            
+	        );
+	</select>
+	
+	<select id="getPjtBy" parameterType="Pjt" resultType="Pjt">
+	 SELECT pjt_CD, pjt_NM 
+	    FROM PJT
+	    WHERE CO_CD = #{coCd} AND (
+	            pjt_CD LIKE CONCAT('%', #{keyword}, '%')
+	            OR
+	            pjt_NM LIKE CONCAT('%', #{keyword}, '%')
+	            
 	        );
 	</select>
 </mapper>

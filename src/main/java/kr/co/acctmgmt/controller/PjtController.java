@@ -1,10 +1,7 @@
 package kr.co.acctmgmt.controller;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,9 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.co.acctmgmt.domain.Co;
 import kr.co.acctmgmt.domain.Pjt;
 import kr.co.acctmgmt.service.PjtService;
 import lombok.RequiredArgsConstructor;
@@ -129,4 +126,15 @@ public class PjtController {
 //		System.out.println(searchPgr);
 //		return searchPgr;
 //	}
+	
+	@GetMapping("/pjtDate/pjtSearch/{coCd}")
+	public ResponseEntity<?> getPjtByKeyword(@RequestParam String keyword, @PathVariable("coCd") int coCd) {
+//	    Pjt searchPjt = pjtService.getPjtByKeyword(keyword);
+	    System.out.println("뭐가 들어 있는걸 까? 키워드안에 : "+ keyword);
+	    System.out.println("회사코드는 잘 갖고올까? : " + coCd );
+	    
+	    List<Pjt> searchPjt = pjtService.getPjtBy(keyword, coCd);
+	    System.out.println("셀렉 찾은 값은 : " + searchPjt.toString());
+	    return ResponseEntity.ok(searchPjt);
+	}
 }
