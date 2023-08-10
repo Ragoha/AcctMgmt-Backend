@@ -32,6 +32,9 @@ public interface BgtCDMapper {
 	/*<<<BgtCDDevFgCustom.js */
 	//ÅÂ¿µÇü²¨ 
 	public List<BgtCD> findBgcCDByGroupCdAndToDtAndKeyword(BgtCD bgtCD);
+	
+	/*insert */
+	public void insertAddRow(BgtCD bgtcd);
 
 	/*DataPath& TreeViewDataGrid>>>>*/
 	public String getDefNmFromBGTCD_TERM(int divFg);
