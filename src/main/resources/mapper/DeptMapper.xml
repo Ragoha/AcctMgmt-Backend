@@ -7,7 +7,36 @@
 	</select>
 
 	<select id="getDept" parameterType="int" resultType="Dept">
-		SELECT CO_CD, DIV_CD, DEPT_CD, DEPT_NM, DEPT_ZIP, DEPT_ADDR, DEPT_ADDR1 FROM DEPT WHERE CO_CD = #{coCd};
+		SELECT CO_CD, DIV_CD, DEPT_CD, DEPT_NM, DEPT_ZIP, DEPT_ADDR,
+		DEPT_ADDR1 FROM DEPT WHERE CO_CD = #{coCd};
 	</select>
+
+	<select id="getDepartment" parameterType="int" resultType="Dept">
+		SELECT CO_CD, DIV_CD, DEPT_CD, DEPT_NM, DEPT_ZIP, DEPT_ADDR,
+		DEPT_ADDR1 FROM DEPT WHERE DEPT_CD = #{deptCd};
+	</select>
+
+	<insert id="insertDept" parameterType="Dept">
+		INSERT INTO DEPT
+		(CO_CD,
+		DIV_CD, DEPT_CD, DEPT_NM, DEPT_ZIP, DEPT_ADDR, DEPT_ADDR1)
+		VALUES
+		(#{coCd}, #{divCd}, #{deptCd}, #{deptNm},
+		#{deptZip},#{deptAddr},
+		#{deptAddr1});
+	</insert>
 	
+	<delete id="deleteDept" parameterType="int">
+		DELETE from DEPT WHERE
+		DEPT_CD = #{deptCd};
+	</delete>
+
+	<update id="updateDept" parameterType="Dept">
+		UPDATE DEPT SET
+		DEPT_NM = #{deptNm},
+		DEPT_ZIP = #{deptZip}, DEPT_ADDR = #{deptAddr}, DEPT_ADDR1 = #{deptAddr1}
+		WHERE
+		DEPT_CD=#{deptCd}
+	</update>
+
 </mapper>

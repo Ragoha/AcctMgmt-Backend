@@ -16,6 +16,9 @@ public class Dept {
 	private int divCd;  //사업장코드
 	private int deptCd;  //부서코드
 	private String deptNm;  //부서명
+	private String deptZip;  //우편번호
+	private String deptAddr;  //주소
+	private String deptAddr1;  //상세주소
 	private int parentDeptCd;  //상위부서코드
 	private int deptLevel;		//부서레벨
 	private String insertId;  //등록자

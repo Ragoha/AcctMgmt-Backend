@@ -3,8 +3,10 @@ package kr.co.acctmgmt.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,15 +55,15 @@ public class CoController {
 		return coList;
 	}
 	
-	@PostMapping("/ozt/dco")
-	public List<Co> deleteCo(@RequestBody Co co) {
-		System.out.println(co.getCoCd());
-		coService.deleteCo(co.getCoCd());
+	@DeleteMapping("/ozt/dco")
+	public List<Co> deleteCo(@RequestParam int coCd) {
+//		System.out.println(co.getCoCd());
+		coService.deleteCo(coCd);
 		List<Co> coList = coService.getCoList();
 		return coList;
 	}
 	
-	@PostMapping("/ozt/uco")
+	@PutMapping("/ozt/uco")
 	public List<Co> updateCo(@RequestBody Co co){
 		System.out.println(co.getCoCd());
 		System.out.println(co.toString());
@@ -72,9 +74,9 @@ public class CoController {
 	}
 	
 	@GetMapping("/ozt/co/search")
-	public List<Co> getCoBycoCdAndcoNm(Co co){
+	public List<Co> getCoBycoCdAndcoNm(@RequestParam String keyword){
 		
-		List<Co> searchCo = coService.getCoBycoCdAndcoNm(co);
+		List<Co> searchCo = coService.getCoBycoCdAndcoNm(keyword);
 		System.out.println(searchCo);
 		return searchCo;
 	}
