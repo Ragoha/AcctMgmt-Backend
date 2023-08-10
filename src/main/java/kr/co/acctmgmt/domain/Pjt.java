@@ -39,6 +39,10 @@ public class Pjt {
 	    private String apjtNm;
 	    private Date startDt;
 	    private String note;
+		public void setFormattedPrDt(String formattedPrDt) {
+			// TODO Auto-generated method stub
+			
+		}
 
 	    // Getter와 Setter 메서드 생략
 
