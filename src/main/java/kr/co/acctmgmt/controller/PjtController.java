@@ -31,21 +31,16 @@ public class PjtController {
 		System.out.println(pjt.toString());
 		return ResponseEntity.ok(pjt);
 	}
-//	@GetMapping("/ozt/co")
-//	public List<Co> getCoList() {
-//		List<Co> coList = coService.getCoList();
-//	
-////		System.out.println(coList.toString());
-//		return coList;
-//	}
-
-//	@GetMapping("/ozt/scom")
-//	public List<Co> getCompany(@RequestParam int coCd){
-//		
-//		List<Co> scompany = coService.getCompany(coCd);
-//		System.out.println(scompany);
-//		return scompany;
-//	}
+	
+	@PostMapping("/pjtDate/pjtSel")
+	public ResponseEntity<List> getSelPjtList(@RequestBody Pjt selData) {
+	    System.out.println("프로젝트 값 갖고오기");
+	    System.out.println("data : " + selData.toString());
+		List<Pjt> pjt = pjtService.selPjtBy(selData);
+		System.out.println("검색 값: 넣기?  :"+pjt.toString());
+		return ResponseEntity.ok(pjt);
+	}
+	
 	@GetMapping("/pjtSelDate/{pjtCd}/{coCd}")
 	public ResponseEntity<List<Pjt>> getSelPjtList(@PathVariable("pjtCd") String pjtCd,
 			@PathVariable("coCd") int coCd) {
@@ -63,9 +58,6 @@ public class PjtController {
 
 //		    pjt.setFormattedPrDt(formattedPrDtOrEmpty);
 		}
-
-
-
 		// 날짜 필드를 원하는 형식으로 가공하여 설정
 		
 
