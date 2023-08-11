@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import kr.co.acctmgmt.domain.Dept;
 import kr.co.acctmgmt.domain.Divs;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -18,7 +19,9 @@ public class DivsMapperTest {
 	@Autowired
 	private DivsMapper divsMapper;
 	
-	@Test
+	@Autowired DeptMapper deptMapper;
+	
+//	@Test
 	public void findDivsByCoCdAndKeywordTest() {
 		
 		Divs divs1 = Divs.builder()
@@ -40,6 +43,23 @@ public class DivsMapperTest {
 		
 		
 		
+	}
+	
+	@Test
+	public void findDivsByCoCdTest() {
+		
+		List<Divs> rDivsList = divsMapper.findDivByCoCd(1000);
+		
+		rDivsList.forEach(rDivs -> {
+			System.out.println(rDivs.getDivCd());
+			Dept dept = Dept.builder().coCd(1000).divCd(rDivs.getDivCd()).build();
+			
+			List<Dept> rDeptList = deptMapper.findDeptByCoCd(dept);
+			
+			rDeptList.forEach(rDept -> {
+				System.out.println(rDept.toString());
+			});
+		});
 	}
 
 }

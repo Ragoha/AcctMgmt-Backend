@@ -31,4 +31,6 @@ public interface PjtService {
 	
 	public List<PjtDTO> findPjtByCoCdAndKeyword(PjtDTO pjtDTO);
 
+	public List<Pjt> selPjtBy(@Param("pjt") Pjt pjt);
+
 }

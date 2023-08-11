@@ -222,11 +222,17 @@
 			        SELECT BGT_CD FROM CTE ORDER BY LEVEL DESC LIMIT 1
 			    ))
 			    AND bgtcd.CO_CD = #{coCd}
-			    AND bgtcd.GR_FG = #{grFg}
-			    AND bgtcd.GISU = #{gisu}
-			    AND bgtcd.GROUP_CD = #{groupCd}
-			    AND (bgticf.DIV_CD = #{divCd} OR bgticf.DIV_CD IS NULL)
-			
+			    AND BGTCD.GISU = #{gisu}
+			    <if test="grFg != 0 or (grFg != null and grFg != '')">
+			    	AND bgtcd.GR_FG = #{grFg}
+			    </if>
+				<if test="groupCd != 0 or (groupCd != null and groupCd != '')">
+			    	AND bgtcd.GROUP_CD = #{groupCd}
+			    </if>
+			    <if test="divCd != 0 or (divCd != null and divCd != '')">
+			    	AND (bgticf.DIV_CD = #{divCd} OR bgticf.DIV_CD IS NULL)
+				</if>
+				
 			    UNION ALL
 			
 			    SELECT
@@ -244,10 +250,16 @@
 			    INNER JOIN CTE ON P.PARENTCD = CTE.BGT_CD
 			    LEFT JOIN BGTICF ON P.BGT_CD = BGTICF.BGT_CD
 			    WHERE P.CO_CD = #{coCd}
-			    AND P.GR_FG = #{grFg}
-			    AND P.GISU = #{gisu}
-			    AND P.GROUP_CD = #{groupCd}
+   			    AND P.GISU = #{gisu}
+			    <if test="grFg != 0 or (grFg != null and grFg != '')">
+			    	AND P.GR_FG = #{grFg}
+			    </if>
+			    <if test="groupCd != 0 or (groupCd != null and groupCd != '')">
+			    	AND P.GROUP_CD = #{groupCd}
+			    </if>
+		   	 	<if test="divCd != 0 or (divCd != null and divCd != '')">
 			    AND (bgticf.DIV_CD = #{divCd} OR bgticf.DIV_CD IS NULL)
+			    </if>
 			)
 			
 			SELECT DISTINCT
@@ -267,7 +279,11 @@
 			    CTE.DIV_FG
 			FROM CTE
 			WHERE CTE.CD_PATH LIKE (
-			    SELECT CONCAT(CD_PATH, '%') FROM CTE WHERE BGT_CD = #{bgtCd} LIMIT 1
+			    SELECT CONCAT(CD_PATH, '%') FROM CTE 
+			    <if test="bgtCd != 0 or (bgtCd != null and bgtCd != '')">
+			    	WHERE BGT_CD = #{bgtCd} 
+			    </if>
+			    LIMIT 1
 			)
 			ORDER BY CD_PATH
 

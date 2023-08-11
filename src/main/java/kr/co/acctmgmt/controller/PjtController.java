@@ -26,26 +26,21 @@ public class PjtController {
 	@GetMapping("/pjtDate/{coCd}")
 	public ResponseEntity<List> pjtDataList(@PathVariable int coCd) {
 
-		System.out.println("ÇÁ·ÎÁ§Æ® °ª °®°í¿À±â");
+		System.out.println("í”„ë¡œì íŠ¸ ê°’ ê°–ê³ ì˜¤ê¸°");
 		List<Pjt> pjt = pjtService.getPjtList(coCd);
 		System.out.println(pjt.toString());
 		return ResponseEntity.ok(pjt);
 	}
-//	@GetMapping("/ozt/co")
-//	public List<Co> getCoList() {
-//		List<Co> coList = coService.getCoList();
-//	
-////		System.out.println(coList.toString());
-//		return coList;
-//	}
-
-//	@GetMapping("/ozt/scom")
-//	public List<Co> getCompany(@RequestParam int coCd){
-//		
-//		List<Co> scompany = coService.getCompany(coCd);
-//		System.out.println(scompany);
-//		return scompany;
-//	}
+	
+	@PostMapping("/pjtDate/pjtSel")
+	public ResponseEntity<List> getSelPjtList(@RequestBody Pjt selData) {
+	    System.out.println("í”„ë¡œì íŠ¸ ê°’ ê°–ê³ ì˜¤ê¸°");
+	    System.out.println("data : " + selData.toString());
+		List<Pjt> pjt = pjtService.selPjtBy(selData);
+		System.out.println("ê²€ìƒ‰ ê°’: ë„£ê¸°?  :"+pjt.toString());
+		return ResponseEntity.ok(pjt);
+	}
+	
 	@GetMapping("/pjtSelDate/{pjtCd}/{coCd}")
 	public ResponseEntity<List<Pjt>> getSelPjtList(@PathVariable("pjtCd") String pjtCd,
 			@PathVariable("coCd") int coCd) {
@@ -55,18 +50,16 @@ public class PjtController {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 		for (Pjt pjt : pjtList) {
-		    String formattedPrDtOrEmpty = ""; // ±âº»ÀûÀ¸·Î ºó Ä­À¸·Î ÃÊ±âÈ­
+		    String formattedPrDtOrEmpty = ""; // ê¸°ë³¸ì ìœ¼ë¡œ ë¹ˆ ì¹¸ìœ¼ë¡œ ì´ˆê¸°í™”
 
 		    if (pjt.getPrDt() != null) {
 		        formattedPrDtOrEmpty = dateFormat.format(pjt.getPrDt());
 		    }
 
-		    pjt.setFormattedPrDt(formattedPrDtOrEmpty);
+
+
 		}
-
-
-
-		// ³¯Â¥ ÇÊµå¸¦ ¿øÇÏ´Â Çü½ÄÀ¸·Î °¡°øÇÏ¿© ¼³Á¤
+		// ë‚ ì§œ í•„ë“œë¥¼ ì›í•˜ëŠ” í˜•ì‹ìœ¼ë¡œ ê°€ê³µí•˜ì—¬ ì„¤ì •
 		
 
 		return ResponseEntity.ok(pjtList);
@@ -75,47 +68,47 @@ public class PjtController {
 	@PostMapping("/pjtDate/update/{coCd}")
 	public ResponseEntity<?> updatePjt(@PathVariable("coCd") int coCd, @RequestBody Pjt pjt) {
 		System.out.println("hih: " + coCd);
-		System.out.println("¾÷µ¥ÀÌÆ® ÇÒ °ª °®°í¿À±â");
-		System.out.println("ÇÁ·ĞÆ®¿¡¼­ ½î¾Æ¿Ã¸° °ª : " + pjt.toString());
+		System.out.println("ì—…ë°ì´íŠ¸ í•  ê°’ ê°–ê³ ì˜¤ê¸°");
+		System.out.println("í”„ë¡ íŠ¸ì—ì„œ ì˜ì•„ì˜¬ë¦° ê°’ : " + pjt.toString());
 
 
-		System.out.println("°¡°øµÈ µ¥ÀÌÅÍ : " + pjt.toString());
+		System.out.println("ê°€ê³µëœ ë°ì´í„° : " + pjt.toString());
 
 		pjtService.updatePjt(pjt, coCd);
 
-		// ¾÷µ¥ÀÌÆ® ÀÛ¾÷ ¿Ï·á ÈÄ »õ·Î¿î Pjt °´Ã¼¸¦ °¡Á®¿Ã ¶§ »ç¿ëÇÑ data ´ë½Å pjt °´Ã¼¸¦ »ç¿ëÇÕ´Ï´Ù.
-		Pjt pjtt = pjtService.getSelPjt(coCd, pjt.getPjtCd()); // ¼öÁ¤µÈ ºÎºĞ
+		// ì—…ë°ì´íŠ¸ ì‘ì—… ì™„ë£Œ í›„ ìƒˆë¡œìš´ Pjt ê°ì²´ë¥¼ ê°€ì ¸ì˜¬ ë•Œ ì‚¬ìš©í•œ data ëŒ€ì‹  pjt ê°ì²´ë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤.
+		Pjt pjtt = pjtService.getSelPjt(coCd, pjt.getPjtCd()); // ìˆ˜ì •ëœ ë¶€ë¶„
 
-		System.out.println("Àß ¹İ¿µ µÆ³ª? " + pjtt.toString());
+		System.out.println("ì˜ ë°˜ì˜ ëë‚˜? " + pjtt.toString());
 		return ResponseEntity.ok(null);
 	}
 	
 	@PostMapping("/pjtDate/insert/{coCd}")
 	public ResponseEntity<?> insertPjt(@PathVariable("coCd") int coCd, @RequestBody Pjt pjt) {
 		System.out.println("hih: " + coCd);
-		System.out.println("ÀÎ¼­Æ® ÇÒ °ª °®°í¿À±â");
-		System.out.println("ÇÁ·ĞÆ®¿¡¼­ ½î¾Æ¿Ã¸° °ª : " + pjt.toString());
+		System.out.println("ì¸ì„œíŠ¸ í•  ê°’ ê°–ê³ ì˜¤ê¸°");
+		System.out.println("í”„ë¡ íŠ¸ì—ì„œ ì˜ì•„ì˜¬ë¦° ê°’ : " + pjt.toString());
 
 
-		System.out.println("°¡°øµÈ µ¥ÀÌÅÍ : " + pjt.toString());
+		System.out.println("ê°€ê³µëœ ë°ì´í„° : " + pjt.toString());
 
 		pjtService.insertPjt(pjt, coCd);
 
-		// ¾÷µ¥ÀÌÆ® ÀÛ¾÷ ¿Ï·á ÈÄ »õ·Î¿î Pjt °´Ã¼¸¦ °¡Á®¿Ã ¶§ »ç¿ëÇÑ data ´ë½Å pjt °´Ã¼¸¦ »ç¿ëÇÕ´Ï´Ù.
-		Pjt pjtt = pjtService.getSelPjt(coCd, pjt.getPjtCd()); // ¼öÁ¤µÈ ºÎºĞ
+		// ì—…ë°ì´íŠ¸ ì‘ì—… ì™„ë£Œ í›„ ìƒˆë¡œìš´ Pjt ê°ì²´ë¥¼ ê°€ì ¸ì˜¬ ë•Œ ì‚¬ìš©í•œ data ëŒ€ì‹  pjt ê°ì²´ë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤.
+		Pjt pjtt = pjtService.getSelPjt(coCd, pjt.getPjtCd()); // ìˆ˜ì •ëœ ë¶€ë¶„
 
-		System.out.println("Àß ¹İ¿µ µÆ³ª? " + pjtt.toString());
+		System.out.println("ì˜ ë°˜ì˜ ëë‚˜? " + pjtt.toString());
 		return ResponseEntity.ok(null);
 
 	}
 	
 	@PostMapping("/pjtDate/delete/")
 	public ResponseEntity<?> deletePjt(@RequestBody Pjt pjt) {
-		System.out.println("»èÁ¦ÇÒ °ª °®°í¿À±â");
-		System.out.println("ÇÁ·ĞÆ®¿¡¼­ ½î¾Æ¿Ã¸° °ª : " + pjt.toString());
+		System.out.println("ì‚­ì œí•  ê°’ ê°–ê³ ì˜¤ê¸°");
+		System.out.println("í”„ë¡ íŠ¸ì—ì„œ ì˜ì•„ì˜¬ë¦° ê°’ : " + pjt.toString());
 
 		pjtService.deletePjt(pjt);
-		System.out.println("»èÁ¦ ÄÆ");
+		System.out.println("ì‚­ì œ ì»·");
 		return ResponseEntity.ok(null);
 
 	}
@@ -130,11 +123,11 @@ public class PjtController {
 	@GetMapping("/pjtDate/pjtSearch/{coCd}")
 	public ResponseEntity<?> getPjtByKeyword(@RequestParam String keyword, @PathVariable("coCd") int coCd) {
 //	    Pjt searchPjt = pjtService.getPjtByKeyword(keyword);
-	    System.out.println("¹¹°¡ µé¾î ÀÖ´Â°É ±î? Å°¿öµå¾È¿¡ : "+ keyword);
-	    System.out.println("È¸»çÄÚµå´Â Àß °®°í¿Ã±î? : " + coCd );
+	    System.out.println("ë­ê°€ ë“¤ì–´ ìˆëŠ”ê±¸ ê¹Œ? í‚¤ì›Œë“œì•ˆì— : "+ keyword);
+	    System.out.println("íšŒì‚¬ì½”ë“œëŠ” ì˜ ê°–ê³ ì˜¬ê¹Œ? : " + coCd );
 	    
 	    List<Pjt> searchPjt = pjtService.getPjtBy(keyword, coCd);
-	    System.out.println("¼¿·º Ã£Àº °ªÀº : " + searchPjt.toString());
+	    System.out.println("ì…€ë ‰ ì°¾ì€ ê°’ì€ : " + searchPjt.toString());
 	    return ResponseEntity.ok(searchPjt);
 	}
 }
