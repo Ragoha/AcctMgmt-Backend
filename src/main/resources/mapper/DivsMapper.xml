@@ -94,5 +94,10 @@
 		#{toNb}, #{divZip},#{divAddr}, #{divAddr1}, #{insertId});
 	</insert>
 
+ 	<select id="findDivByCoCd" parameterType="int" resultType="Divs">
+		SELECT DIV_CD, DIV_NM
+		FROM DIVS
+		WHERE CO_CD = #{coCd}
+	</select>
 
 </mapper>
