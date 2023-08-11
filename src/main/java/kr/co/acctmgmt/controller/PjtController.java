@@ -61,7 +61,7 @@ public class PjtController {
 		        formattedPrDtOrEmpty = dateFormat.format(pjt.getPrDt());
 		    }
 
-		    pjt.setFormattedPrDt(formattedPrDtOrEmpty);
+		   // pjt.setFormattedPrDt(formattedPrDtOrEmpty);
 		}
 
 
