@@ -16,19 +16,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Pjt {
 	
-//	private int coCd;		//회사코드
-//	private int pgrCd;		//프로젝트그룹 코드
-//	private String pgrNm; 	//프로젝트그룹 이름
-//	private String pjtCd;	//프로젝트코드
-//	private String pjtNm;   //프로젝트이름
+//	private int coCd;		//�쉶�궗肄붾뱶
+//	private int pgrCd;		//�봽濡쒖젥�듃洹몃９ 肄붾뱶
+//	private String pgrNm; 	//�봽濡쒖젥�듃洹몃９ �씠由�
+//	private String pjtCd;	//�봽濡쒖젥�듃肄붾뱶
+//	private String pjtNm;   //�봽濡쒖젥�듃�씠由�
 //	@DateTimeFormat(pattern = "yyyy-MM-dd")
-//	private Date prDt= new Date(); //프로젝트 시작일
+//	private Date prDt= new Date(); //�봽濡쒖젥�듃 �떆�옉�씪
 //	@DateTimeFormat(pattern = "yyyy-MM-dd")
-//	private Date toDt= new Date();//프로젝트 종료일
-//	private String progFg; //프로젝트 진행상태
-//	private String apjtNm; //프로젝트 줄임말
+//	private Date toDt= new Date();//�봽濡쒖젥�듃 醫낅즺�씪
+//	private String progFg; //�봽濡쒖젥�듃 吏꾪뻾�긽�깭
+//	private String apjtNm; //�봽濡쒖젥�듃 以꾩엫留�
 //	@DateTimeFormat(pattern = "yyyy-MM-dd")
-//	private Date stDt= new Date();//프로젝트 시작일2
+//	private Date stDt= new Date();//�봽濡쒖젥�듃 �떆�옉�씪2
 //	private String note;
 
 	    private int coCd;
@@ -47,6 +47,5 @@ public class Pjt {
 	    private String keyword;
 
 
-	    // Getter와 Setter 메서드 생략
 
 }
