@@ -23,5 +23,7 @@ public interface DivsMapper {
 	public List<Divs> getDivBydivCdAnddivNm(Divs divs);
 	
 	public Integer getCoCd(int divCd);
+
+	public List<Divs> findDivByCoCd(int coCd);
 	
 }

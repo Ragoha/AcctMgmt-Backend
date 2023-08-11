@@ -7,8 +7,10 @@
 	</select>
 
 	<select id="getDept" parameterType="int" resultType="Dept">
-		SELECT CO_CD, DIV_CD, DEPT_CD, DEPT_NM, DEPT_ZIP, DEPT_ADDR,
-		DEPT_ADDR1 FROM DEPT WHERE CO_CD = #{coCd};
+		SELECT
+		CO_CD, DIV_CD, DEPT_CD, DEPT_NM, DEPT_ZIP, DEPT_ADDR,
+		DEPT_ADDR1 FROM
+		DEPT WHERE CO_CD = #{coCd};
 	</select>
 
 	<select id="getDepartment" parameterType="int" resultType="Dept">
@@ -25,7 +27,7 @@
 		#{deptZip},#{deptAddr},
 		#{deptAddr1});
 	</insert>
-	
+
 	<delete id="deleteDept" parameterType="int">
 		DELETE from DEPT WHERE
 		DEPT_CD = #{deptCd};
@@ -33,10 +35,51 @@
 
 	<update id="updateDept" parameterType="Dept">
 		UPDATE DEPT SET
-		DEPT_NM = #{deptNm},
-		DEPT_ZIP = #{deptZip}, DEPT_ADDR = #{deptAddr}, DEPT_ADDR1 = #{deptAddr1}
+		DEPT_NM =
+		#{deptNm},
+		DEPT_ZIP = #{deptZip}, DEPT_ADDR = #{deptAddr}, DEPT_ADDR1 =
+		#{deptAddr1}
 		WHERE
 		DEPT_CD=#{deptCd}
 	</update>
+
+	<select id="getDivDept">
+		SELECT *
+		FROM DIVS
+		LEFT JOIN DEPT ON DIVS.CO_CD =
+		DEPT.CO_CD AND DIVS.DIV_CD = DEPT.DIV_CD
+		WHERE DIVS.CO_CD = #{coCd};
+	</select>
+
+	<select id="getDivCo">
+		SELECT DISTINCT DIVS.co_cd, DIVS.div_cd
+		FROM DIVS
+		LEFT
+		JOIN DEPT ON DIVS.CO_CD = DEPT.CO_CD AND DIVS.DIV_CD = DEPT.DIV_CD
+		WHERE DIVS.CO_CD = #{coCd};
+	</select>
+
+
+	<select id="getDivsDept">
+		SELECT  DISTINCT DIVS.div_cd, dept.DEPT_CD
+		FROM DEPT
+		LEFT JOIN DIVS ON DIVS.CO_CD = DEPT.CO_CD AND DIVS.DIV_CD = DEPT.DIV_CD
+		WHERE DIVS.div_CD = #{divCd};
+	</select>
+	
+	<select id="getPlz">
+	  SELECT DEPT_CD FROM DEPT WHERE DIV_CD = #{divCd};
+	</select>
+	
+ 	<select id="findDeptByCoCd" parameterType="Dept" resultType="Dept">
+		SELECT DIVS.CO_CD, DIVS.DIV_CD, DIVS.DIV_NM, DEPT.DEPT_NM, DEPT.DEPT_CD
+		FROM DEPT
+		JOIN DIVS ON DIVS.CO_CD = DEPT.CO_CD 
+			AND 
+			DIVS.DIV_CD = DEPT.DIV_CD
+		WHERE dept.CO_CD = #{coCd} 
+			AND 
+			DIVS.DIV_CD = #{divCd}
+	</select>
 
 </mapper>
