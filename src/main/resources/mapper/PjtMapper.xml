@@ -69,7 +69,18 @@
 	        );
 	</select>
 	
-	<select id="getPjtBy" parameterType="Pjt" resultType="Pjt">
+	<select id="selPjtBy" parameterType="Pjt" resultType="Pjt">
+	 SELECT *
+	    FROM PJT
+	    WHERE CO_CD = #{pjt.coCd} AND (
+	            pjt_CD LIKE CONCAT('%', #{pjt.pjtCd}, '%')
+	            AND
+	            pjt_NM LIKE CONCAT('%', #{pjt.pjtNm}, '%')
+	            
+	        );
+	</select>
+	
+<select id="getPjtBy" parameterType="Pjt" resultType="Pjt">
 	 SELECT pjt_CD, pjt_NM 
 	    FROM PJT
 	    WHERE CO_CD = #{coCd} AND (
@@ -79,7 +90,8 @@
 	            
 	        );
 	</select>
-	
+
+
 	<select id="findPjtByCoCdAndKeyword" parameterType="Pjt" resultType="Pjt">
 		SELECT PJT_CD, PJT_NM
 			FROM PJT

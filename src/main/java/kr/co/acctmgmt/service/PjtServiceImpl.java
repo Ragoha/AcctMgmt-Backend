@@ -86,4 +86,10 @@ public class PjtServiceImpl implements PjtService {
 		return PjtConverter.convertToDtoList(rPjtList);
 	}
 
+	@Override
+	public List<Pjt> selPjtBy(Pjt pjt) {
+		// TODO Auto-generated method stub
+		return pjtMapper.selPjtBy(pjt);
+	}
+
 }
