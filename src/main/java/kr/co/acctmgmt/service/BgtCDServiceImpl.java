@@ -514,9 +514,12 @@ BgtCD(coCd=1000, bgtCd=11210000, parentCd=11210000, gisu=0, bgtNm=변경가자!!
 		for (BgtCDTermDTO data : dataList) {
 			System.out.println("for-each loop : " + data);
 			BgtCDTerm temp = BgtCDTermConverter.convertToModel(data);
+			temp.setDivFg(temp.getDivFg().replace("lv", ""));
+			
 			mapper.updateBgtCDTerm(temp);
 		}
 		List<BgtCDTerm> list = mapper.getBgtCDTerm(coCD);
+		System.out.println(list.toString());
 
 		return BgtCDTermConverter.convertToDtoList(list);
 	}
