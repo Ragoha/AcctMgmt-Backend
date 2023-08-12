@@ -21,11 +21,11 @@
 	<insert id="insertDept" parameterType="Dept">
 		INSERT INTO DEPT
 		(CO_CD,
-		DIV_CD, DEPT_CD, DEPT_NM, DEPT_ZIP, DEPT_ADDR, DEPT_ADDR1)
+		DIV_CD, DEPT_CD, DEPT_NM, DEPT_ZIP, DEPT_ADDR, DEPT_ADDR1, INSERT_ID)
 		VALUES
 		(#{coCd}, #{divCd}, #{deptCd}, #{deptNm},
 		#{deptZip},#{deptAddr},
-		#{deptAddr1});
+		#{deptAddr1}, #{insertId});
 	</insert>
 
 	<delete id="deleteDept" parameterType="int">
@@ -67,12 +67,8 @@
 		WHERE DIVS.div_CD = #{divCd};
 	</select>
 	
-	<select id="getPlz">
-	  SELECT DEPT_CD FROM DEPT WHERE DIV_CD = #{divCd};
-	</select>
-	
  	<select id="findDeptByCoCd" parameterType="Dept" resultType="Dept">
-		SELECT DIVS.CO_CD, DIVS.DIV_CD, DIVS.DIV_NM, DEPT.DEPT_NM, DEPT.DEPT_CD
+		SELECT DIVS.CO_CD, DIVS.DIV_CD, DIVS.DIV_NM, DEPT.DEPT_NM, DEPT.DEPT_CD,DEPT.DEPT_ZIP,DEPT.DEPT_ADDR,DEPT.DEPT_ADDR1
 		FROM DEPT
 		JOIN DIVS ON DIVS.CO_CD = DEPT.CO_CD 
 			AND 
