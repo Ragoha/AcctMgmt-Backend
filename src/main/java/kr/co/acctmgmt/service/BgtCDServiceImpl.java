@@ -29,12 +29,17 @@ public class BgtCDServiceImpl implements BgtCDService {
 	private final BgtICFMapper bgtICFMapper;
 
 	@Override
-	public List<BgtCD> getBGTCDData(String coCd) {
-		List<BgtCD> list = mapper.getBGTCDData(coCd); // defN
+	public List<BgtCD> getBGTCDData(String coCd ,String groupcd) {
+		String bgtGrCd=groupcd;
+	    List<BgtCD> list;
+		if(bgtGrCd.equals("전체")) {
+			list= mapper.getBGTCDData(coCd,null);
+		}else {
+			list = mapper.getBGTCDData(coCd,bgtGrCd); // defN
+		}
 		System.out.println("*********Service  getBGTCDData***********.");
-		System.out.println("groupCd ? " + coCd);
 		System.out.println(list.get(0).toString());
-		int cocd = list.get(0).getCoCd(); // Integer.parseInt(groupcd);
+		int cocd = Integer.parseInt(coCd);   //<<< 여기가 문제일 확률이 있어 
 		System.out.println("cocd? : " + cocd);
 		// String dataPath = "";
 
@@ -523,7 +528,13 @@ BgtCD(coCd=1000, bgtCd=11210000, parentCd=11210000, gisu=0, bgtNm=변경가자!!
 
 		return BgtCDTermConverter.convertToDtoList(list);
 	}
-
+	@Override
+	public void insertBgtGr(List<BgtGr> dataList) {
+			String coCd = Integer.toString(dataList.get(0).getCoCd());
+			List<BgtGr> compareData= mapper.getBgtGrData(coCd);
+			
+//	        mapper.insertBgtGr();
+	}
 	@Override
 	public List<BgtCDDTO> findBgcCDByGroupCdAndToDtAndKeyword(BgtCDDTO bgtCDDTO) {
 
@@ -555,5 +566,6 @@ BgtCD(coCd=1000, bgtCd=11210000, parentCd=11210000, gisu=0, bgtNm=변경가자!!
 		// TODO Auto-generated method stub
 		return mapper.getPath(bgtCd);
 	}
+	
 
 }
