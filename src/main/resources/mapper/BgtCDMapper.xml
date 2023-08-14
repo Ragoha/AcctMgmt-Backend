@@ -6,9 +6,11 @@
 	<select id="getDataGridData" resultType="BgtCD">
 		SELECT * FROM BGTCD ;
 	</select>
-	<select id="getBGTCDData" parameterType="String"
-		resultType="BgtCD">
-		SELECT * FROM BGTCD where CO_CD=#{coCd};
+	<select id="getBGTCDData" resultType="BgtCD">
+		SELECT * FROM BGTCD where CO_CD=#{coCd}
+		<if test="bgtGrCd != null">
+			and GROUP_CD=#{bgtGrCd}
+		</if>
 	</select>
 
 	<select id="getDetailInfo" parameterType="String"
@@ -35,7 +37,8 @@
 		resultType="String">
 		SELECT DEF_NM FROM
 		BGTCD_TERM
-		WHERE CO_CD=#{coCd} AND DIV_FG=#{divFg}
+		WHERE CO_CD=#{coCd} AND
+		DIV_FG=#{divFg}
 	</select>
 	<select id="getPath" parameterType="String" resultType="String">
 		SELECT
@@ -50,22 +53,26 @@
 
 	<select id="getAddRowData" parameterType="java.util.Map"
 		resultType="BgtCD">
-		SELECT * FROM BGTCD 
+		SELECT * FROM BGTCD
 		WHERE BGT_CD=#{bgtCd} AND CO_CD=#{coCd};
 	</select>
 	<select id="getMaxMultiNum" parameterType="java.util.Map"
 		resultType="BgtCD">
 		SELECT Multi_Num, BGT_CD ,Multi_Ck
 		FROM BGTCD
-		WHERE parentCd=#{bgtCd} AND CO_CD=#{coCd}
-		
+		WHERE
+		parentCd=#{bgtCd} AND CO_CD=#{coCd}
+
 		ORDER BY Multi_Num DESC
 		LIMIT 1;
 	</select>
 	<insert id="insertAddRow" parameterType="BgtCD">
-		 INSERT INTO BGTCD
-		(CO_CD, BGT_CD,parentCd, GISU, BGT_NM, DIV_FG, CTL_FG, BGAJUST_FG, TO_DT, BOTTOM_FG, BIZ_FG, GROUP_CD, GR_FG, INSERT_ID,INSERT_DT, INSERT_IP, MODIFY_ID, MODIFY_DT, MODIFY_IP,Multi_Ck,Multi_Num,dataPath)
-		VALUES 
+		INSERT INTO BGTCD
+		(CO_CD, BGT_CD,parentCd, GISU, BGT_NM, DIV_FG, CTL_FG,
+		BGAJUST_FG, TO_DT, BOTTOM_FG, BIZ_FG, GROUP_CD, GR_FG,
+		INSERT_ID,INSERT_DT, INSERT_IP, MODIFY_ID, MODIFY_DT,
+		MODIFY_IP,Multi_Ck,Multi_Num,dataPath)
+		VALUES
 		(#{coCd},#{bgtCd},#{parentCd},#{gisu},#{bgtNm},#{divFg},#{ctlFg},#{bgajustFg},#{toDt},#{bottomFg},#{bizFg},#{groupCd},#{grFg},#{insertId},#{insertDt},#{insertIp},#{modifyId},#{modifyDt},#{modifyIp},#{MultiCk},#{MultiNum},#{dataPath});
 	</insert>
 
@@ -86,6 +93,9 @@
 		DEF_NM=#{defNm}
 		WHERE
 		CO_CD=#{coCd} and DIV_FG=#{divFg}
+	</update>
+	<update id="updateBgtGr" parameterType="BgtGr">
+
 	</update>
 
 	<!-- <select id = "findBgcCDByGroupCdAndToDtAndKeyword" parameterType="BgtCD" 
@@ -108,13 +118,15 @@
 		(
 		SELECT GROUP_CONCAT(BGT_NM SEPARATOR ' > ')
 		FROM BGTCD bgtcd_sub
-		WHERE FIND_IN_SET(bgtcd_sub.BGT_CD, BGTCD.DATAPATH)
+		WHERE
+		FIND_IN_SET(bgtcd_sub.BGT_CD, BGTCD.DATAPATH)
 		) AS DATA_PATH
 		FROM
 		BGTCD
 		LEFT JOIN
 		BGTGR ON BGTCD.GROUP_CD = BGTGR.BGTGR_CD
-		WHERE BGTCD.CO_CD = #{coCd}
+		WHERE BGTCD.CO_CD =
+		#{coCd}
 		<if test="gisu != 0 or (gisu != null and gisu != '')">
 			AND BGTCD.GISU = #{gisu}
 		</if>
