@@ -103,4 +103,10 @@ public class DeptServiceImpl implements DeptService{
 		return fDeptList;
 	}
 
+	@Override
+	public List<Dept> getDeptBydeptCdAnddeptNm(Dept dept) {
+		List<Dept> searchDept = deptMapper.getDeptBydeptCdAnddeptNm(dept);
+		return searchDept;
+	}
+
 }

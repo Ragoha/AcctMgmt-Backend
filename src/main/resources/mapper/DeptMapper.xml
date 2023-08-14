@@ -77,5 +77,18 @@
 			AND 
 			DIVS.DIV_CD = #{divCd}
 	</select>
+	
+	
+	<select id="getDeptBydeptCdAnddeptNm" parameterType="Dept"
+		resultType="Dept">
+		SELECT DEPT_CD, DEPT_NM
+		FROM DEPT
+		WHERE CO_CD = #{coCd}
+			AND (
+				DEPT_CD LIKE CONCAT('%', #{keyword}, '%')
+				OR
+				DEPT_NM LIKE CONCAT('%', #{keyword}, '%')
+				);
+	</select>
 
 </mapper>
