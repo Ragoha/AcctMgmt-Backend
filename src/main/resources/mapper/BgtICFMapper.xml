@@ -12,8 +12,11 @@
 	</select> -->
 	
 	<select id="getBgtICFList" resultType="BgtICF">
-    	SELECT * FROM BGTICF
-    	LEFT JOIN BGTCD ON BGTCD.BGT_CD = BGTICF.BGT_CD
+    	SELECT *, pjt.PJT_CD as mgtCd, pjt.PJT_NM as mgtNm, emp.emp_NAME
+    	FROM BGTICF
+	    	JOIN BGTCD ON bgtcd.CO_CD = bgticf.CO_CD AND BGTCD.BGT_CD = BGTICF.BGT_CD
+    		JOIN pjt ON pjt.CO_CD = bgticf.CO_CD AND pjt.PJT_CD = bgticf.MGT_CD
+    		JOIN emp on emp.CO_CD = bgticf.CO_CD AND emp.EMP_ID = bgticf.MODIFY_ID
     	WHERE BGTICF.CO_CD = #{coCd}
     		AND BGTICF.BGT_CD = #{bgtCd}
     		AND BGTCD.BOTTOM_fG = 0
@@ -31,7 +34,7 @@
 	    )
 	    VALUES (
 	        #{coCd}, #{gisu}, #{sq}, #{divCd}, #{deptCd}, #{mgtCd}, #{bgtCd}, #{bgtFg},#{bottomNm},
-	        #{carrAm}, #{carrAm1}, #{carrAm2}, #{carrAm3}, #{empCd}, #{remDc}, #{bgtTy},
+	        #{carrAm}, #{carrAm1}, #{carrAm2}, #{carrAm3}, #{empCd}, #{remDc}, "직접입력",
 	        #{insertId}, now(), #{insertIp}, #{modifyId}, now(), #{modifyIp}
 	    )
 	</insert>

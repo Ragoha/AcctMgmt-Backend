@@ -141,55 +141,12 @@
 		bgt_Cd = #{bgtCd}
 	</delete>
 
-
-	<select id="findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd1"
-		parameterType="BgtCD" resultType="BgtCD">
-		SELECT DISTINCT
-		BGTCD.CO_CD,
-		BgtCD.bgt_Cd AS bgt_Cd,
-		CASE
-		WHEN bgtcd.div_Fg BETWEEN '1' AND '8' THEN (
-		SELECT BgtCD_Term.def_Nm
-		FROM BgtCD_Term
-		WHERE BgtCD_Term.co_Cd = bgtcd.co_Cd AND BgtCD_Term.div_Fg = bgtcd.div_Fg
-		)
-		ELSE bgtcd.div_Fg
-		END AS div_Fg,
-		CASE
-		WHEN BgtCD.dataPath IS NULL THEN BgtCD.bgt_nm
-		ELSE (
-		SELECT CONCAT(
-		GROUP_CONCAT(bgt_nm SEPARATOR ' > '),
-		' > ',
-		BgtCD.bgt_nm
-		)
-		FROM BgtCD bgtcd_sub
-		WHERE FIND_IN_SET(bgtcd_sub.bgt_Cd, BgtCD.dataPath)
-		)
-		END AS dataPath
-		FROM
-		BgtCD
-		LEFT JOIN
-		BgtICF ON BgtCD.bgt_Cd = BgtICF.bgt_Cd
-		WHERE
-		BGTICF.DIV_CD = #{divCd}
-		AND
-		BGTCD.GISU = #{gisu}
-		AND
-		BGTCD.GROUP_CD = #{groupCd}
-		AND
-		BGTCD.GR_FG = #{grFg}
-		AND
-		BGTCD.BGT_CD = #{bgtCd}
-		ORDER BY BgtCD.BGT_Cd
-	</select>
-
-
 	<select id="findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd"
 		parameterType="BgtCD" resultType="BgtCD">
 			WITH RECURSIVE CTE AS (
 			    SELECT
 			        bgtcd.CO_CD,
+			        bgtcd.GISU,
 			        BGTCD.BGT_NM,
 			        BGTCD.BGT_CD,
 			        BGTCD.PARENTCD,
@@ -198,7 +155,8 @@
 			        BGTCD.BGT_CD AS CD_PATH,
 			        1 AS LEVEL,
 			        bgtcd.DIV_FG,
-			        bgticf.DIV_CD
+			        bgticf.DIV_CD,
+			        BGTCD.BOTTOM_fG
 			    FROM BGTCD
 			    LEFT JOIN BGTICF ON BGTCD.BGT_CD = BGTICF.BGT_CD
 			    WHERE (PARENTCD IS NULL OR PARENTCD = (
@@ -237,6 +195,7 @@
 			
 			    SELECT
 			        P.CO_CD,
+			        p.GISU,
 			        P.BGT_NM,
 			        P.BGT_CD,
 			        P.PARENTCD,
@@ -245,7 +204,8 @@
 			        CONCAT(CTE.CD_PATH, '>', P.BGT_CD) AS CD_PATH,
 			        1 + LEVEL AS LEVEL,
 			        P.DIV_FG,
-			        bgticf.DIV_CD
+			        bgticf.DIV_CD,
+			       	p.bottom_fg
 			    FROM bgtcd P
 			    INNER JOIN CTE ON P.PARENTCD = CTE.BGT_CD
 			    LEFT JOIN BGTICF ON P.BGT_CD = BGTICF.BGT_CD
@@ -264,6 +224,7 @@
 			
 			SELECT DISTINCT
 			    CTE.CO_CD,
+			    CTE.GISU,
 			    CTE.BGT_CD,
 			    CTE.BGT_NM,
 			    CTE.NM_PATH AS DATAPATH,
@@ -276,7 +237,8 @@
 			        ELSE CTE.div_Fg
 			    END AS DEF_NM,
 			    CTE.DIV_CD,
-			    CTE.DIV_FG
+			    CTE.DIV_FG,
+			    CTE.BOTTOM_FG
 			FROM CTE
 			WHERE CTE.CD_PATH LIKE (
 			    SELECT CONCAT(CD_PATH, '%') FROM CTE 
