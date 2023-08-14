@@ -3,6 +3,8 @@ package kr.co.acctmgmt.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import kr.co.acctmgmt.domain.BgtCD;
 import kr.co.acctmgmt.domain.BgtCDTerm;
 import kr.co.acctmgmt.domain.BgtGr;
@@ -10,7 +12,7 @@ import kr.co.acctmgmt.dto.BgtCDTermDTO;
 
 public interface BgtCDMapper {
 	
-	public List<BgtCD> getBGTCDData(String groupcd);
+	public List<BgtCD> getBGTCDData(@Param("coCd") String coCd, @Param("bgtGrCd") String bgtGrCd);
 	
 	public List<BgtCD> getDetailInfo(String bgtCd);
 	
@@ -53,4 +55,6 @@ public interface BgtCDMapper {
 	public List<BgtCD> findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(BgtCD bgtCD);
 
 	public BgtCD getAddRowData(Map<String, String> params);
+
+	public void updateBgtGr(BgtGr data);
 }

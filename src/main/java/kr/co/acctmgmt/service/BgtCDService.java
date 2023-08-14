@@ -9,7 +9,7 @@ import kr.co.acctmgmt.dto.BgtCDDTO;
 import kr.co.acctmgmt.dto.BgtCDTermDTO;
 
 public interface BgtCDService {
-	public List<BgtCD> getBGTCDData(String groupcd);
+	public List<BgtCD> getBGTCDData(String coCd , String bgtGrCd);
 
 
 //	public String getDefNmFromBGTCD_TERM(int divFg);
@@ -38,5 +38,8 @@ public interface BgtCDService {
 
 
 	public void insertAddRow(BgtCD bgtcd);
+
+
+	public void insertBgtGr(List<BgtGr> dataList);
 
 }
