@@ -25,5 +25,7 @@ public interface DeptService {
 	public List<Dept> getDivsDept(int divCd);
 
 	public List<Dept> findDeptByCoCd(int coCd);
+	
+	public List<Dept> getDeptBydeptCdAnddeptNm(Dept dept);
 
 }
