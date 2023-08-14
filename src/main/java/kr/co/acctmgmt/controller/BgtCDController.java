@@ -32,9 +32,9 @@ public class BgtCDController {
 	/*조회 start*/
 	// http://localhost:8080/acctmgmt/bgt/sbgtcd/getGridData?groupcd=GROUP1
 	@GetMapping("/bgt/bgtcd/getGridData") // groupcd 
-	public List<BgtCD> getGridData(@RequestParam String coCd) {
-		System.out.println("groupcd를 찾아야함");
-		List<BgtCD> list = service.getBGTCDData(coCd);
+	public List<BgtCD> getGridData(@RequestParam String coCd ,String groupcd) {
+		System.out.println("groupcd를 찾아야함"+groupcd);
+		List<BgtCD> list = service.getBGTCDData(coCd,groupcd);
 		System.out.println("여아래 값에서 defNm찾아보자");
 		System.out.println(list.toString());
 		return list;
@@ -93,6 +93,10 @@ public class BgtCDController {
 		
 		BgtCD info =  service.addRowData(bgtCd , coCd);
 		return info;
+	}
+	@PutMapping("/bgt/bgtcd/insertBgtGr")
+	public void insertBgtGr(@RequestBody List<BgtGr> dataList) {
+		service.insertBgtGr(dataList);
 	}
 	/*업데이트 end */
 	/*삽입 start */
