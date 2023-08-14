@@ -2,6 +2,8 @@ package kr.co.acctmgmt.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import kr.co.acctmgmt.domain.Co;
 
 public interface CoMapper {
