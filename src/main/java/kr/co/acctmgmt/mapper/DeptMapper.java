@@ -27,6 +27,6 @@ public interface DeptMapper {
 
 	public List<Dept> findDeptByCoCd(Dept dept);
 	
+	public List<Dept> getDeptBydeptCdAnddeptNm(Dept dept);
 	
-
 }

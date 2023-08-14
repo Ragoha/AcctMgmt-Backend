@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.acctmgmt.domain.Dept;
+import kr.co.acctmgmt.domain.Divs;
 import kr.co.acctmgmt.service.DeptService;
 import kr.co.acctmgmt.service.DivsService;
 import lombok.RequiredArgsConstructor;
@@ -104,6 +105,14 @@ public class DeptController {
 		
 		System.out.println("asdf00");
 		return new ResponseEntity<List<Dept>>(rDeptList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/ozt/dept/search")
+	public List<Dept> getDeptBydeptCdAnddeptNm(Dept dept){
+		
+		List<Dept> searchDept = deptService.getDeptBydeptCdAnddeptNm(dept);
+		System.out.println(searchDept);
+		return searchDept;
 	}
 
 }
