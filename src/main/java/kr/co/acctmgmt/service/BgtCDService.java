@@ -42,4 +42,10 @@ public interface BgtCDService {
 
 	public void insertBgtGr(List<BgtGr> dataList);
 
+
+	public void deleteBgtGr(String coCd, String bgtGrCd);
+
+
+	public List<BgtCD> getBgtCDdialog(String coCd);
+
 }
