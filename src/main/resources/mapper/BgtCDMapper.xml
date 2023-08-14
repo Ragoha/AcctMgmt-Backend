@@ -48,7 +48,7 @@
 	</select>
 	<select id="getBgtGrData" parameterType="String"
 		resultType="BgtGr">
-		SELECT * FROM BGTGR WHERE CO_CD=#{coCd};
+		SELECT * FROM BGTGR WHERE CO_CD=#{coCd} order by BGTGR_CD;
 	</select>
 
 	<select id="getAddRowData" parameterType="java.util.Map"
@@ -66,14 +66,37 @@
 		ORDER BY Multi_Num DESC
 		LIMIT 1;
 	</select>
+	<select id="getBgtCDdialog" parameterType="String" resultType="BgtCd">
+		SELECT BGT_CD , BGT_NM FROM BGTCD
+		WHERE CO_CD = #{coCd};
+	</select>
+	
 	<insert id="insertAddRow" parameterType="BgtCD">
 		INSERT INTO BGTCD
 		(CO_CD, BGT_CD,parentCd, GISU, BGT_NM, DIV_FG, CTL_FG,
-		BGAJUST_FG, TO_DT, BOTTOM_FG, BIZ_FG, GROUP_CD, GR_FG,
-		INSERT_ID,INSERT_DT, INSERT_IP, MODIFY_ID, MODIFY_DT,
+		BGAJUST_FG,
+		TO_DT, BOTTOM_FG, BIZ_FG, GROUP_CD, GR_FG,
+		INSERT_ID,INSERT_DT,
+		INSERT_IP, MODIFY_ID, MODIFY_DT,
 		MODIFY_IP,Multi_Ck,Multi_Num,dataPath)
 		VALUES
 		(#{coCd},#{bgtCd},#{parentCd},#{gisu},#{bgtNm},#{divFg},#{ctlFg},#{bgajustFg},#{toDt},#{bottomFg},#{bizFg},#{groupCd},#{grFg},#{insertId},#{insertDt},#{insertIp},#{modifyId},#{modifyDt},#{modifyIp},#{MultiCk},#{MultiNum},#{dataPath});
+	</insert>
+	<insert id="insertBgtGr" parameterType="BgtGr">
+		INSERT INTO BGTGR
+		(CO_CD,BGTGR_CD,USEYN,BGTGR_NM,INSERT_ID,INSERT_DT,INSERT_IP,MODIFY_ID,MODIFY_DT,MODIFY_IP)
+		values
+		(#{coCd},
+		#{bgtGrCd},
+		"Y",
+		#{bgtGrNm},
+		#{insertId},
+		null,
+		null,
+		#{insertId},
+		null,
+		null);
+
 	</insert>
 
 	<update id="updateDetailInfo" parameterType="BgtCD">
@@ -150,7 +173,12 @@
 	<delete id="deleteRow" parameterType="String">
 		DELETE FROM BGTCD
 		WHERE
-		bgt_Cd = #{bgtCd}
+		BGT_CD = #{bgtCd}
+	</delete>
+	<delete id="deleteBgtGr" parameterType="String">
+		DELETE FROM BGTGR
+		WHERE
+		CO_CD=#{coCd} and BGTGR_CD=#{bgtGrCd};
 	</delete>
 
 
@@ -217,9 +245,11 @@
 		1 AS LEVEL,
 		bgtcd.DIV_FG,
 		bgticf.DIV_CD
-		FROM BGTCD
+		FROM
+		BGTCD
 		LEFT JOIN BGTICF ON BGTCD.BGT_CD = BGTICF.BGT_CD
-		WHERE (PARENTCD IS NULL OR PARENTCD = (
+		WHERE (PARENTCD
+		IS NULL OR PARENTCD = (
 		WITH RECURSIVE CTE AS (
 		SELECT
 		BGT_CD,
@@ -235,9 +265,11 @@
 		P.PARENTCD,
 		1 + LEVEL AS LEVEL
 		FROM bgtcd P
-		INNER JOIN CTE C ON P.BGT_CD = C.PARENTCD
+		INNER JOIN
+		CTE C ON P.BGT_CD = C.PARENTCD
 		)
-		SELECT BGT_CD FROM CTE ORDER BY LEVEL DESC LIMIT 1
+		SELECT BGT_CD FROM CTE ORDER BY LEVEL
+		DESC LIMIT 1
 		))
 		AND bgtcd.CO_CD = #{coCd}
 		AND BGTCD.GISU = #{gisu}
@@ -260,13 +292,16 @@
 		P.PARENTCD,
 		CTE.TOP_PARENT,
 		CONCAT(CTE.NM_PATH, '>', P.BGT_NM) AS NM_PATH,
-		CONCAT(CTE.CD_PATH, '>', P.BGT_CD) AS CD_PATH,
+		CONCAT(CTE.CD_PATH, '>',
+		P.BGT_CD) AS CD_PATH,
 		1 + LEVEL AS LEVEL,
 		P.DIV_FG,
 		bgticf.DIV_CD
-		FROM bgtcd P
+		FROM
+		bgtcd P
 		INNER JOIN CTE ON P.PARENTCD = CTE.BGT_CD
-		LEFT JOIN BGTICF ON P.BGT_CD = BGTICF.BGT_CD
+		LEFT JOIN BGTICF ON
+		P.BGT_CD = BGTICF.BGT_CD
 		WHERE P.CO_CD = #{coCd}
 		AND P.GISU = #{gisu}
 		<if test="grFg != 0 or (grFg != null and grFg != '')">
@@ -284,12 +319,15 @@
 		CTE.CO_CD,
 		CTE.BGT_CD,
 		CTE.BGT_NM,
-		CTE.NM_PATH AS DATAPATH,
+		CTE.NM_PATH AS
+		DATAPATH,
 		CASE
 		WHEN CTE.div_Fg BETWEEN '1' AND '8' THEN (
-		SELECT BgtCD_Term.def_Nm
+		SELECT
+		BgtCD_Term.def_Nm
 		FROM BgtCD_Term
-		WHERE BgtCD_Term.co_Cd = CTE.co_Cd AND BgtCD_Term.div_Fg = CTE.div_Fg
+		WHERE BgtCD_Term.co_Cd = CTE.co_Cd AND
+		BgtCD_Term.div_Fg = CTE.div_Fg
 		)
 		ELSE CTE.div_Fg
 		END AS DEF_NM,
@@ -297,7 +335,8 @@
 		CTE.DIV_FG
 		FROM CTE
 		WHERE CTE.CD_PATH LIKE (
-		SELECT CONCAT(CD_PATH, '%') FROM CTE
+		SELECT
+		CONCAT(CD_PATH, '%') FROM CTE
 		<if test="bgtCd != 0 or (bgtCd != null and bgtCd != '')">
 			WHERE BGT_CD = #{bgtCd}
 		</if>
