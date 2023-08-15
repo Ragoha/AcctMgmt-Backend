@@ -28,4 +28,5 @@ public class Dept {
 	private Date modifyDt = new Date();  //수정일
 	private String modifyIp;  //수정 ip
 
+	private String keyword; //임시검색변수
 }

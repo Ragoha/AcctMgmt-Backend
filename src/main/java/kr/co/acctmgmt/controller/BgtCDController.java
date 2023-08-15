@@ -2,6 +2,7 @@ package kr.co.acctmgmt.controller;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,9 +33,9 @@ public class BgtCDController {
 	/*조회 start*/
 	// http://localhost:8080/acctmgmt/bgt/sbgtcd/getGridData?groupcd=GROUP1
 	@GetMapping("/bgt/bgtcd/getGridData") // groupcd 
-	public List<BgtCD> getGridData(@RequestParam String coCd) {
-		System.out.println("groupcd를 찾아야함");
-		List<BgtCD> list = service.getBGTCDData(coCd);
+	public List<BgtCD> getGridData(@RequestParam String coCd ,String groupcd) {
+		System.out.println("groupcd를 찾아야함"+groupcd);
+		List<BgtCD> list = service.getBGTCDData(coCd,groupcd);
 		System.out.println("여아래 값에서 defNm찾아보자");
 		System.out.println(list.toString());
 		return list;
@@ -67,6 +68,11 @@ public class BgtCDController {
 		System.out.println(bgtGr.toString());
 		return bgtGr;
 	}
+	@GetMapping("/bgt/bgtcd/getBgtCDdialog")
+	public List<BgtCD> getBgtCDdialog(@RequestParam String coCd){
+		System.out.println("===getBgtCDdialog===");
+		return service.getBgtCDdialog(coCd);
+	}
 	/*조회end*/
 	
 	
@@ -90,9 +96,14 @@ public class BgtCDController {
 		System.out.println("getAddRowData");
 		System.out.println("bgtcd : "+bgtCd);
 		System.out.println("coCd : "+coCd);
-		
 		BgtCD info =  service.addRowData(bgtCd , coCd);
 		return info;
+	}
+	@PutMapping("/bgt/bgtcd/insertBgtGr")
+	public void insertBgtGr(@RequestBody List<BgtGr> dataList) {
+		System.out.println("여긴 인서트 컨트롤러");
+		System.out.println(dataList.toString());
+		service.insertBgtGr(dataList);
 	}
 	/*업데이트 end */
 	/*삽입 start */
@@ -114,6 +125,13 @@ public class BgtCDController {
 		System.out.println("여기가 딜리트야 ~"+bgtCd+"<<<<");
 		System.out.println();
 		return service.deleteRow(bgtCd);
+	}
+	@DeleteMapping("/bgt/bgtcd/deleteBgtGr")
+	public void deleteBgtGr(@RequestParam String coCd, String bgtGrCd) {
+		System.out.println("===deleteBgtGr===");
+		System.out.println("cocd"+coCd+"/bgtGrCd"+bgtGrCd);
+		service.deleteBgtGr(coCd,bgtGrCd);
+		
 	}
 	
 }

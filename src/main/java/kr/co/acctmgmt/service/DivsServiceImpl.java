@@ -71,4 +71,10 @@ public class DivsServiceImpl implements DivsService{
 		return coCd;
 	}
 
+	@Override
+	public List<Divs> findDivByCoCd(int coCd) {
+		
+		return divsMapper.findDivByCoCd(coCd);
+	}
+
 }

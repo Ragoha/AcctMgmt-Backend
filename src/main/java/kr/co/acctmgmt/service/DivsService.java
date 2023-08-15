@@ -25,4 +25,6 @@ public interface DivsService {
 	
 	public Integer getCoCd(int divCd);
 
+	public List<Divs> findDivByCoCd(int coCd);
+
 }

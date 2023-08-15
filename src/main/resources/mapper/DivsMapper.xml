@@ -11,7 +11,8 @@
 			AND (
 			DIV_CD LIKE CONCAT('%', #{keyword}, '%')
 			OR
-			DIV_NM LIKE CONCAT('%', #{keyword}, '%')
+			DIV_NM LIKE
+			CONCAT('%', #{keyword}, '%')
 			)
 		</if>
 	</select>
@@ -35,11 +36,12 @@
 		resultType="Divs">
 		SELECT DIV_CD, DIV_NM
 		FROM DIVS
-		WHERE (
-		DIV_CD LIKE CONCAT('%', #{keyword}, '%')
-		OR
-		DIV_NM LIKE CONCAT('%', #{keyword}, '%')
-		);
+		WHERE CO_CD = #{coCd}
+			AND (
+				DIV_CD LIKE CONCAT('%', #{keyword}, '%')
+				OR
+				DIV_NM LIKE CONCAT('%', #{keyword}, '%')
+			);
 	</select>
 
 	<select id="getDivsList" resultType="Divs">
@@ -66,7 +68,7 @@
 		CO_CD
 		FROM DIVS WHERE DIV_CD = #{divCd};
 	</select>
-	
+
 	<delete id="deleteDivs" parameterType="int">
 		DELETE from DIVS WHERE
 		DIV_CD = #{divCd};
@@ -78,7 +80,8 @@
 		#{divNm},CEO_NM = #{ceoNm}, JONGMOK = #{jongmok}, BUSINESS_TYPE =
 		#{businessType}, DIV_NB= #{divNb},TO_NB=#{toNb},
 		DIV_ZIP = #{divZip},
-		DIV_ADDR = #{divAddr}, DIV_ADDR1 = #{divAddr1}, MODIFY_ID = #{modifyId}
+		DIV_ADDR = #{divAddr}, DIV_ADDR1 = #{divAddr1}, MODIFY_ID =
+		#{modifyId}
 		WHERE
 		DIV_CD=#{divCd}
 	</update>
@@ -89,10 +92,17 @@
 		DIV_NM, CEO_NM, JONGMOK, BUSINESS_TYPE, DIV_NB, TO_NB, DIV_ZIP,
 		DIV_ADDR, DIV_ADDR1, INSERT_ID)
 		VALUES
-		(#{coCd}, #{divNm}, #{ceoNm}, #{jongmok},
+		(#{coCd}, #{divNm}, #{ceoNm},
+		#{jongmok},
 		#{businessType}, #{divNb},
-		#{toNb}, #{divZip},#{divAddr}, #{divAddr1}, #{insertId});
+		#{toNb}, #{divZip},#{divAddr},
+		#{divAddr1}, #{insertId});
 	</insert>
 
+	<select id="findDivByCoCd" parameterType="int" resultType="Divs">
+		SELECT DIV_CD, DIV_NM
+		FROM DIVS
+		WHERE CO_CD = #{coCd}
+	</select>
 
 </mapper>
