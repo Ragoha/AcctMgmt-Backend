@@ -57,10 +57,4 @@ public interface BgtCDMapper {
 	public BgtCD getAddRowData(Map<String, String> params);
 
 	public void updateBgtGr(BgtGr data);
-	
-	public void insertBgtGr(BgtGr data);
-	
-	public void deleteBgtGr(@Param("coCd") String coCd, @Param("bgtGrCd") String bgtGrCd);
-
-	public List<BgtCD> getBgtCDdialog(String coCd);
 }

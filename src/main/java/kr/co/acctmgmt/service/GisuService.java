@@ -8,7 +8,7 @@ import kr.co.acctmgmt.dto.GisuDTO;
 public interface GisuService {
 	
 	public List<GisuDTO> findGisuByCoCd(GisuDTO gisuDTO);
-	
-	List<Gisu> getGisu(int coCd);
 
+	public void deleteGisu(GisuDTO gisuDTO);
+	
 }

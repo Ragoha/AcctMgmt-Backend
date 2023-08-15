@@ -43,6 +43,7 @@ public class BgtCDDTO {
 	String keyword="";
 	String bgtGrNm="";
 	int divCd=0;
+	String divNm="";
 	int carrAm=0;
 	
 }

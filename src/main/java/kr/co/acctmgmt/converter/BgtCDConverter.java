@@ -36,6 +36,7 @@ public class BgtCDConverter {
 				.dataPath(bgtcdDomain.getDataPath())
 				.carrAm(bgtcdDomain.getCarrAm())
 				.divCd(bgtcdDomain.getDivCd())
+				.divNm(bgtcdDomain.getDivNm())
 				.build();
 		return bgtCDDTO;
 	}
@@ -65,6 +66,7 @@ public class BgtCDConverter {
 				.dataPath(bgtcdDTO.getDataPath())
 				.carrAm(bgtcdDTO.getCarrAm())
 				.divCd(bgtcdDTO.getDivCd())
+				.divNm(bgtcdDTO.getDivNm())
                 .build();
 
         return bgtCDDomain;
