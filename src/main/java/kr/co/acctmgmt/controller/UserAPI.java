@@ -164,6 +164,8 @@ public class UserAPI {
 			HttpServletResponse response) {
 		// 기존 리프레시 토큰 가져오기
 		String refreshToken = jwtUtil.resolveRefreshToken(request);
+		
+		System.out.println(refreshToken);
 
 		// 리프레시 토큰 검증
 		if (jwtUtil.validateRefreshToken(refreshToken)) {
