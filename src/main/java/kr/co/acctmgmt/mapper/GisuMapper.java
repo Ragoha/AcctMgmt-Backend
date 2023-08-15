@@ -10,4 +10,6 @@ public interface GisuMapper {
 	
 	List<Gisu> getGisu(int coCd);
 
+	void deleteGisu(Gisu gisu);
+
 }

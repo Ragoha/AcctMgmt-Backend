@@ -37,7 +37,6 @@ import lombok.RequiredArgsConstructor;
 public class BgtICFController {
 	
 	private final HttpServletRequest request;
-	
 	private final BgtICFService bgtICFService;
 	private final DivsService divsService;
 	private final BgtCDService bgtCDService; 
@@ -78,7 +77,7 @@ public class BgtICFController {
 	
 	@PostMapping("/bgticf")
 	public ResponseEntity<Void> insertBgtICF(@RequestBody BgtICFDTO bgtICFDTO){
-		System.out.println("ででででででででででで");
+		System.out.println("==========脊径==========");
 		System.out.println(bgtICFDTO.toString());
 
 		bgtICFService.insertBgtICF(bgtICFDTO);
@@ -89,7 +88,7 @@ public class BgtICFController {
 	
 	@PutMapping("/bgticf")
 	public ResponseEntity<Void> updateBgtICF(@RequestBody BgtICFDTO bgtICFDTO){
-		System.out.println("ででででででででででで");
+		System.out.println("==========呪舛==========");
 
 		bgtICFService.updateBgtICF(bgtICFDTO);
 		
@@ -102,33 +101,22 @@ public class BgtICFController {
 		
 		List<DivsDTO> rDivsDTOList = divsService.findDivByCoCdAndKeyword(divsDTO);
 		
-		rDivsDTOList.forEach(rDivs -> {
-		System.out.println(rDivs.toString());
-		});
-		
 		return new ResponseEntity<List<DivsDTO>>(rDivsDTOList, HttpStatus.OK);
 	}
 	
 	@GetMapping("/bgticf/bgtgr")
 	public ResponseEntity<List<BgtGrDTO>> findBgtGrByCoCdAndKeyword(BgtGrDTO bgtGrDTO) {
 		
-		System.out.println(bgtGrDTO.toString());
 		
 		List<BgtGrDTO> rBgtGrDTOList = bgtGrService.findBgtGrByCoCdAndKeyword(bgtGrDTO);
-		
-		
-		
-		System.out.println(rBgtGrDTOList.toString());
+
 		return new ResponseEntity<List<BgtGrDTO>>(rBgtGrDTOList, HttpStatus.OK);
 	}
 	
 	@GetMapping("/bgticf/bgtcd")
 	public ResponseEntity<List<BgtCDDTO>> findBgtCDByKeyword(BgtCDDTO bgtCDDTO){
-		System.out.println(bgtCDDTO.toString());
 		
 		List<BgtCDDTO> rBgtCDDTOList = bgtCDService.findBgcCDByGroupCdAndToDtAndKeyword(bgtCDDTO);
-		
-		System.out.println(rBgtCDDTOList.toString());
 		
 		return new ResponseEntity<List<BgtCDDTO>>(rBgtCDDTOList, HttpStatus.OK);
 	}
@@ -136,11 +124,7 @@ public class BgtICFController {
 	@GetMapping("/bgticf/gisu")
 	public ResponseEntity<List<GisuDTO>> findGisuByCoCd(GisuDTO gisuDTO){
 		
-		System.out.println(gisuDTO.toString());
-		
 		List<GisuDTO> rGisuDTOList = gisuService.findGisuByCoCd(gisuDTO);
-		
-		System.out.println(rGisuDTOList.toString());
 		
 		return new ResponseEntity<List<GisuDTO>>(rGisuDTOList, HttpStatus.OK);
 		
@@ -148,13 +132,8 @@ public class BgtICFController {
 	
 	@GetMapping("/bgticf/pjt")
 	public ResponseEntity<List<PjtDTO>> findPjtByCoCdAndKeyword(PjtDTO pjtDTO){
-		
 
-		System.out.println(pjtDTO.toString());
 		List<PjtDTO> rPjtDTOList = pjtService.findPjtByCoCdAndKeyword(pjtDTO);
-				
-		
-		System.out.println(rPjtDTOList.toString());
 		
 		return new ResponseEntity<List<PjtDTO>>(rPjtDTOList, HttpStatus.OK);
 		
@@ -163,16 +142,12 @@ public class BgtICFController {
 	@GetMapping("/bgticf/bgtcd/search")
 	public ResponseEntity<List<BgtCDDTO>> findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(BgtCDDTO bgtCDDTO) {
 		
-		System.out.println(bgtCDDTO.toString());
 		
 		String ip = ClientUtil.getRemoteIP(request);
 		
-		System.out.println(ip);
 		
 		List<BgtCDDTO> rBgtCDDTOList = bgtCDService.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(bgtCDDTO);
 		
-		System.out.println("asdf");
-		System.out.println(rBgtCDDTOList.toString());
 		
 		return new ResponseEntity<List<BgtCDDTO>>(rBgtCDDTOList, HttpStatus.OK);
 	}

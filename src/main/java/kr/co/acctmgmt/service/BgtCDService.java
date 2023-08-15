@@ -51,4 +51,5 @@ public interface BgtCDService {
 
 	public List<BgtCD> getBgtCdLikeSearch(String coCd, String keyword);
 
+
 }

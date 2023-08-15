@@ -60,8 +60,8 @@ public class DivsServiceImpl implements DivsService{
 	}
 
 	@Override
-	public List<Divs> getDiv(int divCd) {
-		List<Divs> division = divsMapper.getDiv(divCd);
+	public List<Divs> getDiv(Divs divs) {
+		List<Divs> division = divsMapper.getDiv(divs);
 		return division;
 	}
 

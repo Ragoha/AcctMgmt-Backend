@@ -14,7 +14,7 @@ public interface DivsMapper {
 	
 	public List<Divs> getDivision(int coCd);
 	
-	public List<Divs> getDiv(int divCd);
+	public List<Divs> getDiv(Divs divs);
 	
 	public void deleteDivs(int divCd);
 	
