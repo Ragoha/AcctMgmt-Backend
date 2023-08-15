@@ -1,10 +1,8 @@
 package kr.co.acctmgmt.domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import kr.co.acctmgmt.dto.PjtDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -42,7 +40,16 @@ public class Pjt {
 	    private String apjtNm;
 	    private Date startDt;
 	    private String note;
-
+	    
+//	    public void setPrDt(String prDtString) {
+//            LocalDate localDate = LocalDate.parse(prDtString);
+//            this.prDt = java.sql.Date.valueOf(localDate);
+//        }
+//
+//        public void setToDt(String toDtString) {
+//            LocalDate localDate = LocalDate.parse(toDtString);
+//            this.toDt = java.sql.Date.valueOf(localDate);
+//        }
 	    
 	    private String keyword;
 

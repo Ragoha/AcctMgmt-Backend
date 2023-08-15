@@ -6,8 +6,8 @@
 		SELECT * FROM GISU WHERE CO_CD = #{coCd}
 	</select>
 	
-	<select id="getGisu" parameterType="int" resultType="Gisu">
-	 SELECT CO_CD, GISU, FR_DT, TO_DT FROM GISU WHERE CO_CD= #{coCd};
-	</select>
+	<delete id="deleteGisu" parameterType="Gisu">
+		DELETE FROM GISU WHERE CO_CD = #{coCd} AND GISU = #{gisu}
+	</delete>
 	
 </mapper>

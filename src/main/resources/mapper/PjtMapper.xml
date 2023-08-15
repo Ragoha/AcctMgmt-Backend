@@ -56,16 +56,27 @@
 		pjt_CD = #{pjt.pjtCd}
 	</delete>
 	
+	<select id="selPgrBy" parameterType="Pjt" resultType="Pjt">
+	 SELECT *
+	    FROM PJT
+	    WHERE CO_CD = #{pjt.coCd} AND (
+	            pgr_CD LIKE CONCAT('%', #{pjt.pgrCd}, '%')
+	            AND
+	            pgr_NM LIKE CONCAT('%', #{pjt.pgrNm}, '%')
+	            
+	        );
+	</select>
+	
 	<select id="getPgrBy" parameterType="Pjt" resultType="Pjt">
 	 SELECT pgr_CD, pgr_NM 
 	    FROM PJT
 	    WHERE CO_CD = #{coCd} 
 	    AND
-	            (
-	            pgr_CD LIKE CONCAT('%', #{keyword}, '%')
-	            OR
-	            pgr_NM LIKE CONCAT('%', #{keyword}, '%')
-	            
+           (
+           pgr_CD LIKE CONCAT('%', #{keyword}, '%')
+           OR
+           pgr_NM LIKE CONCAT('%', #{keyword}, '%')
+           
 	        );
 	</select>
 	
@@ -80,7 +91,7 @@
 	        );
 	</select>
 	
-<select id="getPjtBy" parameterType="Pjt" resultType="Pjt">
+	<select id="getPjtBy" parameterType="Pjt" resultType="Pjt">
 	 SELECT pjt_CD, pjt_NM 
 	    FROM PJT
 	    WHERE CO_CD = #{coCd} AND (
@@ -105,4 +116,29 @@
 				)
 			</if>
 	</select>
+	
+	<!-- <select id="conditionPjtSelect" parameterType="Pjt" resultType="Pjt">
+		SELECT *
+		FROM PJT
+		WHERE CO_CD = #{coCd}
+		<if test="pjt.progFg != '전체'">
+			AND PROG_FG = #{progFg}
+		</if>
+		<if test="keyword != null and keyword != ''">
+			AND CONCAT(pjt_Cd , ". ", pjt_Nm) LIKE #{keyword};
+		</if>
+		<if test="keyword2 != null and keyword2 != ''">
+			AND CONCAT(pgr_Cd , ". ", pgr_Nm) LIKE #{keyword2};
+		</if>
+		<if test="prDt != null and toDt != null">
+		AND pr_DT >= #{prDt} AND to_DT <= #{toDt}
+    	</if>
+    	SELECT *
+		FROM PJT
+  		WHERE CO_CD = #{pjt.coCd}
+        AND PROG_FG = #{pjt.progFg}
+        AND CONCAT(pjt_Cd , '. ', pjt_Nm) LIKE CONCAT('%', #{keyword}, '%')
+        AND CONCAT(pgr_Cd , '. ', pgr_Nm) LIKE CONCAT('%', #{keyword2}, '%')
+        AND pr_DT >= #{pjt.prDt} OR to_DT <= #{pjt.toDt}
+	</select> -->
 </mapper>
