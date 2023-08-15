@@ -48,4 +48,7 @@ public interface BgtCDService {
 
 	public List<BgtCD> getBgtCDdialog(String coCd);
 
+
+	public List<BgtCD> getBgtCdLikeSearch(String coCd, String keyword);
+
 }

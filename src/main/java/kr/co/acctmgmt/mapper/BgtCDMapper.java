@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.junit.experimental.theories.ParametersSuppliedBy;
 
 import kr.co.acctmgmt.domain.BgtCD;
 import kr.co.acctmgmt.domain.BgtCDTerm;
@@ -63,4 +64,6 @@ public interface BgtCDMapper {
 	public void deleteBgtGr(@Param("coCd") String coCd, @Param("bgtGrCd") String bgtGrCd);
 
 	public List<BgtCD> getBgtCDdialog(String coCd);
+
+	public List<BgtCD> getBgtCdLikeSearch(@Param("coCd")String coCd, @Param("keyword")String keyword);
 }

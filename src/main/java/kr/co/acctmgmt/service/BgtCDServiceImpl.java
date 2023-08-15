@@ -601,10 +601,13 @@ public class BgtCDServiceImpl implements BgtCDService {
 
 	@Override
 	public List<BgtCD> getBgtCDdialog(String coCd) {
-		
-		
-		
 		return mapper.getBgtCDdialog(coCd);
+	}
+
+	@Override
+	public List<BgtCD> getBgtCdLikeSearch(String coCd, String keyword) {
+		
+		return mapper.getBgtCdLikeSearch(coCd,keyword);
 	}
 
 }

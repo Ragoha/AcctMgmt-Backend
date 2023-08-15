@@ -73,6 +73,12 @@ public class BgtCDController {
 		System.out.println("===getBgtCDdialog===");
 		return service.getBgtCDdialog(coCd);
 	}
+	@GetMapping("bgt/bgtcd/getBgtCdLikeSearch")
+	public List<BgtCD> getBgtCdLikeSearch(@RequestParam String coCd , String keyword){
+		System.out.println(coCd +" / "+ keyword);
+		return service.getBgtCdLikeSearch(coCd,keyword);
+		 
+	}
 	/*Á¶È¸end*/
 	
 	
