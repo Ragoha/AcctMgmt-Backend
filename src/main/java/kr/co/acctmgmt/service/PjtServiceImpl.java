@@ -69,11 +69,6 @@ public class PjtServiceImpl implements PjtService {
 		return pjtMapper.getPjtBy(keyword, coCd);
 	}
 
-	@Override
-	public Pjt getPgrBy(String keyword, int coCd) {
-		// TODO Auto-generated method stub
-		return pjtMapper.getPgrBy(keyword, coCd);
-	}
 	public List<PjtDTO> findPjtByCoCdAndKeyword(PjtDTO pjtDTO) {
 	
 		Pjt pjt = PjtConverter.convertToModel(pjtDTO);
@@ -90,6 +85,24 @@ public class PjtServiceImpl implements PjtService {
 	public List<Pjt> selPjtBy(Pjt pjt) {
 		// TODO Auto-generated method stub
 		return pjtMapper.selPjtBy(pjt);
+	}
+
+	@Override
+	public List<Pjt> getSelPgrList(String pgrCd, int coCd) {
+		// TODO Auto-generated method stub
+		return pjtMapper.getSelPgrList(pgrCd, coCd);
+	}
+
+	@Override
+	public List<Pjt> getPgrtBy(String keyword, int coCd) {
+		// TODO Auto-generated method stub
+		return pjtMapper.getPgrBy(keyword, coCd);
+	}
+
+	@Override
+	public List<Pjt> selPgrBy(Pjt pjt) {
+		// TODO Auto-generated method stub
+		return pjtMapper.selPgrBy(pjt);
 	}
 
 }

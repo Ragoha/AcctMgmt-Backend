@@ -25,12 +25,16 @@ public interface PjtService {
 
 	public List<Pjt> getSelPjtList(String pjtCd, int coCd);
 	
+	public List<Pjt> getSelPgrList(@Param("pgrCd") String pgrCd, @Param("coCd") int coCd);
+	
 	public List<Pjt> getPjtBy(@Param("keyword")String keyword, @Param("coCd") int coCd);
 	
-	public Pjt getPgrBy(String keyword, int coCd);
+	public List<Pjt> getPgrtBy(@Param("keyword")String keyword, @Param("coCd")int coCd);
 	
 	public List<PjtDTO> findPjtByCoCdAndKeyword(PjtDTO pjtDTO);
 
 	public List<Pjt> selPjtBy(@Param("pjt") Pjt pjt);
+	
+	public List<Pjt> selPgrBy(@Param("pjt") Pjt pjt);
 
 }
