@@ -58,7 +58,7 @@
 	        CARR_AM3 = #{carrAm3},
 	        EMP_CD = #{empCd},
 	        REM_DC = #{remDc},
-	        BGT_TY = #{bgtTy},
+	        BGT_TY = "직접입력",
 	        MODIFY_ID = #{modifyId},
 	        MODIFY_DT = #{modifyDt},
 	        MODIFY_IP = #{modifyIp}
