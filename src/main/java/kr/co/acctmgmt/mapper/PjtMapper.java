@@ -34,4 +34,7 @@ public interface PjtMapper {
 	public List<Pjt> selPgrBy(@Param("pjt") Pjt pjt);
 	
 	public List<Pjt> findPjtByCoCdAndKeyword(Pjt pjt);
+		
+    List<Pjt> conditionPjtSelect(@Param("pjt") Pjt pjt, @Param("keyword") String keyword, @Param("keyword2") String keyword2);
+
 }

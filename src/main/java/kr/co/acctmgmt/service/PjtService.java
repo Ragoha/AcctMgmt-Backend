@@ -36,5 +36,7 @@ public interface PjtService {
 	public List<Pjt> selPjtBy(@Param("pjt") Pjt pjt);
 	
 	public List<Pjt> selPgrBy(@Param("pjt") Pjt pjt);
+	
+	public List<Pjt> conditionPjtSelect(Pjt pjt, String keyword, String keyword2);
 
 }

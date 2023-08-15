@@ -105,4 +105,10 @@ public class PjtServiceImpl implements PjtService {
 		return pjtMapper.selPgrBy(pjt);
 	}
 
+	@Override
+	public List<Pjt> conditionPjtSelect(Pjt pjt, String keyword, String keyword2) {
+		// TODO Auto-generated method stub
+		return pjtMapper.conditionPjtSelect(pjt, keyword, keyword2);
+	}
+
 }
