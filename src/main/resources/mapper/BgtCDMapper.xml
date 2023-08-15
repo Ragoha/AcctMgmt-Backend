@@ -66,6 +66,19 @@
 		ORDER BY Multi_Num DESC
 		LIMIT 1;
 	</select>
+	<select id="getBgtCDdialog" parameterType="String"
+		resultType="BgtCd">
+		SELECT BGT_CD , BGT_NM FROM BGTCD
+		WHERE CO_CD = #{coCd};
+	</select>
+	<select id="getBgtCdLikeSearch" parameterType="String" resultType="BgtCd">
+		SELECT *
+		FROM bgtCD
+		WHERE (BGT_CD LIKE CONCAT('%', #{keyword}, '%')
+		OR BGT_NM LIKE CONCAT('%', #{keyword}, '%'))
+		AND CO_CD = #{coCd}
+	</select>
+
 	<insert id="insertAddRow" parameterType="BgtCD">
 		INSERT INTO BGTCD
 		(CO_CD, BGT_CD,parentCd, GISU, BGT_NM, DIV_FG, CTL_FG,

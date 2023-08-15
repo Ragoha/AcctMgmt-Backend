@@ -566,6 +566,22 @@ BgtCD(coCd=1000, bgtCd=11210000, parentCd=11210000, gisu=0, bgtNm=변경가자!!
 		// TODO Auto-generated method stub
 		return mapper.getPath(bgtCd);
 	}
-	
+	@Override
+	public void deleteBgtGr(String coCd, String bgtGrCd) {
+		mapper.deleteBgtGr(coCd,bgtGrCd);
+		
+	}
+
+	@Override
+	public List<BgtCD> getBgtCDdialog(String coCd) {
+		return mapper.getBgtCDdialog(coCd);
+	}
+
+
+	@Override
+	public List<BgtCD> getBgtCdLikeSearch(String coCd, String keyword) {
+		
+		return mapper.getBgtCdLikeSearch(coCd,keyword);
+	}
 
 }

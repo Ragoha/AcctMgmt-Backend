@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.junit.experimental.theories.ParametersSuppliedBy;
 
 import kr.co.acctmgmt.domain.BgtCD;
 import kr.co.acctmgmt.domain.BgtCDTerm;
@@ -32,7 +33,7 @@ public interface BgtCDMapper {
 	
 	public int updateBgtCDTerm(BgtCDTerm dataList);
 	/*<<<BgtCDDevFgCustom.js */
-	//ÅÂ¿µÇü²¨ 
+	//Ã…Ã‚Â¿ÂµÃ‡Ã¼Â²Â¨ 
 	public List<BgtCD> findBgcCDByGroupCdAndToDtAndKeyword(BgtCD bgtCD);
 	
 	/*insert */
@@ -57,4 +58,13 @@ public interface BgtCDMapper {
 	public BgtCD getAddRowData(Map<String, String> params);
 
 	public void updateBgtGr(BgtGr data);
+
+	public void insertBgtGr(BgtGr data);
+	
+	public void deleteBgtGr(@Param("coCd") String coCd, @Param("bgtGrCd") String bgtGrCd);
+
+	public List<BgtCD> getBgtCDdialog(String coCd);
+
+	public List<BgtCD> getBgtCdLikeSearch(@Param("coCd")String coCd, @Param("keyword")String keyword);
+
 }
