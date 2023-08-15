@@ -56,16 +56,27 @@
 		pjt_CD = #{pjt.pjtCd}
 	</delete>
 	
+	<select id="selPgrBy" parameterType="Pjt" resultType="Pjt">
+	 SELECT *
+	    FROM PJT
+	    WHERE CO_CD = #{pjt.coCd} AND (
+	            pgr_CD LIKE CONCAT('%', #{pjt.pgrCd}, '%')
+	            AND
+	            pgr_NM LIKE CONCAT('%', #{pjt.pgrNm}, '%')
+	            
+	        );
+	</select>
+	
 	<select id="getPgrBy" parameterType="Pjt" resultType="Pjt">
 	 SELECT pgr_CD, pgr_NM 
 	    FROM PJT
 	    WHERE CO_CD = #{coCd} 
 	    AND
-	            (
-	            pgr_CD LIKE CONCAT('%', #{keyword}, '%')
-	            OR
-	            pgr_NM LIKE CONCAT('%', #{keyword}, '%')
-	            
+           (
+           pgr_CD LIKE CONCAT('%', #{keyword}, '%')
+           OR
+           pgr_NM LIKE CONCAT('%', #{keyword}, '%')
+           
 	        );
 	</select>
 	
@@ -80,7 +91,7 @@
 	        );
 	</select>
 	
-<select id="getPjtBy" parameterType="Pjt" resultType="Pjt">
+	<select id="getPjtBy" parameterType="Pjt" resultType="Pjt">
 	 SELECT pjt_CD, pjt_NM 
 	    FROM PJT
 	    WHERE CO_CD = #{coCd} AND (
