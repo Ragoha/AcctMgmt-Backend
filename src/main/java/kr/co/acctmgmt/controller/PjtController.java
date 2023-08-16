@@ -3,6 +3,7 @@ package kr.co.acctmgmt.controller;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -86,20 +87,21 @@ public class PjtController {
 	@PostMapping("/pjtDate/insert/{coCd}")
 	public ResponseEntity<?> insertPjt(@PathVariable("coCd") int coCd, @RequestBody Pjt pjt) {
 		System.out.println("hih: " + coCd);
-		System.out.println("�씤�꽌�듃 �븷 媛� 媛뽮퀬�삤湲�");
-		System.out.println("�봽濡좏듃�뿉�꽌 �룜�븘�삱由� 媛� : " + pjt.toString());
-
-
-		System.out.println("媛�怨듬맂 �뜲�씠�꽣 : " + pjt.toString());
-
+		System.out.println("받은 값 : " + pjt.toString());
+		
+		List<Pjt> pjList = pjtService.getPjtList(coCd);
+		for (Pjt existingPjt : pjList) {
+            if (existingPjt.getPjtCd().equals(pjt.getPjtCd())) {
+                return ResponseEntity.badRequest().body("중복된 코드");
+            }
+        }		
 		pjtService.insertPjt(pjt, coCd);
 
 		// �뾽�뜲�씠�듃 �옉�뾽 �셿猷� �썑 �깉濡쒖슫 Pjt 媛앹껜瑜� 媛��졇�삱 �븣 �궗�슜�븳 data ���떊 pjt 媛앹껜瑜� �궗�슜�빀�땲�떎.
 		Pjt pjtt = pjtService.getSelPjt(coCd, pjt.getPjtCd()); // �닔�젙�맂 遺�遺�
 
-		System.out.println("�옒 諛섏쁺 �릱�굹? " + pjtt.toString());
+		System.out.println("저장된 값 불러오기? " + pjtt.toString());
 		return ResponseEntity.ok(null);
-
 	}
 	
 	@PostMapping("/pjtDate/delete/")
