@@ -30,7 +30,7 @@ public class JwtUtil {
 //  @Value("${jwt.secret}")
   private String secretKey = "acctmgmt";
 
-  private final long ACCESS_TOKEN_VALID_TIME = 1000L * 60 * 60 * 24; //1시간
+  private final long ACCESS_TOKEN_VALID_TIME = 1000L * 60 * 60 * 24; //24시간
   private final long REFRESH_TOKEN_VALID_TIME = 1000L * 60 * 60 * 24 * 60; // 2달
 
   public String createAccessToken(String userPk, String role) {
@@ -61,15 +61,15 @@ public class JwtUtil {
   }
 
   public Authentication getAuthentication(String token) {
-	  System.out.println("getUserPk?:" + getUserPk(token) );
+//	  System.out.println("getUserPk?:" + getUserPk(token) );
       String email = getUserPk(token);
-      System.out.println("그래서 나온 eamil: " + email);
+//      System.out.println("그래서 나온 eamil: " + email);
       Employee employee = userService.findByEmail(email);
-      System.out.println("그래서 나온 객체 클:" + employee.toString());
+//      System.out.println("그래서 나온 객체 클:" + employee.toString());
       
       List<GrantedAuthority> authorities = (List<GrantedAuthority>) employee.getAuthorities();
       for (GrantedAuthority authority : authorities) {
-          System.out.println("@@@@@사용자 권한: " + authority.getAuthority());
+//          System.out.println("@@@@@사용자 권한: " + authority.getAuthority());
       }
       
       return new UsernamePasswordAuthenticationToken(employee, "", employee.getAuthorities());

@@ -30,16 +30,21 @@ public static BgtICFDTO convertToDto(BgtICF bgtICF) {
 			.bgtTy(bgtICF.getBgtTy())
 			.insertId(bgtICF.getInsertId())
 			.insertDt(bgtICF.getInsertDt())
-			.insertId(bgtICF.getInsertIp())
+			.insertIp(bgtICF.getInsertIp())
 			.modifyId(bgtICF.getModifyId())
 			.modifyDt(bgtICF.getModifyDt())
 			.modifyIp(bgtICF.getModifyIp())
+			.mgtNm(bgtICF.getMgtNm())
+			.empName(bgtICF.getEmpName())
 			.build();
-		
+	
+
 		return bgtICFDTO;
 	}
 	
 	public static BgtICF convertToModel(BgtICFDTO bgtICFDTO) {
+		System.out.println("ÄÁ¹öÅÍ");
+		System.out.println(bgtICFDTO.toString());
 		BgtICF bgtICF = BgtICF.builder()
 				.coCd(bgtICFDTO.getCoCd())
 				.divCd(bgtICFDTO.getDivCd())
@@ -59,10 +64,12 @@ public static BgtICFDTO convertToDto(BgtICF bgtICF) {
 				.bgtTy(bgtICFDTO.getBgtTy())
 				.insertId(bgtICFDTO.getInsertId())
 				.insertDt(bgtICFDTO.getInsertDt())
-				.insertId(bgtICFDTO.getInsertIp())
+				.insertIp(bgtICFDTO.getInsertIp())
 				.modifyId(bgtICFDTO.getModifyId())
 				.modifyDt(bgtICFDTO.getModifyDt())
 				.modifyIp(bgtICFDTO.getModifyIp())
+				.mgtNm(bgtICFDTO.getMgtNm())
+				.empName(bgtICFDTO.getEmpName())
 				.build();
 		
 		return bgtICF;

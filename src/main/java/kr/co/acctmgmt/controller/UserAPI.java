@@ -161,6 +161,8 @@ public class UserAPI {
 			HttpServletResponse response) {
 		// ���� �������� ��ū ��������
 		String refreshToken = jwtUtil.resolveRefreshToken(request);
+		
+		System.out.println(refreshToken);
 
 		// �������� ��ū ����
 		if (jwtUtil.validateRefreshToken(refreshToken)) {

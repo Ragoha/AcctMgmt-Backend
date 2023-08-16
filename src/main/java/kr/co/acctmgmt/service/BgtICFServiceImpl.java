@@ -45,6 +45,11 @@ public class BgtICFServiceImpl implements BgtICFService{
 		
 		bgtICFDTO.setCarrAm(bgtICFDTO.getCarrAm1() + bgtICFDTO.getCarrAm2() - bgtICFDTO.getCarrAm3());
 		
+
+		System.out.println("=====¼­ºñ½º========");
+		System.out.println(bgtICFDTO.toString());
+//		System.out.println(BgtICFConverter.convertToModel(bgtICFDTO));
+		
 		bgtICFMapper.insertBgtICF(BgtICFConverter.convertToModel(bgtICFDTO));
 		
 	}

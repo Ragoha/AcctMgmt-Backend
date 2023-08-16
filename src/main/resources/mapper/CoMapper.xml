@@ -27,7 +27,7 @@
 		JONGMOK, BUSINESS_TYPE, CO_NB, CEO_NM, CO_ZIP, CO_ADDR,
 		CO_ADDR1)
 		VALUES
-		(LAST_INSERT_ID(NEXT VALUE FOR s_seq), #{coNm}, #{gisu}, #{frDt}, #{toDt}, #{jongmok}, #{businessType}, #{coNb},
+		(#{coCd}, #{coNm}, #{gisu}, #{frDt}, #{toDt}, #{jongmok}, #{businessType}, #{coNb},
 		#{ceoNm}, #{coZip},
 		#{coAddr}, #{coAddr1});
 	</insert>
