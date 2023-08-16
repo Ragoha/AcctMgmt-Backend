@@ -63,6 +63,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee findByEmails(String email) {
 		Employee employee = employeeMapper.findByEmails(email);
+		System.out.println(employee.toString());
+		System.out.println("==========");
 		return employee;
 	}
 

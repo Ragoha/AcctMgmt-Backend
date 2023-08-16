@@ -42,4 +42,21 @@ public class GisuServiceImpl implements GisuService{
 		
 	}
 
+
+	@Override
+	public void updateGisu(GisuDTO gisuDTO) {
+		Gisu gisu = GisuConverter.convertToModel(gisuDTO);
+		
+		gisuMapper.updateGisu(gisu);
+	}
+
+
+	@Override
+	public void insertGisu(GisuDTO gisuDTO) {
+Gisu gisu = GisuConverter.convertToModel(gisuDTO);
+		
+		gisuMapper.insertGisu(gisu);
+		
+	}
+
 }

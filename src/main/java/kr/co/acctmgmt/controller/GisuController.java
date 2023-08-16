@@ -7,6 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.acctmgmt.dto.GisuDTO;
@@ -31,6 +34,24 @@ public class GisuController {
 		return new ResponseEntity<List<GisuDTO>>(rGisuDTO, HttpStatus.OK);
 	}
 	
+	@PostMapping("/gisu")
+	public ResponseEntity<Void> insertGisu(@RequestBody GisuDTO gisuDTO){
+		System.out.println("===========");
+		System.out.println(gisuDTO.toString());
+		
+		gisuService.insertGisu(gisuDTO);
+		
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@PutMapping("/gisu")
+	public ResponseEntity<Void> updateGisu(@RequestBody GisuDTO gisuDTO){
+
+		gisuService.updateGisu(gisuDTO);
+		
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
 	@DeleteMapping("/gisu")
 	public ResponseEntity<Void> deleteGisu(GisuDTO gisuDTO){
 		
@@ -38,5 +59,7 @@ public class GisuController {
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
+	
+	
 
 }

@@ -53,8 +53,11 @@
 	</select>
 
 	<select id="findByEmails" resultType="Employee">
-		SELECT * FROM EMP where
-		emp_ID = #{empId}
+		SELECT * 
+		FROM EMP
+		JOIN CO ON CO.CO_CD = EMP.CO_CD 
+		JOIN DIVS ON DIVS.DIV_CD = EMP.DIV_CD
+		WHERE EMP.EMP_ID = #{empId}
 	</select>
 
 	<select id="getIdByEmail" parameterType="String"
