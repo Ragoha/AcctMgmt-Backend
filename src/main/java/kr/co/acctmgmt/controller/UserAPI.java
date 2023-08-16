@@ -43,7 +43,7 @@ public class UserAPI {
 
 	public int generateMemberCode(int coCd) {
 		int lastMemberCode = userService.findByEmpCd(coCd);
-		System.out.println("Âï¾îº¸±â : " + lastMemberCode);
+		System.out.println("ìµœê·¼ ì‚¬ì›ë²ˆí˜¸ : " + lastMemberCode);
 		int memberCode=0;
 		if (lastMemberCode == 0) {
 			memberCode = (coCd * 10000) + (lastMemberCode);
@@ -59,11 +59,8 @@ public class UserAPI {
 	@PostMapping("/join")
 	public void join(@RequestBody Employee user) {
 
-		System.out.println("Á¶ÀÎ");
+		System.out.println("íšŒì›ê°€ì…");
 		System.out.println(user.toString());
-		
-		int i = Integer.parseInt(user.getCoCd());
-		System.out.println("i Ãâ·Â: " + (i+5));
 		
 		userService.save(Employee.builder().empId(user.getEmpId()).empPw(passwordEncoder.encode(user.getEmpPw()))
 				.empName(user.getEmpName()).empTel(user.getEmpTel()).empEmail(user.getEmpEmail()).empSx(user.getEmpSx())
@@ -78,15 +75,15 @@ public class UserAPI {
 		try {
 			Employee employee = userService.getEmployee(id);
 			if (employee == null) {
-				System.out.println("Áßº¹ µÈ ¾ÆÀÌµğ°¡ ¾Æ´Õ´Ï´Ù.");
+				System.out.println("ï¿½ßºï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Æ´Õ´Ï´ï¿½.");
 				return new ResponseEntity<String>("savc", HttpStatus.OK);
 			} else {
-				System.out.println("Áßº¹! Áßº¹!");
+				System.out.println("ï¿½ßºï¿½! ï¿½ßºï¿½!");
 			}
 		} catch (NullPointerException e) {
-			// NullPointerException ¿¹¿Ü ¹ß»ı ½Ã Ã³¸® ·ÎÁ÷
-			System.out.println("NullPointerExceptionÀÌ ¹ß»ıÇß½À´Ï´Ù.");
-			// ¿¹: ±âº»°ª ¶Ç´Â ¿¹¿Ü ´øÁö±â µî
+			// NullPointerException ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			System.out.println("NullPointerExceptionï¿½ï¿½ ï¿½ß»ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
+			// ï¿½ï¿½: ï¿½âº»ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		}
 
 		return new ResponseEntity<String>("savce", HttpStatus.BAD_REQUEST);
@@ -95,43 +92,43 @@ public class UserAPI {
 	@PostMapping("/login")
 	public ResponseEntity<Employee> login(@RequestBody(required = false) @Valid Employee emp,
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("·Î±×ÀÎ");
+		System.out.println("ï¿½Î±ï¿½ï¿½ï¿½");
 		System.out.println(emp.toString());
 		Employee user = null;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("¿©±â±îÁö1");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1");
 		if (authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
 			user = (Employee) authentication.getPrincipal();
-			System.out.println("¿©±â±îÁö2");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2");
 
 		} else {
 			if (emp != null) {
 				user = userService.findByEmails(emp.getEmpId());
 				System.out.println("user??: " + user.toString());
-				System.out.println("¿©±â±îÁö3");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3");
 				System.out.println(user.getPassword());
 				if (!passwordEncoder.matches(emp.getPassword(), user.getPassword())) {
-					// ¾ÆÀÌµğ ºñ¹Ğ¹øÈ£ ¹ÌÀÏÄ¡ ½Ã Ã³¸®ÇÒ ·ÎÁ÷
-					System.out.println("Àß¸øµÈ ºñ¹Ğ¹øÈ£ ÀÔ´Ï´Ù.!!");
+					// ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½Ğ¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+					System.out.println("ï¿½ß¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ğ¹ï¿½È£ ï¿½Ô´Ï´ï¿½.!!");
 					return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
 				}
 			}
-			System.out.println("¿©±â±îÁö4");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4");
 		}
 		if (user == null) {
-			// À¯Àú°´Ã¼¸¦ Á¦´ë·Î ºÒ·¯¿ÀÁö ¸øÇÒ¶§ Ã³¸®ÇÒ ·ÎÁ÷
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò¶ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		}
 		System.out.println(user.toString());
-		System.out.println("¿©±â±îÁö5");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5");
 		String expiredToken = jwtUtil.resolveRefreshToken(request);
 		if (expiredToken != null && !expiredToken.isBlank()) {
 			expiredRefreshTokenService.addExpiredToken(expiredToken);
-			System.out.println("¿©±â±îÁö6");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½6");
 		}
-		System.out.println("ÇÑ¹ø´õ : " + user.toString());
+		System.out.println("ï¿½Ñ¹ï¿½ï¿½ï¿½ : " + user.toString());
 		String accessToken = jwtUtil.createAccessToken(user.getEmpEmail(), user.getEmpAuth());
 		String refreshToken = jwtUtil.createRefreshToken(user.getEmpEmail(), user.getEmpAuth());
-		System.out.println("¿©±â±îÁö7");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½7");
 		Cookie refreshTokenCookie = new Cookie("refresh-token", refreshToken);
 		response.setHeader("access-token", accessToken);
 		response.addCookie(refreshTokenCookie);
@@ -147,10 +144,10 @@ public class UserAPI {
 	public void logout(HttpServletResponse response) {
 		System.out.println("logout");
 
-		// access-token »èÁ¦
+		// access-token ï¿½ï¿½ï¿½ï¿½
 		response.setHeader("access-token", null);
 
-		// refresh-token »èÁ¦
+		// refresh-token ï¿½ï¿½ï¿½ï¿½
 		Cookie refreshTokenCookie = new Cookie("refresh-token", null);
 		refreshTokenCookie.setHttpOnly(true);
 		refreshTokenCookie.setSecure(false);
@@ -162,28 +159,28 @@ public class UserAPI {
 	@GetMapping("/message")
 	public ResponseEntity<Map<String, String>> refreshAccessToken(HttpServletRequest request,
 			HttpServletResponse response) {
-		// ±âÁ¸ ¸®ÇÁ·¹½Ã ÅäÅ« °¡Á®¿À±â
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å« ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String refreshToken = jwtUtil.resolveRefreshToken(request);
 
-		// ¸®ÇÁ·¹½Ã ÅäÅ« °ËÁõ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å« ï¿½ï¿½ï¿½ï¿½
 		if (jwtUtil.validateRefreshToken(refreshToken)) {
-			// ¸®ÇÁ·¹½Ã ÅäÅ«¿¡¼­ »ç¿ëÀÚ Á¤º¸ °¡Á®¿À±â
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å«ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			String email = jwtUtil.getUserPk(refreshToken);
 			Employee user = userService.findByEmail(email);
 
-			// »õ·Î¿î ¿¢¼¼½º ÅäÅ« »ı¼º
+			// ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å« ï¿½ï¿½ï¿½ï¿½
 			String newAccessToken = jwtUtil.createAccessToken(user.getEmpEmail(), user.getEmpAuth());
 
-			// ÀÀ´ä Çì´õ¿¡ »õ·Î¿î ¿¢¼¼½º ÅäÅ« ¼³Á¤
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å« ï¿½ï¿½ï¿½ï¿½
 			response.setHeader("access-token", newAccessToken);
 
-			// ÀÀ´äÀ¸·Î »õ·Î¿î ¿¢¼¼½º ÅäÅ«°ú ¸®ÇÁ·¹½Ã ÅäÅ«À» º¸³À´Ï´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
 			Map<String, String> tokens = new HashMap<>();
 			tokens.put("access-token", newAccessToken);
 			tokens.put("refresh-token", refreshToken);
 			return new ResponseEntity<>(tokens, HttpStatus.OK);
 		} else {
-			// ¸®ÇÁ·¹½Ã ÅäÅ«ÀÌ À¯È¿ÇÏÁö ¾ÊÀº °æ¿ì ¿¡·¯ ÀÀ´ä
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å«ï¿½ï¿½ ï¿½ï¿½È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 	}
@@ -203,16 +200,16 @@ public class UserAPI {
 			System.out.println("hihi:" + details.toString());
 			return new ResponseEntity<>(details, HttpStatus.OK);
 		}
-		// ÀÎÁõ ¿©ºÎ È®ÀÎ
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 //		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //		System.out.println("$$$$$$$" + authentication);
 //		System.out.println("$$$$$$$" + authentication.toString());
 //		if (authentication != null && authentication.isAuthenticated()) {
-//		    System.out.println("»ç¿ëÀÚ ÀÌ¸§: " + authentication.getName());
+//		    System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½: " + authentication.getName());
 //
-//		    authentication.getAuthorities().forEach(authority -> System.out.println("»ç¿ëÀÚ ±ÇÇÑ:22 " + authority.getAuthority()));
+//		    authentication.getAuthorities().forEach(authority -> System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½:22 " + authority.getAuthority()));
 //		} else {
-//		    System.out.println("»ç¿ëÀÚ°¡ ÀÎÁõµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+//		    System.out.println("ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½.");
 //		    return null;
 //		}
 //		
@@ -222,23 +219,23 @@ public class UserAPI {
 //		    Object principal2 = authentication.getPrincipal();
 //		    
 //		    if (principal2 instanceof UserDetails) {
-//		        // ÀÎÁõµÈ »ç¿ëÀÚÀÇ Á¤º¸ °¡Á®¿À±â
+//		        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //		        UserDetails userDetails = (UserDetails) principal2;
 //		        String username = userDetails.getUsername();
-//		        // Ãß°¡ÀûÀ¸·Î »ç¿ëÀÚÀÇ ±ÇÇÑ Á¤º¸µµ °¡Á®¿Ã ¼ö ÀÖ½À´Ï´Ù.
+//		        // ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
 //		        // List<GrantedAuthority> authorities = (List<GrantedAuthority>) userDetails.getAuthorities();
 //
-//		        // °¡Á®¿Â Á¤º¸ È°¿ë ¿¹½Ã
-//		        System.out.println("»ç¿ëÀÚ ÀÌ¸§: " + username);
-//		        // ±ÇÇÑ Á¤º¸ Ãâ·Â ¿¹½Ã
-//		        // authorities.forEach(authority -> System.out.println("»ç¿ëÀÚ ±ÇÇÑ: " + authority.getAuthority()));
+//		        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+//		        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½: " + username);
+//		        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+//		        // authorities.forEach(authority -> System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + authority.getAuthority()));
 //		    } else {
-//		        // UserDetails°¡ ¾Æ´Ñ ´Ù¸¥ Å¸ÀÔÀÇ °´Ã¼ÀÎ °æ¿ì Ã³¸®ÇÒ ÀÛ¾÷
-//		        System.out.println("UserDetails °´Ã¼°¡ ¾Æ´Ñ Å¸ÀÔÀÇ °´Ã¼ÀÔ´Ï´Ù.");
+//		        // UserDetailsï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½Ù¸ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½
+//		        System.out.println("UserDetails ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Æ´ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½Ô´Ï´ï¿½.");
 //		    }
 //		} else {
-//		    // ÀÎÁõµÇÁö ¾ÊÀº »ç¿ëÀÚÀÇ °æ¿ì Ã³¸®ÇÒ ÀÛ¾÷
-//		    System.out.println("»ç¿ëÀÚ°¡ ÀÎÁõµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+//		    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½
+//		    System.out.println("ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½.");
 //		}
 		return null;
 
@@ -249,7 +246,7 @@ public class UserAPI {
 //	public ResponseEntity<EmployeeDTO> getInfo() {
 //		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //		if (authentication == null || !(authentication instanceof UsernamePasswordAuthenticationToken)) {
-//			// À¯Àú ÀÎÁõµÇÁö ¾ÊÀº °æ¿ì¿¡´Â ¿¡·¯¸¦ ¹İÈ¯ÇÏ°Å³ª Ã³¸®ÇÒ ¼ö ÀÖ½À´Ï´Ù.
+//			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï°Å³ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
 //			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 //		}
 //
