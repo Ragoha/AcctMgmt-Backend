@@ -88,11 +88,11 @@
 
 	<insert id="insertDivs" parameterType="Divs">
 		INSERT INTO DIVS
-		(CO_CD,
+		(CO_CD, DIV_CD,
 		DIV_NM, CEO_NM, JONGMOK, BUSINESS_TYPE, DIV_NB, TO_NB, DIV_ZIP,
 		DIV_ADDR, DIV_ADDR1, INSERT_ID)
 		VALUES
-		(#{coCd}, #{divNm}, #{ceoNm},
+		(#{coCd}, #{divCd}, #{divNm}, #{ceoNm},
 		#{jongmok},
 		#{businessType}, #{divNb},
 		#{toNb}, #{divZip},#{divAddr},
