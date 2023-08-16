@@ -34,9 +34,29 @@ public class GisuServiceImpl implements GisuService{
 
 
 	@Override
-	public List<Gisu> getGisu(int coCd) {
-		List<Gisu> sgisu= gisuMapper.getGisu(coCd);
-		return sgisu;
+	public void deleteGisu(GisuDTO gisuDTO) {
+		
+		Gisu gisu = GisuConverter.convertToModel(gisuDTO);
+		
+		gisuMapper.deleteGisu(gisu);
+		
+	}
+
+
+	@Override
+	public void updateGisu(GisuDTO gisuDTO) {
+		Gisu gisu = GisuConverter.convertToModel(gisuDTO);
+		
+		gisuMapper.updateGisu(gisu);
+	}
+
+
+	@Override
+	public void insertGisu(GisuDTO gisuDTO) {
+Gisu gisu = GisuConverter.convertToModel(gisuDTO);
+		
+		gisuMapper.insertGisu(gisu);
+		
 	}
 
 }

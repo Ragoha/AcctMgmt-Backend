@@ -64,13 +64,13 @@ public class CoController {
 	}
 	
 	@PutMapping("/ozt/uco")
-	public List<Co> updateCo(@RequestBody Co co){
+	public void updateCo(@RequestBody Co co){
 		System.out.println(co.getCoCd());
 		System.out.println(co.toString());
 		
 		coService.updateCo(co);
-		List<Co> coList = coService.getCoList();
-		return coList;
+//		List<Co> coList = coService.getCoList();
+//		return coList;
 	}
 	
 	@GetMapping("/ozt/co/search")

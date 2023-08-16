@@ -2,7 +2,6 @@ package kr.co.acctmgmt.controller;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import kr.co.acctmgmt.domain.BgtCD;
 import kr.co.acctmgmt.domain.BgtCDTerm;
 import kr.co.acctmgmt.domain.BgtGr;
+import kr.co.acctmgmt.domain.Gisu;
 import kr.co.acctmgmt.dto.BgtCDTermDTO;
 import kr.co.acctmgmt.dto.BgtICFDTO;
 import kr.co.acctmgmt.service.BgtCDService;
@@ -30,22 +30,22 @@ public class BgtCDController {
 
 	private final BgtCDService service;
 
-	/*Á¶È¸ start*/
+	/*è­°ê³ ì‰¶ start*/
 	// http://localhost:8080/acctmgmt/bgt/sbgtcd/getGridData?groupcd=GROUP1
 	@GetMapping("/bgt/bgtcd/getGridData") // groupcd 
 	public List<BgtCD> getGridData(@RequestParam String coCd ,String groupcd) {
-		System.out.println("groupcd¸¦ Ã£¾Æ¾ßÇÔ"+groupcd);
+		System.out.println("groupcdç‘œï¿½ ï§¡ì– ë¸˜ï¿½ë¹ï¿½ë¸¿"+groupcd);
 		List<BgtCD> list = service.getBGTCDData(coCd,groupcd);
-		System.out.println("¿©¾Æ·¡ °ª¿¡¼­ defNmÃ£¾Æº¸ÀÚ");
+		System.out.println("ï¿½ë¿¬ï¿½ë¸˜ï¿½ì˜’ åª›ë¯ªë¿‰ï¿½ê½Œ defNmï§¡ì– ë¸˜è¹‚ëŒì˜„");
 		System.out.println(list.toString());
 		return list;
 	}
 
 	@GetMapping("/bgt/bgtcd/getDetailInfo")
 	public ResponseEntity<List<BgtCD>> getDetailInfo(@RequestParam String bgtCd) {
-		System.out.println("getDetailINfo ÀÔ´Ï´Ù : " + bgtCd);
+		System.out.println("getDetailINfo ï¿½ì—¯ï¿½ë•²ï¿½ë– : " + bgtCd);
 		List<BgtCD> list = service.getDetailInfo(bgtCd);
-		System.out.println("¾Æ·¡°¡ contorller¿¡¼­ º¸³»±â Á÷Àü °ª");
+		System.out.println("ï¿½ë¸˜ï¿½ì˜’åª›ï¿½ contorllerï¿½ë¿‰ï¿½ê½Œ è¹‚ëŒ€ê¶¡æ¹²ï¿½ ï§ê³¸ìŸ¾ åª›ï¿½");
 		System.out.println(list.toString());
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
@@ -63,7 +63,7 @@ public class BgtCDController {
 	}
 	@GetMapping("/bgt/bgtcd/getBgtGrData")
 	public List<BgtGr> getBgtGrData(@RequestParam String coCd) {
-		System.out.println("¿©±â´Â BgtGr Controller");
+		System.out.println("ï¿½ë¿¬æ¹²ê³•ë’— BgtGr Controller");
 		List<BgtGr> bgtGr = service.getBgtGrData(coCd);
 		System.out.println(bgtGr.toString());
 		return bgtGr;
@@ -73,20 +73,50 @@ public class BgtCDController {
 		System.out.println("===getBgtCDdialog===");
 		return service.getBgtCDdialog(coCd);
 	}
-	/*Á¶È¸end*/
+	@GetMapping("bgt/bgtcd/getBgtCdLikeSearch")
+	public List<BgtCD> getBgtCdLikeSearch(@RequestParam String coCd , String keyword){
+		System.out.println(coCd +" / "+ keyword);
+		return service.getBgtCdLikeSearch(coCd,keyword);
+		 
+	}
+	@GetMapping("bgt/bgtcd/getSearchData")
+	public List<BgtCD> getSearchData(@RequestParam String coCd,String gisu, String groupCd, String keyword){
+		System.out.println("==getSearchData.controller==");
+		return service.getSearchData(coCd,gisu,groupCd,keyword);
+		
+	}
+	@GetMapping("bgt/bgtcd/getinitGisuList")
+	public List<Gisu> getinitGisuList(@RequestParam String coCd){
+		System.out.println("===getinitGisuListgetinitGisuListgetinitGisuListgetinitGisuList===");
+		return service.getinitGisuList(coCd);
+	}
+	@GetMapping("bgt/bgtcd/getinitBgtGrSearch")
+	public List<BgtGr> getinitBgtGrSearch(@RequestParam String coCd){
+		return service.getinitBgtGrSearch(coCd);
+	}
 	
 	
-	/*¾÷µ¥ÀÌÆ® start */
+	@GetMapping("bgt/bgtcd/getBgtGrSearch")
+	public List<BgtGr> getBgtGrSearch(@RequestParam String coCd, String keyword){
+		System.out.println("==>getBgtGrSearch");
+		
+		return service.getBgtGrSearch(coCd,keyword);
+	}
+ 
+	/*select  end*/
+	
+	
+	/*ï¿½ë¾½ï¿½ëœ²ï¿½ì” ï¿½ë“ƒ start */
 	@PutMapping("/bgt/bgtcd/updateDetailInfo")
 	public void updateDetailInfo(@RequestBody BgtCD updateData) {//@RequestParam SBGTCDDomain updateData
-		System.out.println("À¸¿¡¿¡¿¡¿¡¿¡¿¢");
+		System.out.println("updateDetailInfo");
 		System.out.println(updateData.toString());
 		service.updateDetailInfo(updateData);
 	}
 	@PutMapping("/bgt/bgtcd/updateBgtCDTerm")
-	public List<BgtCDTermDTO> updateBgtCDTerm(@RequestBody List<BgtCDTermDTO> dataList) {//2Áß¹è¿­À» ¹ŞÀ»¶§ front¿¡¼± params : {data:data} ·Îº¸³»´Â°Ô ¾Æ´Ï¶ó °æ·Î µÚ¿¡ ¹Ù·Î axios.pust(/path  ,  data) ·Î º¸³½´Ù
+	public List<BgtCDTermDTO> updateBgtCDTerm(@RequestBody List<BgtCDTermDTO> dataList) {//2ä»¥ë¬ê°™ï¿½ë¿´ï¿½ì“£ è«›ì†ì“£ï¿½ë¸£ frontï¿½ë¿‰ï¿½ê½‘ params : {data:data} æ¿¡ì’•ë‚«ï¿½ê¶¡ï¿½ë’—å¯ƒï¿½ ï¿½ë¸˜ï¿½ë•²ï¿½ì”ª å¯ƒìˆì¤ˆ ï¿½ë®˜ï¿½ë¿‰ è«›ë¶¾ì¤ˆ axios.pust(/path  ,  data) æ¿¡ï¿½ è¹‚ëŒ€ê¶¦ï¿½ë–
 		
-		System.out.println("¿©±ä ÄÁÆ®·Ñ·¯ updateBgtCDTerm");
+		System.out.println("updateBgtCDTerm");
 		System.out.println(dataList.toString());
 		return service.updateBgtCDTerm(dataList);
 	}
@@ -96,42 +126,35 @@ public class BgtCDController {
 		System.out.println("getAddRowData");
 		System.out.println("bgtcd : "+bgtCd);
 		System.out.println("coCd : "+coCd);
+		
 		BgtCD info =  service.addRowData(bgtCd , coCd);
 		return info;
 	}
 	@PutMapping("/bgt/bgtcd/insertBgtGr")
 	public void insertBgtGr(@RequestBody List<BgtGr> dataList) {
-		System.out.println("¿©±ä ÀÎ¼­Æ® ÄÁÆ®·Ñ·¯");
-		System.out.println(dataList.toString());
 		service.insertBgtGr(dataList);
 	}
-	/*¾÷µ¥ÀÌÆ® end */
-	/*»ğÀÔ start */
+	/*select end */
+	/*insert start */
 	@PostMapping("/bgt/bgtcd/insertAddRow")
 	public BgtCD insertAddRow(@RequestBody BgtCD bgtcd) {
 		System.out.println("===insertAddRow start ===");
+		System.out.println(bgtcd.getGroupCd()); 
 		service.insertAddRow(bgtcd);
 		System.out.println("===insertAddRow end ===");
 		return null;
 	}
 	
-	/*»ğÀÔ end*/
+	/*insert end*/
 	
 	
-	/*»èÁ¦ start */
+	/*delete start */
 	@DeleteMapping("/bgt/bgtcd/deleteRow")
 	public int deleteRow(@RequestParam String bgtCd) {
 		
-		System.out.println("¿©±â°¡ µô¸®Æ®¾ß ~"+bgtCd+"<<<<");
+		System.out.println("ï¿½ë¿¬æ¹²ê³Œï¿½ ï¿½ëµœç”±Ñ‹ë“ƒï¿½ë¹ ~"+bgtCd+"<<<<");
 		System.out.println();
 		return service.deleteRow(bgtCd);
-	}
-	@DeleteMapping("/bgt/bgtcd/deleteBgtGr")
-	public void deleteBgtGr(@RequestParam String coCd, String bgtGrCd) {
-		System.out.println("===deleteBgtGr===");
-		System.out.println("cocd"+coCd+"/bgtGrCd"+bgtGrCd);
-		service.deleteBgtGr(coCd,bgtGrCd);
-		
 	}
 	
 }

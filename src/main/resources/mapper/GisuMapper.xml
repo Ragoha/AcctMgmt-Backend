@@ -6,8 +6,19 @@
 		SELECT * FROM GISU WHERE CO_CD = #{coCd}
 	</select>
 	
-	<select id="getGisu" parameterType="int" resultType="Gisu">
-	 SELECT CO_CD, GISU, FR_DT, TO_DT FROM GISU WHERE CO_CD= #{coCd};
-	</select>
+	<insert id="insertGisu" parameterType="Gisu">
+		INSERT INTO GISU (CO_CD, GISU, FR_DT, TO_DT, INSERT_ID, INSERT_DT, INSERT_IP, MODIFY_ID, MODIFY_DT, MODIFY_IP)
+		VALUES (#{coCd}, #{gisu}, #{frDt}, #{toDt}, #{insertId}, #{insertDt}, #{insertIp}, #{modifyId}, #{modifyDt}, #{modifyIp});
+	</insert>
+	
+	<update id="updateGisu" parameterType="Gisu">
+		UPDATE GISU 
+		SET FR_DT = #{frDt}, TO_DT = #{toDt}
+		WHERE CO_CD = #{coCd} AND GISU = #{gisu}	
+	</update>
+	
+	<delete id="deleteGisu" parameterType="Gisu">
+		DELETE FROM GISU WHERE CO_CD = #{coCd} AND GISU = #{gisu}
+	</delete>
 	
 </mapper>

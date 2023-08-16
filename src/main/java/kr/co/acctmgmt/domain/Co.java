@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Co {
 	private int coCd;  //회사코드
 	private String coNm;  //회사명
-	private int gisu;    //기수
+	private int gisu = 0;    //기수
 	private Date frDt = new Date();  //기수 시작일
 	private Date toDt = new Date();  //기수 종료일
 	private String insertId;  //등록자

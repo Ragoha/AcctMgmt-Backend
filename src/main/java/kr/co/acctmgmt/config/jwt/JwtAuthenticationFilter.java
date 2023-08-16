@@ -25,10 +25,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 		String accessToken = jwtUtil.resolveAccessToken(request);
 		boolean isAccessTokenValid = accessToken != null && jwtUtil.validateToken(accessToken);
-		System.out.println("과연? " + isAccessTokenValid);
+//		System.out.println("과연? " + isAccessTokenValid);
 		try {
 			if (isAccessTokenValid) {
-				System.out.println("사용자 인증!!!!!!!!!!!!!!@!@@@@@@@@@@@@@@@@@");
+//				System.out.println("사용자 인증!!!!!!!!!!!!!!@!@@@@@@@@@@@@@@@@@");
 				Authentication authentication = jwtUtil.getAuthentication(accessToken);
 				SecurityContextHolder.getContext().setAuthentication(authentication); //사용자 인증 설정 
 			} else {
