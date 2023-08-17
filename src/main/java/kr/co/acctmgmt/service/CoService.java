@@ -12,11 +12,11 @@ public interface CoService {
 	
 	public void insertCo(Co co);
 	
-	public Co getCo(int coCd);
+	public Co getCo(String coCd);
 	
-	public List<Co> getCompany(int coCd);
+	public List<Co> getCompany(String coCd);
 	
-	public void deleteCo(int coCd);
+	public void deleteCo(String coCd);
 	
 	public void updateCo(Co co);
 	

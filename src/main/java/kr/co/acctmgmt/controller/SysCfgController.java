@@ -58,7 +58,7 @@ public class SysCfgController {
 		List<SysCfg> sys = sysCfg.getConfigList(coCd);
 		System.out.println("잘 찾았니?" + sys);
 		
-		Co co = coService.getCo(coCd);
+		Co co = coService.getCo("coCd");
 		System.out.println("회사명 갖고오기:"+co.getCoNm());
 		
 		

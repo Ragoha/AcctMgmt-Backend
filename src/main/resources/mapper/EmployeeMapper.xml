@@ -55,8 +55,8 @@
 	<select id="findByEmails" resultType="Employee">
 		SELECT * 
 		FROM EMP
-		JOIN CO ON CO.CO_CD = EMP.CO_CD 
-		JOIN DIVS ON DIVS.DIV_CD = EMP.DIV_CD
+		LEFT JOIN CO ON CO.CO_CD = EMP.CO_CD 
+		LEFT JOIN DIVS ON DIVS.DIV_CD = EMP.DIV_CD
 		WHERE EMP.EMP_ID = #{empId}
 	</select>
 
