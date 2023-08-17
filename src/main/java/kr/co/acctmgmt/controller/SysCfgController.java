@@ -28,10 +28,10 @@ public class SysCfgController {
 	@PostMapping("/config/{option}/{optionValue}/{settingvalue}/{coCd}")
 	public ResponseEntity<String> configCheck(@PathVariable("option") String option,
 			@PathVariable("optionValue") String optionValue, @PathVariable("settingvalue") String settingvalue, @PathVariable("coCd") int coCd) {
-		System.out.println("¿É¼Ç ¸í : " + option);
-		System.out.println("¼³Á¤ °ª : " + optionValue);
-		System.out.println("¼³Á¤ °ª ¸í:" + settingvalue);
-		System.out.println("È¸»çÄÚµå : " + coCd);
+		System.out.println("option: " + option);
+		System.out.println("optionValue : " + optionValue);
+		System.out.println("settingValue:" + settingvalue);
+		System.out.println("coCd : " + coCd);
 		
 		SysCfg sys = sysCfg.getConfig(coCd, option);
 		sys.setSysYn(optionValue);
@@ -47,19 +47,19 @@ public class SysCfgController {
 		System.out.println(sys.toString());
 		System.out.println("##############################################");
 
-		// option º¯¼ö¸¦ ÀÌ¿ëÇÏ¿© ÇØ´ç ¼³Á¤¿¡ ´ëÇÑ Ã³¸®¸¦ ¼öÇàÇÕ´Ï´Ù.
-		// Ã³¸® ÀÛ¾÷À» ¼öÇàÇÏ°í °á°ú¸¦ ResponseEntity¿¡ ´ã¾Æ¼­ ¹ÝÈ¯ÇÕ´Ï´Ù.
-		return ResponseEntity.ok("È¸»çÄÚµå : "+coCd+"¿É¼Ç ¸í : " + option + ", ¼³Á¤ °ª : " + optionValue);
+		// option ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¿ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+		// Ã³ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ResponseEntityï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ ï¿½ï¿½È¯ï¿½Õ´Ï´ï¿½.
+		return ResponseEntity.ok("È¸ï¿½ï¿½ï¿½Úµï¿½ : "+coCd+"ï¿½É¼ï¿½ ï¿½ï¿½ : " + option + ", ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ : " + optionValue);
 	}
 
 	@PostMapping("/config/{coCd}")
 	public ResponseEntity<String> config(@PathVariable("coCd") int coCd) {
-		System.out.println("È¸»çÄÚµåÀß ¹Þ¾Ò´Ï? : " + coCd);
+		System.out.println("È¸ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ ï¿½Þ¾Ò´ï¿½? : " + coCd);
 		List<SysCfg> sys = sysCfg.getConfigList(coCd);
-		System.out.println("Àß Ã£¾Ò´Ï?" + sys);
+		System.out.println("ï¿½ï¿½ Ã£ï¿½Ò´ï¿½?" + sys);
 		
 		Co co = coService.getCo(coCd);
-		System.out.println("È¸»ç¸í °®°í¿À±â:"+co.getCoNm());
+		System.out.println("È¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:"+co.getCoNm());
 		
 		
 		return ResponseEntity.ok(co.getCoNm());
@@ -69,7 +69,7 @@ public class SysCfgController {
 	@GetMapping("/configdate/{coCd}")
 	public ResponseEntity<List> configData(@PathVariable("coCd") int coCd){
 		
-		System.out.println("¼³Á¤ °ª °®°í¿À±â");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		List<SysCfg> sys = sysCfg.getConfigList(coCd);
 		System.out.println(sys.toString());
 		return ResponseEntity.ok(sys);
