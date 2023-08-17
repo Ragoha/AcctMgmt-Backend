@@ -9,6 +9,7 @@ import org.junit.experimental.theories.ParametersSuppliedBy;
 import kr.co.acctmgmt.domain.BgtCD;
 import kr.co.acctmgmt.domain.BgtCDTerm;
 import kr.co.acctmgmt.domain.BgtGr;
+import kr.co.acctmgmt.domain.Gisu;
 import kr.co.acctmgmt.dto.BgtCDTermDTO;
 
 public interface BgtCDMapper {
@@ -32,6 +33,9 @@ public interface BgtCDMapper {
 	public BgtCD getMaxMultiNum(Map<String, String> params);
 	
 	public int updateBgtCDTerm(BgtCDTerm dataList);
+	
+	public List<BgtCD> getSearchData(@Param("coCd") String coCd,@Param("gisu") String gisu, @Param("groupCd") String groupCd, @Param("keyword") String keyword);
+	
 	/*<<<BgtCDDevFgCustom.js */
 	//ÅÂ¿µÇü²¨ 
 	public List<BgtCD> findBgcCDByGroupCdAndToDtAndKeyword(BgtCD bgtCD);
@@ -66,5 +70,11 @@ public interface BgtCDMapper {
 	public List<BgtCD> getBgtCDdialog(String coCd);
 
 	public List<BgtCD> getBgtCdLikeSearch(@Param("coCd")String coCd, @Param("keyword")String keyword);
+
+	public List<Gisu> getinitGisuList(String coCd);
+	
+	public List<BgtGr> getBgtGrSearch(@Param("coCd") String coCd, @Param("keyword") String keyword);
+
+	public List<BgtGr> getinitBgtGrSearch(String coCd);
 
 }

@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 @Builder
 public class SysCfg {
-	private int coCd;		//회사코드
+	private String coCd;		//회사코드
 	private String moCd;		//모듈번호
 	private String sysCd;		//옵션번호
 	private String sysNm;		//옵션명

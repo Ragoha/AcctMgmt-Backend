@@ -6,14 +6,14 @@
 		SELECT * FROM DEPT;
 	</select>
 
-	<select id="getDept" parameterType="int" resultType="Dept">
+	<select id="getDept" parameterType="String" resultType="Dept">
 		SELECT
 		CO_CD, DIV_CD, DEPT_CD, DEPT_NM, DEPT_ZIP, DEPT_ADDR,
 		DEPT_ADDR1 FROM
 		DEPT WHERE CO_CD = #{coCd};
 	</select>
 
-	<select id="getDepartment" parameterType="int" resultType="Dept">
+	<select id="getDepartment" parameterType="String" resultType="Dept">
 		SELECT CO_CD, DIV_CD, DEPT_CD, DEPT_NM, DEPT_ZIP, DEPT_ADDR,
 		DEPT_ADDR1 FROM DEPT WHERE DEPT_CD = #{deptCd};
 	</select>
@@ -28,7 +28,7 @@
 		#{deptAddr1}, #{insertId});
 	</insert>
 
-	<delete id="deleteDept" parameterType="int">
+	<delete id="deleteDept" parameterType="String">
 		DELETE from DEPT WHERE
 		DEPT_CD = #{deptCd};
 	</delete>
@@ -48,7 +48,7 @@
 		FROM DIVS
 		LEFT JOIN DEPT ON DIVS.CO_CD =
 		DEPT.CO_CD AND DIVS.DIV_CD = DEPT.DIV_CD
-		WHERE DIVS.CO_CD = #{coCd};
+		WHERE DIVS.CO_CD = #{coCd} ORDER BY INSERT_DT ASC;
 	</select>
 
 	<select id="getDivCo">
@@ -68,14 +68,14 @@
 	</select>
 	
  	<select id="findDeptByCoCd" parameterType="Dept" resultType="Dept">
-		SELECT DIVS.CO_CD, DIVS.DIV_CD, DIVS.DIV_NM, DEPT.DEPT_NM, DEPT.DEPT_CD,DEPT.DEPT_ZIP,DEPT.DEPT_ADDR,DEPT.DEPT_ADDR1
+		SELECT DIVS.CO_CD, DIVS.DIV_CD, DIVS.DIV_NM, DEPT.DEPT_NM, DEPT.DEPT_CD,DEPT.DEPT_ZIP,DEPT.DEPT_ADDR,DEPT.DEPT_ADDR1,DEPT.INSERT_DT
 		FROM DEPT
 		JOIN DIVS ON DIVS.CO_CD = DEPT.CO_CD 
 			AND 
 			DIVS.DIV_CD = DEPT.DIV_CD
 		WHERE dept.CO_CD = #{coCd} 
 			AND 
-			DIVS.DIV_CD = #{divCd}
+			DIVS.DIV_CD = #{divCd} ORDER BY INSERT_DT ASC;
 	</select>
 	
 	

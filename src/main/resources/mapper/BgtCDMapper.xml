@@ -78,6 +78,35 @@
 		OR BGT_NM LIKE CONCAT('%', #{keyword}, '%'))
 		AND CO_CD = #{coCd}
 	</select>
+	
+	<select id="getSearchData" parameterType="String" resultType="BgtCd">
+		SELECT * 
+		FROM BGTCD
+		WHERE CO_CD=#{coCd} and GROUP_CD=#{groupCd} and GISU=#{gisu}
+		and
+		(BGT_CD LIKE CONCAT('%', #{keyword}, '%')
+		OR BGT_NM LIKE CONCAT('%', #{keyword}, '%'));
+		
+	</select>
+	<select id="getinitGisuList" parameterType="String" resultType="Gisu">
+		SELECT * FROM
+		GISU
+		WHERE CO_CD=#{coCd};
+	</select>
+	<select id="getBgtGrSearch" parameterType="String" resultType="BgtGr">
+		SELECT * FROM 
+		BGTGR
+		WHERE CO_CD=#{coCd} 
+		and
+		(BGT_CD LIKE CONCAT('%', #{keyword}, '%')
+		OR BGT_NM LIKE CONCAT('%', #{keyword}, '%'));
+	</select>
+	<select id="getinitBgtGrSearch" parameterType="String" resultType="BgtGr">
+		SELECT * FROM 
+		BGTGR
+		WHERE CO_CD=#{coCd};
+	</select>
+	
 
 	<insert id="insertAddRow" parameterType="BgtCD">
 		INSERT INTO BGTCD
@@ -265,6 +294,7 @@
 			    CTE.DIV_FG,
 			    CTE.BOTTOM_FG
 			FROM CTE
+			<if test="grFg != ''">
 			WHERE CTE.CD_PATH LIKE (
 			    SELECT CONCAT(CD_PATH, '%') FROM CTE 
 			    <if test="bgtCd != 0 or (bgtCd != null and bgtCd != '')">
@@ -272,6 +302,7 @@
 			    </if>
 			    LIMIT 1
 			)
+			</if>
 			ORDER BY CD_PATH
 
 	</select>

@@ -48,11 +48,11 @@
 		SELECT * FROM DIVS;
 	</select>
 
-	<select id="getDivision" parameterType="int" resultType="Divs">
+	<select id="getDivision" parameterType="String" resultType="Divs">
 		SELECT
 		CO_CD, DIV_CD, DIV_NM, CEO_NM, JONGMOK, BUSINESS_TYPE, DIV_NB, TO_NB,
 		DIV_ZIP, DIV_ADDR, DIV_ADDR1
-		FROM DIVS WHERE CO_CD = #{coCd};
+		FROM DIVS WHERE CO_CD = #{coCd} ORDER BY INSERT_DT ASC;
 	</select>
 
 	<select id="getDiv" parameterType="Divs" resultType="Divs">
@@ -63,13 +63,13 @@
 		FROM DIVS WHERE CO_CD= #{coCd} AND DIV_CD = #{divCd};
 	</select>
 
-	<select id="getCoCd" parameterType="int" resultType="Integer">
+	<select id="getCoCd" parameterType="String" resultType="Integer">
 		SELECT
 		CO_CD
 		FROM DIVS WHERE DIV_CD = #{divCd};
 	</select>
 
-	<delete id="deleteDivs" parameterType="int">
+	<delete id="deleteDivs" parameterType="String">
 		DELETE from DIVS WHERE
 		DIV_CD = #{divCd};
 	</delete>
@@ -88,18 +88,18 @@
 
 	<insert id="insertDivs" parameterType="Divs">
 		INSERT INTO DIVS
-		(CO_CD,
+		(CO_CD, DIV_CD,
 		DIV_NM, CEO_NM, JONGMOK, BUSINESS_TYPE, DIV_NB, TO_NB, DIV_ZIP,
 		DIV_ADDR, DIV_ADDR1, INSERT_ID)
 		VALUES
-		(#{coCd}, #{divNm}, #{ceoNm},
+		(#{coCd}, #{divCd}, #{divNm}, #{ceoNm},
 		#{jongmok},
 		#{businessType}, #{divNb},
 		#{toNb}, #{divZip},#{divAddr},
 		#{divAddr1}, #{insertId});
 	</insert>
 
-	<select id="findDivByCoCd" parameterType="int" resultType="Divs">
+	<select id="findDivByCoCd" parameterType="String" resultType="Divs">
 		SELECT DIV_CD, DIV_NM
 		FROM DIVS
 		WHERE CO_CD = #{coCd}

@@ -42,6 +42,9 @@ public class Employee implements UserDetails {
 	
 	private String accessToken;
 	private String refreshToken;
+	
+	private String coNm;
+	private String divNm;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

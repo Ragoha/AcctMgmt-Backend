@@ -38,13 +38,13 @@ public class DivsServiceImpl implements DivsService{
 	}
 
 	@Override
-	public List<Divs> getDivision(int coCd) {
+	public List<Divs> getDivision(String coCd) {
 		List<Divs> division = divsMapper.getDivision(coCd);
 		return division;
 	}
 
 	@Override
-	public void deleteDivs(int divCd) {
+	public void deleteDivs(String divCd) {
 		divsMapper.deleteDivs(divCd);
 	}
 
@@ -66,13 +66,13 @@ public class DivsServiceImpl implements DivsService{
 	}
 
 	@Override
-	public Integer getCoCd(int divCd){
+	public Integer getCoCd(String divCd){
 		Integer coCd = divsMapper.getCoCd(divCd);
 		return coCd;
 	}
 
 	@Override
-	public List<Divs> findDivByCoCd(int coCd) {
+	public List<Divs> findDivByCoCd(String coCd) {
 		
 		return divsMapper.findDivByCoCd(coCd);
 	}

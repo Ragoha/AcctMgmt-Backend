@@ -12,4 +12,8 @@ public interface GisuMapper {
 
 	void deleteGisu(Gisu gisu);
 
+	void updateGisu(Gisu gisu);
+
+	void insertGisu(Gisu gisu);
+
 }
