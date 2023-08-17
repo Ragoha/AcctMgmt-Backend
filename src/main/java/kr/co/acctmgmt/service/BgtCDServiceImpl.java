@@ -523,6 +523,8 @@ public class BgtCDServiceImpl implements BgtCDService {
 	public List<BgtCDDTO> findBgcCDByGroupCdAndToDtAndKeyword(BgtCDDTO bgtCDDTO) {
 
 		BgtCD bgtCD = BgtCDConverter.convertToModel(bgtCDDTO);
+		System.out.println("=======================");
+		System.out.println(bgtCD.toString());
 		List<BgtCD> bgtCDList = mapper.findBgcCDByGroupCdAndToDtAndKeyword(bgtCD);
 		return BgtCDConverter.convertToDtoList(bgtCDList);
 	}
