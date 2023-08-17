@@ -294,6 +294,7 @@
 			    CTE.DIV_FG,
 			    CTE.BOTTOM_FG
 			FROM CTE
+			<if test="grFg != ''">
 			WHERE CTE.CD_PATH LIKE (
 			    SELECT CONCAT(CD_PATH, '%') FROM CTE 
 			    <if test="bgtCd != 0 or (bgtCd != null and bgtCd != '')">
@@ -301,6 +302,7 @@
 			    </if>
 			    LIMIT 1
 			)
+			</if>
 			ORDER BY CD_PATH
 
 	</select>
