@@ -27,7 +27,7 @@ public class SysCfgController {
 	
 	@PostMapping("/config/{option}/{optionValue}/{settingvalue}/{coCd}")
 	public ResponseEntity<String> configCheck(@PathVariable("option") String option,
-			@PathVariable("optionValue") String optionValue, @PathVariable("settingvalue") String settingvalue, @PathVariable("coCd") int coCd) {
+			@PathVariable("optionValue") String optionValue, @PathVariable("settingvalue") String settingvalue, @PathVariable("coCd") String coCd) {
 		System.out.println("옵션 명 : " + option);
 		System.out.println("설정 값 : " + optionValue);
 		System.out.println("설정 값 명:" + settingvalue);
@@ -53,12 +53,12 @@ public class SysCfgController {
 	}
 
 	@PostMapping("/config/{coCd}")
-	public ResponseEntity<String> config(@PathVariable("coCd") int coCd) {
+	public ResponseEntity<String> config(@PathVariable("coCd") String coCd) {
 		System.out.println("회사코드잘 받았니? : " + coCd);
 		List<SysCfg> sys = sysCfg.getConfigList(coCd);
 		System.out.println("잘 찾았니?" + sys);
 		
-		Co co = coService.getCo("coCd");
+		Co co = coService.getCo(coCd);
 		System.out.println("회사명 갖고오기:"+co.getCoNm());
 		
 		
@@ -67,7 +67,7 @@ public class SysCfgController {
 	}
 
 	@GetMapping("/configdate/{coCd}")
-	public ResponseEntity<List> configData(@PathVariable("coCd") int coCd){
+	public ResponseEntity<List> configData(@PathVariable("coCd") String coCd){
 		
 		System.out.println("설정 값 갖고오기");
 		List<SysCfg> sys = sysCfg.getConfigList(coCd);
