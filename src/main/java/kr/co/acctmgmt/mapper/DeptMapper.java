@@ -9,21 +9,21 @@ public interface DeptMapper {
 
 	public List<Dept> getDeptList();
 
-	public List<Dept> getDept(int coCd);
+	public List<Dept> getDept(String coCd);
 
-	public List<Dept> getDepartment(int deptCd);
+	public List<Dept> getDepartment(String deptCd);
 
 	public void insertDept(Dept dept);
 
-	public void deleteDept(int deptCd);
+	public void deleteDept(String deptCd);
 
 	public void updateDept(Dept dept);
 	
-	public List<Dept> getDivDept(int coCd);
+	public List<Dept> getDivDept(String coCd);
 	
-	public List<Dept> getDivCo(int coCd);
+	public List<Dept> getDivCo(String coCd);
 	
-	public List<Dept> getDivsDept(int divCd);
+	public List<Dept> getDivsDept(String divCd);
 
 	public List<Dept> findDeptByCoCd(Dept dept);
 	

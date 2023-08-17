@@ -12,18 +12,18 @@ public interface DivsMapper {
 	
 	public List<Divs> getDivsList();
 	
-	public List<Divs> getDivision(int coCd);
+	public List<Divs> getDivision(String coCd);
 	
 	public List<Divs> getDiv(Divs divs);
 	
-	public void deleteDivs(int divCd);
+	public void deleteDivs(String divCd);
 	
 	public void updateDivs(Divs divs);
 	
 	public List<Divs> getDivBydivCdAnddivNm(Divs divs);
 	
-	public Integer getCoCd(int divCd);
+	public Integer getCoCd(String divCd);
 
-	public List<Divs> findDivByCoCd(int coCd);
+	public List<Divs> findDivByCoCd(String coCd);
 	
 }
