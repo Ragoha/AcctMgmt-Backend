@@ -238,9 +238,12 @@
 			    <if test="grFg != 0 or (grFg != null and grFg != '')">
 			    	AND bgtcd.GR_FG = #{grFg}
 			    </if>
-				<if test="groupCd != 0 or (groupCd != null and groupCd != '')">
-			    	AND bgtcd.GROUP_CD = #{groupCd}
-			    </if>
+				<if test="bgtGrCdList != null and bgtGrCdList.size() > 0">
+				    AND bgtcd.GROUP_CD IN
+				    <foreach item="item" index="index" collection="bgtGrCdList" open="(" separator="," close=")">
+				        #{item}
+				    </foreach>
+				</if>
 			    <if test="divCd != 0 or (divCd != null and divCd != '')">
 			    	AND (bgticf.DIV_CD = #{divCd} OR bgticf.DIV_CD IS NULL)
 				</if>
@@ -268,9 +271,12 @@
 			    <if test="grFg != 0 or (grFg != null and grFg != '')">
 			    	AND P.GR_FG = #{grFg}
 			    </if>
-			    <if test="groupCd != 0 or (groupCd != null and groupCd != '')">
-			    	AND P.GROUP_CD = #{groupCd}
-			    </if>
+   				<if test="bgtGrCdList != null and bgtGrCdList.size() > 0">
+				    AND P.GROUP_CD IN
+				    <foreach item="item" index="index" collection="bgtGrCdList" open="(" separator="," close=")">
+				        #{item}
+				    </foreach>
+				</if>
 		   	 	<if test="divCd != 0 or (divCd != null and divCd != '')">
 			    AND (bgticf.DIV_CD = #{divCd} OR bgticf.DIV_CD IS NULL)
 			    </if>

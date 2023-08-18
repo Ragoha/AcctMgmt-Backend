@@ -37,6 +37,7 @@ public class BgtCDConverter {
 				.carrAm(bgtcdDomain.getCarrAm())
 				.divCd(bgtcdDomain.getDivCd())
 				.divNm(bgtcdDomain.getDivNm())
+				.bgtGrCdList(bgtcdDomain.getBgtGrCdList())
 				.build();
 		return bgtCDDTO;
 	}
@@ -67,6 +68,7 @@ public class BgtCDConverter {
 				.carrAm(bgtcdDTO.getCarrAm())
 				.divCd(bgtcdDTO.getDivCd())
 				.divNm(bgtcdDTO.getDivNm())
+				.bgtGrCdList(bgtcdDTO.getBgtGrCdList())
                 .build();
 
         return bgtCDDomain;

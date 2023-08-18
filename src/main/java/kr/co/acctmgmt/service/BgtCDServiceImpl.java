@@ -535,7 +535,9 @@ public class BgtCDServiceImpl implements BgtCDService {
 		BgtCD bgtCD = BgtCDConverter.convertToModel(bgtCDDTO);
 
 		List<BgtCD> rBgtCDList = mapper.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(bgtCD);
-
+		System.out.println("==========================");
+		System.out.println(rBgtCDList.toString());
+		System.out.println("==========================");
 		List<BgtCD> nBgtCDList = new ArrayList();
 
 		rBgtCDList.forEach(rBgtCD -> {

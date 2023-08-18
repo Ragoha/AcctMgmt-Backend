@@ -128,6 +128,9 @@ public class BgtICFController {
 	@GetMapping("/bgticf/bgtcd/search")
 	public ResponseEntity<List<BgtCDDTO>> findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(BgtCDDTO bgtCDDTO) {
 		
+		System.out.println("======================");
+		System.out.println(bgtCDDTO.toString());
+		
 		
 		String ip = ClientUtil.getRemoteIP(request);
 		
