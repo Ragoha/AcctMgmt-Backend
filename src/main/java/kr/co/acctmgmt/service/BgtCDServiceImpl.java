@@ -41,9 +41,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 		}
 		System.out.println("*********Service  getBGTCDData***********.");
 //		System.out.println(list.get(0).toString());
-		int cocd = Integer.parseInt(coCd); // <<< 여기가 문제일 확률이 있어
 //		System.out.println("cocd? : " + cocd);
-		// String dataPath = "";
 
 		/*
 		 * [230731 수정 시작] ->수정사유 : 이전의 방식(DefLv을 가져와서 무조건적인 패스를 만드는 방식)이 비 생산적이라서 개선 .
@@ -83,7 +81,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 					String divFgNm = initRow.getDivFg(); // Bgt_Cd Term에서 가져온 값.
 //					System.out.println("pathPiece :          ->" + divFgNm);
 					BgtCD temp = new BgtCD();
-					temp.setCoCd(cocd);
+					temp.setCoCd(coCd);
 					temp.setDivFg(divFgNm);
 					// -----
 					divFgNm = mapper.getDataPath(temp);
@@ -98,7 +96,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 
 				BgtCD temp = new BgtCD();
 				String a = list.get(i).getDivFg();
-				temp.setCoCd(cocd);
+				temp.setCoCd(coCd);
 				temp.setDivFg(a);
 				String pathPiece2 = mapper.getDataPath(temp);// <<<defNm
 				for (int z = 0; z < list.get(i).getMultiNum(); z++) {
@@ -116,7 +114,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 				String a = list.get(i).getDivFg();
 				int cycle1 = list.get(i).getMultiNum();
 				BgtCD temp = new BgtCD();
-				temp.setCoCd(cocd);
+				temp.setCoCd(coCd);
 				temp.setDivFg(a);
 				String defNm = mapper.getDataPath(temp);
 				if (list.get(i).getMultiCk() == 1) {
@@ -269,7 +267,6 @@ public class BgtCDServiceImpl implements BgtCDService {
 		 * 1. 부모의 패스 2. 내 bgtCd 3. divFg 4. 수입수출여부
 		 */
 		System.out.println("datapath : " + dataPath + "/CoCd:" + coCd + "/divFg: " + divFg + "/grFg: " + grFg + "/mNum :" + mNum);
-		int coCdInt = Integer.parseInt(coCd);
 		if (grFg.equals("0")) {
 			TreeViewPath = TreeViewPath + "수입,";
 		} else if (grFg.equals("1")) {
@@ -293,7 +290,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 			BgtCD searchClue = new BgtCD();
 			String cycle = Integer.toString(i + 1);
 			searchClue.setDivFg(cycle);
-			searchClue.setCoCd(coCdInt);
+			searchClue.setCoCd(coCd);
 			String divNm = mapper.getDataPath(searchClue); // -->B002의 divFg값을 토대로 가져온 divNm
 			System.out.println("divNm:" + divNm + "|끝값");
 			for (int j = 0; j < multiNum; j++) {// 공백추가 " "
@@ -310,7 +307,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 		myDivFg = myDivFg + 1;
 		divFg = Integer.toString(myDivFg);
 		searchClue.setDivFg(divFg);
-		searchClue.setCoCd(coCdInt);
+		searchClue.setCoCd(coCd);
 		String divNm1 = mapper.getDataPath(searchClue); // 장...관....항.......
 		// 공백을 몇번 추가해야 하는가 ? mNum
 		for (int k = 0; k < mNum; k++) {
@@ -390,7 +387,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 //		System.out.println("nBgtCd: " + nBgtCd);
 		// 5.detailInfo의 기본 값 세팅
 		BgtCD info3 = new BgtCD();
-		info3.setCoCd(Integer.parseInt(coCd));
+		info3.setCoCd(coCd);
 		info3.setBgtCd(nBgtCd);
 		info3.setParentCd(parentCd);
 		info3.setDivFg(divFg);
@@ -479,8 +476,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 		System.out.println("abcPath : "+abcPath);//abcPath : 10000000,11000000,11100000,
 		abcPath= abcPath+bgtCD.getParentCd()+"," ; //2.내가 갖어야할 패스로 만들어버린다. 
 		String abcDivFg= createDivFg(bgtCD.getBgtCd());
-		int e = bgtCD.getCoCd();
-		bgtCD.setCoCd(e);
+		bgtCD.setCoCd(bgtCD.getCoCd());
 		bgtCD.setDivFg(abcDivFg);
 		bgtCD.setGrFg(grfg);
 		bgtCD.setDataPath(abcPath);
@@ -610,7 +606,6 @@ public class BgtCDServiceImpl implements BgtCDService {
 		System.out.println("==getSearchData===");
 		System.out.println("keyword : " + keyword);
 		List<BgtCD> bgtcd = null;
-		int iCoCd = Integer.parseInt(coCd);
 		if (keyword != null ||keyword !="") {
 			String[] a = groupCd.split("\\.");
 			String[] b = keyword.split("\\.");
@@ -648,7 +643,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 					String divFgNm = tInfo.getDivFg();
 					System.out.println(tPathList[j]+" 의 divFgNm값 :" +divFgNm);
 					BgtCD temp = new BgtCD();
-					temp.setCoCd(iCoCd);
+					temp.setCoCd(coCd);
 					temp.setDivFg(divFgNm);
 					divFgNm = mapper.getDataPath(temp);
 					for (int k = 0; k < tInfo.getMultiNum(); k++) {
@@ -667,7 +662,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 				BgtCD tInfo = mapper.getBgtCDDataForPath(bgtcd.get(i).getBgtCd());
 				String divFgNm = tInfo.getDivFg();
 				BgtCD temp = new BgtCD();
-				temp.setCoCd(iCoCd);
+				temp.setCoCd(coCd);
 				temp.setDivFg(divFgNm);
 				divFgNm = mapper.getDataPath(temp);
 				for (int k = 0; k < tInfo.getMultiNum(); k++) {
@@ -688,7 +683,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 				BgtCD tInfo = mapper.getBgtCDDataForPath(bgtcd.get(i).getBgtCd());
 				String divFgNm = tInfo.getDivFg();
 				BgtCD temp = new BgtCD();
-				temp.setCoCd(iCoCd);
+				temp.setCoCd(coCd);
 				temp.setDivFg(divFgNm);
 				divFgNm = mapper.getDataPath(temp);
 				for (int k = 0; k < tInfo.getMultiNum(); k++) {
@@ -772,7 +767,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 		data.setGrFg(grFg);
 		data.setDataPath(TreeViewPath);
 		data.setDivFg(divFg);
-		data.setCoCd(Integer.parseInt(coCd));
+		data.setCoCd(coCd);
 		data.setBgtCd(bgtCd);
 		data.setMultiNum(mNum);
 		
