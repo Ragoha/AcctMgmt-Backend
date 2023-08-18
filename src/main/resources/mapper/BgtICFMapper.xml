@@ -19,6 +19,7 @@
     		JOIN emp on emp.CO_CD = bgticf.CO_CD AND emp.EMP_ID = bgticf.MODIFY_ID
     	WHERE BGTICF.CO_CD = #{coCd}
     		AND BGTICF.BGT_CD = #{bgtCd}
+    		AND BGTICF.GISU = #{gisu}
     		AND BGTCD.BOTTOM_fG = 0
     	ORDER BY BGTICF.INSERT_DT
 	</select>
@@ -72,12 +73,15 @@
 	        BGT_FG = #{bgtFg}
 	</update>
 	
-	<delete id="deleteBgtICF" parameterType="BgtICF">
+	<delete id="deleteBgtICF" parameterType="java.util.List">
 	    DELETE FROM BGTICF
 	    WHERE
-	    	CO_CD = #{coCd}
-    		AND BGT_CD = #{bgtCd} 
-	        AND sq = #{sq}
+	        CO_CD = #{coCd}
+	        AND BGT_CD = #{bgtCd}
+	        AND sq IN
+	        <foreach item="item" index="index" collection="sqList" open="(" separator="," close=")">
+	            #{item}
+	        </foreach>
 	</delete>
 	
 	<select id="getSumBgtICFByCoCdAndBgtCd" parameterType="BgtCD" resultType="double">
@@ -89,7 +93,8 @@
 		        bgtcd.BGT_CD AS CD_PATH,
 		        1 AS LEVEL,
 		        NVL(bgticf.CARR_AM, 0) AS carr_am,
-		        BGTICF.SQ
+		        BGTICF.SQ,
+		        bgticf.GISU
 		    FROM bgtcd
 		    LEFT JOIN bgticf ON bgticf.BGT_CD = bgtcd.BGT_CD
 		    WHERE PARENTCD IS NULL
@@ -101,22 +106,24 @@
 		        P.parentCd,
 		        CONCAT(CTE.CD_PATH, '>', P.BGT_NM) AS CD_PATH,
 		        1 + LEVEL AS LEVEL,
-	            nvl(bgticf.CARR_AM, 0) AS carr_am,
-	            BGTICF.SQ
+		        NVL(bgticf.CARR_AM, 0) AS carr_am,
+		        BGTICF.SQ,
+		        bgticf.GISU
 		    FROM bgtcd P
 		    INNER JOIN CTE ON P.parentCd = CTE.BGT_CD
 		    LEFT JOIN bgticf ON bgticf.BGT_CD = P.BGT_CD
 		    WHERE P.CO_CD = #{coCd}
 		)
 		SELECT
-		  SUM(CARR_AM) as CARR_AM
+		  	NVL(SUM(CARR_AM),0) as CARR_AM
 		FROM (
 		    SELECT DISTINCT BGT_CD, CARR_AM, SQ
 		    FROM CTE
 		    WHERE CTE.CD_PATH LIKE (
 		        SELECT CONCAT(CD_PATH, '%') FROM CTE WHERE BGT_CD = #{bgtCd} LIMIT 1
 		    )
-		) TempTable;
+		    AND CTE.gisu = #{gisu}
+		) TEMPTABLE
 
 
 	</select>

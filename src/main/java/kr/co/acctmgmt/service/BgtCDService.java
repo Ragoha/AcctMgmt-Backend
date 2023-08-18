@@ -10,10 +10,9 @@ import kr.co.acctmgmt.dto.BgtCDDTO;
 import kr.co.acctmgmt.dto.BgtCDTermDTO;
 
 public interface BgtCDService {
-	public List<BgtCD> getBGTCDData(String coCd , String bgtGrCd);
-
-
-//	public String getDefNmFromBGTCD_TERM(int divFg);
+	public List<BgtCD> getBGTCDData(String coCd ,String gisu, String bgtGrCd);
+	
+	public String getDefNmFromBGTCD_TERM(String coCd, String divFg);
 
 	public List<BgtCD> getDetailInfo(String bgt_Cd);
 
@@ -62,6 +61,10 @@ public interface BgtCDService {
 	public List<BgtGr> getinitBgtGrSearch(String coCd);
 	
 	public List<BgtGr> getBgtGrSearch(String coCd, String keyword);
+
+	public void updateBgtNm(String coCd, String bgtCd, String bgtNm);
+
+	public BgtCD checkTopData(String coCd, String gisu, String tDataPath, String keyword);
 
 
 

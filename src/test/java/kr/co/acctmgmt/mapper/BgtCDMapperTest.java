@@ -32,7 +32,7 @@ public class BgtCDMapperTest {
         }
 
         BgtCD bgtCD = BgtCD.builder()
-                .coCd(1)
+               
                 .groupCd("101")
 //                .toDt(toDt)
                 .keyword("¿¹")
@@ -46,7 +46,6 @@ public class BgtCDMapperTest {
 	@Test
 	public void findBgtCdByGisuAndGroupCdAndGrFgAndBgtCdTest() {
 		BgtCD bgtCD = BgtCD.builder()
-				.coCd(1)
 				.gisu(1)
 //				.divCd(1001)
 				.groupCd("101")

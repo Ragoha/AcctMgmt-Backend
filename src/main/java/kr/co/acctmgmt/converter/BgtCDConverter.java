@@ -11,7 +11,7 @@ import kr.co.acctmgmt.dto.BgtCDTermDTO;
 
 public class BgtCDConverter {
 	
-	public static BgtCDDTO convertToDto(BgtCD bgtcdDomain) {
+	public static BgtCDDTO convertToDto(BgtCD bgtcdDomain) { /////
 		BgtCDDTO bgtCDDTO = BgtCDDTO.builder()
 				.coCd(bgtcdDomain.getCoCd())
 				.bgtCd(bgtcdDomain.getBgtCd())
@@ -37,6 +37,7 @@ public class BgtCDConverter {
 				.carrAm(bgtcdDomain.getCarrAm())
 				.divCd(bgtcdDomain.getDivCd())
 				.divNm(bgtcdDomain.getDivNm())
+				.bgtGrCdList(bgtcdDomain.getBgtGrCdList())
 				.build();
 		return bgtCDDTO;
 	}
@@ -67,6 +68,7 @@ public class BgtCDConverter {
 				.carrAm(bgtcdDTO.getCarrAm())
 				.divCd(bgtcdDTO.getDivCd())
 				.divNm(bgtcdDTO.getDivNm())
+				.bgtGrCdList(bgtcdDTO.getBgtGrCdList())
                 .build();
 
         return bgtCDDomain;

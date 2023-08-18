@@ -1,6 +1,8 @@
 package kr.co.acctmgmt.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,12 +19,12 @@ import lombok.ToString;
 @AllArgsConstructor
 public class BgtICFDTO {
 
-	private int coCd = 0;
-    private int divCd = 0;
-    private int deptCd = 0;
+	private String coCd = "";
+    private String divCd = "";
+    private String deptCd = "";
     private int gisu = 0;
     private int sq = 0;
-    private int mgtCd = 0;
+    private String mgtCd = "";
     private String bgtCd = "";
     private int bgtFg = 0;
     private String bottomNm ="";
@@ -42,4 +44,5 @@ public class BgtICFDTO {
     
     private String mgtNm = "";
     private String empName = "";
+    private List<String> sqList = new ArrayList();
 }

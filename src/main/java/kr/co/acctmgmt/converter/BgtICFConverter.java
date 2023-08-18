@@ -36,6 +36,7 @@ public static BgtICFDTO convertToDto(BgtICF bgtICF) {
 			.modifyIp(bgtICF.getModifyIp())
 			.mgtNm(bgtICF.getMgtNm())
 			.empName(bgtICF.getEmpName())
+			.sqList(bgtICF.getSqList())
 			.build();
 	
 
@@ -70,6 +71,7 @@ public static BgtICFDTO convertToDto(BgtICF bgtICF) {
 				.modifyIp(bgtICFDTO.getModifyIp())
 				.mgtNm(bgtICFDTO.getMgtNm())
 				.empName(bgtICFDTO.getEmpName())
+				.sqList(bgtICFDTO.getSqList())
 				.build();
 		
 		return bgtICF;
