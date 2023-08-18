@@ -344,6 +344,5 @@
 			)
 			</if>
 			ORDER BY CD_PATH
-
 	</select>
 </mapper>
