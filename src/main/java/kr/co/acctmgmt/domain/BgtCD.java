@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 public class BgtCD {
 	String coCd =""; //COCD;
-	String bgtCd=""; //BGTCD;
+	String bgtCd=""; //BGTCD;---
 	String parentCd="";//
 	int gisu=0; //GISU;
 	String bgtNm=""; //BGTNM;

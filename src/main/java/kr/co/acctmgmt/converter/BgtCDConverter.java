@@ -11,7 +11,7 @@ import kr.co.acctmgmt.dto.BgtCDTermDTO;
 
 public class BgtCDConverter {
 	
-	public static BgtCDDTO convertToDto(BgtCD bgtcdDomain) {
+	public static BgtCDDTO convertToDto(BgtCD bgtcdDomain) { /////
 		BgtCDDTO bgtCDDTO = BgtCDDTO.builder()
 				.coCd(bgtcdDomain.getCoCd())
 				.bgtCd(bgtcdDomain.getBgtCd())
