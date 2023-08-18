@@ -25,7 +25,7 @@ public class BgtCDDTO {
 	String defNm="";
 	String ctlFg=""; //CTLFG;
 	String bgajustFg=""; //BGAJUSTFG;
-	Date toDt= new Date(); //TODT;
+	Date toDt= new Date(); //TODT; `````
 	String bottomFg=""; 
 	String bizFg=""; 
 	String groupCd="";
