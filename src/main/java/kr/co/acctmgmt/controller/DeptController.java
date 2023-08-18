@@ -71,21 +71,21 @@ public class DeptController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@GetMapping("/ozt/sdivdept")
-	public ResponseEntity<List<Dept>> getDivDept(@RequestParam String coCd){
-		
-		List<Dept> department = deptService.getDivDept(coCd);
-		System.out.println(department);
-		return new ResponseEntity<List<Dept>>(department, HttpStatus.OK);
-	}
-	
-	@GetMapping("/ozt/stcocd")
-	public ResponseEntity<List<Dept>> getDivCo(@RequestParam String coCd){
-		
-		List<Dept> department = deptService.getDivCo(coCd);
-		System.out.println(department);
-		return new ResponseEntity<List<Dept>>(department, HttpStatus.OK);
-	}
+//	@GetMapping("/ozt/sdivdept")
+//	public ResponseEntity<List<Dept>> getDivDept(@RequestParam String coCd){
+//		
+//		List<Dept> department = deptService.getDivDept(coCd);
+//		System.out.println(department);
+//		return new ResponseEntity<List<Dept>>(department, HttpStatus.OK);
+//	}
+//	
+//	@GetMapping("/ozt/stcocd")
+//	public ResponseEntity<List<Dept>> getDivCo(@RequestParam String coCd){
+//		
+//		List<Dept> department = deptService.getDivCo(coCd);
+//		System.out.println(department);
+//		return new ResponseEntity<List<Dept>>(department, HttpStatus.OK);
+//	}
 	
 	@GetMapping("/ozt/stdivcd")
 	public ResponseEntity<List<Dept>> getDivsDept(@RequestParam String divCd){
