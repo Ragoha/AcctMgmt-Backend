@@ -15,4 +15,19 @@
 	    </if>
 	</select>
 	
+	<delete id="deleteBgtGr" parameterType="BgtGr">
+		DELETE FROM BGTGR
+		WHERE CO_CD = #{coCd} AND BGTGR_CD = #{bgtGrCd}
+	</delete>
+	
+	<update id="updateBgtGr" parameterType="BgtGr">
+		UPDATE BGTGR
+		SET BGTGR_NM = #{bgtGrNm}
+		WHERE CO_CD = #{coCd} AND BGTGR_CD = #{bgtGrCd}
+	</update>
+	
+	<insert id="insertBgtGr" parameterType="BgtGr">
+		INSERT INTO BGTGR(CO_CD, BGTGR_CD, BGTGR_NM) VALUES(#{coCd}, #{bgtGrCd}, #{bgtGrNm});
+	</insert>
+	
 </mapper>

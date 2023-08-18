@@ -19,7 +19,7 @@ public class DeptServiceImpl implements DeptService{
 	private final DivsMapper divsMapper;
 	
 	@Override
-	public List<Dept> getDept(int coCd) {
+	public List<Dept> getDept(String coCd) {
 		List<Dept> department = deptMapper.getDept(coCd);
 		return department;
 	}
@@ -31,7 +31,7 @@ public class DeptServiceImpl implements DeptService{
 	}
 
 	@Override
-	public List<Dept> getDepartment(int deptCd) {
+	public List<Dept> getDepartment(String deptCd) {
 		List<Dept> department = deptMapper.getDepartment(deptCd);
 		return department;
 	}
@@ -43,7 +43,7 @@ public class DeptServiceImpl implements DeptService{
 	}
 
 	@Override
-	public void deleteDept(int deptCd) {
+	public void deleteDept(String deptCd) {
 		deptMapper.deleteDept(deptCd);
 		
 	}
@@ -55,25 +55,25 @@ public class DeptServiceImpl implements DeptService{
 	}
 
 	@Override
-	public List<Dept> getDivDept(int coCd) {
+	public List<Dept> getDivDept(String coCd) {
 		List<Dept> department = deptMapper.getDivDept(coCd);
 		return department;
 	}
 
 	@Override
-	public List<Dept> getDivCo(int coCd) {
+	public List<Dept> getDivCo(String coCd) {
 		List<Dept> department = deptMapper.getDivCo(coCd);
 		return department;
 	}
 
 	@Override
-	public List<Dept> getDivsDept(int divCd) {
+	public List<Dept> getDivsDept(String divCd) {
 		List<Dept> department = deptMapper.getDivsDept(divCd);
 		return department;
 	}
 
 	@Override
-	public List<Dept> findDeptByCoCd(int coCd) {
+	public List<Dept> findDeptByCoCd(String coCd) {
 		
 		List<Divs> rDivsList = divsMapper.findDivByCoCd(coCd);
 		

@@ -18,8 +18,8 @@ import lombok.ToString;
 @NoArgsConstructor
 public class DivsDTO {
 
-	private int coCd;  //회사코드
-	private int divCd;  //사업장코드
+	private String coCd;  //회사코드
+	private String divCd;  //사업장코드
 	private String divNm;  //사업장명
 	private String jongmok;  //종목
 	private String businessType;  //업태
