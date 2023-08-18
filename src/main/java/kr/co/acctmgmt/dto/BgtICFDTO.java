@@ -1,6 +1,8 @@
 package kr.co.acctmgmt.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,4 +44,5 @@ public class BgtICFDTO {
     
     private String mgtNm = "";
     private String empName = "";
+    private List<String> sqList = new ArrayList();
 }

@@ -72,12 +72,15 @@
 	        BGT_FG = #{bgtFg}
 	</update>
 	
-	<delete id="deleteBgtICF" parameterType="BgtICF">
+	<delete id="deleteBgtICF" parameterType="java.util.List">
 	    DELETE FROM BGTICF
 	    WHERE
-	    	CO_CD = #{coCd}
-    		AND BGT_CD = #{bgtCd} 
-	        AND sq = #{sq}
+	        CO_CD = #{coCd}
+	        AND BGT_CD = #{bgtCd}
+	        AND sq IN
+	        <foreach item="item" index="index" collection="sqList" open="(" separator="," close=")">
+	            #{item}
+	        </foreach>
 	</delete>
 	
 	<select id="getSumBgtICFByCoCdAndBgtCd" parameterType="BgtCD" resultType="double">

@@ -54,7 +54,13 @@ public class BgtICFController {
 	
 	@DeleteMapping("/bgticf")
 	public ResponseEntity<Void> deleteBgtICFList(BgtICFDTO bgtICFDTO){
+		System.out.println("==============");
+		System.out.println(bgtICFDTO.toString());
 		bgtICFService.deleteBgtICF(bgtICFDTO);
+		List<String> sqList = bgtICFDTO.getSqList();
+		sqList.forEach(sq -> {
+			System.out.println(sq);
+		});
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}

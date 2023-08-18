@@ -1,11 +1,12 @@
 package kr.co.acctmgmt.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
@@ -43,4 +44,6 @@ public class BgtICF {
     
     private String mgtNm = "";
     private String empName = "";
+    private List<String> sqList = new ArrayList();
+    
 }
