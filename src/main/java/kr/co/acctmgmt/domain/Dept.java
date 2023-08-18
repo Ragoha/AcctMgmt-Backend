@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Dept {
-	private int coCd;  //회사코드
-	private int divCd;  //사업장코드
-	private int deptCd;  //부서코드
+	private String coCd;  //회사코드
+	private String divCd;  //사업장코드
+	private String deptCd;  //부서코드
 	private String deptNm;  //부서명
 	private String deptZip;  //우편번호
 	private String deptAddr;  //주소

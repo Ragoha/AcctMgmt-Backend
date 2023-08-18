@@ -8,9 +8,9 @@ import kr.co.acctmgmt.domain.SysCfg;
 
 public interface SysCfgMapper {
 
-	public List<SysCfg> getConfigList(int coCd);
+	public List<SysCfg> getConfigList(String coCd);
 	
-    SysCfg getConfig(@Param("coCd") int coCd, @Param("sysCd") String sysCd);
+    SysCfg getConfig(@Param("coCd") String coCd, @Param("sysCd") String sysCd);
 	
 	public void updateConfig(SysCfg Config);
 	

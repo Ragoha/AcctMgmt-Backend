@@ -104,6 +104,17 @@ public class PjtController {
 		return ResponseEntity.ok(null);
 	}
 	
+	@PostMapping("/pjtDate/duplication/{coCd}")
+	public ResponseEntity<?> duplication(@PathVariable("coCd") int coCd, @RequestBody Pjt pjt) {		
+		List<Pjt> pjList = pjtService.getPjtList(coCd);
+		for (Pjt existingPjt : pjList) {
+            if (existingPjt.getPjtCd().equals(pjt.getPjtCd())) {
+                return ResponseEntity.badRequest().body("중복된 코드");
+            }
+        }		
+		return ResponseEntity.ok(null);
+	}
+	
 	@PostMapping("/pjtDate/delete/")
 	public ResponseEntity<?> deletePjt(@RequestBody Pjt pjt) {
 		System.out.println("�궘�젣�븷 媛� 媛뽮퀬�삤湲�");

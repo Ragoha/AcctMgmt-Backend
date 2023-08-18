@@ -27,13 +27,13 @@ public class CoServiceImpl implements CoService{
 	}
 
 	@Override
-	public Co getCo(int coCd) {
+	public Co getCo(String coCd) {
 		Co co = coMapper.getCo(coCd);
 		return co;
 	}
 
 	@Override
-	public void deleteCo(int coCd) {
+	public void deleteCo(String coCd) {
 		coMapper.deleteCo(coCd);
 		
 	}
@@ -51,7 +51,7 @@ public class CoServiceImpl implements CoService{
 	}
 
 	@Override
-	public List<Co> getCompany(int coCd) {
+	public List<Co> getCompany(String coCd) {
 		List<Co> company = coMapper.getCompany(coCd);
 		return company;
 	}
