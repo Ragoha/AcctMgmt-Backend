@@ -208,7 +208,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 		 * multiNum o
 		 */ // 장,관,항 ,목 , -> 11230000
 		// 1000 0000,1100 0000, 1120 0000, 1123 0000,
-		System.out.println("===convertTreeViewPathToDataPath===");
+		System.out.println("===convertTreeViewPathToDataPath=======================================");
 //		System.out.println(dataPathNm);
 		String grFg = "";
 		String path = "";
