@@ -21,13 +21,13 @@ public class SysCfgServiceImpl implements SysCfgService{
 	}
 
 	@Override
-	public List<SysCfg> getConfigList(int coCd) {
+	public List<SysCfg> getConfigList(String coCd) {
 		// TODO Auto-generated method stub
 		return configMapper.getConfigList(coCd);
 	}
 
 	@Override
-	public SysCfg getConfig(int coCd, String sysCd) {
+	public SysCfg getConfig(String coCd, String sysCd) {
 		// TODO Auto-generated method stub
 		return configMapper.getConfig(coCd, sysCd);
 	}

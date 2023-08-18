@@ -2,6 +2,8 @@ package kr.co.acctmgmt.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,69 +25,69 @@ public class CoController {
 	private final CoService coService;
 	
 	@GetMapping("/ozt/co")
-	public List<Co> getCoList() {
+	public ResponseEntity<List<Co>> getCoList() {
 		List<Co> coList = coService.getCoList();
 	
 //		System.out.println(coList.toString());
-		return coList;
+		return new ResponseEntity<List<Co>>(coList, HttpStatus.OK);
 	}
 	
 	@GetMapping("/ozt/sco")
-	public Co getCo(@RequestParam int coCd){
+	public ResponseEntity<Co> getCo(@RequestParam String coCd){
 		
 		Co sco = coService.getCo(coCd);
 		System.out.println(sco);
-		return sco;
+		return new ResponseEntity<Co>(sco, HttpStatus.OK);
 	}
 	
 	@GetMapping("/ozt/scom")
-	public List<Co> getCompany(@RequestParam int coCd){
+	public ResponseEntity<List<Co>> getCompany(@RequestParam String coCd){
 		
 		List<Co> scompany = coService.getCompany(coCd);
 		System.out.println(scompany);
-		return scompany;
+		return new ResponseEntity<List<Co>>(scompany, HttpStatus.OK);
 	}
 	
 	@PostMapping("/ozt/ico")
-	public List<Co> insertCo(@RequestBody Co co) {
+	public ResponseEntity<List<Co>> insertCo(@RequestBody Co co) {
 		coService.insertCo(co);
 		System.out.println(co);
 		
 		List<Co> coList = coService.getCoList();
-		return coList;
+		return new ResponseEntity<List<Co>>(coList, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/ozt/dco")
-	public List<Co> deleteCo(@RequestParam int coCd) {
+	public ResponseEntity<List<Co>> deleteCo(@RequestParam String coCd) {
 //		System.out.println(co.getCoCd());
 		coService.deleteCo(coCd);
 		List<Co> coList = coService.getCoList();
-		return coList;
+		return new ResponseEntity<List<Co>>(coList, HttpStatus.OK);
 	}
 	
 	@PutMapping("/ozt/uco")
-	public void updateCo(@RequestBody Co co){
+	public ResponseEntity<List<Co>> updateCo(@RequestBody Co co){
 		System.out.println(co.getCoCd());
 		System.out.println(co.toString());
 		
 		coService.updateCo(co);
-//		List<Co> coList = coService.getCoList();
-//		return coList;
+		List<Co> coList = coService.getCoList();
+		return new ResponseEntity<List<Co>>(coList, HttpStatus.OK);
 	}
 	
 	@GetMapping("/ozt/co/search")
-	public List<Co> getCoBycoCdAndcoNm(@RequestParam String keyword){
+	public ResponseEntity<List<Co>> getCoBycoCdAndcoNm(@RequestParam String keyword){
 		
 		List<Co> searchCo = coService.getCoBycoCdAndcoNm(keyword);
 		System.out.println(searchCo);
-		return searchCo;
+		return new ResponseEntity<List<Co>>(searchCo, HttpStatus.OK);
 	}
 	
 	@GetMapping("/ozt/sconm")
-	public List<Co> getCoNm(@RequestParam String coNm){
+	public ResponseEntity<List<Co>> getCoNm(@RequestParam String coNm){
 		
 		List<Co> coCd = coService.getCoNm(coNm);
 		System.out.println(coCd);
-		return coCd;
+		return new ResponseEntity<List<Co>>(coCd, HttpStatus.OK);
 	}
 }

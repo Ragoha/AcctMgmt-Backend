@@ -7,7 +7,7 @@
 		SELECT * FROM BGTCD ;
 	</select>
 	<select id="getBGTCDData" resultType="BgtCD">
-		SELECT * FROM BGTCD where CO_CD=#{coCd}
+		SELECT * FROM BGTCD where CO_CD=#{coCd} and GISU=#{gisu}
 		<if test="bgtGrCd != null">
 			and GROUP_CD=#{bgtGrCd}
 		</if>
@@ -20,7 +20,7 @@
 	</select>
 	<select id="getDefNmFromBGTCD_TERM" parameterType="String"
 		resultType="String">
-		SELECT DEF_NM from BGTCD_TERM where DIV_FG =#{divFg};
+		SELECT DEF_NM from BGTCD_TERM where DIV_FG =#{divFg} and CO_CD=#{coCd};
 	</select>
 	<select id="getBgtCDDataForPath" parameterType="String"
 		resultType="BgtCD">
@@ -71,48 +71,83 @@
 		SELECT BGT_CD , BGT_NM FROM BGTCD
 		WHERE CO_CD = #{coCd};
 	</select>
-	<select id="getBgtCdLikeSearch" parameterType="String" resultType="BgtCd">
+	<select id="getBgtCdLikeSearch" parameterType="String"
+		resultType="BgtCd">
 		SELECT *
 		FROM bgtCD
-		WHERE (BGT_CD LIKE CONCAT('%', #{keyword}, '%')
+		WHERE (BGT_CD LIKE CONCAT('%',
+		#{keyword}, '%')
 		OR BGT_NM LIKE CONCAT('%', #{keyword}, '%'))
-		AND CO_CD = #{coCd}
+		AND CO_CD
+		= #{coCd}
 	</select>
-	
-	<select id="getSearchData" parameterType="String" resultType="BgtCd">
-		SELECT * 
-		FROM BGTCD
-		WHERE CO_CD=#{coCd} and GROUP_CD=#{groupCd} and GISU=#{gisu}
-		and
-		(BGT_CD LIKE CONCAT('%', #{keyword}, '%')
-		OR BGT_NM LIKE CONCAT('%', #{keyword}, '%'));
-		
+
+	<select id="getSearchData" parameterType="String"
+		resultType="BgtCd">
+		SELECT *
+		FROM bgtcd
+		WHERE (datapath LIKE CONCAT((SELECT
+		concat(dataPath, bgt_cd, +",") AS dataPath FROM bgtcd
+		WHERE
+		bgt_Cd = #{keyword}),"%")
+		OR
+		bgt_Cd = #{keyword})
+		AND
+		CO_CD=#{coCd}
+		AND
+		group_Cd
+		=#{groupCd}
+		AND
+		GISU=#{gisu};
+
 	</select>
-	<select id="getinitGisuList" parameterType="String" resultType="Gisu">
+	<select id="getSearchData2" parameterType="String"
+		resultType="BgtCd">
+		SELECT * FROM bgtcd where CO_CD=#{coCd} and group_Cd=#{groupCd} and
+		GISU=#{gisu};
+	</select>
+	<select id="getinitGisuList" parameterType="String"
+		resultType="Gisu">
 		SELECT * FROM
 		GISU
 		WHERE CO_CD=#{coCd};
 	</select>
-	<select id="getBgtGrSearch" parameterType="String" resultType="BgtGr">
-		SELECT * FROM 
+	<select id="getBgtGrSearch" parameterType="String"
+		resultType="BgtGr">
+		SELECT * FROM
 		BGTGR
-		WHERE CO_CD=#{coCd} 
+		WHERE CO_CD=#{coCd}
 		and
-		(BGT_CD LIKE CONCAT('%', #{keyword}, '%')
-		OR BGT_NM LIKE CONCAT('%', #{keyword}, '%'));
+		(BGT_CD LIKE
+		CONCAT('%', #{keyword}, '%')
+		OR BGT_NM LIKE CONCAT('%',
+		#{keyword},
+		'%'));
 	</select>
-	<select id="getinitBgtGrSearch" parameterType="String" resultType="BgtGr">
-		SELECT * FROM 
+	<select id="getinitBgtGrSearch" parameterType="String"
+		resultType="BgtGr">
+		SELECT * FROM
 		BGTGR
 		WHERE CO_CD=#{coCd};
 	</select>
-	
+	<select id="checkTopData" parameterType="String"
+	resultType="bgtCd">
+		SELECT * FROM 
+		BGTCD
+		WHERE CO_CD=#{coCd}
+		and   GR_FG=#{grFg}
+		and   GISU =#{gisu}
+		and parentCd is NULL;
+	</select>
+
 
 	<insert id="insertAddRow" parameterType="BgtCD">
 		INSERT INTO BGTCD
 		(CO_CD, BGT_CD,parentCd, GISU, BGT_NM, DIV_FG, CTL_FG,
-		BGAJUST_FG, TO_DT, BOTTOM_FG, BIZ_FG, GROUP_CD, GR_FG,
-		INSERT_ID,INSERT_DT, INSERT_IP, MODIFY_ID, MODIFY_DT,
+		BGAJUST_FG,
+		TO_DT, BOTTOM_FG, BIZ_FG, GROUP_CD, GR_FG,
+		INSERT_ID,INSERT_DT,
+		INSERT_IP, MODIFY_ID, MODIFY_DT,
 		MODIFY_IP,Multi_Ck,Multi_Num,dataPath)
 		VALUES
 		(#{coCd},#{bgtCd},#{parentCd},#{gisu},#{bgtNm},#{divFg},#{ctlFg},#{bgajustFg},#{toDt},#{bottomFg},#{bizFg},#{groupCd},#{grFg},#{insertId},#{insertDt},#{insertIp},#{modifyId},#{modifyDt},#{modifyIp},#{MultiCk},#{MultiNum},#{dataPath});
@@ -136,7 +171,12 @@
 		WHERE
 		CO_CD=#{coCd} and DIV_FG=#{divFg}
 	</update>
-	<update id="updateBgtGr" parameterType="BgtGr">
+	<update id="updateBgtNm" parameterType="String">
+	UPDATE BGTCD
+	SET
+	BGT_NM=#{bgtNm}
+	WHERE
+	CO_CD=#{coCd} and BGT_CD=#{bgtCd}
 
 	</update>
 
@@ -238,9 +278,12 @@
 			    <if test="grFg != 0 or (grFg != null and grFg != '')">
 			    	AND bgtcd.GR_FG = #{grFg}
 			    </if>
-				<if test="groupCd != 0 or (groupCd != null and groupCd != '')">
-			    	AND bgtcd.GROUP_CD = #{groupCd}
-			    </if>
+				<if test="bgtGrCdList != null and bgtGrCdList.size() > 0">
+				    AND bgtcd.GROUP_CD IN
+				    <foreach item="item" index="index" collection="bgtGrCdList" open="(" separator="," close=")">
+				        #{item}
+				    </foreach>
+				</if>
 			    <if test="divCd != 0 or (divCd != null and divCd != '')">
 			    	AND (bgticf.DIV_CD = #{divCd} OR bgticf.DIV_CD IS NULL)
 				</if>
@@ -268,9 +311,12 @@
 			    <if test="grFg != 0 or (grFg != null and grFg != '')">
 			    	AND P.GR_FG = #{grFg}
 			    </if>
-			    <if test="groupCd != 0 or (groupCd != null and groupCd != '')">
-			    	AND P.GROUP_CD = #{groupCd}
-			    </if>
+   				<if test="bgtGrCdList != null and bgtGrCdList.size() > 0">
+				    AND P.GROUP_CD IN
+				    <foreach item="item" index="index" collection="bgtGrCdList" open="(" separator="," close=")">
+				        #{item}
+				    </foreach>
+				</if>
 		   	 	<if test="divCd != 0 or (divCd != null and divCd != '')">
 			    AND (bgticf.DIV_CD = #{divCd} OR bgticf.DIV_CD IS NULL)
 			    </if>
@@ -294,6 +340,7 @@
 			    CTE.DIV_FG,
 			    CTE.BOTTOM_FG
 			FROM CTE
+			<if test="grFg != ''">
 			WHERE CTE.CD_PATH LIKE (
 			    SELECT CONCAT(CD_PATH, '%') FROM CTE 
 			    <if test="bgtCd != 0 or (bgtCd != null and bgtCd != '')">
@@ -301,7 +348,7 @@
 			    </if>
 			    LIMIT 1
 			)
+			</if>
 			ORDER BY CD_PATH
-
 	</select>
 </mapper>

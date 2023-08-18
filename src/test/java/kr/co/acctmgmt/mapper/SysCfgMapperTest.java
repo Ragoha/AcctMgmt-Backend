@@ -19,7 +19,7 @@ public class SysCfgMapperTest {
 
 	@Test
 	public void getConfigList() {
-		int coCd =2000;
+		String coCd = "2000";
 		List<SysCfg> configList = configMapper.getConfigList(coCd);
 		
 		configList.forEach(config ->{
@@ -30,7 +30,7 @@ public class SysCfgMapperTest {
 //	@Test
 	public void updateConfig()
 	{
-		int coCd =2000;
+		String coCd = "2000";
 		String sysCd="3";
 		SysCfg config = configMapper.getConfig(coCd, sysCd);
 		System.out.println(config.toString());

@@ -3,15 +3,15 @@
 <mapper namespace="kr.co.acctmgmt.mapper.CoMapper">
 
 	<select id="getCoList" resultType="Co">
-		SELECT * FROM CO;
+		SELECT * FROM CO ORDER BY INSERT_DT ASC;
 	</select>
 
-	<select id="getCo" parameterType="int" resultType="Co">
+	<select id="getCo" parameterType="String" resultType="Co">
 		SELECT CO_CD, CO_NM, GISU, FR_DT, TO_DT, JONGMOK, BUSINESS_TYPE, CO_NB, CEO_NM, CO_ZIP, CO_ADDR, CO_ADDR1
 		FROM CO WHERE CO_CD = #{coCd};
 	</select>
 	
-	<select id="getCompany" parameterType="int" resultType="Co">
+	<select id="getCompany" parameterType="String" resultType="Co">
 		SELECT CO_CD, CO_NM, GISU, FR_DT, TO_DT, JONGMOK, BUSINESS_TYPE, CO_NB, CEO_NM, CO_ZIP, CO_ADDR, CO_ADDR1
 		FROM CO WHERE CO_CD = #{coCd};
 	</select>
@@ -39,7 +39,7 @@
 		WHERE CO_CD=#{coCd}
 	</update>
 	
-	<delete id="deleteCo" parameterType="int" >
+	<delete id="deleteCo" parameterType="String" >
 		DELETE from co WHERE CO_CD = #{coCd}; 
 	</delete>
 	

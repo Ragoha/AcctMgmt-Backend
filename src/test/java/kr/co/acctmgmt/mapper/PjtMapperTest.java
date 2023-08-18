@@ -30,52 +30,69 @@ public class PjtMapperTest {
 
 //	@Test
 	public void getSelPjtList() {
-	    int coCd = 2000;
-	    String pjtCd = "100";
-	    List<Pjt> pjtList = pjtMapper.getSelPjtList(pjtCd, coCd);
-	    
-	    System.out.println("sibal : " + pjtList.toString());
+		int coCd = 2000;
+		String pjtCd = "100";
+		List<Pjt> pjtList = pjtMapper.getSelPjtList(pjtCd, coCd);
+
+		System.out.println("what? : " + pjtList.toString());
 	}
-	
+
 //	@Test
 	public void updatePjt() {
-		int coCd=2000;
+		int coCd = 2000;
 		String pjtCd = "100";
-		
+
 		Pjt pjt = pjtMapper.getSelPjt(coCd, pjtCd);
 		System.out.println(pjt.toString());
 		pjt.setProgFg("2.�Ϸ�");
 		pjt.setPjtNm("���̸�");
 //		pjtMapper.updatePjt(pjt);
-		
+
 		getSelPjtList();
 	}
 
 //	@Test
 	public void findPjtByCoCdAndKeywordTest() {
 		Pjt pjt = Pjt.builder().coCd(1000).build();
-		
+
 		List<Pjt> rPjtList = pjtMapper.findPjtByCoCdAndKeyword(pjt);
-		
+
 		System.out.println(rPjtList.toString());
 	}
-	
-	@Test
-	public void progPjtSelect() {		
-		
+
+//	@Test
+	public void progPjtSelect() {
+
 		Pjt pjt = new Pjt();
-        pjt.setCoCd(1000);
-        pjt.setProgFg("1.진행중");
+		pjt.setCoCd(1000);
+		pjt.setProgFg("1.진행중");
 //        pjt.setPrDt("2023-07-01");
 //        pjt.setToDt("2025-08-15");
 
-        String keyword = "100. 테스트";
-        String keyword2 = "123. 테스트";
-        
-        List<Pjt> results = pjtMapper.conditionPjtSelect(pjt, keyword, keyword2);
-        
-        for (Pjt result : results) {
-            System.out.println(result);
-        }		
+		String keyword = "100. 테스트";
+		String keyword2 = "123. 테스트";
+
+		List<Pjt> results = pjtMapper.conditionPjtSelect(pjt, keyword, keyword2);
+
+		for (Pjt result : results) {
+			System.out.println(result);
+		}
+	}
+
+	@Test
+	public void insert() {
+		Pjt pjt = new Pjt();
+		int a = 2000;
+		pjt.setPjtCd("1500");
+		pjt.setPjtNm("테에스트");
+		pjt.setProgFg("완료");
+		pjt.setPgrNm("hh");
+		pjt.setPgrCd(4242);
+		pjtMapper.insertPjt(pjt, a);
+
+		List<Pjt> pjtList = pjtMapper.getPjtList(a);
+
+		System.out.println("what? : " + pjtList.toString());
+
 	}
 }

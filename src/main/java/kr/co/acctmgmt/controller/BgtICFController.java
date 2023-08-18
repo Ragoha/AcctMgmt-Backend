@@ -44,41 +44,29 @@ public class BgtICFController {
 	private final GisuService gisuService;
 	private final PjtService pjtService;
 
-//	@GetMapping("/bgt/bgticf")
-//	public void getBGT(@RequestBody Budget budget) {
-	public ResponseEntity<List<BgtICFDTO>> getBGT(@RequestBody Map<String, String> budget) {
-		
-		System.out.println(budget.toString());
-		
-		List<BgtICFDTO> bgtList = new ArrayList<>();
-        
-        System.out.println(bgtList.toString());
-		
-		return new ResponseEntity<List<BgtICFDTO>>(bgtList, HttpStatus.OK); 
-	}
-	
 	@GetMapping("/bgticf")
-//	public void getBGT(@RequestBody Budget budget) {
 	public ResponseEntity<List<BgtICFDTO>> getBgtICFList(BgtICFDTO bgtICFDTO) {
-		
 		
 		List<BgtICFDTO> rBgtICFList = bgtICFService.getBgtICFList(bgtICFDTO);
         
-		
 		return new ResponseEntity<List<BgtICFDTO>>(rBgtICFList, HttpStatus.OK); 
 	}
 	
 	@DeleteMapping("/bgticf")
 	public ResponseEntity<Void> deleteBgtICFList(BgtICFDTO bgtICFDTO){
+		System.out.println("==============");
+		System.out.println(bgtICFDTO.toString());
 		bgtICFService.deleteBgtICF(bgtICFDTO);
+		List<String> sqList = bgtICFDTO.getSqList();
+		sqList.forEach(sq -> {
+			System.out.println(sq);
+		});
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	@PostMapping("/bgticf")
 	public ResponseEntity<Void> insertBgtICF(@RequestBody BgtICFDTO bgtICFDTO){
-		System.out.println("==========입력==========");
-		System.out.println(bgtICFDTO.toString());
 
 		bgtICFService.insertBgtICF(bgtICFDTO);
 		
@@ -88,7 +76,6 @@ public class BgtICFController {
 	
 	@PutMapping("/bgticf")
 	public ResponseEntity<Void> updateBgtICF(@RequestBody BgtICFDTO bgtICFDTO){
-		System.out.println("==========수정==========");
 
 		bgtICFService.updateBgtICF(bgtICFDTO);
 		
@@ -106,7 +93,6 @@ public class BgtICFController {
 	
 	@GetMapping("/bgticf/bgtgr")
 	public ResponseEntity<List<BgtGrDTO>> findBgtGrByCoCdAndKeyword(BgtGrDTO bgtGrDTO) {
-		
 		
 		List<BgtGrDTO> rBgtGrDTOList = bgtGrService.findBgtGrByCoCdAndKeyword(bgtGrDTO);
 
@@ -141,6 +127,9 @@ public class BgtICFController {
 	
 	@GetMapping("/bgticf/bgtcd/search")
 	public ResponseEntity<List<BgtCDDTO>> findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(BgtCDDTO bgtCDDTO) {
+		
+		System.out.println("======================");
+		System.out.println(bgtCDDTO.toString());
 		
 		
 		String ip = ClientUtil.getRemoteIP(request);

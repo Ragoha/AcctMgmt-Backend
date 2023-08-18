@@ -8,7 +8,7 @@
 		WHERE
 		co_CD =
 		#{coCd}
-		ORDER BY co_CD
+		ORDER BY insert_DT DESC, pjt_CD DESC
 	</select>
 
 	<!-- <update id="updatePjt" parameterType="Pjt"> UPDATE PJT SET pgr_NM = 
@@ -41,11 +41,11 @@
 	<insert id="insertPjt" parameterType="Pjt">
 		INSERT INTO PJT
 		(co_CD, pgr_CD, pgr_NM, pjt_CD, pjt_NM, pr_DT, to_DT, prog_FG, apjt_NM,
-		start_DT, note)
+		start_DT, note, insert_DT)
 		VALUES
 		(
 		#{pjt.coCd}, #{pjt.pgrCd}, #{pjt.pgrNm}, #{pjt.pjtCd}, #{pjt.pjtNm}, #{pjt.prDt}, #{pjt.toDt}, #{pjt.progFg},
-		#{pjt.apjtNm}, #{pjt.startDt}, #{pjt.note}
+		#{pjt.apjtNm}, #{pjt.startDt}, #{pjt.note}, NOW()
 		)
 	</insert>
 	<delete id="deletePjt" parameterType="Pjt">
