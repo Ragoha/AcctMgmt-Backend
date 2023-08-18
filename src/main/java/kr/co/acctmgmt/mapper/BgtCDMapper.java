@@ -14,7 +14,7 @@ import kr.co.acctmgmt.dto.BgtCDTermDTO;
 
 public interface BgtCDMapper {
 	
-	public List<BgtCD> getBGTCDData(@Param("coCd") String coCd, @Param("bgtGrCd") String bgtGrCd);
+	public List<BgtCD> getBGTCDData(@Param("coCd") String coCd,@Param("gisu") String gisu, @Param("bgtGrCd") String bgtGrCd);
 	
 	public List<BgtCD> getDetailInfo(String bgtCd);
 	
@@ -36,6 +36,8 @@ public interface BgtCDMapper {
 	
 	public List<BgtCD> getSearchData(@Param("coCd") String coCd,@Param("gisu") String gisu, @Param("groupCd") String groupCd, @Param("keyword") String keyword);
 	
+	public List<BgtCD> getSearchData2(@Param("coCd") String coCd,@Param("gisu") String gisu, @Param("groupCd") String groupCd);
+	
 	/*<<<BgtCDDevFgCustom.js */
 	//ÅÂ¿µÇü²¨ 
 	public List<BgtCD> findBgcCDByGroupCdAndToDtAndKeyword(BgtCD bgtCD);
@@ -44,7 +46,7 @@ public interface BgtCDMapper {
 	public void insertAddRow(BgtCD bgtcd);
 
 	/*DataPath& TreeViewDataGrid>>>>*/
-	public String getDefNmFromBGTCD_TERM(int divFg);
+	public String getDefNmFromBGTCD_TERM(@Param("coCd")String coCd,@Param("divFg") String divFg);
 	
 	public String getDataPath(BgtCD temp);
 	
@@ -76,5 +78,11 @@ public interface BgtCDMapper {
 	public List<BgtGr> getBgtGrSearch(@Param("coCd") String coCd, @Param("keyword") String keyword);
 
 	public List<BgtGr> getinitBgtGrSearch(String coCd);
+
+	public void updateBgtNm(@Param("coCd") String coCd, @Param("bgtCd")String bgtCd, @Param("bgtNm") String bgtNm);
+
+	public List<BgtCD> checkTopData(@Param("coCd") String coCd,@Param("gisu") String gisu,@Param("grFg") String grFg);
+
+	
 
 }
