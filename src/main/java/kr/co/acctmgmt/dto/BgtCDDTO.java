@@ -1,14 +1,12 @@
 package kr.co.acctmgmt.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
-
 import lombok.RequiredArgsConstructor;
 
 @Data
@@ -41,8 +39,9 @@ public class BgtCDDTO {
 	String dataPath="";
 	
 	String keyword="";
+	List<String> bgtGrCdList = new ArrayList();
 	String bgtGrNm="";
-	int divCd=0;
+	String divCd="";
 	String divNm="";
 	int carrAm=0;
 	

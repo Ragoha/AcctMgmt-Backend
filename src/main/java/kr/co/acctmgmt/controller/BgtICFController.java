@@ -54,7 +54,13 @@ public class BgtICFController {
 	
 	@DeleteMapping("/bgticf")
 	public ResponseEntity<Void> deleteBgtICFList(BgtICFDTO bgtICFDTO){
+		System.out.println("==============");
+		System.out.println(bgtICFDTO.toString());
 		bgtICFService.deleteBgtICF(bgtICFDTO);
+		List<String> sqList = bgtICFDTO.getSqList();
+		sqList.forEach(sq -> {
+			System.out.println(sq);
+		});
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
@@ -121,6 +127,9 @@ public class BgtICFController {
 	
 	@GetMapping("/bgticf/bgtcd/search")
 	public ResponseEntity<List<BgtCDDTO>> findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(BgtCDDTO bgtCDDTO) {
+		
+		System.out.println("======================");
+		System.out.println(bgtCDDTO.toString());
 		
 		
 		String ip = ClientUtil.getRemoteIP(request);

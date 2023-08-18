@@ -1,6 +1,8 @@
 package kr.co.acctmgmt.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,8 +39,9 @@ public class BgtCD {
 	String dataPath;
 	
 	String keyword="";
+	List<String> bgtGrCdList = new ArrayList();
 	String bgtGrNm="";
-	int divCd=0;
+	String divCd="";
 	String divNm="";
 	int carrAm=0;
 }
