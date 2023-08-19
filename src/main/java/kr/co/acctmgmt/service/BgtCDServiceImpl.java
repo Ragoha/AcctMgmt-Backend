@@ -550,15 +550,24 @@ System.out.println(initRow.toString());
 	public List<BgtCDDTO> findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(BgtCDDTO bgtCDDTO) {
 
 		BgtCD bgtCD = BgtCDConverter.convertToModel(bgtCDDTO);
-
-		List<BgtCD> rBgtCDList = mapper.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(bgtCD);
 		System.out.println("==========================");
-		System.out.println(rBgtCDList.toString());
+//		System.out.println(bgtCD.getBgtCd());
 		System.out.println("==========================");
+		List<BgtCD> rBgtCDList = new ArrayList();
+		if(bgtCD.getBgtCd() == "") {
+			rBgtCDList = mapper.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(bgtCD);
+		}else {
+			rBgtCDList = mapper.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd1(bgtCD);
+		}
+		
 		List<BgtCD> nBgtCDList = new ArrayList();
 
 		rBgtCDList.forEach(rBgtCD -> {
 			double carrAm = bgtICFMapper.getSumBgtICFByCoCdAndBgtCd(rBgtCD);
+			
+			System.out.println("==========================");
+			System.out.println(rBgtCD.getBgtCd());
+			System.out.println(carrAm);
 			rBgtCD.setCarrAm(Integer.parseInt(String.valueOf(Math.round(carrAm))));
 			nBgtCDList.add(rBgtCD);
 		});

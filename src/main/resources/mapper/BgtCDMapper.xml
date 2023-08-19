@@ -235,9 +235,74 @@
 		bgt_Cd = #{bgtCd}
 	</delete>
 
-	<select id="findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd"
-		parameterType="BgtCD" resultType="BgtCD">
-			WITH RECURSIVE CTE AS (
+	<select id="findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd" parameterType="BgtCD" resultType="BgtCD">
+		SELECT DISTINCT bgtcd.co_cd,
+			bgtcd.GISU,
+			bgtcd.gr_fg,
+			bgtcd.bottom_fg,
+			bgtcd.bgt_cd,
+			bgtcd.GROUP_CD,
+			bgtcd.DIV_FG,
+			CASE
+			  WHEN BGTCD.div_Fg BETWEEN '1' AND '8' THEN (
+			      SELECT BgtCD_Term.def_Nm
+			      FROM BgtCD_Term
+			      WHERE BgtCD_Term.co_Cd = BGTCD.co_Cd AND BgtCD_Term.div_Fg = BGTCD.div_Fg
+			  )
+			  ELSE BGTCD.div_Fg
+			END AS DEF_NM, 
+			bgtcd.BGT_NM, 
+			bgtcd.datapath, 
+			bgtcd.GROUP_CD, 
+			bgticf.DIV_CD
+		FROM bgtcd 
+		LEFT JOIN bgticf ON bgticf.co_cd = bgtcd.co_cd
+		WHERE bgtcd.CO_CD = #{coCd}
+			AND BGTCD.GISU = #{gisu}
+		    <if test="grFg != 0 or (grFg != null and grFg != '')">
+		    	AND bgtcd.GR_FG = #{grFg}
+		    </if>
+			<if test="bgtGrCdList != null and bgtGrCdList.size() > 0">
+			    AND bgtcd.GROUP_CD IN
+			    <foreach item="item" index="index" collection="bgtGrCdList" open="(" separator="," close=")">
+			        #{item}
+			    </foreach>
+			</if>
+		    <if test="divCd != 0 or (divCd != null and divCd != '')">
+		    	AND (bgticf.DIV_CD = #{divCd} OR bgticf.DIV_CD IS NULL)
+			</if>
+		ORDER BY bgtcd.group_cd, bgtcd.gr_fg, bgtcd.datapath, bgtcd.bgt_cd;
+	</select>
+	<select id="findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd1" parameterType="BgtCD" resultType="BgtCD">
+		 SELECT DISTINCT
+		     bgtcd.CO_CD,
+		     bgtcd.GISU,
+		     BGTCD.BGT_NM,
+		     BGTCD.BGT_CD,
+		     BGTCD.PARENTCD,
+		     BGTCD.BGT_CD AS TOP_PARENT,
+		     BGTCD.BGT_NM AS NM_PATH,
+		     BGTCD.BGT_CD AS CD_PATH,
+		     1 AS LEVEL,
+		     bgtcd.DIV_FG,
+			CASE
+			  WHEN BGTCD.div_Fg BETWEEN '1' AND '8' THEN (
+			      SELECT BgtCD_Term.def_Nm
+			      FROM BgtCD_Term
+			      WHERE BgtCD_Term.co_Cd = BGTCD.co_Cd AND BgtCD_Term.div_Fg = BGTCD.div_Fg
+			  )
+			  ELSE BGTCD.div_Fg
+			END AS DEF_NM,
+		     bgtcd.DIV_FG,
+		     bgticf.DIV_CD,
+		     BGTCD.BOTTOM_fG,
+		     bgtcd.group_cd,
+		     bgtcd.dataPath,
+		     CONCAT(NVL(bgtcd.dataPath,''),bgtcd.bgt_cd,",") AS NDATAPATH
+		 FROM BGTCD
+		 LEFT JOIN BGTICF ON BGTCD.BGT_CD = BGTICF.BGT_CD
+		 WHERE CONCAT(NVL(bgtcd.dataPath,''),bgtcd.bgt_cd,",") LIKE CONCAT( (SELECT CONCAT(NVL(bgtcd.dataPath,''),bgtcd.bgt_cd,",") FROM bgtCD WHERE BGT_CD = #{bgtCd}), "%"); 
+	<!-- WITH RECURSIVE CTE AS (
 			    SELECT
 			        bgtcd.CO_CD,
 			        bgtcd.GISU,
@@ -349,6 +414,6 @@
 			    LIMIT 1
 			)
 			</if>
-			ORDER BY CD_PATH
+			ORDER BY CD_PATH -->
 	</select>
 </mapper>
