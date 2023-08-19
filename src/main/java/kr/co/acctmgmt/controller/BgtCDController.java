@@ -71,6 +71,8 @@ public class BgtCDController {
 	}
 	@GetMapping("bgt/bgtcd/getSearchData")
 	public List<BgtCD> getSearchData(@RequestParam String coCd,String gisu, String groupCd, String keyword){
+		System.out.println("=getSearchData=");
+		System.out.println("coCd : "+coCd +"/gisu :"+gisu+"/groupCd :" +groupCd +"/ keyword "+keyword);
 		return service.getSearchData(coCd,gisu,groupCd,keyword);
 		
 	}
@@ -98,8 +100,8 @@ public class BgtCDController {
 		b =service.getDefNmFromBGTCD_TERM(coCd,b);
 		return b;
 	}
-	@GetMapping("/bgt/bgtCd/updateBgtNm")
-	public void updateBgtNm(@RequestParam String coCd, String bgtCd,String bgtNm) {
+	@GetMapping("/bgt/bgtcd/updateBgtNm")
+	public void updateBgtNm(@RequestParam String coCd,  String bgtCd , String bgtNm) {
 		System.out.println("안녕 ");
 		service.updateBgtNm(coCd,bgtCd,bgtNm);
 	}
@@ -119,10 +121,7 @@ public class BgtCDController {
 	
 	@GetMapping("/bgt/bgtcd/getAddRowData") //[230808]make new AddRow data 
 	public BgtCD getAddRowData(@RequestParam String bgtCd , String coCd) {
-		System.out.println("getAddRowData");
-		System.out.println("bgtcd : "+bgtCd);
-		System.out.println("coCd : "+coCd);
-		
+		System.out.println("getAddRowData - bgtCd : " + bgtCd + "/ coCd : " + coCd);
 		BgtCD info =  service.addRowData(bgtCd , coCd);
 		return info;
 	}
@@ -142,7 +141,8 @@ public class BgtCDController {
 	/*insert start */
 	@PostMapping("/bgt/bgtcd/insertAddRow")
 	public BgtCD insertAddRow(@RequestBody BgtCD bgtcd) {
-		System.out.println(bgtcd.getGroupCd()); 
+		System.out.println("==insertAddRow==");
+		System.out.println("여기에요?"+bgtcd.getGroupCd()); 
 		service.insertAddRow(bgtcd);
 		return null;
 	}
