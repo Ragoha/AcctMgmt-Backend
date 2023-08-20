@@ -14,8 +14,8 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 public class PjtDTO {
 
-		private int coCd;
-	    private int pgrCd;
+		private String coCd;
+	    private String pgrCd;
 	    private String pgrNm;
 	    private String pjtCd;
 	    private String pjtNm;

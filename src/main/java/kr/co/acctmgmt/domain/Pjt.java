@@ -1,6 +1,5 @@
 package kr.co.acctmgmt.domain;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -16,8 +15,8 @@ public class Pjt {
 	
 
 
-	    private int coCd;
-	    private int pgrCd;
+	    private String coCd;
+	    private String pgrCd;
 	    private String pgrNm;
 	    private String pjtCd;
 	    private String pjtNm;
