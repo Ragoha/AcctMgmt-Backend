@@ -550,24 +550,33 @@ System.out.println(initRow.toString());
 	public List<BgtCDDTO> findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(BgtCDDTO bgtCDDTO) {
 
 		BgtCD bgtCD = BgtCDConverter.convertToModel(bgtCDDTO);
-		System.out.println("==========================");
-//		System.out.println(bgtCD.getBgtCd());
-		System.out.println("==========================");
-		List<BgtCD> rBgtCDList = new ArrayList();
-		if(bgtCD.getBgtCd() == "") {
-			rBgtCDList = mapper.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(bgtCD);
-		}else {
-			rBgtCDList = mapper.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd1(bgtCD);
+		System.out.println(bgtCD.getBgtCdList().size());
+		List<BgtCD> rBgtCDList = new ArrayList<>();
+		
+		if (bgtCD.getBgtCdList().size() == 0) {
+		    rBgtCDList.addAll(mapper.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(bgtCD));
+		} else {
+		    bgtCD.getBgtCdList().forEach(bgtCdItem -> {
+		        BgtCD tempBgtCD = BgtCD.builder()
+		        		.coCd(bgtCD.getCoCd())
+		        		.divCd(bgtCD.getDivCd())
+		        		.gisu(bgtCD.getGisu())
+		        		.bgtGrCdList(bgtCD.getBgtGrCdList())
+		        		.grFg(bgtCD.getGrFg())
+		        		.bgtCd(bgtCdItem)
+		        		.build();
+		        tempBgtCD.setBgtCd(bgtCdItem);
+		        
+		        rBgtCDList.addAll(mapper.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd1(tempBgtCD));
+		    });
 		}
+
 		
 		List<BgtCD> nBgtCDList = new ArrayList();
 
 		rBgtCDList.forEach(rBgtCD -> {
 			double carrAm = bgtICFMapper.getSumBgtICFByCoCdAndBgtCd(rBgtCD);
-			
-			System.out.println("==========================");
-			System.out.println(rBgtCD.getBgtCd());
-			System.out.println(carrAm);
+
 			rBgtCD.setCarrAm(Integer.parseInt(String.valueOf(Math.round(carrAm))));
 			nBgtCDList.add(rBgtCD);
 		});
