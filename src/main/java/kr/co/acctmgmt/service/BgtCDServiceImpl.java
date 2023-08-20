@@ -65,7 +65,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 				// 여기서 할건 부모의 정보로 장 관 항 세 목 정하기
 				for (int p = 0; p < tempList.length; p++) { // B002의 .. B003의 ...
 System.out.println("tempList?" + tempList[p]);
-					BgtCD initRow = mapper.getBgtCDDataForPath(tempList[p]); // -->B002의 정보
+					BgtCD initRow = mapper.getBgtCDDataForPath(coCd,gisu,groupcd,tempList[p]); // -->B002의 정보//cocd,gisu,groupcd,bgtCd
 System.out.println("initRow?");
 System.out.println(initRow.toString());
 //					System.out.println("divFg는?:" + initRow.getDivFg());
@@ -249,7 +249,7 @@ System.out.println(initRow.toString());
 		return tempData;
 	}// convertTreeViewPathToDataPath
 
-	public String convertDataPathToTreeViewPath(String dataPath, String coCd, String divFg, String grFg, int mNum) {
+	public String convertDataPathToTreeViewPath(String dataPath, String coCd,String gisu,  String groupCd, String divFg, String grFg, int mNum) {
 		System.out.println("Start==dataPath-> TreeViewPath ===========================================================================");
 		String TreeViewPath = "";
 		/*
@@ -270,7 +270,8 @@ System.out.println(initRow.toString());
 			 * 1.중복번호 2.DivFg값 조회
 			 */
 			System.out.println(i+"번째 ::: " + list[i]);
-			BgtCD initRow = mapper.getBgtCDDataForPath(list[i]); // -->B002의 정보
+			//coCd ,gisu, groupCd, bgtCd
+			BgtCD initRow = mapper.getBgtCDDataForPath(coCd ,gisu ,groupCd, list[i]); // -->B002의 정보
 			System.out.println(initRow.toString());
 //			System.out.println("이번 initRow는 " + i + "번째꺼");
 //			System.out.println(initRow.toString());
@@ -311,7 +312,8 @@ System.out.println(initRow.toString());
 	}// convertDataPathToTreeViewPath
 
 	@Override
-	public BgtCD addRowData(String bgtCd, String coCd) {
+	public BgtCD addRowData(String bgtCd, String coCd,String gisu,String groupCd) {
+		System.out.println("[grpupCd] " + groupCd);
 		/*
 		 * 부모의 데이터를 가지고 와서 , 자식의 데이터를 만들어준다. ★★★★★★반드시 detailInfo 초기값 설정 해놓은 상태로 보낼것
 		 * ★★★★★★★★ 처음에 부모의 값을 가져와서 bgtCd코드랑 데이터패스, treeviewPath를 만들어야한다.
@@ -321,8 +323,11 @@ System.out.println(initRow.toString());
 		Map<String, String> params = new HashMap<>();
 		params.put("bgtCd", bgtCd);
 		params.put("coCd", coCd);
+		params.put("groupCd", groupCd);
+		params.put("gisu", gisu);
 		// 이건 클릭한 데이터야
 		BgtCD info = mapper.getAddRowData(params);
+		System.out.println("bgtCd , coCd , gisu , groupCd::->" + bgtCd +"/"+coCd+"/"+gisu+"/"+groupCd);
 		String parentCd = bgtCd;
 		String divFg = info.getDivFg();
 		String path = info.getDataPath();
@@ -353,14 +358,15 @@ System.out.println(initRow.toString());
 			info3.setBottomFg("1");
 			info3.setBizFg("0");
 			String nPath = bgtCd;
-			String TreeViewPath = convertDataPathToTreeViewPath(nPath, coCd, divFg, grFg, mNum);
+			String TreeViewPath = convertDataPathToTreeViewPath(nPath, coCd, gisu, groupCd, divFg, grFg, mNum);
 			info3.setDataPath(TreeViewPath);
 
 			return info3;
 		}
+		System.out.println("여기로넘어오는건가 ?"); //여기로?
 		// 2.클릭한 데이터의 dataPath에 공백을 하나 더 추가 .
 		// 2-1 클릭한 데이터의 부모의 부모path + 부모 => add로우할 데이터의 path
-		String nPath = (path + bgtCd); // 코드
+		String nPath =  bgtCd; // 코드
 //		System.out.println("nPath ? : " + nPath);
 		// 2-2 dataPath를 원래 내가 사용해야할 dataPath로 바꿔준다.
 
@@ -371,7 +377,7 @@ System.out.println(initRow.toString());
 		// 4.데이터가 실제로 들어갈 TreeViewPath를 만드는 과정
 
 		// String dataPath, String coCd, String divFg,String grFg
-		String TreeViewPath = convertDataPathToTreeViewPath(nPath, coCd, divFg, grFg, mNum);
+		String TreeViewPath = convertDataPathToTreeViewPath(nPath, coCd,gisu,groupCd, divFg, grFg, mNum);
 //		System.out.println("완성된 TreeViewPath ?:" + TreeViewPath);
 //		System.out.println("nBgtCd: " + nBgtCd);
 		// 5.detailInfo의 기본 값 세팅
@@ -388,6 +394,7 @@ System.out.println(initRow.toString());
 		info3.setMultiCk(1);
 		info3.setMultiNum(mNum);
 		info3.setDataPath(TreeViewPath);
+		info3.setGroupCd(groupCd);
 		// 5.값 반환
 		return info3;
 	}
@@ -411,6 +418,10 @@ System.out.println(initRow.toString());
 
 	@Override
 	public void insertAddRow(BgtCD bgtCD) {
+		String groupCd = "";
+		String coCd = bgtCD.getCoCd();
+		String gisu = Integer.toString(bgtCD.getGisu());
+		System.out.println("groupCd , coCd , gisu  : " +groupCd+"/"+coCd+"/"+gisu);
 		/* null 값들 초기값 부여 */
 		if (bgtCD.getCtlFg() == null) {
 			bgtCD.setCtlFg("0");
@@ -425,7 +436,8 @@ System.out.println(initRow.toString());
 			bgtCD.setBottomFg("1");
 		}
 		String[] a = bgtCD.getGroupCd().split("\\.");
-		bgtCD.setGroupCd(a[0]);
+		groupCd = a[0];
+		bgtCD.setGroupCd(groupCd);
 		String dataPathNm = bgtCD.getDataPath();
 		System.out.println("데이터패스의 임시 값 :" + dataPathNm);//수입,항,세항,목
 		String[]b = dataPathNm.split(",");
@@ -454,7 +466,7 @@ System.out.println(initRow.toString());
 		 */
 		System.out.println("끄엥?:"+ bgtCD.getParentCd());//끄엥?:11110000
 		
-		BgtCD abc =  mapper.getBgtCDDataForPath(bgtCD.getParentCd()); //1.부모의 부모의 패스여서 
+		BgtCD abc =  mapper.getBgtCDDataForPath(coCd, gisu, groupCd, bgtCD.getParentCd()); //1.부모의 부모의 패스여서 //cocd,gisu,groupcd,bgtCd
 		
 		String abcPath = abc.getDataPath();
 		System.out.println("abcPath : "+abcPath + "/bgtCd ? :" + abc.getBgtCd()) ;//abcPath : 10000000,11000000,11100000,
@@ -629,7 +641,7 @@ System.out.println(initRow.toString());
 				System.out.println("tPaht::::>>>>"+ tPath);
 				String[] tPathList = tPath.split(",");
 				for (int j = 0; j < tPathList.length; j++) {
-					BgtCD tInfo = mapper.getBgtCDDataForPath(tPathList[j]);
+					BgtCD tInfo = mapper.getBgtCDDataForPath(coCd,gisu,groupCd, tPathList[j]);
 					System.out.print(j+"번째" +"tPathList[j] : "+tPathList[j]);
 					System.out.println(tInfo.toString());
 					String divFgNm = tInfo.getDivFg();
@@ -651,7 +663,7 @@ System.out.println(initRow.toString());
 				}
 
 				int mNum = bgtcd.get(i).getMultiNum();
-				BgtCD tInfo = mapper.getBgtCDDataForPath(bgtcd.get(i).getBgtCd());
+				BgtCD tInfo = mapper.getBgtCDDataForPath(coCd,gisu,groupCd,bgtcd.get(i).getBgtCd());
 				String divFgNm = tInfo.getDivFg();
 				BgtCD temp = new BgtCD();
 				temp.setCoCd(coCd);
@@ -672,7 +684,7 @@ System.out.println(initRow.toString());
 					TreeViewPath = "수출,";
 				}
 				int mNum = bgtcd.get(i).getMultiNum();
-				BgtCD tInfo = mapper.getBgtCDDataForPath(bgtcd.get(i).getBgtCd());
+				BgtCD tInfo = mapper.getBgtCDDataForPath(coCd,gisu,groupCd, bgtcd.get(i).getBgtCd());
 				String divFgNm = tInfo.getDivFg();
 				BgtCD temp = new BgtCD();
 				temp.setCoCd(coCd);

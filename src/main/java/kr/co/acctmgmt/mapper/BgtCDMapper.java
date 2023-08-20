@@ -50,9 +50,9 @@ public interface BgtCDMapper {
 	
 	public String getDataPath(BgtCD temp);
 	
-	public BgtCD getBgtCDDataForPath(String bgtCd);
+	public BgtCD getBgtCDDataForPath(@Param("coCd") String coCd, @Param("gisu") String gisu, @Param("groupCd") String groupCd ,@Param("bgtCd")String bgtCd);
 	
-	public String getBgtCd_TermForDataPath(String ivFg);
+	public String getBgtCd_TermForDataPath(String divFg);
 	
 	public String getPath(String bgtCd);
 

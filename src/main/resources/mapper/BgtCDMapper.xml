@@ -25,7 +25,7 @@
 	<select id="getBgtCDDataForPath" parameterType="String"
 		resultType="BgtCD">
 		SELECT * FROM BGTCD
-		WHERE BGT_CD=#{bgtCd}
+		WHERE BGT_CD=#{bgtCd} AND CO_CD=#{coCd} AND GROUP_CD=#{groupCd} AND GISU=#{gisu};
 	</select>
 	<select id="getBgtCDTerm" parameterType="String"
 		resultType="BgtCDTerm">
@@ -54,15 +54,14 @@
 	<select id="getAddRowData" parameterType="java.util.Map"
 		resultType="BgtCD">
 		SELECT * FROM BGTCD
-		WHERE BGT_CD=#{bgtCd} AND CO_CD=#{coCd};
+		WHERE BGT_CD=#{bgtCd} AND CO_CD=#{coCd} AND GROUP_CD=#{groupCd} AND GISU=#{gisu}
 	</select>
 	<select id="getMaxMultiNum" parameterType="java.util.Map"
 		resultType="BgtCD">
 		SELECT Multi_Num, BGT_CD ,Multi_Ck
 		FROM BGTCD
 		WHERE
-		parentCd=#{bgtCd} AND CO_CD=#{coCd}
-
+		parentCd=#{bgtCd} AND CO_CD=#{coCd} AND GROUP_CD=#{groupCd}
 		ORDER BY Multi_Num DESC
 		LIMIT 1;
 	</select>
