@@ -120,9 +120,11 @@ public class BgtCDController {
 	}
 	
 	@GetMapping("/bgt/bgtcd/getAddRowData") //[230808]make new AddRow data 
-	public BgtCD getAddRowData(@RequestParam String bgtCd , String coCd) {
-		System.out.println("getAddRowData - bgtCd : " + bgtCd + "/ coCd : " + coCd);
-		BgtCD info =  service.addRowData(bgtCd , coCd);
+	public BgtCD getAddRowData(@RequestParam String bgtCd , String coCd,String gisu, String groupCd) {
+		System.out.println("getAddRowData - bgtCd : " + bgtCd + "/ coCd : " + coCd+"/ groupCd"+groupCd);
+		String[] str = groupCd.split("\\.");
+		groupCd = str[0];
+		BgtCD info =  service.addRowData(bgtCd , coCd, gisu, groupCd);
 		return info;
 	}
 	@PutMapping("/bgt/bgtcd/insertBgtGr")
