@@ -83,6 +83,8 @@ public interface BgtCDMapper {
 
 	public List<BgtCD> checkTopData(@Param("coCd") String coCd,@Param("gisu") String gisu,@Param("grFg") String grFg);
 
+	public List<BgtCD> findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd1(BgtCD bgtCD);
+
 	
 
 }
