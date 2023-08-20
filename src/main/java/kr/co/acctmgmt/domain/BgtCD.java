@@ -39,6 +39,7 @@ public class BgtCD {
 	String dataPath;
 	
 	String keyword="";
+	List<String> bgtCdList = new ArrayList();
 	List<String> bgtGrCdList = new ArrayList();
 	String bgtGrNm="";
 	String divCd="";

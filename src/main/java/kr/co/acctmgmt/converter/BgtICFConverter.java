@@ -37,6 +37,7 @@ public static BgtICFDTO convertToDto(BgtICF bgtICF) {
 			.mgtNm(bgtICF.getMgtNm())
 			.empName(bgtICF.getEmpName())
 			.sqList(bgtICF.getSqList())
+			.groupCd(bgtICF.getGroupCd())
 			.build();
 	
 
@@ -72,6 +73,7 @@ public static BgtICFDTO convertToDto(BgtICF bgtICF) {
 				.mgtNm(bgtICFDTO.getMgtNm())
 				.empName(bgtICFDTO.getEmpName())
 				.sqList(bgtICFDTO.getSqList())
+				.groupCd(bgtICFDTO.getGroupCd())
 				.build();
 		
 		return bgtICF;
