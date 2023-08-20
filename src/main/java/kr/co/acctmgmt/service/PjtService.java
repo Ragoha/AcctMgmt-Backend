@@ -11,25 +11,25 @@ public interface PjtService {
 
 	public List<Pjt> getPjtList();
 
-	public void insertPjt(Pjt pjt, int coCd);
+	public void insertPjt(Pjt pjt, String coCd);
 
-	public Pjt getPjt(int coCd);
+	public Pjt getPjt(String coCd);
 
-	public Pjt getSelPjt(@Param("coCd") int coCd, @Param("pjtCd") String pjtCd);
+	public Pjt getSelPjt(@Param("coCd") String coCd, @Param("pjtCd") String pjtCd);
 	
-	public List<Pjt> getPjtList(int coCd);
+	public List<Pjt> getPjtList(String coCd);
 
 	public void deletePjt(@Param("pjt") Pjt pjt);
 
-	public void updatePjt(Pjt pjt, int coCd);
+	public void updatePjt(Pjt pjt, String coCd);
 
-	public List<Pjt> getSelPjtList(String pjtCd, int coCd);
+	public List<Pjt> getSelPjtList(String pjtCd, String coCd);
 	
-	public List<Pjt> getSelPgrList(@Param("pgrCd") String pgrCd, @Param("coCd") int coCd);
+	public List<Pjt> getSelPgrList(@Param("pgrCd") String pgrCd, @Param("coCd") String coCd);
 	
-	public List<Pjt> getPjtBy(@Param("keyword")String keyword, @Param("coCd") int coCd);
+	public List<Pjt> getPjtBy(@Param("keyword")String keyword, @Param("coCd") String coCd);
 	
-	public List<Pjt> getPgrtBy(@Param("keyword")String keyword, @Param("coCd")int coCd);
+	public List<Pjt> getPgrtBy(@Param("keyword")String keyword, @Param("coCd")String coCd);
 	
 	public List<PjtDTO> findPjtByCoCdAndKeyword(PjtDTO pjtDTO);
 
@@ -38,5 +38,7 @@ public interface PjtService {
 	public List<Pjt> selPgrBy(@Param("pjt") Pjt pjt);
 	
 	public List<Pjt> conditionPjtSelect(Pjt pjt, String keyword, String keyword2);
+
+	public List<Pjt> getGroupPjt(@Param("pjt") Pjt pjt);
 
 }
