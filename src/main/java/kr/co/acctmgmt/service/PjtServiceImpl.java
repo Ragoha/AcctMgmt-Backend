@@ -18,19 +18,19 @@ public class PjtServiceImpl implements PjtService {
 	
 
 	@Override
-	public void insertPjt(Pjt pjt, int coCd) {
+	public void insertPjt(Pjt pjt, String coCd) {
 	    pjtMapper.insertPjt(pjt, coCd);
 
 	}
 
 	@Override
-	public Pjt getPjt(int coCd) {
+	public Pjt getPjt(String coCd) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Pjt> getPjtList(int coCd) {
+	public List<Pjt> getPjtList(String coCd) {
 		// TODO Auto-generated method stub
 		return pjtMapper.getPjtList(coCd);
 	}
@@ -41,7 +41,7 @@ public class PjtServiceImpl implements PjtService {
 	}
 
 	@Override
-	public void updatePjt(Pjt pjt, int coCd) {
+	public void updatePjt(Pjt pjt, String coCd) {
 	    pjtMapper.updatePjt(pjt, coCd);
 	}
 
@@ -52,19 +52,19 @@ public class PjtServiceImpl implements PjtService {
 	}
 
 	@Override
-	public List<Pjt> getSelPjtList(String pjtCd, int coCd) {
+	public List<Pjt> getSelPjtList(String pjtCd, String coCd) {
 		// TODO Auto-generated method stub
 		return pjtMapper.getSelPjtList(pjtCd, coCd);
 	}
 
 	@Override
-	public Pjt getSelPjt(int coCd, String pjtCd) {
+	public Pjt getSelPjt(String coCd, String pjtCd) {
 		// TODO Auto-generated method stub
 		return pjtMapper.getSelPjt(coCd, pjtCd);
 	}
 
 	@Override
-	public List<Pjt> getPjtBy(String keyword, int coCd) {
+	public List<Pjt> getPjtBy(String keyword, String coCd) {
 		// TODO Auto-generated method stub
 		return pjtMapper.getPjtBy(keyword, coCd);
 	}
@@ -88,13 +88,13 @@ public class PjtServiceImpl implements PjtService {
 	}
 
 	@Override
-	public List<Pjt> getSelPgrList(String pgrCd, int coCd) {
+	public List<Pjt> getSelPgrList(String pgrCd, String coCd) {
 		// TODO Auto-generated method stub
 		return pjtMapper.getSelPgrList(pgrCd, coCd);
 	}
 
 	@Override
-	public List<Pjt> getPgrtBy(String keyword, int coCd) {
+	public List<Pjt> getPgrtBy(String keyword, String coCd) {
 		// TODO Auto-generated method stub
 		return pjtMapper.getPgrBy(keyword, coCd);
 	}
@@ -109,6 +109,12 @@ public class PjtServiceImpl implements PjtService {
 	public List<Pjt> conditionPjtSelect(Pjt pjt, String keyword, String keyword2) {
 		// TODO Auto-generated method stub
 		return pjtMapper.conditionPjtSelect(pjt, keyword, keyword2);
+	}
+
+	@Override
+	public List<Pjt> getGroupPjt(Pjt pjt) {
+		// TODO Auto-generated method stub
+		return pjtMapper.getGroupPjt(pjt);
 	}
 
 }

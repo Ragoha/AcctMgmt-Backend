@@ -179,14 +179,6 @@
 
 	</update>
 
-	<!-- <select id = "findBgcCDByGroupCdAndToDtAndKeyword" parameterType="BgtCD" 
-		resultType="BgtCD"> SELECT * FROM BGTCD LEFT JOIN BGTGR ON BGTCD.GROUP_CD 
-		= BGTGR.BGTGR_CD WHERE BGTCD.CO_CD = #{coCd} <if test="gisu != 0 or (gisu 
-		!= null and gisu != '')"> AND BGTCD.GISU = #{gisu} </if> AND BGTCD.TO_DT 
-		>= #{toDt} <if test="groupCd != null and groupCd != ''"> AND BGTCD.GROUP_CD 
-		= #{groupCd} </if> <if test="keyword != null and keyword != ''"> AND ( BGTCD.BGT_CD 
-		LIKE CONCAT('%', #{keyword}, '%') OR BGTCD.BGT_NM LIKE CONCAT('%', #{keyword}, 
-		'%') ) </if> </select> -->
 
 
 	<select id="findBgcCDByGroupCdAndToDtAndKeyword"
@@ -212,9 +204,12 @@
 			AND BGTCD.GISU = #{gisu}
 		</if>
 		AND BGTCD.TO_DT >= #{toDt}
-		<if test="groupCd != null and groupCd != ''">
-			AND BGTCD.GROUP_CD = #{groupCd}
-		</if>
+		<if test="bgtGrCdList != null and bgtGrCdList.size() > 0">
+			    AND bgtcd.GROUP_CD IN
+			    <foreach item="item" index="index" collection="bgtGrCdList" open="(" separator="," close=")">
+			        #{item}
+			    </foreach>
+			</if>
 		<if test="keyword != null and keyword != ''">
 			AND (
 			BGTCD.BGT_CD LIKE CONCAT('%', #{keyword}, '%')
@@ -234,120 +229,81 @@
 		bgt_Cd = #{bgtCd}
 	</delete>
 
-	<select id="findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd"
-		parameterType="BgtCD" resultType="BgtCD">
-			WITH RECURSIVE CTE AS (
-			    SELECT
-			        bgtcd.CO_CD,
-			        bgtcd.GISU,
-			        BGTCD.BGT_NM,
-			        BGTCD.BGT_CD,
-			        BGTCD.PARENTCD,
-			        BGTCD.BGT_CD AS TOP_PARENT,
-			        BGTCD.BGT_NM AS NM_PATH,
-			        BGTCD.BGT_CD AS CD_PATH,
-			        1 AS LEVEL,
-			        bgtcd.DIV_FG,
-			        bgticf.DIV_CD,
-			        BGTCD.BOTTOM_fG
-			    FROM BGTCD
-			    LEFT JOIN BGTICF ON BGTCD.BGT_CD = BGTICF.BGT_CD
-			    WHERE (PARENTCD IS NULL OR PARENTCD = (
-			        WITH RECURSIVE CTE AS (
-			            SELECT 
-			                BGT_CD,
-			                BGT_NM,
-			                PARENTCD,
-			                1 AS LEVEL
-			            FROM BGTCD
-			            WHERE BGT_CD = #{bgtCd}
-			            UNION ALL
-			            SELECT
-			                P.BGT_CD,
-			                P.BGT_NM,
-			                P.PARENTCD,
-			                1 + LEVEL AS LEVEL
-			            FROM bgtcd P
-			            INNER JOIN CTE C ON P.BGT_CD = C.PARENTCD
-			        )
-			        SELECT BGT_CD FROM CTE ORDER BY LEVEL DESC LIMIT 1
-			    ))
-			    AND bgtcd.CO_CD = #{coCd}
-			    AND BGTCD.GISU = #{gisu}
-			    <if test="grFg != 0 or (grFg != null and grFg != '')">
-			    	AND bgtcd.GR_FG = #{grFg}
-			    </if>
-				<if test="bgtGrCdList != null and bgtGrCdList.size() > 0">
-				    AND bgtcd.GROUP_CD IN
-				    <foreach item="item" index="index" collection="bgtGrCdList" open="(" separator="," close=")">
-				        #{item}
-				    </foreach>
-				</if>
-			    <if test="divCd != 0 or (divCd != null and divCd != '')">
-			    	AND (bgticf.DIV_CD = #{divCd} OR bgticf.DIV_CD IS NULL)
-				</if>
-				
-			    UNION ALL
-			
-			    SELECT
-			        P.CO_CD,
-			        p.GISU,
-			        P.BGT_NM,
-			        P.BGT_CD,
-			        P.PARENTCD,
-			        CTE.TOP_PARENT,
-			        CONCAT(CTE.NM_PATH, '>', P.BGT_NM) AS NM_PATH,
-			        CONCAT(CTE.CD_PATH, '>', P.BGT_CD) AS CD_PATH,
-			        1 + LEVEL AS LEVEL,
-			        P.DIV_FG,
-			        bgticf.DIV_CD,
-			       	p.bottom_fg
-			    FROM bgtcd P
-			    INNER JOIN CTE ON P.PARENTCD = CTE.BGT_CD
-			    LEFT JOIN BGTICF ON P.BGT_CD = BGTICF.BGT_CD
-			    WHERE P.CO_CD = #{coCd}
-   			    AND P.GISU = #{gisu}
-			    <if test="grFg != 0 or (grFg != null and grFg != '')">
-			    	AND P.GR_FG = #{grFg}
-			    </if>
-   				<if test="bgtGrCdList != null and bgtGrCdList.size() > 0">
-				    AND P.GROUP_CD IN
-				    <foreach item="item" index="index" collection="bgtGrCdList" open="(" separator="," close=")">
-				        #{item}
-				    </foreach>
-				</if>
-		   	 	<if test="divCd != 0 or (divCd != null and divCd != '')">
-			    AND (bgticf.DIV_CD = #{divCd} OR bgticf.DIV_CD IS NULL)
-			    </if>
-			)
-			
-			SELECT DISTINCT
-			    CTE.CO_CD,
-			    CTE.GISU,
-			    CTE.BGT_CD,
-			    CTE.BGT_NM,
-			    CTE.NM_PATH AS DATAPATH,
-			    CASE
-			        WHEN CTE.div_Fg BETWEEN '1' AND '8' THEN (
-			            SELECT BgtCD_Term.def_Nm
-			            FROM BgtCD_Term
-			            WHERE BgtCD_Term.co_Cd = CTE.co_Cd AND BgtCD_Term.div_Fg = CTE.div_Fg
-			        )
-			        ELSE CTE.div_Fg
-			    END AS DEF_NM,
-			    CTE.DIV_CD,
-			    CTE.DIV_FG,
-			    CTE.BOTTOM_FG
-			FROM CTE
-			<if test="grFg != ''">
-			WHERE CTE.CD_PATH LIKE (
-			    SELECT CONCAT(CD_PATH, '%') FROM CTE 
-			    <if test="bgtCd != 0 or (bgtCd != null and bgtCd != '')">
-			    	WHERE BGT_CD = #{bgtCd} 
-			    </if>
-			    LIMIT 1
-			)
+	<select id="findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd" parameterType="BgtCD" resultType="BgtCD">
+		SELECT DISTINCT bgtcd.co_cd,
+			bgtcd.GISU,
+			bgtcd.gr_fg,
+			bgtcd.bottom_fg,
+			bgtcd.bgt_cd,
+			bgtcd.GROUP_CD,
+			bgtcd.DIV_FG,
+			CASE
+			  WHEN BGTCD.div_Fg BETWEEN '1' AND '8' THEN (
+			      SELECT BgtCD_Term.def_Nm
+			      FROM BgtCD_Term
+			      WHERE BgtCD_Term.co_Cd = BGTCD.co_Cd AND BgtCD_Term.div_Fg = BGTCD.div_Fg
+			  )
+			  ELSE BGTCD.div_Fg
+			END AS DEF_NM, 
+			bgtcd.BGT_NM, 
+			bgtcd.datapath, 
+			bgtcd.GROUP_CD, 
+			bgticf.DIV_CD
+		FROM bgtcd 
+		LEFT JOIN bgticf ON bgticf.co_cd = bgtcd.co_cd
+		WHERE bgtcd.CO_CD = #{coCd}
+			AND BGTCD.GISU = #{gisu}
+		    <if test="grFg != 0 or (grFg != null and grFg != '')">
+		    	AND bgtcd.GR_FG = #{grFg}
+		    </if>
+			<if test="bgtGrCdList != null and bgtGrCdList.size() > 0">
+			    AND bgtcd.GROUP_CD IN
+			    <foreach item="item" index="index" collection="bgtGrCdList" open="(" separator="," close=")">
+			        #{item}
+			    </foreach>
 			</if>
-			ORDER BY CD_PATH
+		    <if test="divCd != 0 or (divCd != null and divCd != '')">
+		    	AND (bgticf.DIV_CD = #{divCd} OR bgticf.DIV_CD IS NULL)
+			</if>
+		ORDER BY bgtcd.group_cd, bgtcd.gr_fg, bgtcd.datapath, bgtcd.bgt_cd;
+	</select>
+	<select id="findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd1" parameterType="BgtCD" resultType="BgtCD">
+		 SELECT DISTINCT
+		       bgtcd.CO_CD,
+		       bgtcd.GISU,
+		       BGTCD.BGT_NM,
+		       BGTCD.BGT_CD,
+		       1 AS LEVEL,
+		       CASE
+			  WHEN BGTCD.div_Fg BETWEEN '1' AND '8' THEN (
+			      SELECT BgtCD_Term.def_Nm
+			      FROM BgtCD_Term
+			      WHERE BgtCD_Term.co_Cd = BGTCD.co_Cd AND BgtCD_Term.div_Fg = BGTCD.div_Fg
+			  )
+			  ELSE BGTCD.div_Fg
+			END AS DEF_NM, 
+		       bgtcd.DIV_FG,
+		       bgticf.DIV_CD,
+		       BGTCD.BOTTOM_fG,
+		       bgtcd.group_cd,
+		       bgtcd.GR_FG
+		FROM BGTCD
+		JOIN BGTICF ON BGTCD.CO_CD = BGTICF.CO_CD
+		WHERE bgtcd.CO_CD = #{coCd}
+	  	  <if test="divCd != null and divCd != ''">
+    	 	 AND bgticf.DIV_CD = #{divCd}
+	      </if>
+		  AND bgtcd.GISU = #{gisu}
+		  <if test="bgtGrCdList != null and bgtGrCdList.size() > 0">
+		      AND bgtcd.GROUP_CD IN
+		      <foreach item="item" index="index" collection="bgtGrCdList" open="(" separator="," close=")">
+		          #{item}
+		      </foreach>
+		  </if>
+    	  <if test="grFg != null and grFg != ''">
+    	 	 AND bgtcd.GR_FG = #{grFg}
+	      </if>
+		  AND CONCAT(NVL(bgtcd.dataPath,''),bgtcd.bgt_cd,",") LIKE CONCAT( (SELECT CONCAT(NVL(bgtcd.dataPath,''),bgtcd.bgt_cd,",") FROM bgtCD WHERE BGT_CD = #{bgtCd}), "%");
+
 	</select>
 </mapper>

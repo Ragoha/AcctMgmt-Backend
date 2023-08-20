@@ -21,6 +21,8 @@
 		<typeAlias type="kr.co.acctmgmt.domain.ExpRefToken" alias="ExpRefToken"/>
 		<typeAlias type="kr.co.acctmgmt.domain.Gisu" alias="Gisu"/>
 		<typeAlias type="kr.co.acctmgmt.domain.Pjt" alias="Pjt"/>
+		<typeAlias type="kr.co.acctmgmt.domain.Pgr" alias="Pgr"/>
+		
 		
 	</typeAliases>
 	<mappers>
@@ -36,6 +38,8 @@
 		<mapper resource="./mapper/ExpRefTokenMapper.xml"/>
 		<mapper resource="./mapper/GisuMapper.xml"/>
 		<mapper resource="./mapper/PjtMapper.xml"/>
+		<mapper resource="./mapper/PgrMapper.xml"/>
+	
 		
 	</mappers>
 </configuration>

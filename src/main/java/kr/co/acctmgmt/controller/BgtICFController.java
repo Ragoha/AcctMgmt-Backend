@@ -101,6 +101,7 @@ public class BgtICFController {
 	
 	@GetMapping("/bgticf/bgtcd")
 	public ResponseEntity<List<BgtCDDTO>> findBgtCDByKeyword(BgtCDDTO bgtCDDTO){
+		System.out.println(bgtCDDTO.toString());
 		
 		List<BgtCDDTO> rBgtCDDTOList = bgtCDService.findBgcCDByGroupCdAndToDtAndKeyword(bgtCDDTO);
 		
