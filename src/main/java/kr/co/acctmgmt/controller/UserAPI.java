@@ -21,12 +21,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import kr.co.acctmgmt.config.jwt.ExpiredRefreshTokenService;
 import kr.co.acctmgmt.config.jwt.JwtUtil;
 import kr.co.acctmgmt.domain.Employee;
+import kr.co.acctmgmt.domain.Pjt;
 import kr.co.acctmgmt.dto.EmployeeDTO;
 import kr.co.acctmgmt.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
@@ -75,60 +77,72 @@ public class UserAPI {
 		try {
 			Employee employee = userService.getEmployee(id);
 			if (employee == null) {
-				System.out.println("�ߺ� �� ���̵� �ƴմϴ�.");
 				return new ResponseEntity<String>("savc", HttpStatus.OK);
 			} else {
-				System.out.println("�ߺ�! �ߺ�!");
 			}
 		} catch (NullPointerException e) {
 			// NullPointerException ���� �߻� �� ó�� ����
-			System.out.println("NullPointerException�� �߻��߽��ϴ�.");
-			// ��: �⺻�� �Ǵ� ���� ������ ��
+			System.out.println("NullPointerException");
 		}
 
+		return new ResponseEntity<String>("savce", HttpStatus.BAD_REQUEST);
+	}
+	@GetMapping("/emp/email")
+	public ResponseEntity<String> email(@RequestParam String email){
+		System.out.println("email : " + email);
+		String emails = email;
+		try {
+			Employee employee = userService.findByEmail(emails);
+			if (employee == null) {
+				return new ResponseEntity<String>("savc", HttpStatus.OK);
+			} else {
+			}
+		} catch (NullPointerException e) {
+			System.out.println("NullPointerException");
+		}
 		return new ResponseEntity<String>("savce", HttpStatus.BAD_REQUEST);
 	}
 
 	@PostMapping("/login")
 	public ResponseEntity<Employee> login(@RequestBody(required = false) @Valid Employee emp,
 			HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("�α���");
+		System.out.println("1");
 		System.out.println(emp.toString());
 		Employee user = null;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("�������1");
+		System.out.println("1");
 		if (authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
 			user = (Employee) authentication.getPrincipal();
-			System.out.println("�������2");
+			System.out.println("2");
 
 		} else {
 			if (emp != null) {
 				user = userService.findByEmails(emp.getEmpId());
 				System.out.println("user??: " + user.toString());
-				System.out.println("�������3");
+				System.out.println("3");
 				System.out.println(user.getPassword());
 				if (!passwordEncoder.matches(emp.getPassword(), user.getPassword())) {
 					// ���̵� ��й�ȣ ����ġ �� ó���� ����
-					System.out.println("�߸��� ��й�ȣ �Դϴ�.!!");
+					System.out.println("password fail");
 					return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
 				}
 			}
-			System.out.println("�������4");
+			System.out.println("4");
 		}
 		if (user == null) {
 			// ������ü�� ����� �ҷ����� ���Ҷ� ó���� ����
 		}
 		System.out.println(user.toString());
-		System.out.println("�������5");
+		System.out.println("5");
 		String expiredToken = jwtUtil.resolveRefreshToken(request);
 		if (expiredToken != null && !expiredToken.isBlank()) {
 			expiredRefreshTokenService.addExpiredToken(expiredToken);
-			System.out.println("�������6");
+			System.out.println("6");
 		}
-		System.out.println("�ѹ��� : " + user.toString());
+		System.out.println(" : " + user.toString());
 		String accessToken = jwtUtil.createAccessToken(user.getEmpEmail(), user.getEmpAuth());
 		String refreshToken = jwtUtil.createRefreshToken(user.getEmpEmail(), user.getEmpAuth());
-		System.out.println("�������7");
+		System.out.println("7");
 		Cookie refreshTokenCookie = new Cookie("refresh-token", refreshToken);
 		response.setHeader("access-token", accessToken);
 		response.addCookie(refreshTokenCookie);
