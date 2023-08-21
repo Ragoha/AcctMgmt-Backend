@@ -203,7 +203,9 @@
 		<if test="gisu != 0 or (gisu != null and gisu != '')">
 			AND BGTCD.GISU = #{gisu}
 		</if>
-		AND BGTCD.TO_DT >= #{toDt}
+		<if test="toDt != null">
+			AND BGTCD.TO_DT &lt;= #{toDt} AND BGTCD.TO_DT >= SYSDATE()
+		</if>
 		<if test="bgtGrCdList != null and bgtGrCdList.size() > 0">
 			    AND bgtcd.GROUP_CD IN
 			    <foreach item="item" index="index" collection="bgtGrCdList" open="(" separator="," close=")">
