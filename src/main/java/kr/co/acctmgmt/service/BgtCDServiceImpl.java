@@ -560,9 +560,17 @@ public class BgtCDServiceImpl implements BgtCDService {
 	@Override
 	public List<BgtCDDTO> findBgcCDByGroupCdAndToDtAndKeyword(BgtCDDTO bgtCDDTO) {
 
+		
+
+        
+        
 		BgtCD bgtCD = BgtCDConverter.convertToModel(bgtCDDTO);
-		System.out.println("=======================");
-		System.out.println(bgtCD.toString());
+		
+        if ("Mon Jan 01 00:32:08 KST 1900".equals(bgtCD.getToDt().toString())) {
+        	bgtCD.setToDt(null);
+        	System.out.println("맞아?");
+        }
+		
 		List<BgtCD> bgtCDList = mapper.findBgcCDByGroupCdAndToDtAndKeyword(bgtCD);
 		return BgtCDConverter.convertToDtoList(bgtCDList);
 	}
