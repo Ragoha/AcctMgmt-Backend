@@ -22,7 +22,7 @@ public interface BgtCDMapper {
 	
 	public void updateDetailInfo(BgtCD updateData);
 
-	public void deleteRow(String bgtCd);
+	public void deleteRow(@Param("bgtCd") String bgtCd,@Param("coCd") String coCd);
 	
 	/*BgtCDDevFgCustom.js>>>*/
 	public List<BgtCDTerm> getBgtCDTerm(String CO_CD);
@@ -69,7 +69,7 @@ public interface BgtCDMapper {
 	
 	public void deleteBgtGr(@Param("coCd") String coCd, @Param("bgtGrCd") String bgtGrCd);
 
-	public List<BgtCD> getBgtCDdialog(String coCd);
+	public List<BgtCD> getBgtCDdialog(@Param("coCd") String coCd, @Param("keyword") String keyword);
 
 	public List<BgtCD> getBgtCdLikeSearch(@Param("coCd")String coCd, @Param("keyword")String keyword);
 
@@ -77,11 +77,15 @@ public interface BgtCDMapper {
 	
 	public List<BgtGr> getBgtGrSearch(@Param("coCd") String coCd, @Param("keyword") String keyword);
 
-	public List<BgtGr> getinitBgtGrSearch(String coCd);
+	public List<BgtGr> getinitBgtGrSearch(@Param("coCd") String coCd,@Param("keyword") String keyword);
 
 	public void updateBgtNm(@Param("coCd") String coCd, @Param("bgtCd")String bgtCd, @Param("bgtNm") String bgtNm);
 
 	public List<BgtCD> checkTopData(@Param("coCd") String coCd,@Param("gisu") String gisu,@Param("grFg") String grFg);
+
+	public List<BgtGr> getbgtGrSearchKeywordData(@Param("coCd") String coCd, @Param("keyword") String keyword);
+
+	public int  findUseParentCdSubjectInBgtICF(@Param("coCd") String coCd , @Param("bgtCd") String bgtCd);
 
 	
 
