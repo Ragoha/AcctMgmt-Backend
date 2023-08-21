@@ -33,9 +33,11 @@ public class BgtCDController {
 	/*議고쉶 start*/
 	// http://localhost:8080/acctmgmt/bgt/sbgtcd/getGridData?groupcd=GROUP1
 	@GetMapping("/bgt/bgtcd/getGridData") // groupcd 
-	public List<BgtCD> getGridData(@RequestParam String coCd ,String gisu,String groupcd) {
-		List<BgtCD> list = service.getBGTCDData(coCd,gisu,groupcd);
+	public List<BgtCD> getGridData(@RequestParam String coCd ,String gisu,String groupCd) {
+		System.out.println("처음들어왔을때 cocd,gisu ,groupCd , " + coCd +"/" + gisu+" /"+ groupCd);
+		List<BgtCD> list = service.getBGTCDData(coCd,gisu,groupCd);
 		System.out.println(list.toString());
+		System.out.println("getGridData끝!");
 		return list;
 	}
 
@@ -60,8 +62,8 @@ public class BgtCDController {
 		return bgtGr;
 	}
 	@GetMapping("/bgt/bgtcd/getBgtCDdialog")
-	public List<BgtCD> getBgtCDdialog(@RequestParam String coCd){
-		return service.getBgtCDdialog(coCd);
+	public List<BgtCD> getBgtCDdialog(@RequestParam String coCd,String keyword){
+		return service.getBgtCDdialog(coCd, keyword);
 	}
 	@GetMapping("bgt/bgtcd/getBgtCdLikeSearch")
 	public List<BgtCD> getBgtCdLikeSearch(@RequestParam String coCd , String keyword){
@@ -81,8 +83,8 @@ public class BgtCDController {
 		return service.getinitGisuList(coCd);
 	}
 	@GetMapping("bgt/bgtcd/getinitBgtGrSearch")
-	public List<BgtGr> getinitBgtGrSearch(@RequestParam String coCd){
-		return service.getinitBgtGrSearch(coCd);
+	public List<BgtGr> getinitBgtGrSearch(@RequestParam String coCd, String keyword){
+		return service.getinitBgtGrSearch(coCd,keyword);
 	}
 	
 	
@@ -104,6 +106,11 @@ public class BgtCDController {
 	public void updateBgtNm(@RequestParam String coCd,  String bgtCd , String bgtNm) {
 		System.out.println("안녕 ");
 		service.updateBgtNm(coCd,bgtCd,bgtNm);
+	}
+	@GetMapping("/bgt/bgtcd/getbgtGrSearchKeywordData")
+	public List<BgtGr> getbgtGrSearchKeywordData(@RequestParam String coCd, String keyword) {
+		System.out.println("==getbgtGrSearchKeywordData==");
+		return service.getbgtGrSearchKeywordData(coCd,keyword);
 	}
 	/*select  end*/
 	
@@ -142,7 +149,7 @@ public class BgtCDController {
 	/*select end */
 	/*insert start */
 	@PostMapping("/bgt/bgtcd/insertAddRow")
-	public BgtCD insertAddRow(@RequestBody BgtCD bgtcd) {
+	public BgtCD insertAddRow(@RequestBody BgtCD bgtcd,String coCd) {
 		System.out.println("==insertAddRow==");
 		System.out.println("여기에요?"+bgtcd.getGroupCd()); 
 		service.insertAddRow(bgtcd);
@@ -154,8 +161,8 @@ public class BgtCDController {
 	
 	/*delete start */
 	@DeleteMapping("/bgt/bgtcd/deleteRow")
-	public int deleteRow(@RequestParam String bgtCd) {
-		return service.deleteRow(bgtCd);
+	public int deleteRow(@RequestParam String bgtCd ,String coCd) {
+		return service.deleteRow(bgtCd,coCd);
 	}
 	
 }

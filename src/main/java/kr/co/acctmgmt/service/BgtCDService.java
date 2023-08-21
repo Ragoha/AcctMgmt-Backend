@@ -18,7 +18,7 @@ public interface BgtCDService {
 
 	public void updateDetailInfo(BgtCD updateData);
 
-	public int deleteRow(String bgtCd);
+	public int deleteRow(String bgtCd,String coCd);
 
 	public List<BgtCDTermDTO> getBgtCDTerm(String CO_CD);
 
@@ -46,7 +46,7 @@ public interface BgtCDService {
 	public void deleteBgtGr(String coCd, String bgtGrCd);
 
 
-	public List<BgtCD> getBgtCDdialog(String coCd);
+	public List<BgtCD> getBgtCDdialog(String coCd,String keyword);
 
 
 	public List<BgtCD> getBgtCdLikeSearch(String coCd, String keyword);
@@ -58,13 +58,15 @@ public interface BgtCDService {
 	public List<Gisu> getinitGisuList(String coCd);
 
 
-	public List<BgtGr> getinitBgtGrSearch(String coCd);
+	public List<BgtGr> getinitBgtGrSearch(String coCd,String keyword);
 	
 	public List<BgtGr> getBgtGrSearch(String coCd, String keyword);
 
 	public void updateBgtNm(String coCd, String bgtCd, String bgtNm);
 
 	public BgtCD checkTopData(String coCd, String gisu, String tDataPath, String keyword);
+
+	public List<BgtGr> getbgtGrSearchKeywordData(String coCd, String keyword);
 
 
 
