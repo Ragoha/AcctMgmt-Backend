@@ -1,5 +1,6 @@
 package kr.co.acctmgmt.mapper;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -86,5 +87,7 @@ public interface BgtCDMapper {
 	public List<BgtGr> getbgtGrSearchKeywordData(@Param("coCd") String coCd, @Param("keyword") String keyword);
 
 	public int  findUseParentCdSubjectInBgtICF(@Param("coCd") String coCd , @Param("bgtCd") String bgtCd);
+
+	public Collection<? extends BgtCD> findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd1(BgtCD tempBgtCD);
 	
 }
