@@ -14,15 +14,14 @@ public class PgrSerivceImpl implements PgrService{
 	private final PgrMapper pgrMapper;
 
 	@Override
-	public List<Pgr> findPgrByCoCd(String coCd) {
-		return pgrMapper.findPgrByCoCd(coCd);
+	public List<Pgr> findPgrByCoCd(String pgr) {
+		return pgrMapper.findPgrByCoCd(pgr);
 	}
 
 
 	@Override
-	public void deletePgr(Pgr gisu) {
-		// TODO Auto-generated method stub
-		
+	public void deletePgr(Pgr pgr) {
+		pgrMapper.deletePgr(pgr);
 	}
 
 	@Override
@@ -32,9 +31,8 @@ public class PgrSerivceImpl implements PgrService{
 	}
 
 	@Override
-	public void insertPgr(Pgr gisu) {
-		// TODO Auto-generated method stub
-		
+	public void insertPgr(Pgr pgr) {
+		pgrMapper.insertPgr(pgr);
 	}
 
 }
