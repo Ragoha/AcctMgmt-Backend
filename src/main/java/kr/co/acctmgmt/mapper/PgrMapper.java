@@ -8,10 +8,10 @@ public interface PgrMapper {
 
 	List<Pgr> findPgrByCoCd(String pgr);
 	
-	void deletePgr(Pgr gisu);
+	void deletePgr(Pgr pgr);
 
-	void updatePgr(Pgr gisu);
+	void updatePgr(Pgr pgr);
 
-	void insertPgr(Pgr gisu);
+	void insertPgr(Pgr pgr);
 
 }
