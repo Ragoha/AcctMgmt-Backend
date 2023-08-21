@@ -41,6 +41,7 @@ public class BgtICFDTO {
     private String modifyId = "";
     private Date modifyDt = new Date();
     private String modifyIp = "127.0.0.1";
+    private String groupCd = "";
     
     private String mgtNm = "";
     private String empName = "";

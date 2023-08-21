@@ -86,7 +86,5 @@ public interface BgtCDMapper {
 	public List<BgtGr> getbgtGrSearchKeywordData(@Param("coCd") String coCd, @Param("keyword") String keyword);
 
 	public int  findUseParentCdSubjectInBgtICF(@Param("coCd") String coCd , @Param("bgtCd") String bgtCd);
-
 	
-
 }

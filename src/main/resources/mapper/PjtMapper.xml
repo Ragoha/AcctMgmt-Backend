@@ -69,7 +69,7 @@
 	
 	<select id="getPgrBy" parameterType="Pjt" resultType="Pjt">
 	 SELECT pgr_CD, pgr_NM 
-	    FROM PJT
+	    FROM PGR
 	    WHERE CO_CD = #{coCd} 
 	    AND
            (
@@ -115,6 +115,25 @@
 				CONCAT('%', #{keyword}, '%')
 				)
 			</if>
+	</select>
+	
+	<select id="getGroupPjt" parameterType="Pjt" resultType="Pjt">
+		SELECT *
+			FROM PJT
+			WHERE CO_CD = #{pjt.coCd}
+		<if test="pjt.progFg != '전체'">
+   			AND PROG_FG LIKE CONCAT('%', #{pjt.progFg}, '%')
+		</if>
+		<if test="pjt.pjtCd != null and pjt.pjtCd != ''">
+			AND pjt_CD LIKE CONCAT('%', #{pjt.pjtCd}, '%')
+		</if>
+		<if test="pjt.pgrCd != null and pjt.pgrCd != ''">
+			AND pgr_CD LIKE CONCAT('%', #{pjt.pgrCd}, '%')
+		</if>
+		<if test="pjt.prDt != null">
+		    AND pr_DT >= #{pjt.prDt}
+		</if>      
+		ORDER BY insert_DT DESC, pjt_CD DESC 	
 	</select>
 	
 	<!-- <select id="conditionPjtSelect" parameterType="Pjt" resultType="Pjt">
