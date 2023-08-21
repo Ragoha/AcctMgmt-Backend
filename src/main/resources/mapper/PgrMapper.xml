@@ -8,17 +8,17 @@
 	
 	<insert id="insertPgr" parameterType="Pgr">
 		INSERT INTO PGR (CO_CD, PGR_CD, PGR_NM)
-		VALUES (#{coCd}, #{pgr_Cd}, #{pgr_Nm});
+		VALUES (#{coCd}, #{pgrCd}, #{pgrNm});
 	</insert>
 	
 	<update id="updatePgr" parameterType="Pgr">
 		UPDATE PGR 
-		SET PGR_CD = #{pgr_Cd}, PGR_NM = #{pgr_Nm}
-		WHERE CO_CD = #{coCd} AND PGR_CD = #{pgr_Cd}	
+		SET PGR_CD = #{pgrCd}, PGR_NM = #{pgrNm}
+		WHERE CO_CD = #{coCd} AND PGR_CD = #{pgrCd}	
 	</update>
 	
 	<delete id="deletePgr" parameterType="Pgr">
-		DELETE FROM PGR WHERE CO_CD = #{coCd} AND PGR_CD = #{pgr_Cd}
+		DELETE FROM PGR WHERE CO_CD = #{coCd} AND PGR_CD = #{pgrCd}
 	</delete>
 	
 </mapper>

@@ -72,12 +72,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/bgt/**").permitAll()
             .antMatchers("/syscfg/**").permitAll()
             .antMatchers("/info/**").permitAll()
-//            .antMatchers("/ozt/**").permitAll()
             .antMatchers("/logouta/**").permitAll()
             .antMatchers("/message").permitAll()
             .antMatchers("/api/**").permitAll()
             .antMatchers("/pjtDate/**").permitAll()
             .antMatchers("/pjtSelDate/**").permitAll()
+            .antMatchers("/ozt/co/search/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
