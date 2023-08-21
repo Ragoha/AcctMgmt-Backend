@@ -25,23 +25,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 		String accessToken = jwtUtil.resolveAccessToken(request);
 		boolean isAccessTokenValid = accessToken != null && jwtUtil.validateToken(accessToken);
-//		System.out.println("°ú¿¬? " + isAccessTokenValid);
+//		System.out.println("ï¿½ï¿½ï¿½ï¿½? " + isAccessTokenValid);
 		try {
 			if (isAccessTokenValid) {
-//				System.out.println("»ç¿ëÀÚ ÀÎÁõ!!!!!!!!!!!!!!@!@@@@@@@@@@@@@@@@@");
+//				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!!!!!!!!!!!!!!@!@@@@@@@@@@@@@@@@@");
 				Authentication authentication = jwtUtil.getAuthentication(accessToken);
-				SecurityContextHolder.getContext().setAuthentication(authentication); //»ç¿ëÀÚ ÀÎÁõ ¼³Á¤ 
+				SecurityContextHolder.getContext().setAuthentication(authentication); //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 			} else {
 				String refreshToken = jwtUtil.resolveRefreshToken(request);
-//				System.out.println("¸®ÇÁÅäÅ«: " + refreshToken);
+//				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å«: " + refreshToken);
 				if (refreshToken != null && jwtUtil.validateRefreshToken((refreshToken))) {
 					Authentication authentication = jwtUtil.getAuthentication(refreshToken);
 					SecurityContextHolder.getContext().setAuthentication(authentication);
 				}
 			}
 		} catch (Exception e) {
-			System.out.println("»ç¿ëÀÚ ÀÎÁõ ½ÇÆÐ!!!!!!!@@@@@@@@@@@");
-			SecurityContextHolder.clearContext(); // ¿¹¿Ü ½Ã ÀÎÁõ »èÁ¦
+			SecurityContextHolder.clearContext(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		}
 		filterChain.doFilter(request, response);
 	}

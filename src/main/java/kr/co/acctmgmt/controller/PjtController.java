@@ -25,7 +25,7 @@ public class PjtController {
 	private final PjtService pjtService;
 
 	@GetMapping("/pjtDate/{coCd}")
-	public ResponseEntity<List> pjtDataList(@PathVariable int coCd) {
+	public ResponseEntity<List> pjtDataList(@PathVariable String coCd) {
 
 		System.out.println("Allselect");
 		List<Pjt> pjt = pjtService.getPjtList(coCd);
@@ -44,7 +44,7 @@ public class PjtController {
 
 	@GetMapping("/pjtSelDate/{pjtCd}/{coCd}")
 	public ResponseEntity<List<Pjt>> getSelPjtList(@PathVariable("pjtCd") String pjtCd,
-			@PathVariable("coCd") int coCd) {
+			@PathVariable("coCd") String coCd) {
 		System.out.println("pjtcd : " + pjtCd + " / coCd: " + coCd);
 
 		List<Pjt> pjtList = pjtService.getSelPjtList(pjtCd, coCd);
@@ -63,7 +63,7 @@ public class PjtController {
 	}
 
 	@PostMapping("/pjtDate/update/{coCd}")
-	public ResponseEntity<?> updatePjt(@PathVariable("coCd") int coCd, @RequestBody Pjt pjt) {
+	public ResponseEntity<?> updatePjt(@PathVariable("coCd") String coCd, @RequestBody Pjt pjt) {
 	    System.out.println("hih: " + coCd);
 	    System.out.println("바꿀값 : " + pjt.toString());
 	    
@@ -85,7 +85,7 @@ public class PjtController {
 
 
 	@PostMapping("/pjtDate/insert/{coCd}")
-	public ResponseEntity<?> insertPjt(@PathVariable("coCd") int coCd, @RequestBody Pjt pjt) {
+	public ResponseEntity<?> insertPjt(@PathVariable("coCd") String coCd, @RequestBody Pjt pjt) {
 		System.out.println("hih: " + coCd);
 		System.out.println("받은 값 : " + pjt.toString());
 
@@ -106,7 +106,7 @@ public class PjtController {
 	}
 
 	@PostMapping("/pjtDate/duplication/{coCd}")
-	public ResponseEntity<?> duplication(@PathVariable("coCd") int coCd, @RequestBody Pjt pjt) {
+	public ResponseEntity<?> duplication(@PathVariable("coCd") String coCd, @RequestBody Pjt pjt) {
 		List<Pjt> pjList = pjtService.getPjtList(coCd);
 		for (Pjt existingPjt : pjList) {
 			if (existingPjt.getPjtCd().equals(pjt.getPjtCd())) {
@@ -118,11 +118,10 @@ public class PjtController {
 
 	@PostMapping("/pjtDate/delete/")
 	public ResponseEntity<?> deletePjt(@RequestBody Pjt pjt) {
-		System.out.println("�궘�젣�븷 媛� 媛뽮퀬�삤湲�");
-		System.out.println("�봽濡좏듃�뿉�꽌 �룜�븘�삱由� 媛� : " + pjt.toString());
+		System.out.println("delete data : " + pjt.toString());
 
 		pjtService.deletePjt(pjt);
-		System.out.println("�궘�젣 而�");
+		System.out.println("delete clear");
 		return ResponseEntity.ok(null);
 
 	}
@@ -135,26 +134,38 @@ public class PjtController {
 //	}
 
 	@GetMapping("/pjtDate/pjtSearch/{coCd}")
-	public ResponseEntity<?> getPjtByKeyword(@RequestParam String keyword, @PathVariable("coCd") int coCd) {
+	public ResponseEntity<?> getPjtByKeyword(@RequestParam String keyword, @PathVariable("coCd") String coCd) {
 //	    Pjt searchPjt = pjtService.getPjtByKeyword(keyword);
 		System.out.println("select keyword : " + keyword);
 
 		List<Pjt> searchPjt = pjtService.getPjtBy(keyword, coCd);
-		System.out.println("���젆 李얠� 媛믪� : " + searchPjt.toString());
+		System.out.println("dialog select : " + searchPjt.toString());
 		return ResponseEntity.ok(searchPjt);
 	}
+	
+	@GetMapping("/pjtDate/pgrSearch/{coCd}")
+	public ResponseEntity<?> getPgrByKeyword(@RequestParam String keyword, @PathVariable("coCd") String coCd) {
+	    System.out.println("select keyword : " + keyword);
+
+	    List<Pjt> searchPgr = pjtService.getPgrtBy(keyword, coCd);
+	    System.out.println("dialog select : " + searchPgr.toString());
+	    return ResponseEntity.ok(searchPgr);
+	}
+
 
 	@PostMapping("/pjtData/condition/")
 	public ResponseEntity<List> condtionPjtSelect(@RequestBody Pjt pjt) {
 		return null;
 	}
 	
-	@GetMapping("/pjtDate/group/")
+	@PostMapping("/pjtDate/groupSel/")
 	public ResponseEntity<?> groupSelect(@RequestBody Pjt pjt) {
 
-		System.out.println("group@@@ : " + pjt.toString());
+		System.out.println("req: " + pjt.toString());
 		
-		return ResponseEntity.ok(null);
+		List<Pjt> pjtt = pjtService.getGroupPjt(pjt);
+		System.out.println("잘 갖고올까?" + pjtt.toString());
+		return ResponseEntity.ok(pjtt);
 
 	}
 }
