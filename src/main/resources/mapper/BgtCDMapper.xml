@@ -25,7 +25,7 @@
 	<select id="getBgtCDDataForPath" parameterType="String"
 		resultType="BgtCD">
 		SELECT * FROM BGTCD
-		WHERE BGT_CD=#{bgtCd}
+		WHERE BGT_CD=#{bgtCd} AND CO_CD=#{coCd} AND GROUP_CD=#{groupCd} AND GISU=#{gisu};
 	</select>
 	<select id="getBgtCDTerm" parameterType="String"
 		resultType="BgtCDTerm">
@@ -54,22 +54,22 @@
 	<select id="getAddRowData" parameterType="java.util.Map"
 		resultType="BgtCD">
 		SELECT * FROM BGTCD
-		WHERE BGT_CD=#{bgtCd} AND CO_CD=#{coCd};
+		WHERE BGT_CD=#{bgtCd} AND CO_CD=#{coCd} AND GROUP_CD=#{groupCd} AND GISU=#{gisu}
 	</select>
 	<select id="getMaxMultiNum" parameterType="java.util.Map"
 		resultType="BgtCD">
 		SELECT Multi_Num, BGT_CD ,Multi_Ck
 		FROM BGTCD
 		WHERE
-		parentCd=#{bgtCd} AND CO_CD=#{coCd}
-
+		parentCd=#{bgtCd} AND CO_CD=#{coCd} AND GROUP_CD=#{groupCd}
 		ORDER BY Multi_Num DESC
 		LIMIT 1;
 	</select>
 	<select id="getBgtCDdialog" parameterType="String"
 		resultType="BgtCd">
 		SELECT BGT_CD , BGT_NM FROM BGTCD
-		WHERE CO_CD = #{coCd};
+		WHERE CO_CD = #{coCd}
+		<if test="keyword != null">AND BGT_CD LIKE CONCAT('%', #{keyword}, '%')</if>;
 	</select>
 	<select id="getBgtCdLikeSearch" parameterType="String"
 		resultType="BgtCd">
@@ -128,7 +128,8 @@
 		resultType="BgtGr">
 		SELECT * FROM
 		BGTGR
-		WHERE CO_CD=#{coCd};
+		WHERE CO_CD=#{coCd} 
+		<if test="keyword != null">AND  BGTGR_CD LIKE CONCAT('%', #{keyword}, '%')</if>;
 	</select>
 	<select id="checkTopData" parameterType="String"
 	resultType="bgtCd">
@@ -139,8 +140,14 @@
 		and   GISU =#{gisu}
 		and parentCd is NULL;
 	</select>
-
-
+	<select id="getbgtGrSearchKeywordData" parameterType="String"
+	resultType="bgtGr">
+	 SELECT * FROM BGTGR
+     WHERE
+     CO_CD=#{coCd}
+     AND
+     BGTGR_CD LIKE CONCAT('%', #{keyword}, '%')
+	</select>
 	<insert id="insertAddRow" parameterType="BgtCD">
 		INSERT INTO BGTCD
 		(CO_CD, BGT_CD,parentCd, GISU, BGT_NM, DIV_FG, CTL_FG,
@@ -224,10 +231,14 @@
 		SELECT
 		COUNT(*) FROM BGTCD WHERE parentCd = #{bgtCd}
 	</select>
+	<select id="findUseParentCdSubjectInBgtICF" parameterType="String">
+		SELECT
+		COUNT(*) FROM BGTICF WHERE CO_CD=#{coCd} AND BGT_CD=#{bgtCd};
+	</select>
 	<delete id="deleteRow" parameterType="String">
 		DELETE FROM BGTCD
 		WHERE
-		bgt_Cd = #{bgtCd}
+		bgt_Cd = #{bgtCd} AND CO_CD=#{coCd}
 	</delete>
 
 	<select id="findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd" parameterType="BgtCD" resultType="BgtCD">
