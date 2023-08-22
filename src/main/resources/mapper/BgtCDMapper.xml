@@ -11,9 +11,7 @@
 		<if test="bgtGrCd != null">
 			and GROUP_CD=#{bgtGrCd}
 		</if>
-		ORDER BY GR_FG;
 	</select>
-
 	<select id="getDetailInfo" parameterType="String"
 		resultType="BgtCD">
 		SELECT CTL_FG ,BGAJUST_FG ,TO_DT , BOTTOM_FG , BIZ_FG FROM
@@ -82,7 +80,7 @@
 		AND CO_CD
 		= #{coCd}
 	</select>
-
+	
 	<select id="getSearchData" parameterType="String"
 		resultType="BgtCd">
 		SELECT *
