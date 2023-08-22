@@ -11,6 +11,7 @@
 		<if test="bgtGrCd != null">
 			and GROUP_CD=#{bgtGrCd}
 		</if>
+		ORDER BY GR_FG;
 	</select>
 
 	<select id="getDetailInfo" parameterType="String"
