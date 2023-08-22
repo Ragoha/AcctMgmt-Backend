@@ -136,8 +136,8 @@ public class BgtCDServiceImpl implements BgtCDService {
 	            break; // 연속된 0이 끝나면 루프를 종료합니다.
 	        }
 	    }
+	    System.out.println("createDivFg 에서 countZeros:  "+countZeros);
 	    int divFg = 8 - countZeros;
-
 	    return Integer.toString(divFg);
 	}
 
@@ -273,25 +273,25 @@ public class BgtCDServiceImpl implements BgtCDService {
 			System.out.println(i+"번째 ::: " + list[i]);
 			//coCd ,gisu, groupCd, bgtCd
 			BgtCD initRow = mapper.getBgtCDDataForPath(coCd ,gisu ,groupCd, list[i]); // -->B002의 정보
-			System.out.println(initRow.toString());
+//			System.out.println(initRow.toString());
 //			System.out.println("이번 initRow는 " + i + "번째꺼");
 //			System.out.println(initRow.toString());
 //			int multiCk = initRow.getMultiCk();
 			int multiNum = initRow.getMultiNum();
 			String nowBgtCd = initRow.getBgtCd();
-			System.out.println("/multiNum:" + multiNum + "확인   :" + nowBgtCd);
+//			System.out.println("/multiNum:" + multiNum + "확인   :" + nowBgtCd);
 			BgtCD searchClue = new BgtCD();
 			String cycle = Integer.toString(i + 1);
 			searchClue.setDivFg(cycle);
 			searchClue.setCoCd(coCd);
 			String divNm = mapper.getDataPath(searchClue); // -->B002의 divFg값을 토대로 가져온 divNm
-			System.out.println("divNm:" + divNm + "|끝값");
+//			System.out.println("divNm:" + divNm + "|끝값");
 			for (int j = 0; j < multiNum; j++) {// 공백추가 " "
 				divNm = divNm + " ";
 			} // for j문
 			TreeViewPath = TreeViewPath + divNm + ",";
 		} // for i 문
-		System.out.println("2.divNm에 공백을 추가해서 Treeview 구성 :" + TreeViewPath + "|끝값");
+//		System.out.println("2.divNm에 공백을 추가해서 Treeview 구성 :" + TreeViewPath + "|끝값");
 		// 여기까지 부모의 패스를 바꿨고 아래부터 자신의 패스를 추가해야함
 
 		// 자신의 divFg
@@ -307,7 +307,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 			divNm1 = divNm1 + " ";
 		}
 		TreeViewPath = TreeViewPath + divNm1;
-		System.out.println("완성된 본인의 패스 :" + TreeViewPath + "|끝값쳌");
+//		System.out.println("완성된 본인의 패스 :" + TreeViewPath + "|끝값쳌");
 		System.out.println("End===============================================================================");
 		return TreeViewPath;
 	}// convertDataPathToTreeViewPath
@@ -518,7 +518,6 @@ public class BgtCDServiceImpl implements BgtCDService {
 	public List<BgtCDTermDTO> getBgtCDTerm(String CO_CD) {
 		System.out.println("Service's getBgtCDTerm");
 		List<BgtCDTerm> list = mapper.getBgtCDTerm(CO_CD);
-
 		for (int i = 0; i < list.size(); i++) {
 			list.get(i).setDivFg(list.get(i).getDivFg() + "lv");
 		}
@@ -551,7 +550,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 
 	@Override
 	public void insertBgtGr(List<BgtGr> dataList) {
-		String coCd = Integer.toString(dataList.get(0).getCoCd());
+		String coCd = dataList.get(0).getCoCd();
 		List<BgtGr> compareData = mapper.getBgtGrData(coCd);
 
 //	        mapper.insertBgtGr();
@@ -559,10 +558,6 @@ public class BgtCDServiceImpl implements BgtCDService {
 
 	@Override
 	public List<BgtCDDTO> findBgcCDByGroupCdAndToDtAndKeyword(BgtCDDTO bgtCDDTO) {
-
-		
-
-        
         
 		BgtCD bgtCD = BgtCDConverter.convertToModel(bgtCDDTO);
 		
@@ -626,7 +621,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 
 	@Override
 	public List<BgtCD> getBgtCDdialog(String coCd , String keyword) {
-		System.out.println("keyword : " +  keyword);
+		System.out.println("keyword : " +  keyword + "/getBgtCDdialog");
 		return mapper.getBgtCDdialog(coCd ,keyword);
 	}
 
@@ -644,7 +639,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 		 * CONCAT('%', #{keyword}, '%'));
 		 */
 		System.out.println("==SERVICE: getSearchData===");
-		System.out.println("keyword : " + keyword);
+		System.out.println("keyword : " + keyword +"/getSearchData");
 		List<BgtCD> bgtcd = null;
 		if (keyword != null ||keyword !="") {
 			String[] a = groupCd.split("\\.");
@@ -745,7 +740,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 
 	@Override
 	public List<BgtGr> getinitBgtGrSearch(String coCd,String keyword) {
-		System.out.println("keyword : " + keyword);
+		System.out.println("keyword : " + keyword+"/-->getinitBgtGrSearch");
 		List<BgtGr> list =  mapper.getinitBgtGrSearch(coCd,keyword);
 		System.out.println(list.toString());
 		return list;
@@ -780,7 +775,13 @@ public class BgtCDServiceImpl implements BgtCDService {
 		String bgtCd = "";
 		if(tData==null||tData.isEmpty()) { //형제 값이 없는 최초의 데이터이다. 
 			System.out.println("형제값 x");
+			
+			
+			
 			bgtCd = "10000000";
+			
+			
+			
 		    mNum = Integer.parseInt(bgtCd);
 			mNum = (mNum/10000000)-1;
 			for(int i = 0 ; i<mNum ;i++) {

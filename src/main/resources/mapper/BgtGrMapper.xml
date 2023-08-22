@@ -14,7 +14,17 @@
 	        )
 	    </if>
 	</select>
-	
+	<select id="getMaxBgtCd" parameterType="String" resultType="String">
+		SELECT BGT_CD FROM BGTCD
+		WHERE CO_CD=#{coCd}
+		ORDER BY BGT_CD DESC
+		LIMIT 1;
+	</select>
+	<insert id="initBgtCd" parameterType="BgtCd">
+		INSERT INTO BGTCD(CO_CD,BGT_CD,PARENTCD,GROUP_CD,DIV_FG,CTL_FG,BGAJUST_FG,BOTTOM_FG,BIZ_FG,GR_FG,INSERT_ID,DATAPATH,GISU)
+		VALUES
+		(#{coCd},#{bgtCd},#{parentCd},#{groupCd},#{divFg},#{ctlFg},#{bgajustFg},#{bottomFg},#{bizFg},#{grFg},#{insertId},#{dataPath},#{gisu})
+	</insert>
 	<delete id="deleteBgtGr" parameterType="BgtGr">
 		DELETE FROM BGTGR
 		WHERE CO_CD = #{coCd} AND BGTGR_CD = #{bgtGrCd}
@@ -27,7 +37,10 @@
 	</update>
 	
 	<insert id="insertBgtGr" parameterType="BgtGr">
-		INSERT INTO BGTGR(CO_CD, BGTGR_CD, BGTGR_NM) VALUES(#{coCd}, #{bgtGrCd}, #{bgtGrNm});
+		INSERT INTO BGTGR
+		(CO_CD,  BGTGR_CD,  BGTGR_NM,
+		INSERT_ID) 
+		VALUES(#{coCd}, #{bgtGrCd}, #{bgtGrNm}, #{insertId});
 	</insert>
 	
 </mapper>

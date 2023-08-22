@@ -31,8 +31,9 @@ public class BgtGrController {
 	
 	@PostMapping("/bgtgr")
 	public ResponseEntity<Void> insertBgtGr(@RequestBody BgtGrDTO bgtGrDTO){
-		
-		
+		System.out.println("¶×¶¥¶×µûµûµû");
+		 System.out.println(bgtGrDTO.toString());
+		 System.out.println(bgtGrDTO.getGisu());
 		bgtGrService.insertBgtGr(bgtGrDTO);
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
