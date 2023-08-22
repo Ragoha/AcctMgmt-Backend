@@ -591,7 +591,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 		        		.build();
 		        tempBgtCD.setBgtCd(bgtCdItem);
 		        
-//		        rBgtCDList.addAll(mapper.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd1(tempBgtCD));
+		        rBgtCDList.addAll(mapper.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd1(tempBgtCD));
 		    });
 		}
 
