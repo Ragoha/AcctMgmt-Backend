@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.co.acctmgmt.domain.Co;
 import kr.co.acctmgmt.domain.Divs;
 import kr.co.acctmgmt.service.DivsService;
 import lombok.RequiredArgsConstructor;
@@ -24,15 +25,15 @@ public class DivsController {
 	
 	private final DivsService divsService;
 	
-	@GetMapping("/ozt/div")
-	public ResponseEntity<List<Divs>> getDivsList() {
-		List<Divs> divsList = divsService.getDivsList();
+//	@GetMapping("/ozt/div")
+//	public ResponseEntity<List<Divs>> getDivsList() {
+//		List<Divs> divsList = divsService.getDivsList();
+//	
+////		System.out.println(coList.toString());
+//		return new ResponseEntity<List<Divs>>(divsList, HttpStatus.OK);
+//	}
 	
-//		System.out.println(coList.toString());
-		return new ResponseEntity<List<Divs>>(divsList, HttpStatus.OK);
-	}
-	
-	@PostMapping("/ozt/idiv")
+	@PostMapping("/div")
 	public ResponseEntity<Void> insertDivs(@RequestBody Divs divs) {
 		divsService.insertDivs(divs);
 		System.out.println(divs);
@@ -42,48 +43,40 @@ public class DivsController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@GetMapping("/ozt/sdiv")
-	public ResponseEntity<List<Divs>> getDivision(@RequestParam String coCd){
-		List<Divs> division = divsService.getDivision(coCd);
+	@GetMapping("/div")
+	public ResponseEntity<List<Divs>> getDivision(Divs divs){
+		List<Divs> division = divsService.getDivision(divs);
 		System.out.println(division);
 		return new ResponseEntity<List<Divs>>(division, HttpStatus.OK);
 	}
 	
-	@GetMapping("/ozt/sdivi")
-	public ResponseEntity<List<Divs>> getDiv(Divs divs){
-		
-		List<Divs> division = divsService.getDiv(divs);
-		System.out.println(division);
-		return new ResponseEntity<List<Divs>>(division, HttpStatus.OK);
-	}
-	
-//	@GetMapping("/ozt/scodi")
-//	public Divs getCoCd(@RequestParam int divCd){
+//	@GetMapping("/ozt/sdiv")
+//	public ResponseEntity<List<Divs>> getDiv(Divs divs){
 //		
-//		Divs coCd = divsService.getCoCd(divCd);
-//		System.out.println(coCd);
-//		return coCd;
+//		List<Divs> division = divsService.getDiv(divs);
+//		System.out.println(division);
+//		return new ResponseEntity<List<Divs>>(division, HttpStatus.OK);
 //	}
 	
-	@DeleteMapping("/ozt/ddiv")
+	@DeleteMapping("/div")
 	public ResponseEntity<List<Divs>> deleteDivs(@RequestParam String divCd) {  
 //		System.out.println(divs.getDivCd());
 		divsService.deleteDivs(divCd);
 		
 //		Integer coCd = divsService.getCoCd(divCd);
 //		System.out.println(coCd);
-		List<Divs> divsList = divsService.getDivision("coCd");
+		List<Divs> divsList = divsService.getDivision(new Divs());
 		return new ResponseEntity<List<Divs>>(divsList, HttpStatus.OK);
 	}
 	
-	@PutMapping("/ozt/udiv")
+	@PutMapping("/div")
 	public ResponseEntity<List<Divs>> updateDivs(@RequestBody Divs divs){
 //		System.out.println(divs.getCoCd());
 //		System.out.println(divs.toString());
 		
 		divsService.updateDivs(divs);
 		
-		List<Divs> divsList = divsService.getDivision("coCd");
+		List<Divs> divsList = divsService.getDivision(new Divs());
 		return new ResponseEntity<List<Divs>>(divsList, HttpStatus.OK);
 	}
 	

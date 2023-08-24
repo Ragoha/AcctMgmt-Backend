@@ -15,9 +15,9 @@ public class CoServiceImpl implements CoService{
 	private final CoMapper coMapper;
 
 	@Override
-	public List<Co> getCoList() {
+	public List<Co> getCoList(Co co) {
 		
-		List<Co> coList = coMapper.getCoList();
+		List<Co> coList = coMapper.getCoList(co);
 		return coList;
 	}
 

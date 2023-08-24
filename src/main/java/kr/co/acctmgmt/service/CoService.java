@@ -8,7 +8,7 @@ import kr.co.acctmgmt.domain.Co;
 
 public interface CoService {
 
-	public List<Co> getCoList();
+	public List<Co> getCoList(Co co);
 	
 	public void insertCo(Co co);
 	
