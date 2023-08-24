@@ -19,20 +19,8 @@ public class DeptServiceImpl implements DeptService{
 	private final DivsMapper divsMapper;
 	
 	@Override
-	public List<Dept> getDept(String coCd) {
-		List<Dept> department = deptMapper.getDept(coCd);
-		return department;
-	}
-
-	@Override
-	public List<Dept> getDeptList() {
-		List<Dept> deptList = deptMapper.getDeptList();
-		return deptList;
-	}
-
-	@Override
-	public List<Dept> getDepartment(String deptCd) {
-		List<Dept> department = deptMapper.getDepartment(deptCd);
+	public List<Dept> getDepartment(Dept dept) {
+		List<Dept> department = deptMapper.getDepartment(dept);
 		return department;
 	}
 
@@ -43,8 +31,8 @@ public class DeptServiceImpl implements DeptService{
 	}
 
 	@Override
-	public void deleteDept(String deptCd) {
-		deptMapper.deleteDept(deptCd);
+	public void deleteDept(Dept dept) {
+		deptMapper.deleteDept(dept);
 		
 	}
 
@@ -61,34 +49,40 @@ public class DeptServiceImpl implements DeptService{
 	}
 
 	@Override
-	public List<Dept> getDivCo(String coCd) {
-		List<Dept> department = deptMapper.getDivCo(coCd);
-		return department;
-	}
-
-	@Override
 	public List<Dept> getDivsDept(String divCd) {
 		List<Dept> department = deptMapper.getDivsDept(divCd);
 		return department;
 	}
 
 	@Override
-	public List<Dept> findDeptByCoCd(String coCd) {
+	public List<Dept> findDeptByCoCd(Dept dept) {
 		
-		List<Divs> rDivsList = divsMapper.findDivByCoCd(coCd);
+		List<Divs> rDivsList = divsMapper.findDivByCoCd(
+				Divs.builder()
+				.coCd(dept.getCoCd())
+				.build()
+				);
+		
+		
 		
 		List<Dept> fDeptList = new ArrayList<Dept>(); 
 		
+		System.out.println(fDeptList.size());
+		
+		if(dept.getDeptCd() == null) {
 		rDivsList.forEach(rDivs -> {
 			
 			System.out.println(rDivs.getDivCd());
 			
-			Dept dept = Dept.builder()
-					.coCd(coCd)
+			Dept ndept = Dept.builder()
+					.coCd(rDivs.getCoCd())
 					.divCd(rDivs.getDivCd())
+//					.deptCd(dept.getDeptCd())
 					.build();
 			
-			List<Dept> rDeptList = deptMapper.findDeptByCoCd(dept);
+			System.out.println(ndept.toString());
+			
+			List<Dept> rDeptList = deptMapper.findDeptByCoCd(ndept);
 			System.out.println("rDeptList.forEach(rDept):");
 			rDeptList.forEach(rDept -> {
 				System.out.println("rDept"+rDept.toString());
@@ -101,6 +95,13 @@ public class DeptServiceImpl implements DeptService{
 		System.out.println(fDeptList.toString());
 		System.out.println("==============");
 		return fDeptList;
+		}else {
+			List<Dept> rDeptList = deptMapper.findDeptByCoCd(dept);
+			System.out.println("단일 조회");
+			System.out.println(rDeptList.toString());
+			
+			return rDeptList;
+		}
 	}
 
 	@Override

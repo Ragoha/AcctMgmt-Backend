@@ -35,6 +35,6 @@ public class Divs {
 	private Date modifyDt = new Date();  //수정일
 	private String modifyIp;  //수정 ip
 	
-	
+	private String coNm;
 	private String keyword;
 }

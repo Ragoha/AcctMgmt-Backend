@@ -24,13 +24,21 @@ public class CoController {
 
 	private final CoService coService;
 	
-	@GetMapping("/ozt/co")
-	public ResponseEntity<List<Co>> getCoList() {
-		List<Co> coList = coService.getCoList();
+	@GetMapping("/co")
+	public ResponseEntity<List<Co>> getCoList(Co co) {
+		List<Co> coList = coService.getCoList(co);
 	
 //		System.out.println(coList.toString());
 		return new ResponseEntity<List<Co>>(coList, HttpStatus.OK);
 	}
+	
+//	@GetMapping("/ozt/scom")
+//	public ResponseEntity<List<Co>> getCompany(Co co){
+//		
+//		List<Co> scompany = coService.getCoList(co);
+//		System.out.println(scompany);
+//		return new ResponseEntity<List<Co>>(scompany, HttpStatus.OK);
+//	}
 	
 	@GetMapping("/ozt/sco")
 	public ResponseEntity<Co> getCo(@RequestParam String coCd){
@@ -40,38 +48,32 @@ public class CoController {
 		return new ResponseEntity<Co>(sco, HttpStatus.OK);
 	}
 	
-	@GetMapping("/ozt/scom")
-	public ResponseEntity<List<Co>> getCompany(@RequestParam String coCd){
-		
-		List<Co> scompany = coService.getCompany(coCd);
-		System.out.println(scompany);
-		return new ResponseEntity<List<Co>>(scompany, HttpStatus.OK);
-	}
+
 	
-	@PostMapping("/ozt/ico")
+	@PostMapping("/co")
 	public ResponseEntity<List<Co>> insertCo(@RequestBody Co co) {
 		coService.insertCo(co);
 		System.out.println(co);
 		
-		List<Co> coList = coService.getCoList();
+		List<Co> coList = coService.getCoList(new Co());
 		return new ResponseEntity<List<Co>>(coList, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/ozt/dco")
+	@DeleteMapping("/co")
 	public ResponseEntity<List<Co>> deleteCo(@RequestParam String coCd) {
 //		System.out.println(co.getCoCd());
 		coService.deleteCo(coCd);
-		List<Co> coList = coService.getCoList();
+		List<Co> coList = coService.getCoList(new Co());
 		return new ResponseEntity<List<Co>>(coList, HttpStatus.OK);
 	}
 	
-	@PutMapping("/ozt/uco")
+	@PutMapping("/co")
 	public ResponseEntity<List<Co>> updateCo(@RequestBody Co co){
 		System.out.println(co.getCoCd());
 		System.out.println(co.toString());
 		
 		coService.updateCo(co);
-		List<Co> coList = coService.getCoList();
+		List<Co> coList = coService.getCoList(new Co());
 		return new ResponseEntity<List<Co>>(coList, HttpStatus.OK);
 	}
 	
