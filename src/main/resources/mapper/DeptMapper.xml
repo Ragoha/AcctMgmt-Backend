@@ -2,20 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.acctmgmt.mapper.DeptMapper">
 
-	<select id="getDeptList" resultType="Dept">
-		SELECT * FROM DEPT;
+	<select id="getDivDept">
+		SELECT *
+		FROM DIVS
+		LEFT JOIN DEPT ON DIVS.CO_CD = DEPT.CO_CD AND DIVS.DIV_CD = DEPT.DIV_CD
+		WHERE DIVS.CO_CD = #{coCd} 
+		ORDER BY INSERT_DT ASC;
+	</select>
+	
+ 	<select id="findDeptByCoCd" parameterType="Dept" resultType="Dept">
+		SELECT DIVS.CO_CD, DIVS.DIV_CD, DIVS.DIV_NM, DEPT.DEPT_NM, DEPT.DEPT_CD,DEPT.DEPT_ZIP,DEPT.DEPT_ADDR,DEPT.DEPT_ADDR1,DEPT.INSERT_DT
+		FROM DEPT
+		JOIN DIVS ON DIVS.CO_CD = DEPT.CO_CD 
+			AND 
+			DIVS.DIV_CD = DEPT.DIV_CD
+		WHERE dept.CO_CD = #{coCd} 
+		<if test="divCd != null and divCd != ''">
+			AND DIVS.DIV_CD = #{divCd} 
+		</if>
+		<if test="deptCd != null and deptCd != ''">
+			AND DEPT_CD = #{deptCd}
+		</if>
+			
+		ORDER BY INSERT_DT ASC;
 	</select>
 
-	<select id="getDept" parameterType="String" resultType="Dept">
-		SELECT
-		CO_CD, DIV_CD, DEPT_CD, DEPT_NM, DEPT_ZIP, DEPT_ADDR,
-		DEPT_ADDR1 FROM
-		DEPT WHERE CO_CD = #{coCd};
-	</select>
-
-	<select id="getDepartment" parameterType="String" resultType="Dept">
-		SELECT CO_CD, DIV_CD, DEPT_CD, DEPT_NM, DEPT_ZIP, DEPT_ADDR,
-		DEPT_ADDR1 FROM DEPT WHERE DEPT_CD = #{deptCd};
+	<select id="getDepartment" parameterType="Dept" resultType="Dept">
+		SELECT CO_CD, DIV_CD, DEPT_CD, DEPT_NM, DEPT_ZIP, DEPT_ADDR, DEPT_ADDR1 
+		FROM DEPT 
+		WHERE CO_CD = #{coCd} AND DEPT_CD = #{deptCd};
 	</select>
 
 	<insert id="insertDept" parameterType="Dept">
@@ -28,7 +43,7 @@
 		#{deptAddr1}, #{insertId});
 	</insert>
 
-	<delete id="deleteDept" parameterType="String">
+	<delete id="deleteDept" parameterType="Dept">
 		DELETE from DEPT WHERE
 		DEPT_CD = #{deptCd};
 	</delete>
@@ -42,53 +57,19 @@
 		WHERE
 		DEPT_CD=#{deptCd}
 	</update>
-
-	<select id="getDivDept">
-		SELECT *
-		FROM DIVS
-		LEFT JOIN DEPT ON DIVS.CO_CD =
-		DEPT.CO_CD AND DIVS.DIV_CD = DEPT.DIV_CD
-		WHERE DIVS.CO_CD = #{coCd} ORDER BY INSERT_DT ASC;
-	</select>
-
-	<select id="getDivCo">
-		SELECT DISTINCT DIVS.co_cd, DIVS.div_cd
-		FROM DIVS
-		LEFT
-		JOIN DEPT ON DIVS.CO_CD = DEPT.CO_CD AND DIVS.DIV_CD = DEPT.DIV_CD
-		WHERE DIVS.CO_CD = #{coCd};
-	</select>
-
-
-	<select id="getDivsDept">
-		SELECT  DISTINCT DIVS.div_cd, dept.DEPT_CD
-		FROM DEPT
-		LEFT JOIN DIVS ON DIVS.CO_CD = DEPT.CO_CD AND DIVS.DIV_CD = DEPT.DIV_CD
-		WHERE DIVS.div_CD = #{divCd};
-	</select>
-	
- 	<select id="findDeptByCoCd" parameterType="Dept" resultType="Dept">
-		SELECT DIVS.CO_CD, DIVS.DIV_CD, DIVS.DIV_NM, DEPT.DEPT_NM, DEPT.DEPT_CD,DEPT.DEPT_ZIP,DEPT.DEPT_ADDR,DEPT.DEPT_ADDR1,DEPT.INSERT_DT
-		FROM DEPT
-		JOIN DIVS ON DIVS.CO_CD = DEPT.CO_CD 
-			AND 
-			DIVS.DIV_CD = DEPT.DIV_CD
-		WHERE dept.CO_CD = #{coCd} 
-			AND 
-			DIVS.DIV_CD = #{divCd} ORDER BY INSERT_DT ASC;
-	</select>
-	
 	
 	<select id="getDeptBydeptCdAnddeptNm" parameterType="Dept"
 		resultType="Dept">
 		SELECT DEPT_CD, DEPT_NM
 		FROM DEPT
 		WHERE CO_CD = #{coCd}
+		<if test="keyword != null and keyword != ''">
 			AND (
 				DEPT_CD LIKE CONCAT('%', #{keyword}, '%')
 				OR
 				DEPT_NM LIKE CONCAT('%', #{keyword}, '%')
 				);
+		</if>
 	</select>
 
 </mapper>
