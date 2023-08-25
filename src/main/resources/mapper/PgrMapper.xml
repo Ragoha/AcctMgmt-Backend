@@ -21,4 +21,21 @@
 		DELETE FROM PGR WHERE CO_CD = #{coCd} AND PGR_CD = #{pgrCd}
 	</delete>
 	
+	<select id="findPgrByNm" parameterType="Pgr" resultType="String">
+		SELECT PGR_NM FROM PGR WHERE CO_CD = #{coCd} AND PGR_CD = #{pgrCd}
+	</select>
+	
+	<select id="getPgrBy" parameterType="Pgr" resultType="Pgr">
+	 SELECT pgr_CD, pgr_NM 
+	    FROM PGR
+	    WHERE CO_CD = #{coCd} 
+	    <if test="keyword != null and keyword != ''">
+		    AND (
+		        pgr_CD LIKE CONCAT('%', #{keyword}, '%')
+		        OR
+		        pgr_NM LIKE CONCAT('%', #{keyword}, '%')
+	        );
+        </if>
+	</select>
+
 </mapper>
