@@ -16,6 +16,8 @@ import lombok.ToString;
 public class Pgr {
 
 	String coCd;
-	String PgrCd;
-	String PgrNm;
+	String pgrCd;
+	String pgrNm;
+    private String keyword;
+
 }

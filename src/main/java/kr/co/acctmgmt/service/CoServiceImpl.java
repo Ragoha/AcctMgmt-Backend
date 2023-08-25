@@ -15,9 +15,9 @@ public class CoServiceImpl implements CoService{
 	private final CoMapper coMapper;
 
 	@Override
-	public List<Co> getCoList() {
+	public List<Co> getCoList(Co co) {
 		
-		List<Co> coList = coMapper.getCoList();
+		List<Co> coList = coMapper.getCoList(co);
 		return coList;
 	}
 
@@ -33,8 +33,8 @@ public class CoServiceImpl implements CoService{
 	}
 
 	@Override
-	public void deleteCo(String coCd) {
-		coMapper.deleteCo(coCd);
+	public void deleteCo(Co co) {
+		coMapper.deleteCo(co);
 		
 	}
 
@@ -45,8 +45,8 @@ public class CoServiceImpl implements CoService{
 	}
 
 	@Override
-	public List<Co> getCoBycoCdAndcoNm(String keyword) {
-		List<Co> searchCo = coMapper.getCoBycoCdAndcoNm(keyword);
+	public List<Co> getCoBycoCdAndcoNm(Co co) {
+		List<Co> searchCo = coMapper.getCoBycoCdAndcoNm(co);
 		return searchCo;
 	}
 

@@ -8,7 +8,7 @@ import kr.co.acctmgmt.domain.Co;
 
 public interface CoService {
 
-	public List<Co> getCoList();
+	public List<Co> getCoList(Co co);
 	
 	public void insertCo(Co co);
 	
@@ -16,11 +16,11 @@ public interface CoService {
 	
 	public List<Co> getCompany(String coCd);
 	
-	public void deleteCo(String coCd);
+	public void deleteCo(Co co);
 	
 	public void updateCo(Co co);
 	
 	public List<Co> getCoNm(String coNm);
 	
-	public List<Co> getCoBycoCdAndcoNm(String keyword);
+	public List<Co> getCoBycoCdAndcoNm(Co co);
 }

@@ -2,7 +2,6 @@ package kr.co.acctmgmt.service;
 
 import java.util.List;
 
-import org.apache.catalina.mapper.Mapper;
 import org.springframework.stereotype.Service;
 
 import kr.co.acctmgmt.converter.BgtGrConverter;
