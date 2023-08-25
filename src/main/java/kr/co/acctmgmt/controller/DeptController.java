@@ -74,6 +74,8 @@ public class DeptController {
 	public ResponseEntity<List<Dept>> getDeptBydeptCdAnddeptNm(Dept dept){
 		
 		List<Dept> searchDept = deptService.getDeptBydeptCdAnddeptNm(dept);
+		
+		System.out.println(searchDept);
 		return new ResponseEntity<List<Dept>>(searchDept, HttpStatus.OK);
 	}
 	
@@ -81,6 +83,8 @@ public class DeptController {
 	public ResponseEntity<List<Dept>> getDeptBydeptCdAnddeptNm2(Dept dept){
 		
 		List<Dept> searchDept = deptService.getDeptBydeptCdAnddeptNm(dept);
+		
+		System.out.println(searchDept);
 		return new ResponseEntity<List<Dept>>(searchDept, HttpStatus.OK);
 	}
 
