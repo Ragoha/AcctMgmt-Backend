@@ -70,7 +70,7 @@ public class UserAPI {
 				.empCd(generateMemberCode(Integer.parseInt(user.getCoCd()))).build());
 	}
 
-	@GetMapping("/emp/idcheck/{checkId}")
+	@GetMapping("/emp/id/{checkId}")
 	public ResponseEntity<String> idCheck(@PathVariable String checkId) {
 		System.out.println(checkId);
 		String id = checkId;
