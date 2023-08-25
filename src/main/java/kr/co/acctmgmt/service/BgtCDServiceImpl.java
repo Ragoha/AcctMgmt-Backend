@@ -65,10 +65,10 @@ public class BgtCDServiceImpl implements BgtCDService {
 				String[] tempList = tempDataPath.split(",");// --> 만약 B002다
 				// 여기서 할건 부모의 정보로 장 관 항 세 목 정하기
 				for (int p = 0; p < tempList.length; p++) { // B002의 .. B003의 ...
-//System.out.println("tempList?" + tempList[p]);
+System.out.println("tempList?" + tempList[p]);
 					BgtCD initRow = mapper.getBgtCDDataForPath(coCd,gisu,groupcd,tempList[p]); // -->B002의 정보//cocd,gisu,groupcd,bgtCd
-//System.out.println("initRow?");
-//System.out.println(initRow.toString());
+System.out.println("initRow?");
+System.out.println(initRow.toString());
 //					System.out.println("divFg는?:" + initRow.getDivFg());
 					String divFgNm = initRow.getDivFg(); // Bgt_Cd Term에서 가져온 값.
 //					System.out.println("pathPiece :          ->" + divFgNm);
@@ -649,7 +649,9 @@ public class BgtCDServiceImpl implements BgtCDService {
 			bgtcd = mapper.getSearchData(coCd, gisu, groupCd, keyword);
 		}  
 		if(keyword==null || keyword ==""){
-			System.out.println("keyword null이거나 공백일때 getBGTCDdata를하고 return함. 아래는 그 값. ");
+			System.out.println("keyword null이거나 공백일때 getSearchData를하고 return함. 아래는 그 값. ");
+			System.out.println("keyword null이거나 공백일때 getSearchData를하고 return함. 아래는 그 값. ");
+			System.out.println("keeeeeeeeee"+coCd+"/"+gisu+"/"+groupCd+"/"+keyword);
 			String[] a = groupCd.split("\\.");
 			groupCd = a[0];
 //			System.out.println("coCd: "+ coCd + "/gisu: "+gisu+"groupCd :"+groupCd);
@@ -752,8 +754,8 @@ public class BgtCDServiceImpl implements BgtCDService {
 		return mapper.getBgtGrSearch(coCd, keyword);
 	}
 	@Override
-	public void updateBgtNm(String coCd, String bgtCd, String bgtNm) {
-		mapper.updateBgtNm(coCd,bgtCd,bgtNm);
+	public void updateBgtNm(BgtCD bgtCD) {
+		mapper.updateBgtNm(bgtCD);
 		
 	}
 	@Override
