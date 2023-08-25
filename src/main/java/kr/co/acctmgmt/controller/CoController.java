@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -59,31 +60,42 @@ public class CoController {
 		return new ResponseEntity<List<Co>>(coList, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/co")
-	public ResponseEntity<List<Co>> deleteCo(@RequestParam String coCd) {
+	@DeleteMapping("/co/{coCd}")
+	public ResponseEntity<List<Co>> deleteCo(Co co) {
 //		System.out.println(co.getCoCd());
-		coService.deleteCo(coCd);
+		coService.deleteCo(co);
 		List<Co> coList = coService.getCoList(new Co());
 		return new ResponseEntity<List<Co>>(coList, HttpStatus.OK);
 	}
 	
-	@PutMapping("/co")
-	public ResponseEntity<List<Co>> updateCo(@RequestBody Co co){
+	@PutMapping("/co/{coCd}")
+	public ResponseEntity<List<Co>> updateCo(@PathVariable("coCd") String coCd, @RequestBody Co co){
 		System.out.println(co.getCoCd());
 		System.out.println(co.toString());
+		
+		co.setCoCd(coCd);
 		
 		coService.updateCo(co);
 		List<Co> coList = coService.getCoList(new Co());
 		return new ResponseEntity<List<Co>>(coList, HttpStatus.OK);
 	}
 	
-	@GetMapping("/ozt/co/search")
-	public ResponseEntity<List<Co>> getCoBycoCdAndcoNm(@RequestParam String keyword){
+	@GetMapping("/dialog/co/{keyword}")
+	public ResponseEntity<List<Co>> getCoBycoCdAndcoNm1(Co co){
 		
-		List<Co> searchCo = coService.getCoBycoCdAndcoNm(keyword);
+		List<Co> searchCo = coService.getCoBycoCdAndcoNm(co);
 		System.out.println(searchCo);
 		return new ResponseEntity<List<Co>>(searchCo, HttpStatus.OK);
 	}
+	
+	@GetMapping("/dialog/co")
+	public ResponseEntity<List<Co>> getCoBycoCdAndcoNm2(Co co){
+		
+		List<Co> searchCo = coService.getCoBycoCdAndcoNm(co);
+		System.out.println(searchCo);
+		return new ResponseEntity<List<Co>>(searchCo, HttpStatus.OK);
+	}
+	
 	
 	@GetMapping("/ozt/sconm")
 	public ResponseEntity<List<Co>> getCoNm(@RequestParam String coNm){

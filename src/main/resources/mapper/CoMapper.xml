@@ -36,7 +36,7 @@
 		WHERE CO_CD=#{coCd}
 	</update>
 	
-	<delete id="deleteCo" parameterType="String" >
+	<delete id="deleteCo" parameterType="Co" >
 		DELETE from co WHERE CO_CD = #{coCd}; 
 	</delete>
 	
@@ -47,11 +47,13 @@
 	<select id="getCoBycoCdAndcoNm" parameterType="Co" resultType="Co">
 	 SELECT CO_CD, CO_NM 
 	    FROM CO
+   		<if test="keyword != null and keyword != ''">
 	    WHERE (
 	            CO_CD LIKE CONCAT('%', #{keyword}, '%')
 	            OR
 	            CO_NM LIKE CONCAT('%', #{keyword}, '%')
 	        );
+        </if>
 	</select>
 
 </mapper>
