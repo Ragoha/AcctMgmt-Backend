@@ -73,7 +73,14 @@ public class BgtGrServiceImpl implements BgtGrService {
 		
 		String tBgtCd = bgtGrMapper.getMaxBgtCd(coCd); //현재 BGTCD 테이블의 값중 가장 큰 값 ex) 61110000
 //		
-		int value = Integer.parseInt(tBgtCd);
+	System.out.println("tbgtcd");
+	System.out.println(tBgtCd);
+		int value = 0;
+		if(tBgtCd ==null) {
+			value = 10000000;
+		}else {
+			 value = Integer.parseInt(tBgtCd);
+		}
 		int suip= ((value/10000000)+1)*10000000;
 		int suchul = ((value/10000000)+2)*10000000;
 		
@@ -98,7 +105,6 @@ public class BgtGrServiceImpl implements BgtGrService {
 		bgtCdInfo.setBgtCd(Integer.toString(suchul));
 		bgtCdInfo.setGrFg("1");
 		bgtGrMapper.initBgtCd(bgtCdInfo);
-
 		System.out.println("3...............................");
 	}
 

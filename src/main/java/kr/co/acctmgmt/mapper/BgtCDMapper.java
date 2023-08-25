@@ -80,7 +80,7 @@ public interface BgtCDMapper {
 
 	public List<BgtGr> getinitBgtGrSearch(@Param("coCd") String coCd,@Param("keyword") String keyword);
 
-	public void updateBgtNm(@Param("coCd") String coCd, @Param("bgtCd")String bgtCd, @Param("bgtNm") String bgtNm);
+	public void updateBgtNm(BgtCD bgtcd);//@Param("coCd") String coCd, @Param("bgtCd")String bgtCd, @Param("bgtNm") String bgtNm
 
 	public List<BgtCD> checkTopData(@Param("coCd") String coCd,@Param("gisu") String gisu,@Param("grFg") String grFg);
 
