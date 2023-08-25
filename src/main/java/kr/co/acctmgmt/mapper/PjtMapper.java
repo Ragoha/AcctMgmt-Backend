@@ -21,13 +21,9 @@ public interface PjtMapper {
 
 	public void updatePjt(@Param("pjt") Pjt pjt, @Param("coCd") String coCd);
 
-	public List<Pjt> getSelPjtList(@Param("pjtCd") String pjtCd, @Param("coCd") String coCd);
+	public List<Pjt> getSelPjtList(Pjt pjt);
 	
 	public List<Pjt> getSelPgrList(@Param("pgrCd") String pgrCd, @Param("coCd") String coCd);
-	
-	public List<Pjt> getPjtBy(@Param("keyword")String keyword, @Param("coCd")String coCd);
-
-	public List<Pjt> getPgrBy(@Param("keyword")String keyword, @Param("coCd")String coCd);
 	
 	public List<Pjt> selPjtBy(@Param("pjt") Pjt pjt);
 	
@@ -39,6 +35,8 @@ public interface PjtMapper {
     
     //getGroupPjt
 	public List<Pjt> getGroupPjt(@Param("pjt") Pjt pjt);
+
+	public List<Pjt> getPjtBy(Pjt pjt);
 
 
 }

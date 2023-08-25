@@ -15,13 +15,12 @@
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(locations = { "classpath:applicationContext.xml" })
 //public class DivsMapperTest {
-
 //	@Autowired
 //	private DivsMapper divsMapper;
-	
+//	
 //	@Autowired DeptMapper deptMapper;
-	
-//	@Test
+//	
+////	@Test
 //	public void findDivsByCoCdAndKeywordTest() {
 //		
 //		Divs divs1 = Divs.builder()
@@ -30,7 +29,7 @@
 //		
 //		Divs divs2 = Divs.builder()
 //				.coCd("1")
-//				.keyword("·ì1")
+//				.keyword("Â·Ã¬1")
 //				.build();
 //		
 //		
@@ -40,14 +39,14 @@
 //		System.out.println(divsList1);
 //		System.out.println();
 //		System.out.println(divsList2);
-		
-		
-		
+//		
+//		
+//		
 //	}
-	
+//	
 //	@Test
 //	public void findDivsByCoCdTest() {
-		
+//		
 //		List<Divs> rDivsList = divsMapper.findDivByCoCd("1000");
 //		
 //		rDivsList.forEach(rDivs -> {

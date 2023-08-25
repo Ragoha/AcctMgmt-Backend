@@ -67,19 +67,6 @@
 	        );
 	</select>
 	
-	<select id="getPgrBy" parameterType="Pjt" resultType="Pjt">
-	 SELECT pgr_CD, pgr_NM 
-	    FROM PGR
-	    WHERE CO_CD = #{coCd} 
-	    AND
-           (
-           pgr_CD LIKE CONCAT('%', #{keyword}, '%')
-           OR
-           pgr_NM LIKE CONCAT('%', #{keyword}, '%')
-           
-	        );
-	</select>
-	
 	<select id="selPjtBy" parameterType="Pjt" resultType="Pjt">
 	 SELECT *
 	    FROM PJT
@@ -94,12 +81,14 @@
 	<select id="getPjtBy" parameterType="Pjt" resultType="Pjt">
 	 SELECT pjt_CD, pjt_NM 
 	    FROM PJT
-	    WHERE CO_CD = #{coCd} AND (
-	            pjt_CD LIKE CONCAT('%', #{keyword}, '%')
-	            OR
-	            pjt_NM LIKE CONCAT('%', #{keyword}, '%')
-	            
+	    WHERE CO_CD = #{coCd} 
+	    <if test="keyword != null and keyword != ''">
+		    AND (
+		        pjt_CD LIKE CONCAT('%', #{keyword}, '%')
+		        OR
+		        pjt_NM LIKE CONCAT('%', #{keyword}, '%')
 	        );
+        </if>
 	</select>
 
 
@@ -132,7 +121,7 @@
 		</if>
 		<if test="pjt.prDt != null">
 		    AND pr_DT >= #{pjt.prDt}
-		</if>      
+		</if>
 		ORDER BY insert_DT DESC, pjt_CD DESC 	
 	</select>
 	

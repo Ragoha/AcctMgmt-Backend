@@ -23,14 +23,12 @@ public interface PjtService {
 
 	public void updatePjt(Pjt pjt, String coCd);
 
-	public List<Pjt> getSelPjtList(String pjtCd, String coCd);
+	public List<Pjt> getSelPjtList(Pjt pjt);
 	
 	public List<Pjt> getSelPgrList(@Param("pgrCd") String pgrCd, @Param("coCd") String coCd);
 	
-	public List<Pjt> getPjtBy(@Param("keyword")String keyword, @Param("coCd") String coCd);
-	
-	public List<Pjt> getPgrtBy(@Param("keyword")String keyword, @Param("coCd")String coCd);
-	
+	public List<Pjt> getPjtBy(Pjt pjt);
+		
 	public List<PjtDTO> findPjtByCoCdAndKeyword(PjtDTO pjtDTO);
 
 	public List<Pjt> selPjtBy(@Param("pjt") Pjt pjt);
