@@ -41,8 +41,11 @@
 		WHERE DIVS.CO_CD= #{coCd} AND DIVS.DIV_CD = #{divCd};
 	</select>
 
-	<delete id="deleteDivs" parameterType="String">
-		DELETE from DIVS WHERE
+	<delete id="deleteDivs" parameterType="Divs">
+		DELETE from DIVS 
+		WHERE
+		CO_CD = #{coCd} 
+		AND
 		DIV_CD = #{divCd};
 	</delete>
 
@@ -55,7 +58,10 @@
 		DIV_ADDR = #{divAddr}, DIV_ADDR1 = #{divAddr1}, MODIFY_ID =
 		#{modifyId}
 		WHERE
+		CO_CD = #{coCd}
+		AND
 		DIV_CD=#{divCd}
+		
 	</update>
 
 	<insert id="insertDivs" parameterType="Divs">

@@ -44,8 +44,8 @@ public class DivsServiceImpl implements DivsService{
 	}
 
 	@Override
-	public void deleteDivs(String divCd) {
-		divsMapper.deleteDivs(divCd);
+	public void deleteDivs(Divs divs) {
+		divsMapper.deleteDivs(divs);
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package kr.co.acctmgmt.service;
 
 import java.util.List;
 
+import kr.co.acctmgmt.domain.Co;
 import kr.co.acctmgmt.domain.Dept;
 import kr.co.acctmgmt.domain.Divs;
 import kr.co.acctmgmt.dto.DivsDTO;
@@ -18,7 +19,7 @@ public interface DivsService {
 	
 	public List<Divs> getDiv(Divs divs);
 	
-	public void deleteDivs(String divCd);
+	public void deleteDivs(Divs divs);
 	
 	public void updateDivs(Divs divs);
 	
