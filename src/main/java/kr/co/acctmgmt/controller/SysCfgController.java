@@ -28,10 +28,6 @@ public class SysCfgController {
 	@PostMapping("/config/{option}/{optionValue}/{settingvalue}/{coCd}")
 	public ResponseEntity<String> configCheck(@PathVariable("option") String option,
 			@PathVariable("optionValue") String optionValue, @PathVariable("settingvalue") String settingvalue, @PathVariable("coCd") String coCd) {
-		System.out.println("옵션 명 : " + option);
-		System.out.println("설정 값 : " + optionValue);
-		System.out.println("설정 값 명:" + settingvalue);
-		System.out.println("회사코드 : " + coCd);
 		
 		SysCfg sys = sysCfg.getConfig(coCd, option);
 		sys.setSysYn(optionValue);
@@ -46,20 +42,15 @@ public class SysCfgController {
 		System.out.println("##############################################");
 		System.out.println(sys.toString());
 		System.out.println("##############################################");
-
-		// option 변수를 이용하여 해당 설정에 대한 처리를 수행합니다.
-		// 처리 작업을 수행하고 결과를 ResponseEntity에 담아서 반환합니다.
-		return ResponseEntity.ok("회사코드 : "+coCd+"옵션 명 : " + option + ", 설정 값 : " + optionValue);
+		
+		return ResponseEntity.ok("회占쏙옙占쌘듸옙 : "+coCd+"占심쇽옙 占쏙옙 : " + option + ", 占쏙옙占쏙옙 占쏙옙 : " + optionValue);
 	}
 
-	@PostMapping("/config/{coCd}")
+	@GetMapping("/config/{coCd}")
 	public ResponseEntity<String> config(@PathVariable("coCd") String coCd) {
-		System.out.println("회사코드잘 받았니? : " + coCd);
 		List<SysCfg> sys = sysCfg.getConfigList(coCd);
-		System.out.println("잘 찾았니?" + sys);
 		
 		Co co = coService.getCo(coCd);
-		System.out.println("회사명 갖고오기:"+co.getCoNm());
 		
 		
 		return ResponseEntity.ok(co.getCoNm());
@@ -69,7 +60,6 @@ public class SysCfgController {
 	@GetMapping("/configdate/{coCd}")
 	public ResponseEntity<List> configData(@PathVariable("coCd") String coCd){
 		
-		System.out.println("설정 값 갖고오기");
 		List<SysCfg> sys = sysCfg.getConfigList(coCd);
 		System.out.println(sys.toString());
 		return ResponseEntity.ok(sys);
