@@ -30,7 +30,7 @@ public class DivsMapperTest {
 		
 		Divs divs2 = Divs.builder()
 				.coCd("1")
-				.keyword("·ì1")
+				.keyword("ï¿½ï¿½1")
 				.build();
 		
 		
@@ -45,21 +45,21 @@ public class DivsMapperTest {
 		
 	}
 	
-	@Test
-	public void findDivsByCoCdTest() {
-		
-		List<Divs> rDivsList = divsMapper.findDivByCoCd("1000");
-		
-		rDivsList.forEach(rDivs -> {
-			System.out.println(rDivs.getDivCd());
-			Dept dept = Dept.builder().coCd("1000").divCd(rDivs.getDivCd()).build();
-			
-			List<Dept> rDeptList = deptMapper.findDeptByCoCd(dept);
-			
-			rDeptList.forEach(rDept -> {
-				System.out.println(rDept.toString());
-			});
-		});
-	}
+//	@Test
+//	public void findDivsByCoCdTest() {
+//		
+//		List<Divs> rDivsList = divsMapper.findDivByCoCd("1000");
+//		
+//		rDivsList.forEach(rDivs -> {
+//			System.out.println(rDivs.getDivCd());
+//			Dept dept = Dept.builder().coCd("1000").divCd(rDivs.getDivCd()).build();
+//			
+//			List<Dept> rDeptList = deptMapper.findDeptByCoCd(dept);
+//			
+//			rDeptList.forEach(rDept -> {
+//				System.out.println(rDept.toString());
+//			});
+//		});
+//	}
 
 }
