@@ -11,10 +11,7 @@
 		ORDER BY INSERT_DT ASC;
 	</select>
 	
-	<select id="getCompany" parameterType="String" resultType="Co">
-		SELECT CO_CD, CO_NM, GISU, FR_DT, TO_DT, JONGMOK, BUSINESS_TYPE, CO_NB, CEO_NM, CO_ZIP, CO_ADDR, CO_ADDR1
-		FROM CO WHERE CO_CD = #{coCd};
-	</select>
+
 
 	<select id="getCo" parameterType="String" resultType="Co">
 		SELECT CO_CD, CO_NM, GISU, FR_DT, TO_DT, JONGMOK, BUSINESS_TYPE, CO_NB, CEO_NM, CO_ZIP, CO_ADDR, CO_ADDR1
