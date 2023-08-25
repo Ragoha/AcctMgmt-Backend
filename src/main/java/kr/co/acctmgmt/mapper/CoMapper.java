@@ -18,11 +18,11 @@ public interface CoMapper {
 	
 	public int getNum(); //안쓸 것 같음 지우자!
 	
-	public void deleteCo(String coCd);
+	public void deleteCo(Co co);
 	
 	public void updateCo(Co co);
 	
 	public List<Co> getCoNm(String coNm);
 	
-	public List<Co> getCoBycoCdAndcoNm(String keyword);
+	public List<Co> getCoBycoCdAndcoNm(Co co);
 }

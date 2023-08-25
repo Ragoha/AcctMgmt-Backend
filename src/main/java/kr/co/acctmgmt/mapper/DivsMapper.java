@@ -17,7 +17,7 @@ public interface DivsMapper {
 	
 	public List<Divs> getDiv(Divs divs);
 	
-	public void deleteDivs(String divCd);
+	public void deleteDivs(Divs divs);
 	
 	public void updateDivs(Divs divs);
 	

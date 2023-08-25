@@ -15,7 +15,6 @@
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(locations = { "classpath:applicationContext.xml" })
 //public class DivsMapperTest {
-//
 //	@Autowired
 //	private DivsMapper divsMapper;
 //	
@@ -30,7 +29,7 @@
 //		
 //		Divs divs2 = Divs.builder()
 //				.coCd("1")
-//				.keyword("·ì1")
+//				.keyword("Â·Ã¬1")
 //				.build();
 //		
 //		
