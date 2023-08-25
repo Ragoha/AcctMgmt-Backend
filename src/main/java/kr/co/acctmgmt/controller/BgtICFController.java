@@ -47,6 +47,8 @@ public class BgtICFController {
 	@GetMapping("/bgticf")
 	public ResponseEntity<List<BgtICFDTO>> getBgtICFList(BgtICFDTO bgtICFDTO) {
 		
+		System.out.println(bgtICFDTO.toString());
+		
 		List<BgtICFDTO> rBgtICFList = bgtICFService.getBgtICFList(bgtICFDTO);
         
 		return new ResponseEntity<List<BgtICFDTO>>(rBgtICFList, HttpStatus.OK); 
