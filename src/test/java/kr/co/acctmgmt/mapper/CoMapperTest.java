@@ -32,11 +32,11 @@ public class CoMapperTest {
 	}
 	
 //	@Test
-	public void deleteCo() {
-		int coCd = 2;
-		
-		coMapper.deleteCo("coCd");
-	}
+//	public void deleteCo() {
+//		int coCd = 2;
+//		
+//		coMapper.deleteCo("coCd");
+//	}
 	
 //	@Test
 //	public void updateCo() {
