@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Gisu {
 
-    private int coCd;
+    private String coCd;
     private int gisu;
     private Date frDt;
     private Date toDt;
