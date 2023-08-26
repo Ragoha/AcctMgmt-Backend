@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,7 +45,7 @@ public class BgtICFController {
 	private final GisuService gisuService;
 	private final PjtService pjtService;
 
-	@GetMapping("/bgticf")
+	@GetMapping("/bgticf/{coCd}/{bgtCd}")
 	public ResponseEntity<List<BgtICFDTO>> getBgtICFList(BgtICFDTO bgtICFDTO) {
 		
 		System.out.println(bgtICFDTO.toString());
@@ -76,9 +77,11 @@ public class BgtICFController {
 	}
 	
 	
-	@PutMapping("/bgticf")
-	public ResponseEntity<Void> updateBgtICF(@RequestBody BgtICFDTO bgtICFDTO){
+	@PutMapping("/bgticf/{coCd}/{bgtCd}")
+	public ResponseEntity<Void> updateBgtICF(@PathVariable("coCd") String coCd, @PathVariable("bgtCd") String bgtCd, @RequestBody BgtICFDTO bgtICFDTO){
 
+		bgtICFDTO.setCoCd(coCd);
+		bgtICFDTO.setBgtCd(bgtCd);
 		bgtICFService.updateBgtICF(bgtICFDTO);
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
