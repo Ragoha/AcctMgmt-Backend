@@ -22,13 +22,26 @@ public class BgtGrController {
 	
 	private final BgtGrService bgtGrService;
 	
-//	@GetMapping("/dialog/bgtgr/{coCd}")
-//	public ResponseEntity<List<BgtGrDTO>> findBgtGrByCoCd(BgtGrDTO bgtGrDTO){
-//		
-//		List<BgtGrDTO> rBgtGr = bgtGrService.findBgtGrByCoCd(bgtGrDTO);
-//		
-//		return new ResponseEntity<List<BgtGrDTO>>(rBgtGr, HttpStatus.OK);
-//	}
+	@GetMapping("/dialog/bgtgr/{coCd}")
+	public ResponseEntity<List<BgtGrDTO>> findBgtGrByCoCdAndKeyword1(BgtGrDTO bgtGrDTO) {
+		
+		System.out.println(bgtGrDTO.toString());
+		
+		List<BgtGrDTO> rBgtGrDTOList = bgtGrService.findBgtGrByCoCdAndKeyword(bgtGrDTO);
+
+		return new ResponseEntity<List<BgtGrDTO>>(rBgtGrDTOList, HttpStatus.OK);
+	}
+	
+	
+	@GetMapping("/dialog/bgtgr/{coCd}/{keyword}")
+	public ResponseEntity<List<BgtGrDTO>> findBgtGrByCoCdAndKeyword2(BgtGrDTO bgtGrDTO) {
+		
+		System.out.println(bgtGrDTO.toString());
+		
+		List<BgtGrDTO> rBgtGrDTOList = bgtGrService.findBgtGrByCoCdAndKeyword(bgtGrDTO);
+
+		return new ResponseEntity<List<BgtGrDTO>>(rBgtGrDTOList, HttpStatus.OK);
+	}
 	
 	@PostMapping("/dialog/bgtgr")
 	public ResponseEntity<Void> insertBgtGr(@RequestBody BgtGrDTO bgtGrDTO){

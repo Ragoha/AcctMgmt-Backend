@@ -100,26 +100,7 @@ public class BgtICFController {
 		return new ResponseEntity<List<DivsDTO>>(rDivsDTOList, HttpStatus.OK);
 	}
 	
-	@GetMapping("/dialog/bgtgr/{coCd}")
-	public ResponseEntity<List<BgtGrDTO>> findBgtGrByCoCdAndKeyword1(BgtGrDTO bgtGrDTO) {
-		
-		System.out.println(bgtGrDTO.toString());
-		
-		List<BgtGrDTO> rBgtGrDTOList = bgtGrService.findBgtGrByCoCdAndKeyword(bgtGrDTO);
 
-		return new ResponseEntity<List<BgtGrDTO>>(rBgtGrDTOList, HttpStatus.OK);
-	}
-	
-	
-	@GetMapping("/dialog/bgtgr/{coCd}/{keyword}")
-	public ResponseEntity<List<BgtGrDTO>> findBgtGrByCoCdAndKeyword2(BgtGrDTO bgtGrDTO) {
-		
-		System.out.println(bgtGrDTO.toString());
-		
-		List<BgtGrDTO> rBgtGrDTOList = bgtGrService.findBgtGrByCoCdAndKeyword(bgtGrDTO);
-
-		return new ResponseEntity<List<BgtGrDTO>>(rBgtGrDTOList, HttpStatus.OK);
-	}
 	
 	@GetMapping("/dialog/bgticf/bgtcd/{coCd}")
 	public ResponseEntity<List<BgtCDDTO>> findBgtCDByKeyword(BgtCDDTO bgtCDDTO){
