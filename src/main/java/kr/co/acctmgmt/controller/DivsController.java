@@ -93,12 +93,16 @@ public class DivsController {
 	@GetMapping("/dialog/div/{coCd}")
 	public ResponseEntity<List<Divs>> getDivBydivCdAnddivNm1(Divs divs){
 		
+		System.out.println(divs.toString());
+		
 		List<Divs> searchDiv = divsService.getDivBydivCdAnddivNm(divs);
 		System.out.println(searchDiv);
 		return new ResponseEntity<List<Divs>>(searchDiv, HttpStatus.OK);
 	}
 	@GetMapping("/dialog/div/{coCd}/{keyword}")
 	public ResponseEntity<List<Divs>> getDivBydivCdAnddivNm2(Divs divs){
+		
+		
 		
 		List<Divs> searchDiv = divsService.getDivBydivCdAnddivNm(divs);
 		System.out.println(searchDiv);
