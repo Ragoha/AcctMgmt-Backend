@@ -33,21 +33,21 @@ public class CoController {
 		return new ResponseEntity<List<Co>>(coList, HttpStatus.OK);
 	}
 	
-//	@GetMapping("/ozt/scom")
-//	public ResponseEntity<List<Co>> getCompany(Co co){
-//		
-//		List<Co> scompany = coService.getCoList(co);
-//		System.out.println(scompany);
-//		return new ResponseEntity<List<Co>>(scompany, HttpStatus.OK);
-//	}
-	
-	@GetMapping("/ozt/sco")
-	public ResponseEntity<Co> getCo(@RequestParam String coCd){
+	@GetMapping("/co/{coCd}")
+	public ResponseEntity<List<Co>> getCompany(Co co){
 		
-		Co sco = coService.getCo(coCd);
-		System.out.println(sco);
-		return new ResponseEntity<Co>(sco, HttpStatus.OK);
+		List<Co> scompany = coService.getCoList(co);
+		System.out.println(scompany);
+		return new ResponseEntity<List<Co>>(scompany, HttpStatus.OK);
 	}
+	
+//	@GetMapping("/ozt/sco")
+//	public ResponseEntity<Co> getCo(@RequestParam String coCd){
+//		
+//		Co sco = coService.getCo(coCd);
+//		System.out.println(sco);
+//		return new ResponseEntity<Co>(sco, HttpStatus.OK);
+//	}
 	
 
 	
