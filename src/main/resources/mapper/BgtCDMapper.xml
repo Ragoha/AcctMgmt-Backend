@@ -78,7 +78,9 @@
 		resultType="BgtCd">
 		SELECT * FROM bgtCD
 		WHERE CO_CD = #{coCd} 
+		<if test="keyword != null and keyword != ''">
 		AND (BGT_CD LIKE CONCAT('%', #{keyword}, '%') OR BGT_NM LIKE CONCAT('%', #{keyword}, '%'))
+		</if>
 	</select>
 	
 	
@@ -108,10 +110,13 @@
 		SELECT * FROM BGTGR
 		WHERE CO_CD=#{coCd} AND  BGTGR_CD LIKE CONCAT('%', #{keyword}, '%');
 	</select>
-	<select id="getbgtGrSearchKeywordData" parameterType="String"
-	resultType="bgtGr">
-	 SELECT * FROM BGTGR WHERE CO_CD=#{coCd}  AND (BGTGR_CD LIKE CONCAT('%', #{keyword}, '%'))
-	</select>
+<select id="getbgtGrSearchKeywordData" parameterType="String" resultType="bgtGr">
+    SELECT * FROM BGTGR
+    WHERE CO_CD=#{coCd}
+    <if test="keyword != null and keyword != ''">
+        AND (BGTGR_CD LIKE CONCAT('%', #{keyword}, '%'))
+    </if>
+</select>
 	
 	
 	

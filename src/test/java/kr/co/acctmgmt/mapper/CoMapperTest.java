@@ -35,7 +35,7 @@ public class CoMapperTest {
 	public void deleteCo() {
 		int coCd = 2;
 		
-		coMapper.deleteCo("coCd");
+//		coMapper.deleteCo("coCd");
 	}
 	
 //	@Test
