@@ -44,12 +44,19 @@ public class BgtCDController {
 		service.insertAddRow(bgtcd);
 	}
 	
-
+	
 	
 
-
-	@GetMapping("/bgtcd/getbgtcdlikesearch")
-	public List<BgtCD> getBgtCdLikeSearch(@RequestParam String coCd , String keyword){
+	//bgtCd °Ë»ö
+	@GetMapping("/dialog/bgtcd/{coCd}")
+	public List<BgtCD> getBgtCdLikeSearch1(@PathVariable("coCd") String coCd){
+		System.out.println("controller - getbgtcdlike search");
+		String keyword="";
+		return service.getBgtCdLikeSearch(coCd,keyword);
+	}
+	
+	@GetMapping("/dialog/bgtcd/{coCd}/{keyword}")
+	public List<BgtCD> getBgtCdLikeSearch2(@PathVariable("coCd") String coCd, @PathVariable("keyword") String keyword){
 		System.out.println("controller - getbgtcdlike search");
 		return service.getBgtCdLikeSearch(coCd,keyword);
 	}
@@ -99,8 +106,8 @@ public class BgtCDController {
 		return service.updateBgtCDTerm(dataList);
 	}
 	
-	@GetMapping("/bgtcd/getdefnmfrombgtcdterm")
-	public String getDefNmFromBGTCD_TERM(@RequestParam String coCd, String divFg) {
+	@GetMapping("/bgtcd/defnm/{coCd}/{divFg}")
+	public String getDefNmFromBGTCD_TERM(@PathVariable("coCd") String coCd, @PathVariable("divFg") String divFg) {
 		int a = Integer.parseInt(divFg);
 		a= a+1;
 		String b = Integer.toString(a);
@@ -119,13 +126,13 @@ public class BgtCDController {
 		return service.getPath(bgtCd);
 	}
 	
-	@GetMapping("/bgtcd/bgtcddialog")
-	public List<BgtCD> getBgtCDdialog(@RequestParam String coCd,String keyword){
-		System.out.println("controller - getbgtcddialog");
-		return service.getBgtCDdialog(coCd, keyword);
-	}
-	@GetMapping("/bgtcd/getaddrowdata") //[230808]make new AddRow data 
-	public BgtCD getAddRowData(@RequestParam String bgtCd , String coCd,String gisu, String groupCd) {
+//	@GetMapping("/bgtcd/bgtcddialog")
+//	public List<BgtCD> getBgtCDdialog(@RequestParam String coCd,String keyword){
+//		System.out.println("controller - getbgtcddialog");
+//		return service.getBgtCDdialog(coCd, keyword);
+//	}
+	@GetMapping("/bgtcd/tmp/{coCd}/{bgtCd}") //[230808]make new AddRow data 
+	public BgtCD getAddRowData(@PathVariable("bgtCd") String bgtCd , @PathVariable("coCd") String coCd, String gisu, String groupCd) {
 		String[] str = groupCd.split("\\.");
 		groupCd = str[0];
 		BgtCD info =  service.addRowData(bgtCd , coCd, gisu, groupCd);
