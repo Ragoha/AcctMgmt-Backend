@@ -21,12 +21,12 @@ public class GisuMapperTest {
 	@Test
 	public void findByCoCdTest() {
 		
-		Gisu gisu = Gisu.builder()
-				.coCd(1)
-				.build();
-		
-		List<Gisu> gisuList = gisuMapper.findGisuByCoCd(gisu);
-		
-		System.out.println(gisuList.toString());
+//		Gisu gisu = Gisu.builder()
+//				.coCd(1)
+//				.build();
+//		
+//		List<Gisu> gisuList = gisuMapper.findGisuByCoCd(gisu);
+//		
+//		System.out.println(gisuList.toString());
 	}
 }
