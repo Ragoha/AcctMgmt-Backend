@@ -14,44 +14,44 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class BgtGrServiceImpl implements BgtGrService {
-	
+
 	private final BgtGrMapper bgtGrMapper;
-	
+
 	@Override
 	public List<BgtGrDTO> findBgtGrCdAndBgtGrNmByCoCd(BgtGrDTO bgtGrDTO) {
-		
+
 		BgtGr bgtgr = BgtGrConverter.convertToModel(bgtGrDTO);
-		
+
 		List<BgtGr> rBgtGrList = bgtGrMapper.findBgtGrByCoCdAndKeyword(bgtgr);
-		
+
 		return BgtGrConverter.convertToDtoList(rBgtGrList);
 	}
 
 	@Override
 	public List<BgtGrDTO> findBgtGrByCoCdAndKeyword(BgtGrDTO bgtGrDTO) {
-		
+
 		BgtGr bgtgr = BgtGrConverter.convertToModel(bgtGrDTO);
-		
+
 		List<BgtGr> rBgtGrList = bgtGrMapper.findBgtGrByCoCdAndKeyword(bgtgr);
-		
+
 		return BgtGrConverter.convertToDtoList(rBgtGrList);
 	}
 
 	@Override
 	public List<BgtGrDTO> findBgtGrByCoCd(BgtGrDTO bgtGrDTO) {
 		BgtGr bgtgr = BgtGrConverter.convertToModel(bgtGrDTO);
-		
+
 		List<BgtGr> rBgtGrList = bgtGrMapper.findBgtGrByCoCdAndKeyword(bgtgr);
-		
+
 		return BgtGrConverter.convertToDtoList(rBgtGrList);
 	}
 
 	@Override
 	public void deleteBgtGr(BgtGrDTO bgtGrDTO) {
 		BgtGr bgtgr = BgtGrConverter.convertToModel(bgtGrDTO);
-		
+
 		bgtGrMapper.deleteBgtGr(bgtgr);
-		
+
 	}
 
 	@Override
@@ -66,23 +66,28 @@ public class BgtGrServiceImpl implements BgtGrService {
 		BgtGr bgtgr = BgtGrConverter.convertToModel(bgtGrDTO);
 		System.out.println("insertBgtGr==?==?==?");
 		System.out.println(bgtgr.toString());
-		String coCd= bgtgr.getCoCd();
+		String coCd = bgtgr.getCoCd();
 		System.out.println("0.........................................");
 		bgtGrMapper.insertBgtGr(bgtgr);
-		
-		String tBgtCd = bgtGrMapper.getMaxBgtCd(coCd); //현재 BGTCD 테이블의 값중 가장 큰 값 ex) 61110000
+
+		String tBgtCd = bgtGrMapper.getMaxBgtCd(coCd); // 현재 BGTCD 테이블의 값중 가장 큰 값 ex) 61110000
 //		
-	System.out.println("tbgtcd");
-	System.out.println(tBgtCd);
+		System.out.println("tbgtcd");
+		System.out.println(tBgtCd);
+		int suip = 0;
+		int suchul = 0;
 		int value = 0;
-		if(tBgtCd ==null) {
+		if (tBgtCd == null) {
 			value = 10000000;
-		}else {
-			 value = Integer.parseInt(tBgtCd);
+			suip = value;
+			suchul = value * 2;
+		} else {
+			value = Integer.parseInt(tBgtCd);
+			suip = ((value / 10000000) + 1) * 10000000;
+			suchul = ((value / 10000000) + 2) * 10000000;
+
 		}
-		int suip= ((value/10000000)+1)*10000000;
-		int suchul = ((value/10000000)+2)*10000000;
-		
+
 		System.out.println("1...............................");
 		BgtCD bgtCdInfo = new BgtCD();
 		bgtCdInfo.setCoCd(coCd);
