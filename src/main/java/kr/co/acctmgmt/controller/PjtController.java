@@ -86,10 +86,8 @@ public class PjtController {
 	}
 	
 	@DeleteMapping("/pjt/{coCd}/{pjtCd}")
-	public ResponseEntity<?> deletePjt(Pjt pjt) {
-	    // pjt 객체에서 필요한 데이터를 추출하여 삭제 작업 수행
+	public ResponseEntity<Void> deletePjt(Pjt pjt) {
 	    System.out.println("delete data : " + pjt.toString());
-
 	    pjtService.deletePjt(pjt);
 	    System.out.println("delete clear");
 	    return ResponseEntity.ok(null);
