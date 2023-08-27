@@ -68,6 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/login/**").permitAll()
             .antMatchers("/join/**").permitAll()
             .antMatchers("/bgtcd/**").permitAll()
+            .antMatchers("/dialog/bgtcdterm/**").permitAll()
             .antMatchers("/syscfg/**").permitAll()
             .antMatchers("/info/**").permitAll()
             .antMatchers("/logouta/**").permitAll()

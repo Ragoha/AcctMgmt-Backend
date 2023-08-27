@@ -1,5 +1,3 @@
-package kr.co.acctmgmt.mapper;
-
 import java.util.List;
 
 import org.junit.Test;
@@ -32,16 +30,16 @@ public class CoMapperTest {
 	}
 	
 //	@Test
-	public void deleteCo() {
-		int coCd = 2;
-		
+//	public void deleteCo() {
+//		int coCd = 2;
+//		
 //		coMapper.deleteCo("coCd");
-	}
+//	}
 	
 //	@Test
 //	public void updateCo() {
 //		int coCd = 1007;
-//		String coAddr="¼­ÃÊ±¸";
+//		String coAddr="ï¿½ï¿½ï¿½Ê±ï¿½";
 //		coMapper.updateCo(coCd);
 //	}
 

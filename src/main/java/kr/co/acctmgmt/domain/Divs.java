@@ -36,5 +36,5 @@ public class Divs {
 	private String modifyIp;  //¼öÁ¤ ip
 	
 	private String coNm;
-	private String keyword;
+	private String keyword="";
 }
