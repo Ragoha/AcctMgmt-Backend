@@ -7,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.acctmgmt.domain.Co;
@@ -19,13 +17,12 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class SysCfgController {
 	private final SysCfgService sysCfg;
 	private final CoService coService;
 	
-	@PostMapping("/config/{option}/{optionValue}/{settingvalue}/{coCd}")
+	@GetMapping("/config/{option}/{optionValue}/{settingvalue}/{coCd}")
 	public ResponseEntity<String> configCheck(@PathVariable("option") String option,
 			@PathVariable("optionValue") String optionValue, @PathVariable("settingvalue") String settingvalue, @PathVariable("coCd") String coCd) {
 		
@@ -46,7 +43,7 @@ public class SysCfgController {
 		return ResponseEntity.ok("ȸ���ڵ� : "+coCd+"�ɼ� �� : " + option + ", ���� �� : " + optionValue);
 	}
 
-	@GetMapping("/config/{coCd}")
+	@GetMapping("/config/coNm/{coCd}")
 	public ResponseEntity<String> config(@PathVariable("coCd") String coCd) {
 		List<SysCfg> sys = sysCfg.getConfigList(coCd);
 		
@@ -57,7 +54,7 @@ public class SysCfgController {
 		
 	}
 
-	@GetMapping("/configdate/{coCd}")
+	@GetMapping("/config/{coCd}")
 	public ResponseEntity<List> configData(@PathVariable("coCd") String coCd){
 		
 		List<SysCfg> sys = sysCfg.getConfigList(coCd);
