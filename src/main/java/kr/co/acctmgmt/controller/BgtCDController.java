@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -82,16 +83,18 @@ public class BgtCDController {
 	}
 	
 	/*---------------------------------bgtcdterm---*/
-	@GetMapping("/bgtcd/bgtcdterm")
-	public List<BgtCDTermDTO> getBgtCDTerm(@RequestParam String CO_CD){
+	@GetMapping("/dialog/bgtcdterm/{coCd}")
+	public List<BgtCDTermDTO> getBgtCDTerm(@PathVariable("coCd") String coCd){
 		System.out.println("controller - getbgtcdterm");
-		List<BgtCDTermDTO> list = service.getBgtCDTerm(CO_CD);
+		System.out.println(coCd);
+		List<BgtCDTermDTO> list = service.getBgtCDTerm(coCd);
 		return list;
 	}
-	@PutMapping("/bgtcd/bgtcdterm")
-	public List<BgtCDTermDTO> updateBgtCDTerm(@RequestBody List<BgtCDTermDTO> dataList) {
+	@PutMapping("/dialog/bgtcdterm/{coCd}")
+	public List<BgtCDTermDTO> updateBgtCDTerm(@PathVariable("coCd") String coCd, @RequestBody List<BgtCDTermDTO> dataList) {
 		return service.updateBgtCDTerm(dataList);
 	}
+	
 	@GetMapping("/bgtcd/getdefnmfrombgtcdterm")
 	public String getDefNmFromBGTCD_TERM(@RequestParam String coCd, String divFg) {
 		int a = Integer.parseInt(divFg);

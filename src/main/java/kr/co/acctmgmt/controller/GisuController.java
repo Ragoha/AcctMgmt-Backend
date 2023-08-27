@@ -23,7 +23,7 @@ public class GisuController {
 	
 	private final GisuService gisuService;
 	
-	@GetMapping("/gisu")
+	@GetMapping("/gisu/{coCd}")
 	public ResponseEntity<List<GisuDTO>> findGisuByCoCd(GisuDTO gisuDTO){
 		System.out.println(gisuDTO.toString());
 		
@@ -44,7 +44,7 @@ public class GisuController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@PutMapping("/gisu")
+	@PutMapping("/gisu/{coCd}/{gisu}")
 	public ResponseEntity<Void> updateGisu(@RequestBody GisuDTO gisuDTO){
 
 		gisuService.updateGisu(gisuDTO);
@@ -52,7 +52,7 @@ public class GisuController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/gisu")
+	@DeleteMapping("/gisu/{coCd}/{gisu}")
 	public ResponseEntity<Void> deleteGisu(GisuDTO gisuDTO){
 		
 		gisuService.deleteGisu(gisuDTO);
