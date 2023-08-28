@@ -31,13 +31,15 @@ public class BgtCDServiceImpl implements BgtCDService {
 
 	@Override
 	public List<BgtCD> getBGTCDData(String coCd,String gisu, String groupcd) {
-//		System.out.println("=>getBGTCDData gisu : " + gisu);
-//		System.out.println("getBGTCDData에서 groupCd :"+ groupcd);
+		System.out.println("=>getBGTCDData gisu : " + gisu);
+		System.out.println("getBGTCDData에서 groupCd :"+ groupcd);
 
 		List<BgtCD> list;
 		if (groupcd.equals("전체")) {
+			System.out.println("테스트1");
 			list = mapper.getBGTCDData(coCd,gisu, null);
 		} else {
+			System.out.println("테스트 2");
 			list = mapper.getBGTCDData(coCd, gisu, groupcd);
 		}
 //		System.out.println("*********Service  getBGTCDData***********.");
@@ -48,6 +50,7 @@ public class BgtCDServiceImpl implements BgtCDService {
 			String TreeViewPath = "";
 			// 1.부모의 경로
 			String tempDataPath = list.get(i).getDataPath(); //
+		System.out.println("템프 데이터 패스 : " + tempDataPath);
 //			System.out.println(i+"번재 list " );
 //			System.out.println(list.toString());
 			
@@ -67,8 +70,8 @@ public class BgtCDServiceImpl implements BgtCDService {
 				for (int p = 0; p < tempList.length; p++) { // B002의 .. B003의 ...
 System.out.println("tempList?" + tempList[p]);
 					BgtCD initRow = mapper.getBgtCDDataForPath(coCd,gisu,groupcd,tempList[p]); // -->B002의 정보//cocd,gisu,groupcd,bgtCd
-System.out.println("initRow?");
-System.out.println(initRow.toString());
+//System.out.println("initRow?");
+//System.out.println(initRow.toString());
 //					System.out.println("divFg는?:" + initRow.getDivFg());
 					String divFgNm = initRow.getDivFg(); // Bgt_Cd Term에서 가져온 값.
 //					System.out.println("pathPiece :          ->" + divFgNm);
@@ -100,7 +103,7 @@ System.out.println(initRow.toString());
 
 			// null이다 ?
 			else if (tempDataPath == null) {
-//				System.out.println("넌 널이야");
+				System.out.println("넌 널이야");
 				String a = list.get(i).getDivFg();
 				int cycle1 = list.get(i).getMultiNum();
 				BgtCD temp = new BgtCD();
@@ -256,15 +259,16 @@ System.out.println(initRow.toString());
 		/*
 		 * 1. 부모의 패스 2. 내 bgtCd 3. divFg 4. 수입수출여부
 		 */
-		System.out.println("datapath : " + dataPath + "/CoCd:" + coCd + "/divFg: " + divFg + "/grFg: " + grFg + "/mNum :" + mNum);
+		System.out.println("시작하자 datapath : " + dataPath + "/CoCd:" + coCd + "/divFg: " + divFg + "/grFg: " + grFg + "/mNum :" + mNum);
 		if (grFg.equals("0")) {
 			TreeViewPath = TreeViewPath + "수입,";
 		} else if (grFg.equals("1")) {
 			TreeViewPath = TreeViewPath + "수출,";
 		}
 
-//		System.out.println("1.수입수출 적용 된 Treeviewpath : " + TreeViewPath);
+		System.out.println("1.수입수출 적용 된 Treeviewpath : " + TreeViewPath);
 		String[] list = dataPath.split(",");
+		System.out.println(list.toString());
 //		System.out.println("dataPath: " + dataPath); // 10000000,11000000
 		for (int i = 0; i < list.length; i++) {
 			/*
@@ -274,24 +278,24 @@ System.out.println(initRow.toString());
 			//coCd ,gisu, groupCd, bgtCd
 			BgtCD initRow = mapper.getBgtCDDataForPath(coCd ,gisu ,groupCd, list[i]); // -->B002의 정보
 //			System.out.println(initRow.toString());
-//			System.out.println("이번 initRow는 " + i + "번째꺼");
+			System.out.println("이번 initRow는 " + i + "번째꺼");
 //			System.out.println(initRow.toString());
 //			int multiCk = initRow.getMultiCk();
 			int multiNum = initRow.getMultiNum();
 			String nowBgtCd = initRow.getBgtCd();
-//			System.out.println("/multiNum:" + multiNum + "확인   :" + nowBgtCd);
+			System.out.println("/multiNum:" + multiNum + "확인   :" + nowBgtCd);
 			BgtCD searchClue = new BgtCD();
 			String cycle = Integer.toString(i + 1);
 			searchClue.setDivFg(cycle);
 			searchClue.setCoCd(coCd);
 			String divNm = mapper.getDataPath(searchClue); // -->B002의 divFg값을 토대로 가져온 divNm
-//			System.out.println("divNm:" + divNm + "|끝값");
+			System.out.println("divNm:" + divNm + "|끝값");
 			for (int j = 0; j < multiNum; j++) {// 공백추가 " "
 				divNm = divNm + " ";
 			} // for j문
 			TreeViewPath = TreeViewPath + divNm + ",";
 		} // for i 문
-//		System.out.println("2.divNm에 공백을 추가해서 Treeview 구성 :" + TreeViewPath + "|끝값");
+		System.out.println("2.divNm에 공백을 추가해서 Treeview 구성 :" + TreeViewPath + "|끝값");
 		// 여기까지 부모의 패스를 바꿨고 아래부터 자신의 패스를 추가해야함
 
 		// 자신의 divFg
@@ -307,7 +311,7 @@ System.out.println(initRow.toString());
 			divNm1 = divNm1 + " ";
 		}
 		TreeViewPath = TreeViewPath + divNm1;
-//		System.out.println("완성된 본인의 패스 :" + TreeViewPath + "|끝값쳌");
+		System.out.println("완성된 본인의 패스 :" + TreeViewPath + "|끝값쳌");
 		System.out.println("End===============================================================================");
 		return TreeViewPath;
 	}// convertDataPathToTreeViewPath
@@ -337,6 +341,7 @@ System.out.println(initRow.toString());
 		BgtCD info2 = mapper.getMaxMultiNum(params); // ->부모의 값을 가진 자식값들 조회 .
 		String prevBgtCd = "";
 		int mNum = 0;
+		System.out.println("INFO2 의 값은아래 ");
 		if (info2 != null) {// 형제 값이 있는 경우 .
 			System.out.println("형제 값이 있는 경우 .");
 			prevBgtCd = info2.getBgtCd(); // 같은 부모를 가진 자식들 중 가장 multiNum값이 큰 애의 BgtCd
@@ -358,10 +363,16 @@ System.out.println(initRow.toString());
 			info3.setBgajustFg("0");
 			info3.setBottomFg("1");
 			info3.setBizFg("0");
-			String nPath = bgtCd;
+			
+			
+			String nPath = path;
+			
+			
 			String TreeViewPath = convertDataPathToTreeViewPath(nPath, coCd, gisu, groupCd, divFg, grFg, mNum);
+			System.out.println("트리뷰 패스 : " + TreeViewPath);
 			info3.setDataPath(TreeViewPath);
-
+			System.out.println("info 3");
+			System.out.println(info3.toString());
 			return info3;
 		}
 		System.out.println("여기로넘어오는건가 ?"); //여기로?
@@ -645,7 +656,8 @@ System.out.println(initRow.toString());
 		System.out.println("==SERVICE: getSearchData===");
 		System.out.println("keyword : " + keyword +"/getSearchData");
 		List<BgtCD> bgtcd = null;
-		if (keyword != null ||keyword !="") {
+		if (keyword != null) {
+			
 			String[] a = groupCd.split("\\.");
 			String[] b = keyword.split("\\.");
 			groupCd = a[0];
@@ -654,8 +666,8 @@ System.out.println(initRow.toString());
 		}  
 		if(keyword==null || keyword ==""){
 			System.out.println("keyword null이거나 공백일때 getSearchData를하고 return함. 아래는 그 값. ");
-			System.out.println("keyword null이거나 공백일때 getSearchData를하고 return함. 아래는 그 값. ");
 			System.out.println("keeeeeeeeee"+coCd+"/"+gisu+"/"+groupCd+"/"+keyword);
+			
 			String[] a = groupCd.split("\\.");
 			groupCd = a[0];
 //			System.out.println("coCd: "+ coCd + "/gisu: "+gisu+"groupCd :"+groupCd);
