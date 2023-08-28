@@ -90,57 +90,17 @@
 	        </foreach>
 	</delete>
 	
-	<select id="getSumBgtICFByCoCdAndBgtCd" parameterType="BgtCD" resultType="double">
-		WITH RECURSIVE CTE AS (
-		    SELECT
-		        bgtcd.BGT_CD,
-		        bgtcd.BGT_NM,
-		        bgtcd.PARENTCD,
-		        bgtcd.BGT_CD AS CD_PATH,
-		        1 AS LEVEL,
-		        NVL(bgticf.CARR_AM, 0) AS carr_am,
-		        BGTICF.SQ,
-		        bgticf.GISU,
-		        bgticf.DIV_CD
-		    FROM bgtcd
-		    LEFT JOIN bgticf ON bgticf.BGT_CD = bgtcd.BGT_CD
-		    WHERE PARENTCD IS NULL
-		    AND bgtcd.CO_CD = #{coCd}
-   		    <if test="divCd != null and divCd != ''">
-		    AND bgticf.DIV_CD = #{divCd}
-		    </if>
-		    UNION ALL
-		    SELECT
-		        P.BGT_CD,
-		        P.BGT_NM,
-		        P.parentCd,
-		        CONCAT(CTE.CD_PATH, '>', P.BGT_NM) AS CD_PATH,
-		        1 + LEVEL AS LEVEL,
-		        NVL(bgticf.CARR_AM, 0) AS carr_am,
-		        BGTICF.SQ,
-		        bgticf.GISU,
-		        bgticf.DIV_CD
-		    FROM bgtcd P
-		    INNER JOIN CTE ON P.parentCd = CTE.BGT_CD
-		    LEFT JOIN bgticf ON bgticf.BGT_CD = P.BGT_CD
-		    WHERE P.CO_CD = #{coCd}
+		<select id="getSumBgtICFByCoCdAndBgtCd" parameterType="BgtCD" resultType="double">
+			SELECT nvl(SUM(bgticf.CARR_AM),0)
+			FROM bgticf 
+			JOIN bgtcd ON bgtcd.co_cd = bgticf.co_cd AND bgtcd.BGT_CD = bgticf.bgt_cd
+			where CONCAT(nvl(bgtcd.datapath,''), bgtcd.bgt_cd, ',') LIKE CONCAT((SELECT concat(nvl(dataPath, ''), bgt_cd,",") FROM bgtcd WHERE bgt_cd = #{bgtCd}), "%")
+			AND bgticf.CO_CD = #{coCd}
 		    <if test="divCd != null and divCd != ''">
-		    AND bgticf.DIV_CD = #{divCd}
+		    	AND bgticf.div_cd = #{divCd}
 		    </if>
-		)
-		SELECT
-		  	NVL(SUM(CARR_AM),0) as CARR_AM, TEMPTABLE.*
-		FROM (
-		    SELECT DISTINCT BGT_CD, CARR_AM, SQ
-		    FROM CTE
-		    WHERE CTE.CD_PATH LIKE (
-		        SELECT CONCAT(CD_PATH, '%') FROM CTE WHERE BGT_CD = #{bgtCd} LIMIT 1
-		    )
-		    AND CTE.gisu = #{gisu}
-		) TEMPTABLE
+		</select>
 
-
-	</select>
 	
 	<!-- DELETE FROM BGTICF
 	    WHERE

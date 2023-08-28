@@ -98,11 +98,6 @@ public class BgtICFController {
 		
 		String ip = ClientUtil.getRemoteIP(request);
 		
-		System.out.println(bgtCDDTO.toString());
-		System.out.println("================");
-				System.out.println("================");
-						System.out.println("================");
-		
 		List<BgtCDDTO> rBgtCDDTOList = bgtCDService.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(bgtCDDTO);
 		
 		return new ResponseEntity<List<BgtCDDTO>>(rBgtCDDTOList, HttpStatus.OK);

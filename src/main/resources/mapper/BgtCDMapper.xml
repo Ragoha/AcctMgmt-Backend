@@ -260,7 +260,7 @@
 			        #{item}
 			    </foreach>
 			</if>
-		ORDER BY bgtcd.group_cd, bgtcd.gr_fg, bgtcd.datapath, bgtcd.bgt_cd;
+			ORDER by bgt_Cd
 	</select>
 	<select id="findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd1" parameterType="BgtCD" resultType="BgtCD">
 		 SELECT DISTINCT
