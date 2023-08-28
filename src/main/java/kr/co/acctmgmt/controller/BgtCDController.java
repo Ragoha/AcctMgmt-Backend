@@ -35,6 +35,7 @@ public class BgtCDController {
 
 	@GetMapping("/bgtcd/{coCd}")
 	public List<BgtCD> getSearchData(@PathVariable("coCd") String coCd,String gisu, String groupCd, String keyword){
+		System.out.println("겟???서치데이터 :" + coCd +"/"+gisu +"/"+groupCd +"/"+keyword);
 		return service.getSearchData(coCd,gisu,groupCd,keyword);
 	}
 	
@@ -44,10 +45,8 @@ public class BgtCDController {
 		service.insertAddRow(bgtcd);
 	}
 	
-	
-	
 
-	//bgtCd �˻�
+	//bgtCd �˻�
 	@GetMapping("/dialog/bgtcd/{coCd}")
 	public List<BgtCD> getBgtCdLikeSearch1(@PathVariable("coCd") String coCd){
 		System.out.println("controller - getbgtcdlike search");
