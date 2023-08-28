@@ -580,7 +580,9 @@ System.out.println(initRow.toString());
 		if (bgtCD.getBgtCdList().size() == 0) {
 		    rBgtCDList.addAll(mapper.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(bgtCD));
 		} else {
+
 		    bgtCD.getBgtCdList().forEach(bgtCdItem -> {
+		    	
 		        BgtCD tempBgtCD = BgtCD.builder()
 		        		.coCd(bgtCD.getCoCd())
 		        		.divCd(bgtCD.getDivCd())
@@ -590,7 +592,6 @@ System.out.println(initRow.toString());
 		        		.bgtCd(bgtCdItem)
 		        		.build();
 		        tempBgtCD.setBgtCd(bgtCdItem);
-		        
 		        rBgtCDList.addAll(mapper.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd1(tempBgtCD));
 		    });
 		}
@@ -599,6 +600,9 @@ System.out.println(initRow.toString());
 		List<BgtCD> nBgtCDList = new ArrayList();
 
 		rBgtCDList.forEach(rBgtCD -> {
+			System.out.println("여기오나");
+			System.out.println(rBgtCD.toString());
+			rBgtCD.setDivCd(bgtCD.getDivCd());
 			double carrAm = bgtICFMapper.getSumBgtICFByCoCdAndBgtCd(rBgtCD);
 
 			rBgtCD.setCarrAm(Integer.parseInt(String.valueOf(Math.round(carrAm))));
