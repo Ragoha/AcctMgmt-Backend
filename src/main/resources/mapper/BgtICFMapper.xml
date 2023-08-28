@@ -34,6 +34,9 @@
 	        AND BGTICF.GISU = #{gisu}
 	        AND BGTCD.BOTTOM_fG = 0
 	        AND BGTICF.BGT_FG = #{bgtFg}
+	        <if test="divCd != null and divCd != ''">
+	        AND BGTICF.DIV_cD = #{divCd}
+	        </if>
 	    ORDER BY BGTICF.INSERT_DT
 	</select>
 
@@ -58,22 +61,13 @@
 	<update id="updateBgtICF" parameterType="BgtICF">
 	    UPDATE BGTICF
 	    SET
-	        CO_CD = #{coCd},
-	        GISU = #{gisu},
-	        SQ = #{sq},
-	        DIV_CD = #{divCd},
-	        DEPT_CD = #{deptCd},
 	        MGT_CD = #{mgtCd},
-	        BGT_CD = #{bgtCd},
-	        BGT_FG = #{bgtFg},
-	        BOTTOM_NM = #{bottomNm},
 	        CARR_AM = #{carrAm},
 	        CARR_AM1 = #{carrAm1},
 	        CARR_AM2 = #{carrAm2},
 	        CARR_AM3 = #{carrAm3},
-	        EMP_CD = #{empCd},
 	        REM_DC = #{remDc},
-	        BGT_TY = "직접입력",
+            EMP_CD = #{empCd},
 	        MODIFY_ID = #{modifyId},
 	        MODIFY_DT = #{modifyDt},
 	        MODIFY_IP = #{modifyIp}
@@ -81,8 +75,6 @@
 	        CO_CD = #{coCd} AND
 	        GISU = #{gisu} AND
 	        SQ = #{sq} AND
-	        DIV_CD = #{divCd} AND
-	        DEPT_CD = #{deptCd} AND
 	        BGT_CD = #{bgtCd} AND
 	        BGT_FG = #{bgtFg}
 	</update>
@@ -108,11 +100,15 @@
 		        1 AS LEVEL,
 		        NVL(bgticf.CARR_AM, 0) AS carr_am,
 		        BGTICF.SQ,
-		        bgticf.GISU
+		        bgticf.GISU,
+		        bgticf.DIV_CD
 		    FROM bgtcd
 		    LEFT JOIN bgticf ON bgticf.BGT_CD = bgtcd.BGT_CD
 		    WHERE PARENTCD IS NULL
 		    AND bgtcd.CO_CD = #{coCd}
+   		    <if test="divCd != null and divCd != ''">
+		    AND bgticf.DIV_CD = #{divCd}
+		    </if>
 		    UNION ALL
 		    SELECT
 		        P.BGT_CD,
@@ -122,14 +118,18 @@
 		        1 + LEVEL AS LEVEL,
 		        NVL(bgticf.CARR_AM, 0) AS carr_am,
 		        BGTICF.SQ,
-		        bgticf.GISU
+		        bgticf.GISU,
+		        bgticf.DIV_CD
 		    FROM bgtcd P
 		    INNER JOIN CTE ON P.parentCd = CTE.BGT_CD
 		    LEFT JOIN bgticf ON bgticf.BGT_CD = P.BGT_CD
 		    WHERE P.CO_CD = #{coCd}
+		    <if test="divCd != null and divCd != ''">
+		    AND bgticf.DIV_CD = #{divCd}
+		    </if>
 		)
 		SELECT
-		  	NVL(SUM(CARR_AM),0) as CARR_AM
+		  	NVL(SUM(CARR_AM),0) as CARR_AM, TEMPTABLE.*
 		FROM (
 		    SELECT DISTINCT BGT_CD, CARR_AM, SQ
 		    FROM CTE

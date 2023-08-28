@@ -45,28 +45,6 @@ public class BgtICFController {
 	private final GisuService gisuService;
 	private final PjtService pjtService;
 
-	@GetMapping("/bgticf/{coCd}/{bgtCd}")
-	public ResponseEntity<List<BgtICFDTO>> getBgtICFList(BgtICFDTO bgtICFDTO) {
-		
-		System.out.println(bgtICFDTO.toString());
-		
-		List<BgtICFDTO> rBgtICFList = bgtICFService.getBgtICFList(bgtICFDTO);
-        
-		return new ResponseEntity<List<BgtICFDTO>>(rBgtICFList, HttpStatus.OK); 
-	}
-	
-	@DeleteMapping("/bgticf/{coCd}/{bgtCd}")
-	public ResponseEntity<Void> deleteBgtICFList(BgtICFDTO bgtICFDTO){
-		System.out.println("==============");
-		System.out.println(bgtICFDTO.toString());
-		bgtICFService.deleteBgtICF(bgtICFDTO);
-		List<String> sqList = bgtICFDTO.getSqList();
-		sqList.forEach(sq -> {
-			System.out.println(sq);
-		});
-		
-		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
 	
 	@PostMapping("/bgticf")
 	public ResponseEntity<Void> insertBgtICF(@RequestBody BgtICFDTO bgtICFDTO){
@@ -77,6 +55,16 @@ public class BgtICFController {
 	}
 	
 	
+	@GetMapping("/bgticf/{coCd}/{bgtCd}")
+	public ResponseEntity<List<BgtICFDTO>> getBgtICFList(BgtICFDTO bgtICFDTO) {
+		
+		System.out.println(bgtICFDTO.toString());
+		
+		List<BgtICFDTO> rBgtICFList = bgtICFService.getBgtICFList(bgtICFDTO);
+        
+		return new ResponseEntity<List<BgtICFDTO>>(rBgtICFList, HttpStatus.OK); 
+	}
+	
 	@PutMapping("/bgticf/{coCd}/{bgtCd}/{sq}")
 	public ResponseEntity<Void> updateBgtICF(@PathVariable("coCd") String coCd, @PathVariable("bgtCd") String bgtCd, @PathVariable("sq") int sq, @RequestBody BgtICFDTO bgtICFDTO){
 
@@ -85,22 +73,16 @@ public class BgtICFController {
 		bgtICFDTO.setBgtCd(bgtCd);
 		bgtICFService.updateBgtICF(bgtICFDTO);
 		
-		System.out.println(bgtICFDTO.toString());
-		System.out.println("==================");
-		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	
-	@GetMapping("/bgticf/div")
-	public ResponseEntity<List<DivsDTO>> findDivByCoCdAndKeyword(DivsDTO divsDTO){
+	@DeleteMapping("/bgticf/{coCd}/{bgtCd}")
+	public ResponseEntity<Void> deleteBgtICFList(BgtICFDTO bgtICFDTO){
+		bgtICFService.deleteBgtICF(bgtICFDTO);
+		List<String> sqList = bgtICFDTO.getSqList();
 		
-		List<DivsDTO> rDivsDTOList = divsService.findDivByCoCdAndKeyword(divsDTO);
-		
-		return new ResponseEntity<List<DivsDTO>>(rDivsDTOList, HttpStatus.OK);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-	
-
 	
 	@GetMapping("/dialog/bgticf/bgtcd/{coCd}")
 	public ResponseEntity<List<BgtCDDTO>> findBgtCDByKeyword(BgtCDDTO bgtCDDTO){
@@ -110,37 +92,18 @@ public class BgtICFController {
 		
 		return new ResponseEntity<List<BgtCDDTO>>(rBgtCDDTOList, HttpStatus.OK);
 	}
-//	
-//	@GetMapping("/bgticf/gisu")
-//	public ResponseEntity<List<GisuDTO>> findGisuByCoCd(GisuDTO gisuDTO){
-//		
-//		List<GisuDTO> rGisuDTOList = gisuService.findGisuByCoCd(gisuDTO);
-//		
-//		return new ResponseEntity<List<GisuDTO>>(rGisuDTOList, HttpStatus.OK);
-//		
-//	}
-	
-	@GetMapping("/bgticf/pjt")
-	public ResponseEntity<List<PjtDTO>> findPjtByCoCdAndKeyword(PjtDTO pjtDTO){
-
-		List<PjtDTO> rPjtDTOList = pjtService.findPjtByCoCdAndKeyword(pjtDTO);
-		
-		return new ResponseEntity<List<PjtDTO>>(rPjtDTOList, HttpStatus.OK);
-		
-	}
 	
 	@GetMapping("/bgticf/bgtcd/{coCd}")
 	public ResponseEntity<List<BgtCDDTO>> findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(BgtCDDTO bgtCDDTO) {
 		
-		System.out.println("======================");
-		System.out.println(bgtCDDTO.toString());
-		
-		
 		String ip = ClientUtil.getRemoteIP(request);
 		
+		System.out.println(bgtCDDTO.toString());
+		System.out.println("================");
+				System.out.println("================");
+						System.out.println("================");
 		
 		List<BgtCDDTO> rBgtCDDTOList = bgtCDService.findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd(bgtCDDTO);
-		
 		
 		return new ResponseEntity<List<BgtCDDTO>>(rBgtCDDTOList, HttpStatus.OK);
 	}

@@ -638,6 +638,9 @@ public class BgtCDServiceImpl implements BgtCDService {
 		List<BgtCD> nBgtCDList = new ArrayList();
 
 		rBgtCDList.forEach(rBgtCD -> {
+			System.out.println("여기오나");
+			System.out.println(rBgtCD.toString());
+			rBgtCD.setDivCd(bgtCD.getDivCd());
 			double carrAm = bgtICFMapper.getSumBgtICFByCoCdAndBgtCd(rBgtCD);
 
 			rBgtCD.setCarrAm(Integer.parseInt(String.valueOf(Math.round(carrAm))));
