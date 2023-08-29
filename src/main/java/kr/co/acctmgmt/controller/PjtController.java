@@ -133,7 +133,7 @@ public class PjtController {
 	}
 	
 	
-	@GetMapping("/pjt/{coCd}/pjtcd/{pjtCd}")
+	@GetMapping("/pjt/pjtcd/{coCd}/{pjtCd}")
 	public ResponseEntity<?> duplication(Pjt pjt) {
 		System.out.println("pjt : " + pjt.toString());
 		List<Pjt> pjList = pjtService.getPjtList(pjt.getCoCd());
@@ -147,7 +147,7 @@ public class PjtController {
 		return ResponseEntity.ok(null);
 	}
 	
-	@PostMapping("/pjt/groupSel/")
+	@PostMapping("/pjt/groupSel")
 	public ResponseEntity<?> groupSelect(@RequestBody Pjt pjt) {		
 		List<Pjt> pjtt = pjtService.getGroupPjt(pjt);
 		return ResponseEntity.ok(pjtt);

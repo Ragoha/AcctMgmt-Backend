@@ -119,8 +119,8 @@
 		<if test="pjt.pgrCd != null and pjt.pgrCd != ''">
 			AND pgr_CD LIKE CONCAT('%', #{pjt.pgrCd}, '%')
 		</if>
-		<if test="pjt.prDt != null">
-		    AND pr_DT >= #{pjt.prDt}
+		<if test="pjt.toDt != null">
+		    AND to_DT &lt;= #{pjt.toDt}
 		</if>
 		ORDER BY insert_DT DESC, pjt_CD DESC 	
 	</select>

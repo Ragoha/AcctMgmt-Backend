@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.acctmgmt.domain.Co;
@@ -22,7 +23,7 @@ public class SysCfgController {
 	private final SysCfgService sysCfg;
 	private final CoService coService;
 	
-	@GetMapping("/config/{option}/{optionValue}/{settingvalue}/{coCd}")
+	@PutMapping("/config/{option}/{optionValue}/{settingvalue}/{coCd}")
 	public ResponseEntity<String> configCheck(@PathVariable("option") String option,
 			@PathVariable("optionValue") String optionValue, @PathVariable("settingvalue") String settingvalue, @PathVariable("coCd") String coCd) {
 		
