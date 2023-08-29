@@ -16,6 +16,7 @@
 	<context:component-scan base-package="kr.co.acctmgmt.service" />
 	<context:component-scan base-package="kr.co.acctmgmt.config" />
 	<context:property-placeholder location="classpath:config/database.properties" />
+	<context:property-placeholder location="classpath:config/application.properties" />
 
 	<!-- Data Source -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
@@ -41,7 +42,7 @@
 	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:/mybatis-config.xml" />
-	</bean>
+	</bean>	
 
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean" />

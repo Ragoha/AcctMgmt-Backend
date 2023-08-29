@@ -81,7 +81,6 @@ public class UserAPI {
 			} else {
 			}
 		} catch (NullPointerException e) {
-			// NullPointerException ���� �߻� �� ó�� ����
 			System.out.println("NullPointerException");
 		}
 
