@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,88 +25,90 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class JwtUtil {
 
-  private final ExpiredRefreshTokenService expiredRefreshTokenService;
-  private final EmployeeService userService;
-
+	private final ExpiredRefreshTokenService expiredRefreshTokenService;
+	private final EmployeeService userService;
 //  @Value("${jwt.secret}")
-  private String secretKey = "acctmgmt";
+  private String secretKey = "acctmgmt"; // ÏãúÌÅ¨Î¶ø ÌÇ§ Î≥ÄÏàò
 
-  private final long ACCESS_TOKEN_VALID_TIME = 1000L * 60 * 60 * 24; //24Ω√∞£
-  private final long REFRESH_TOKEN_VALID_TIME = 1000L * 60 * 60 * 24 * 60; // 2¥ﬁ
+	
+	
 
-  public String createAccessToken(String userPk, String role) {
-      Claims claims = Jwts.claims().setSubject(userPk);
-      claims.put("empAuth", role);
-      Date now = new Date();
+//	// ÏãúÌÅ¨Î¶ø ÌÇ§Î•º Î∞òÌôòÌïòÎäî method
+//	public SecretKey getSecretKey() {
+//        if (cachedSecretKey == null)
+//            cachedSecretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256); // Î≥¥Ïïà ÌÇ§ ÏÉùÏÑ±
+//        return cachedSecretKey;
+//    }
 
-      return Jwts.builder()
-          .setClaims(claims)
-          .setIssuedAt(now)
-          .setExpiration(new Date(now.getTime() + ACCESS_TOKEN_VALID_TIME))
-          .signWith(SignatureAlgorithm.HS256, secretKey)
-          .compact();
-  }
+    
+	private final long ACCESS_TOKEN_VALID_TIME = 1000L * 60 * 60 * 24;
+	private final long REFRESH_TOKEN_VALID_TIME = 1000L * 60 * 60 * 24 * 60;
 
-  public String createRefreshToken(String userPk, String role) {
-      Claims claims = Jwts.claims();
-      claims.put("role", role);
-      Date now = new Date();
-      Date expiration = new Date(now.getTime() + REFRESH_TOKEN_VALID_TIME);
+	public String createAccessToken(String userPk, String role) {
+		Claims claims = Jwts.claims().setSubject(userPk);
+		claims.put("empAuth", role);
+		Date now = new Date();
 
-      return Jwts.builder()
-          .setClaims(claims)
-          .setIssuedAt(now)
-          .setExpiration(expiration)
-          .signWith(SignatureAlgorithm.HS256, secretKey)
-          .compact();
-  }
+		return Jwts.builder()
+			    .setClaims(claims)
+			    .setIssuedAt(now)
+			    .setExpiration(new Date(now.getTime() + ACCESS_TOKEN_VALID_TIME))
+			    .signWith(SignatureAlgorithm.HS256, secretKey) // Ïó¨Í∏∞ÏóêÏÑú _getSecretKey()Î•º ÏÇ¨Ïö©
+			    .compact();
+	}
 
-  public Authentication getAuthentication(String token) {
-//	  System.out.println("getUserPk?:" + getUserPk(token) );
-      String email = getUserPk(token);
-//      System.out.println("±◊∑°º≠ ≥™ø¬ eamil: " + email);
-      Employee employee = userService.findByEmail(email);
-//      System.out.println("±◊∑°º≠ ≥™ø¬ ∞¥√º ≈¨:" + employee.toString());
-      
-      List<GrantedAuthority> authorities = (List<GrantedAuthority>) employee.getAuthorities();
-      for (GrantedAuthority authority : authorities) {
-//          System.out.println("@@@@@ªÁøÎ¿⁄ ±««—: " + authority.getAuthority());
-      }
-      
-      return new UsernamePasswordAuthenticationToken(employee, "", employee.getAuthorities());
-  }
+	public String createRefreshToken(String userPk, String role) {
+		Claims claims = Jwts.claims();
+		claims.put("role", role);
+		Date now = new Date();
+		Date expiration = new Date(now.getTime() + REFRESH_TOKEN_VALID_TIME);
 
-  public String getUserPk(String token) {
-      return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
-  }
+		return Jwts.builder().setClaims(claims).setIssuedAt(now).setExpiration(expiration)
+				.signWith(SignatureAlgorithm.HS256, secretKey).compact();
+	}
 
-  public String resolveAccessToken(HttpServletRequest request) {
-      String token = request.getHeader("access-token");
-      return token;
-  }
+	public Authentication getAuthentication(String token) {
+		String email = getUserPk(token);
+		Employee employee = userService.findByEmail(email);
 
-  public String resolveRefreshToken(HttpServletRequest request) {
-      String token = null;
-      Cookie cookie = WebUtils.getCookie(request, "refresh-token");
-      if (cookie != null)
-          token = cookie.getValue();
-      return token;
-  }
+		List<GrantedAuthority> authorities = (List<GrantedAuthority>) employee.getAuthorities();
+		for (GrantedAuthority authority : authorities) {
+		}
 
-  public boolean validateToken(String jwtToken) {
-      try {
-          Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
-          return !claims.getBody().getExpiration().before(new Date());
-      } catch (Exception e) {
-          return false;
-      }
-  }
+		return new UsernamePasswordAuthenticationToken(employee, "", employee.getAuthorities());
+	}
 
-  public boolean validateRefreshToken(String jwtToken) {
-      if(expiredRefreshTokenService.isExpiredToken(jwtToken)) {
-          return false;
-      }
+	public String getUserPk(String token) {
+		return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+	}
 
-      return validateToken(jwtToken);
-  }
+	public String resolveAccessToken(HttpServletRequest request) {
+		String token = request.getHeader("access-token");
+		return token;
+	}
+
+	public String resolveRefreshToken(HttpServletRequest request) {
+		String token = null;
+		Cookie cookie = WebUtils.getCookie(request, "refresh-token");
+		if (cookie != null)
+			token = cookie.getValue();
+		return token;
+	}
+
+	public boolean validateToken(String jwtToken) {
+		try {
+			Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
+			return !claims.getBody().getExpiration().before(new Date());
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public boolean validateRefreshToken(String jwtToken) {
+		if (expiredRefreshTokenService.isExpiredToken(jwtToken)) {
+			return false;
+		}
+
+		return validateToken(jwtToken);
+	}
 }
