@@ -1,5 +1,6 @@
 package kr.co.acctmgmt.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -31,54 +32,63 @@ public class BgtCDController {
 
 	private final BgtCDService service;
 	/*-------------------------------bgtcd-------------*/
-//	@GetMapping("/bgtcd") 
-//	public List<BgtCD> getGridData(@RequestParam String coCd ,String gisu,String groupCd) {
-//		System.out.println("controller -getGridData");
-//		List<BgtCD> list = service.getBGTCDData(coCd,gisu,groupCd);
-//		return list;
-//	}
-	@GetMapping("/bgtcd")
-	public List<BgtCD> getSearchData(@RequestParam String coCd,String gisu, String groupCd, String keyword){
+
+	@GetMapping("/bgtcd/{coCd}")
+	public List<BgtCD> getSearchData(@PathVariable("coCd") String coCd,String gisu, String groupCd, String keyword){
+		System.out.println("겟???서치데이터 :" + coCd +"/"+gisu +"/"+groupCd +"/"+keyword);
 		return service.getSearchData(coCd,gisu,groupCd,keyword);
 	}
-	@DeleteMapping("/bgtcd") 
-	public int deleteRow(@RequestParam String bgtCd ,String coCd) {
-		System.out.println("controller - deleteRow");
-		return service.deleteRow(bgtCd,coCd);
-	}
+	
 	@PostMapping("/bgtcd")
-	public void insertAddRow(@RequestBody BgtCD bgtcd,String coCd) {
+	public void insertAddRow(@RequestBody BgtCD bgtcd) {
 		System.out.println("controller - insertAddRow");
 		service.insertAddRow(bgtcd);
 	}
-	@PutMapping("/bgtcd") 
-	public void updateBgtNm(@RequestBody BgtCD bgtcd) {
-		System.out.println("controller - updateBgtNm");
-		String coCd  = bgtcd.getCoCd();
-		String bgtCd = bgtcd.getBgtCd();
-		String bgtNm = bgtcd.getBgtNm();
-		System.out.println(bgtcd.toString());
-		service.updateBgtNm(bgtcd);
+	
+
+	//bgtCd �˻�
+	@GetMapping("/dialog/bgtcd/{coCd}")
+	public List<BgtCD> getBgtCdLikeSearch1(@PathVariable("coCd") String coCd){
+		System.out.println("controller - getbgtcdlike search");
+		String keyword="";
+		return service.getBgtCdLikeSearch(coCd,keyword);
 	}
-	@GetMapping("/bgtcd/getbgtcdlikesearch")
-	public List<BgtCD> getBgtCdLikeSearch(@RequestParam String coCd , String keyword){
+	
+	@GetMapping("/dialog/bgtcd/{coCd}/{keyword}")
+	public List<BgtCD> getBgtCdLikeSearch2(@PathVariable("coCd") String coCd, @PathVariable("keyword") String keyword){
 		System.out.println("controller - getbgtcdlike search");
 		return service.getBgtCdLikeSearch(coCd,keyword);
 	}
 	
 	
+	@PutMapping("/bgtcd/bgtnm/{coCd}/{bgtCd}") 
+	public void updateBgtNm(@PathVariable("coCd") String coCd, @PathVariable("bgtCd") String bgtCd, @RequestBody BgtCD bgtCD) {
+
+		bgtCD.setCoCd(coCd);
+		bgtCD.setBgtCd(bgtCd);
+		service.updateBgtNm(bgtCD);
+	}
+	
+	@DeleteMapping("/bgtcd/{coCd}/{bgtCd}") 
+	public int deleteRow(@PathVariable("bgtCd") String bgtCd, @PathVariable("coCd") String coCd) {
+		System.out.println("controller - deleteRow");
+		return service.deleteRow(bgtCd,coCd);
+	}
+	
 	
 	/*---------------------------------detailinfo---*/
-	@GetMapping("/bgtcd/detailinfo")//getDetailInfo
-	public ResponseEntity<List<BgtCD>> getDetailInfo(@RequestParam String bgtCd) {
+	@GetMapping("/bgtcd/{coCd}/{bgtCd}")//getDetailInfo
+	public ResponseEntity<List<BgtCD>> getDetailInfo(@PathVariable("coCd") String coCd,@PathVariable("bgtCd") String bgtCd) {
 		System.out.println("controller - getdetailinfo");
 		List<BgtCD> list = service.getDetailInfo(bgtCd);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
-	@PutMapping("/bgtcd/detailinfo")//updateDetailInfo
-	public void updateDetailInfo(@RequestBody BgtCD updateData) {
+	@PutMapping("/bgtcd/{coCd}/{bgtCd}")//updateDetailInfo
+	public void updateDetailInfo(@PathVariable("coCd") String coCd,@PathVariable("bgtCd") String bgtCd, @RequestBody BgtCD updateData) {
 		System.out.println("controller - updatedetailinfo");
 		System.out.println(updateData.toString());
+		updateData.setCoCd(coCd);
+		updateData.setBgtCd(bgtCd);
 		service.updateDetailInfo(updateData);
 	}
 	
@@ -95,8 +105,8 @@ public class BgtCDController {
 		return service.updateBgtCDTerm(dataList);
 	}
 	
-	@GetMapping("/bgtcd/getdefnmfrombgtcdterm")
-	public String getDefNmFromBGTCD_TERM(@RequestParam String coCd, String divFg) {
+	@GetMapping("/bgtcd/defnm/{coCd}/{divFg}")
+	public String getDefNmFromBGTCD_TERM(@PathVariable("coCd") String coCd, @PathVariable("divFg") String divFg) {
 		int a = Integer.parseInt(divFg);
 		a= a+1;
 		String b = Integer.toString(a);
@@ -106,30 +116,7 @@ public class BgtCDController {
 	
 	
 	/*---------------------------bgtgr---*/
-//	@GetMapping("/bgtcd/bgtgr")
-//	public List<BgtGr> getBgtGrData(@RequestParam String coCd) {
-//		System.out.println("controller - getbgtgrdata");
-//		List<BgtGr> bgtGr = service.getBgtGrData(coCd);
-//		return bgtGr;
-//	}
-//	@PutMapping("/bgtcd/bgtgr")
-//	public void insertBgtGr(@RequestBody List<BgtGr> dataList) {
-//		service.insertBgtGr(dataList);
-//	}
-//	
-	@GetMapping("/bgtcd/getinitbgtgrsearch")
-	public List<BgtGr> getinitBgtGrSearch(@RequestParam String coCd, String keyword){
-		return service.getinitBgtGrSearch(coCd,keyword);
-	}
-	@GetMapping("/bgtcd/getbgtgrsearch")
-	public List<BgtGr> getBgtGrSearch(@RequestParam String coCd, String keyword){
-		return service.getBgtGrSearch(coCd, keyword);
-	}
-	@GetMapping("/bgtcd/getbgtgrsearchkeyworddata")
-	public List<BgtGr> getbgtGrSearchKeywordData(@RequestParam String coCd, String keyword) {
-		return service.getbgtGrSearchKeywordData(coCd,keyword);
-	}
-//	
+
 	
 	/*-------------------common----*/
 	@GetMapping("/bgtcd/getpath")
@@ -138,22 +125,19 @@ public class BgtCDController {
 		return service.getPath(bgtCd);
 	}
 	
-	@GetMapping("/bgtcd/bgtcddialog")
-	public List<BgtCD> getBgtCDdialog(@RequestParam String coCd,String keyword){
-		System.out.println("controller - getbgtcddialog");
-		return service.getBgtCDdialog(coCd, keyword);
-	}
-	@GetMapping("/bgtcd/getaddrowdata") //[230808]make new AddRow data 
-	public BgtCD getAddRowData(@RequestParam String bgtCd , String coCd,String gisu, String groupCd) {
+//	@GetMapping("/bgtcd/bgtcddialog")
+//	public List<BgtCD> getBgtCDdialog(@RequestParam String coCd,String keyword){
+//		System.out.println("controller - getbgtcddialog");
+//		return service.getBgtCDdialog(coCd, keyword);
+//	}
+	@GetMapping("/bgtcd/tmp/{coCd}/{bgtCd}") //[230808]make new AddRow data 
+	public BgtCD getAddRowData(@PathVariable("bgtCd") String bgtCd , @PathVariable("coCd") String coCd, String gisu, String groupCd) {
 		String[] str = groupCd.split("\\.");
 		groupCd = str[0];
 		BgtCD info =  service.addRowData(bgtCd , coCd, gisu, groupCd);
 		return info;
 	}
-	@GetMapping("/bgtcd/gisu")//getinitgisulist
-	public List<Gisu> getinitGisuList(@RequestParam String coCd){
-		return service.getinitGisuList(coCd);
-	}
+
 	@GetMapping("/bgtcd/checktopdata")
 	public BgtCD checkTopData(@RequestParam String coCd, String gisu,String tDataPath,String keyword) {
 		return service.checkTopData(coCd,gisu,tDataPath,keyword);

@@ -246,8 +246,7 @@
 			END AS DEF_NM, 
 			bgtcd.BGT_NM, 
 			bgtcd.datapath, 
-			bgtcd.GROUP_CD, 
-			bgticf.DIV_CD
+			bgtcd.GROUP_CD
 		FROM bgtcd 
 		LEFT JOIN bgticf ON bgticf.co_cd = bgtcd.co_cd
 		WHERE bgtcd.CO_CD = #{coCd}
@@ -261,10 +260,7 @@
 			        #{item}
 			    </foreach>
 			</if>
-		    <if test="divCd != 0 or (divCd != null and divCd != '')">
-		    	AND (bgticf.DIV_CD = #{divCd} OR bgticf.DIV_CD IS NULL)
-			</if>
-		ORDER BY bgtcd.group_cd, bgtcd.gr_fg, bgtcd.datapath, bgtcd.bgt_cd;
+			ORDER by bgt_Cd
 	</select>
 	<select id="findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd1" parameterType="BgtCD" resultType="BgtCD">
 		 SELECT DISTINCT
@@ -282,16 +278,12 @@
 			  ELSE BGTCD.div_Fg
 			END AS DEF_NM, 
 		       bgtcd.DIV_FG,
-		       bgticf.DIV_CD,
 		       BGTCD.BOTTOM_fG,
 		       bgtcd.group_cd,
 		       bgtcd.GR_FG
 		FROM BGTCD
 		JOIN BGTICF ON BGTCD.CO_CD = BGTICF.CO_CD
 		WHERE bgtcd.CO_CD = #{coCd}
-	  	  <if test="divCd != null and divCd != ''">
-    	 	 AND bgticf.DIV_CD = #{divCd}
-	      </if>
 		  AND bgtcd.GISU = #{gisu}
 		  <if test="bgtGrCdList != null and bgtGrCdList.size() > 0">
 		      AND bgtcd.GROUP_CD IN
@@ -305,4 +297,5 @@
 		  AND CONCAT(NVL(bgtcd.dataPath,''),bgtcd.bgt_cd,",") LIKE CONCAT( (SELECT CONCAT(NVL(bgtcd.dataPath,''),bgtcd.bgt_cd,",") FROM bgtCD WHERE BGT_CD = #{bgtCd}), "%");
 
 	</select>
+	<!--  -->
 </mapper>
