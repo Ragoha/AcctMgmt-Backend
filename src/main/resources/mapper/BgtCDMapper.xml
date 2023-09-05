@@ -2,22 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.acctmgmt.mapper.BgtCDMapper">
-
-	<select id="getDataGridData" resultType="BgtCD">
-		SELECT * FROM BGTCD ;
-	</select>
 	<select id="getBGTCDData" resultType="BgtCD">
 		SELECT * FROM BGTCD where CO_CD=#{coCd} and GISU=#{gisu}
 		<if test="bgtGrCd != null">
 			and GROUP_CD=#{bgtGrCd}
 		</if>
 	</select>
-
+	
 	<select id="getDetailInfo" parameterType="String"
 		resultType="BgtCD">
 		SELECT CTL_FG ,BGAJUST_FG ,TO_DT , BOTTOM_FG , BIZ_FG FROM
 		BGTCD WHERE BGT_CD=#{bgtCd};
 	</select>
+	<select id="getSearchData" parameterType="String" resultType="BgtCd">
+		SELECT * FROM bgtcd
+		WHERE (datapath LIKE CONCAT ((SELECT concat(dataPath, bgt_cd, +",") AS dataPath FROM bgtcd WHERE bgt_Cd = #{keyword}),"%") OR bgt_Cd = #{keyword}) 
+	</select>
+	
 	<select id="getDefNmFromBGTCD_TERM" parameterType="String"
 		resultType="String">
 		SELECT DEF_NM from BGTCD_TERM where DIV_FG =#{divFg} and CO_CD=#{coCd};
@@ -69,68 +70,57 @@
 		resultType="BgtCd">
 		SELECT BGT_CD , BGT_NM FROM BGTCD
 		WHERE CO_CD = #{coCd}
-		<if test="keyword != null">AND BGT_CD LIKE CONCAT('%', #{keyword}, '%')</if>;
+		<if test="keyword != null">
+			AND BGT_CD LIKE CONCAT('%', #{keyword}, '%')
+		</if>;
 	</select>
 	<select id="getBgtCdLikeSearch" parameterType="String"
 		resultType="BgtCd">
-		SELECT *
-		FROM bgtCD
-		WHERE (BGT_CD LIKE CONCAT('%',
-		#{keyword}, '%')
-		OR BGT_NM LIKE CONCAT('%', #{keyword}, '%'))
-		AND CO_CD
-		= #{coCd}
+		SELECT * FROM bgtCD
+		WHERE CO_CD = #{coCd} 
+		<if test="keyword != null and keyword != ''">
+		AND (BGT_CD LIKE CONCAT('%', #{keyword}, '%') OR BGT_NM LIKE CONCAT('%', #{keyword}, '%'))
+		</if>
 	</select>
-
-	<select id="getSearchData" parameterType="String"
-		resultType="BgtCd">
-		SELECT *
-		FROM bgtcd
-		WHERE (datapath LIKE CONCAT((SELECT
-		concat(dataPath, bgt_cd, +",") AS dataPath FROM bgtcd
-		WHERE
-		bgt_Cd = #{keyword}),"%")
-		OR
-		bgt_Cd = #{keyword})
-		AND
-		CO_CD=#{coCd}
-		AND
-		group_Cd
-		=#{groupCd}
-		AND
-		GISU=#{gisu};
-
-	</select>
-	<select id="getSearchData2" parameterType="String"
+	
+	
+	<!-- <select id="getSearchData2" parameterType="String"
 		resultType="BgtCd">
 		SELECT * FROM bgtcd where CO_CD=#{coCd} and group_Cd=#{groupCd} and
 		GISU=#{gisu};
-	</select>
+	</select> -->
 	<select id="getinitGisuList" parameterType="String"
 		resultType="Gisu">
 		SELECT * FROM
 		GISU
 		WHERE CO_CD=#{coCd};
 	</select>
+	
+	
+	
+	
 	<select id="getBgtGrSearch" parameterType="String"
 		resultType="BgtGr">
-		SELECT * FROM
-		BGTGR
-		WHERE CO_CD=#{coCd}
-		and
-		(BGT_CD LIKE
-		CONCAT('%', #{keyword}, '%')
-		OR BGT_NM LIKE CONCAT('%',
-		#{keyword},
-		'%'));
+		SELECT * FROM BGTGR
+		WHERE CO_CD=#{coCd} and
+		(BGT_CD LIKE CONCAT('%', #{keyword}, '%') OR BGT_NM LIKE CONCAT('%', #{keyword}, '%'));
 	</select>
 	<select id="getinitBgtGrSearch" parameterType="String"
 		resultType="BgtGr">
-		SELECT * FROM
-		BGTGR
-		WHERE CO_CD=#{coCd} 
-		<if test="keyword != null">AND  BGTGR_CD LIKE CONCAT('%', #{keyword}, '%')</if>;
+		SELECT * FROM BGTGR
+		WHERE CO_CD=#{coCd} AND  BGTGR_CD LIKE CONCAT('%', #{keyword}, '%');
 	</select>
+<select id="getbgtGrSearchKeywordData" parameterType="String" resultType="bgtGr">
+    SELECT * FROM BGTGR
+    WHERE CO_CD=#{coCd}
+    <if test="keyword != null and keyword != ''">
+        AND (BGTGR_CD LIKE CONCAT('%', #{keyword}, '%'))
+    </if>
+</select>
+	
+	
+	
+	
 	<select id="checkTopData" parameterType="String"
 	resultType="bgtCd">
 		SELECT * FROM 
@@ -140,14 +130,7 @@
 		and   GISU =#{gisu}
 		and parentCd is NULL;
 	</select>
-	<select id="getbgtGrSearchKeywordData" parameterType="String"
-	resultType="bgtGr">
-	 SELECT * FROM BGTGR
-     WHERE
-     CO_CD=#{coCd}
-     AND
-     BGTGR_CD LIKE CONCAT('%', #{keyword}, '%')
-	</select>
+	
 	<insert id="insertAddRow" parameterType="BgtCD">
 		INSERT INTO BGTCD
 		(CO_CD, BGT_CD,parentCd, GISU, BGT_NM, DIV_FG, CTL_FG,
@@ -160,6 +143,15 @@
 		(#{coCd},#{bgtCd},#{parentCd},#{gisu},#{bgtNm},#{divFg},#{ctlFg},#{bgajustFg},#{toDt},#{bottomFg},#{bizFg},#{groupCd},#{grFg},#{insertId},#{insertDt},#{insertIp},#{modifyId},#{modifyDt},#{modifyIp},#{MultiCk},#{MultiNum},#{dataPath});
 	</insert>
 
+	
+	<update id="updateBgtCDTerm" parameterType="BgtCDTerm">
+		UPDATE BGTCD_TERM
+		SET
+		DEF_NM=#{defNm}
+		WHERE
+		CO_CD=#{coCd} and DIV_FG=#{divFg}
+	</update>
+	
 	<update id="updateDetailInfo" parameterType="BgtCD">
 		UPDATE BGTCD
 		<set>
@@ -168,23 +160,16 @@
 			<if test="toDt != null">TO_DT=#{toDt},</if>
 			<if test="bottomFg != null">BOTTOM_FG=#{bottomFg},</if>
 			<if test="bizFg != null">BIZ_FG=#{bizFg},</if>
+			<if test="bgtNm !=''">BGT_NM=#{bgtNm}</if>
 		</set>
 		WHERE bgt_Cd =#{bgtCd}
 	</update>
-	<update id="updateBgtCDTerm" parameterType="BgtCDTerm">
-		UPDATE BGTCD_TERM
+	<update id="updateBgtNm" parameterType="BgtCD">
+		UPDATE BGTCD
 		SET
-		DEF_NM=#{defNm}
+		BGT_NM=#{bgtNm}
 		WHERE
-		CO_CD=#{coCd} and DIV_FG=#{divFg}
-	</update>
-	<update id="updateBgtNm" parameterType="String">
-	UPDATE BGTCD
-	SET
-	BGT_NM=#{bgtNm}
-	WHERE
-	CO_CD=#{coCd} and BGT_CD=#{bgtCd}
-
+		CO_CD=#{coCd} and BGT_CD=#{bgtCd}
 	</update>
 
 
@@ -261,8 +246,7 @@
 			END AS DEF_NM, 
 			bgtcd.BGT_NM, 
 			bgtcd.datapath, 
-			bgtcd.GROUP_CD, 
-			bgticf.DIV_CD
+			bgtcd.GROUP_CD
 		FROM bgtcd 
 		LEFT JOIN bgticf ON bgticf.co_cd = bgtcd.co_cd
 		WHERE bgtcd.CO_CD = #{coCd}
@@ -276,10 +260,7 @@
 			        #{item}
 			    </foreach>
 			</if>
-		    <if test="divCd != 0 or (divCd != null and divCd != '')">
-		    	AND (bgticf.DIV_CD = #{divCd} OR bgticf.DIV_CD IS NULL)
-			</if>
-		ORDER BY bgtcd.group_cd, bgtcd.gr_fg, bgtcd.datapath, bgtcd.bgt_cd;
+			ORDER by bgt_Cd
 	</select>
 	<select id="findBgtCdByGisuAndGroupCdAndGrFgAndBgtCd1" parameterType="BgtCD" resultType="BgtCD">
 		 SELECT DISTINCT
@@ -297,16 +278,12 @@
 			  ELSE BGTCD.div_Fg
 			END AS DEF_NM, 
 		       bgtcd.DIV_FG,
-		       bgticf.DIV_CD,
 		       BGTCD.BOTTOM_fG,
 		       bgtcd.group_cd,
 		       bgtcd.GR_FG
 		FROM BGTCD
 		JOIN BGTICF ON BGTCD.CO_CD = BGTICF.CO_CD
 		WHERE bgtcd.CO_CD = #{coCd}
-	  	  <if test="divCd != null and divCd != ''">
-    	 	 AND bgticf.DIV_CD = #{divCd}
-	      </if>
 		  AND bgtcd.GISU = #{gisu}
 		  <if test="bgtGrCdList != null and bgtGrCdList.size() > 0">
 		      AND bgtcd.GROUP_CD IN
@@ -320,4 +297,5 @@
 		  AND CONCAT(NVL(bgtcd.dataPath,''),bgtcd.bgt_cd,",") LIKE CONCAT( (SELECT CONCAT(NVL(bgtcd.dataPath,''),bgtcd.bgt_cd,",") FROM bgtCD WHERE BGT_CD = #{bgtCd}), "%");
 
 	</select>
+	<!--  -->
 </mapper>

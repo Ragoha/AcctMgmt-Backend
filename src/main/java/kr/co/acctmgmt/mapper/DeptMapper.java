@@ -11,11 +11,11 @@ public interface DeptMapper {
 
 	public List<Dept> getDept(String coCd);
 
-	public List<Dept> getDepartment(String deptCd);
+	public List<Dept> getDepartment(Dept dept);
 
 	public void insertDept(Dept dept);
 
-	public void deleteDept(String deptCd);
+	public void deleteDept(Dept dept);
 
 	public void updateDept(Dept dept);
 	

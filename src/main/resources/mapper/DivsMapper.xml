@@ -2,36 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.acctmgmt.mapper.DivsMapper">
 
-	<select id="findDivByCoCdAndKeyword" parameterType="Divs"
-		resultType="Divs">
-		SELECT DIV_CD, DIV_NM
-		FROM DIVS
-		WHERE CO_CD = #{coCd}
-		<if test="keyword != null and keyword != ''">
-			AND (
-			DIV_CD LIKE CONCAT('%', #{keyword}, '%')
-			OR
-			DIV_NM LIKE
-			CONCAT('%', #{keyword}, '%')
-			)
-		</if>
-	</select>
-
-	<select id="findDivsByCoCdAndKeyword" parameterType="Divs"
-		resultType="Divs">
-		SELECT DIV_CD, DIV_NM
-		FROM DIVS
-		WHERE CO_CD = #{coCd}
-		<if test="keyword != null and keyword != ''">
-			AND (
-			DIV_CD LIKE CONCAT('%', #{keyword}, '%')
-			OR
-			DIV_NM LIKE
-			CONCAT('%', #{keyword}, '%')
-			)
-		</if>
-	</select>
-
 	<select id="getDivBydivCdAnddivNm" parameterType="Divs"
 		resultType="Divs">
 		SELECT DIV_CD, DIV_NM
@@ -48,29 +18,34 @@
 		SELECT * FROM DIVS;
 	</select>
 
-	<select id="getDivision" parameterType="String" resultType="Divs">
+	<select id="getDivision" parameterType="Divs" resultType="Divs">
 		SELECT
 		CO_CD, DIV_CD, DIV_NM, CEO_NM, JONGMOK, BUSINESS_TYPE, DIV_NB, TO_NB,
 		DIV_ZIP, DIV_ADDR, DIV_ADDR1
-		FROM DIVS WHERE CO_CD = #{coCd} ORDER BY INSERT_DT ASC;
+		FROM DIVS 
+		WHERE CO_CD = #{coCd}
+		<if test="divCd != null and divCd != ''">
+			AND DIV_CD = #{divCd}
+		</if>
+		ORDER BY INSERT_DT ASC
 	</select>
 
 	<select id="getDiv" parameterType="Divs" resultType="Divs">
 		SELECT
-		CO_CD,
-		DIV_CD, DIV_NM, CEO_NM, JONGMOK, BUSINESS_TYPE, DIV_NB, TO_NB,
-		DIV_ZIP, DIV_ADDR, DIV_ADDR1
-		FROM DIVS WHERE CO_CD= #{coCd} AND DIV_CD = #{divCd};
+		DIVS.CO_CD,
+		CO.CO_NM,
+		DIVS.DIV_CD, DIVS.DIV_NM, DIVS.CEO_NM, DIVS.JONGMOK, DIVS.BUSINESS_TYPE, DIVS.DIV_NB, DIVS.TO_NB,
+		DIVS.DIV_ZIP, DIVS.DIV_ADDR, DIVS.DIV_ADDR1
+		FROM DIVS 
+		JOIN co ON co.CO_CD = divs.CO_CD
+		WHERE DIVS.CO_CD= #{coCd} AND DIVS.DIV_CD = #{divCd};
 	</select>
 
-	<select id="getCoCd" parameterType="String" resultType="Integer">
-		SELECT
-		CO_CD
-		FROM DIVS WHERE DIV_CD = #{divCd};
-	</select>
-
-	<delete id="deleteDivs" parameterType="String">
-		DELETE from DIVS WHERE
+	<delete id="deleteDivs" parameterType="Divs">
+		DELETE from DIVS 
+		WHERE
+		CO_CD = #{coCd} 
+		AND
 		DIV_CD = #{divCd};
 	</delete>
 
@@ -83,7 +58,10 @@
 		DIV_ADDR = #{divAddr}, DIV_ADDR1 = #{divAddr1}, MODIFY_ID =
 		#{modifyId}
 		WHERE
+		CO_CD = #{coCd}
+		AND
 		DIV_CD=#{divCd}
+		
 	</update>
 
 	<insert id="insertDivs" parameterType="Divs">
@@ -99,8 +77,8 @@
 		#{divAddr1}, #{insertId});
 	</insert>
 
-	<select id="findDivByCoCd" parameterType="String" resultType="Divs">
-		SELECT DIV_CD, DIV_NM
+	<select id="findDivByCoCd" parameterType="Dept" resultType="Divs">
+		SELECT CO_CD, DIV_CD, DIV_NM
 		FROM DIVS
 		WHERE CO_CD = #{coCd}
 	</select>

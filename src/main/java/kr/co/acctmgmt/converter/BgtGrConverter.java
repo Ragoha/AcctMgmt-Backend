@@ -22,13 +22,13 @@ public class BgtGrConverter {
 				.modifyDt(bgtGr.getModifyDt())
 				.modifyIp(bgtGr.getModifyIp())
 				.keyword(bgtGr.getKeyword())
+				.gisu(bgtGr.getGisu())
 				.build();
 		
 		return bgtGrDTO;
 	}
 	
 	public static BgtGr convertToModel(BgtGrDTO bgtGrDTO) {
-		
 		BgtGr bgtGr = BgtGr.builder()
 				.coCd(bgtGrDTO.getCoCd())
 				.bgtGrCd(bgtGrDTO.getBgtGrCd())
@@ -36,11 +36,12 @@ public class BgtGrConverter {
 				.bgtGrNm(bgtGrDTO.getBgtGrNm())
 				.insertId(bgtGrDTO.getInsertId())
 				.insertDt(bgtGrDTO.getInsertDt())
-				.insertId(bgtGrDTO.getInsertIp())
+				.insertIp(bgtGrDTO.getInsertIp())
 				.modifyId(bgtGrDTO.getModifyId())
 				.modifyDt(bgtGrDTO.getModifyDt())
 				.modifyIp(bgtGrDTO.getModifyIp())
 				.keyword(bgtGrDTO.getKeyword())
+				.gisu(bgtGrDTO.getGisu())
 				.build();
 		
 		return bgtGr;

@@ -12,17 +12,34 @@
 	</select> -->
 	
 	<select id="getBgtICFList" resultType="BgtICF">
-    	SELECT *, pjt.PJT_CD as mgtCd, pjt.PJT_NM as mgtNm, emp.emp_NAME
-    	FROM BGTICF
-	    	JOIN BGTCD ON bgtcd.CO_CD = bgticf.CO_CD AND BGTCD.BGT_CD = BGTICF.BGT_CD
-    		JOIN pjt ON pjt.CO_CD = bgticf.CO_CD AND pjt.PJT_CD = bgticf.MGT_CD
-    		JOIN emp on emp.CO_CD = bgticf.CO_CD AND emp.EMP_ID = bgticf.MODIFY_ID
-    	WHERE BGTICF.CO_CD = #{coCd}
-    		AND BGTICF.BGT_CD = #{bgtCd}
-    		AND BGTICF.GISU = #{gisu}
-    		AND BGTCD.BOTTOM_fG = 0
-    	ORDER BY BGTICF.INSERT_DT
+	    SELECT *, 
+	    <if test="bgtFg == 2">
+	    pjt.PJT_CD as mgtCd, pjt.PJT_NM as mgtNm, 
+	    </if>
+	    <if test="bgtFg == 1">
+	    dept.dept_CD as mgtCd, dept.dept_NM as mgtNm,
+	     </if>
+	    emp.emp_NAME
+	    FROM BGTICF
+	    JOIN BGTCD ON bgtcd.CO_CD = bgticf.CO_CD AND BGTCD.BGT_CD = BGTICF.BGT_CD
+	    <if test="bgtFg == 2">
+	        JOIN pjt ON pjt.CO_CD = bgticf.CO_CD AND pjt.PJT_CD = bgticf.MGT_CD
+	    </if>
+	    <if test="bgtFg == 1">
+	        JOIN DEPT ON DEPT.CO_CD = BGTICF.CO_CD AND DEPT.DEPT_CD = BGTICF.MGT_CD
+	    </if>
+	    JOIN emp on emp.CO_CD = bgticf.CO_CD AND emp.EMP_ID = bgticf.MODIFY_ID
+	    WHERE BGTICF.CO_CD = #{coCd}
+	        AND BGTICF.BGT_CD = #{bgtCd}
+	        AND BGTICF.GISU = #{gisu}
+	        AND BGTCD.BOTTOM_fG = 0
+	        AND BGTICF.BGT_FG = #{bgtFg}
+	        <if test="divCd != null and divCd != ''">
+	        AND BGTICF.DIV_cD = #{divCd}
+	        </if>
+	    ORDER BY BGTICF.INSERT_DT
 	</select>
+
 	
 	<insert id="insertBgtICF" parameterType="BgtICF">
 	    <selectKey keyProperty="sq" resultType="int" order="BEFORE">
@@ -44,22 +61,13 @@
 	<update id="updateBgtICF" parameterType="BgtICF">
 	    UPDATE BGTICF
 	    SET
-	        CO_CD = #{coCd},
-	        GISU = #{gisu},
-	        SQ = #{sq},
-	        DIV_CD = #{divCd},
-	        DEPT_CD = #{deptCd},
 	        MGT_CD = #{mgtCd},
-	        BGT_CD = #{bgtCd},
-	        BGT_FG = #{bgtFg},
-	        BOTTOM_NM = #{bottomNm},
 	        CARR_AM = #{carrAm},
 	        CARR_AM1 = #{carrAm1},
 	        CARR_AM2 = #{carrAm2},
 	        CARR_AM3 = #{carrAm3},
-	        EMP_CD = #{empCd},
 	        REM_DC = #{remDc},
-	        BGT_TY = "직접입력",
+            EMP_CD = #{empCd},
 	        MODIFY_ID = #{modifyId},
 	        MODIFY_DT = #{modifyDt},
 	        MODIFY_IP = #{modifyIp}
@@ -67,8 +75,6 @@
 	        CO_CD = #{coCd} AND
 	        GISU = #{gisu} AND
 	        SQ = #{sq} AND
-	        DIV_CD = #{divCd} AND
-	        DEPT_CD = #{deptCd} AND
 	        BGT_CD = #{bgtCd} AND
 	        BGT_FG = #{bgtFg}
 	</update>
@@ -84,49 +90,17 @@
 	        </foreach>
 	</delete>
 	
-	<select id="getSumBgtICFByCoCdAndBgtCd" parameterType="BgtCD" resultType="double">
-		WITH RECURSIVE CTE AS (
-		    SELECT
-		        bgtcd.BGT_CD,
-		        bgtcd.BGT_NM,
-		        bgtcd.PARENTCD,
-		        bgtcd.BGT_CD AS CD_PATH,
-		        1 AS LEVEL,
-		        NVL(bgticf.CARR_AM, 0) AS carr_am,
-		        BGTICF.SQ,
-		        bgticf.GISU
-		    FROM bgtcd
-		    LEFT JOIN bgticf ON bgticf.BGT_CD = bgtcd.BGT_CD
-		    WHERE PARENTCD IS NULL
-		    AND bgtcd.CO_CD = #{coCd}
-		    UNION ALL
-		    SELECT
-		        P.BGT_CD,
-		        P.BGT_NM,
-		        P.parentCd,
-		        CONCAT(CTE.CD_PATH, '>', P.BGT_NM) AS CD_PATH,
-		        1 + LEVEL AS LEVEL,
-		        NVL(bgticf.CARR_AM, 0) AS carr_am,
-		        BGTICF.SQ,
-		        bgticf.GISU
-		    FROM bgtcd P
-		    INNER JOIN CTE ON P.parentCd = CTE.BGT_CD
-		    LEFT JOIN bgticf ON bgticf.BGT_CD = P.BGT_CD
-		    WHERE P.CO_CD = #{coCd}
-		)
-		SELECT
-		  	NVL(SUM(CARR_AM),0) as CARR_AM
-		FROM (
-		    SELECT DISTINCT BGT_CD, CARR_AM, SQ
-		    FROM CTE
-		    WHERE CTE.CD_PATH LIKE (
-		        SELECT CONCAT(CD_PATH, '%') FROM CTE WHERE BGT_CD = #{bgtCd} LIMIT 1
-		    )
-		    AND CTE.gisu = #{gisu}
-		) TEMPTABLE
+		<select id="getSumBgtICFByCoCdAndBgtCd" parameterType="BgtCD" resultType="double">
+			SELECT nvl(SUM(bgticf.CARR_AM),0)
+			FROM bgticf 
+			JOIN bgtcd ON bgtcd.co_cd = bgticf.co_cd AND bgtcd.BGT_CD = bgticf.bgt_cd
+			where CONCAT(nvl(bgtcd.datapath,''), bgtcd.bgt_cd, ',') LIKE CONCAT((SELECT concat(nvl(dataPath, ''), bgt_cd,",") FROM bgtcd WHERE bgt_cd = #{bgtCd}), "%")
+			AND bgticf.CO_CD = #{coCd}
+		    <if test="divCd != null and divCd != ''">
+		    	AND bgticf.div_cd = #{divCd}
+		    </if>
+		</select>
 
-
-	</select>
 	
 	<!-- DELETE FROM BGTICF
 	    WHERE

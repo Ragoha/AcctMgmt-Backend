@@ -31,10 +31,10 @@ public class PjtMapperTest {
 //	@Test
 	public void getSelPjtList() {
 		String coCd = "2000";
-		String pjtCd = "100";
-		List<Pjt> pjtList = pjtMapper.getSelPjtList(pjtCd, coCd);
-
-		System.out.println("what? : " + pjtList.toString());
+//		String pjtCd = "100";
+//		List<Pjt> pjtList = pjtMapper.getSelPjtList(pjtCd, coCd);
+//
+//		System.out.println("what? : " + pjtList.toString());
 	}
 
 //	@Test
@@ -100,7 +100,7 @@ public class PjtMapperTest {
 		String keyword = "12";
 //		pjt.setCoCd(1000);
 		
-		List<Pjt> pjt = pjtMapper.getPgrBy(keyword, "2000");
-		System.out.println("찾았니 ? " + pjt.toString());
+//		List<Pjt> pjt = pjtMapper.getPgrBy(keyword, "2000");
+//		System.out.println("찾았니 ? " + pjt.toString());
 	}
 }

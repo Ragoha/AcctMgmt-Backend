@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import kr.co.acctmgmt.converter.DivsConverter;
-import kr.co.acctmgmt.domain.Co;
+import kr.co.acctmgmt.domain.Dept;
 import kr.co.acctmgmt.domain.Divs;
 import kr.co.acctmgmt.dto.DivsDTO;
 import kr.co.acctmgmt.mapper.DivsMapper;
@@ -38,14 +38,14 @@ public class DivsServiceImpl implements DivsService{
 	}
 
 	@Override
-	public List<Divs> getDivision(String coCd) {
-		List<Divs> division = divsMapper.getDivision(coCd);
+	public List<Divs> getDivision(Divs divs) {
+		List<Divs> division = divsMapper.getDivision(divs);
 		return division;
 	}
 
 	@Override
-	public void deleteDivs(String divCd) {
-		divsMapper.deleteDivs(divCd);
+	public void deleteDivs(Divs divs) {
+		divsMapper.deleteDivs(divs);
 	}
 
 	@Override
@@ -62,6 +62,8 @@ public class DivsServiceImpl implements DivsService{
 	@Override
 	public List<Divs> getDiv(Divs divs) {
 		List<Divs> division = divsMapper.getDiv(divs);
+		System.out.println("============");
+		System.out.println(division.toString());
 		return division;
 	}
 
@@ -72,9 +74,9 @@ public class DivsServiceImpl implements DivsService{
 	}
 
 	@Override
-	public List<Divs> findDivByCoCd(String coCd) {
+	public List<Divs> findDivByCoCd(Divs divs) {
 		
-		return divsMapper.findDivByCoCd(coCd);
+		return divsMapper.findDivByCoCd(divs);
 	}
 
 }

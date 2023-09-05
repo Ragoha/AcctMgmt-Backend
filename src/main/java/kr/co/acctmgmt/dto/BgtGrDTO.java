@@ -17,7 +17,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class BgtGrDTO {
 
-	private int coCd;
+	private String coCd;
 	private int bgtGrCd;
 	private String useYn;
 	private String bgtGrNm;
@@ -29,6 +29,7 @@ public class BgtGrDTO {
     private String modifyIp;
     
     private String keyword;
+    private int gisu;
     
     
 }

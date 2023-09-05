@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,90 +29,61 @@ public class DeptController {
 	private final DeptService deptService;
 	private final DivsService divsService;
 	
-	@GetMapping("/ozt/dept")
-	public ResponseEntity<List<Dept>> getDeptList() {
-		List<Dept> deptList = deptService.getDeptList();
-	
-//		System.out.println(coList.toString());
-		return new ResponseEntity<List<Dept>>(deptList, HttpStatus.OK);
-	}
-	
-	@GetMapping("/ozt/sdept")
-	public ResponseEntity<List<Dept>> getDept(@RequestParam String coCd){
-		
-//		System.out.println(coCd);
-		List<Dept> department = deptService.getDept(coCd);
-		System.out.println(department);
-		return new ResponseEntity<List<Dept>>(department, HttpStatus.OK);
-	}
-	
-	@GetMapping("/ozt/sdepart")
-	public ResponseEntity<List<Dept>> getDepartment(@RequestParam String deptCd){
-		
-		List<Dept> department = deptService.getDepartment(deptCd);
-		return new ResponseEntity<List<Dept>>(department, HttpStatus.OK);
-	}
-	
-	@PostMapping("/ozt/idept")
+	@PostMapping("/dept")
 	public ResponseEntity<Void> insertDept(@RequestBody Dept dept) {
 		deptService.insertDept(dept);
 		System.out.println(dept);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/ozt/ddept")
-	public ResponseEntity<Void> deleteDept(@RequestParam String deptCd) {  
-		deptService.deleteDept(deptCd);
+	@DeleteMapping("/dept/{coCd}/{deptCd}")
+	public ResponseEntity<Void> deleteDept(Dept dept) {  
+		deptService.deleteDept(dept);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@PutMapping("/ozt/udept")
-	public ResponseEntity<Void> updateDept(@RequestBody Dept dept){
+	@PutMapping("/dept/{coCd}/{deptCd}")
+	public ResponseEntity<Void> updateDept(@PathVariable("coCd") String coCd, @PathVariable("deptCd") String deptCd, @RequestBody Dept dept){
+	
+		dept.setCoCd(coCd);
+		dept.setDeptCd(deptCd);
 		deptService.updateDept(dept);
+		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-//	@GetMapping("/ozt/sdivdept")
-//	public ResponseEntity<List<Dept>> getDivDept(@RequestParam String coCd){
-//		
-//		List<Dept> department = deptService.getDivDept(coCd);
-//		System.out.println(department);
-//		return new ResponseEntity<List<Dept>>(department, HttpStatus.OK);
-//	}
-//	
-//	@GetMapping("/ozt/stcocd")
-//	public ResponseEntity<List<Dept>> getDivCo(@RequestParam String coCd){
-//		
-//		List<Dept> department = deptService.getDivCo(coCd);
-//		System.out.println(department);
-//		return new ResponseEntity<List<Dept>>(department, HttpStatus.OK);
-//	}
-	
-	@GetMapping("/ozt/stdivcd")
-	public ResponseEntity<List<Dept>> getDivsDept(@RequestParam String divCd){
+	@GetMapping("/dept/{coCd}")
+	public ResponseEntity<List<Dept>> getDivDept1(Dept dept){
 		
-		List<Dept> department = deptService.getDivsDept(divCd);
-		System.out.println(department);
-		return new ResponseEntity<List<Dept>>(department, HttpStatus.OK);
-	}
-	
-	@GetMapping("/ozt/sdivdept2")
-	public ResponseEntity<List<Dept>> getDivDept2(@RequestParam String coCd){
+		System.out.println(dept.toString());
+		List<Dept> rDeptList = deptService.findDeptByCoCd(dept);
 		
-		System.out.println("asdf00");
-//		divsService.findDivByCoCd(coCd);
-		List<Dept> rDeptList = deptService.findDeptByCoCd(coCd);
-		
-		System.out.println(rDeptList.toString());
-		
-		System.out.println("asdf00");
 		return new ResponseEntity<List<Dept>>(rDeptList, HttpStatus.OK);
 	}
 	
-	@GetMapping("/ozt/dept/search")
+	@GetMapping("/dept/{coCd}/{deptCd}")
+	public ResponseEntity<List<Dept>> getDivDept2(Dept dept){
+		
+		System.out.println(dept.toString());		
+		List<Dept> rDeptList = deptService.findDeptByCoCd(dept);
+		
+		return new ResponseEntity<List<Dept>>(rDeptList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/dialog/dept/{coCd}/{keyword}")
 	public ResponseEntity<List<Dept>> getDeptBydeptCdAnddeptNm(Dept dept){
 		
 		List<Dept> searchDept = deptService.getDeptBydeptCdAnddeptNm(dept);
+		
+		System.out.println(searchDept);
+		return new ResponseEntity<List<Dept>>(searchDept, HttpStatus.OK);
+	}
+	
+	@GetMapping("/dialog/dept/{coCd}")
+	public ResponseEntity<List<Dept>> getDeptBydeptCdAnddeptNm2(Dept dept){
+		
+		List<Dept> searchDept = deptService.getDeptBydeptCdAnddeptNm(dept);
+		
 		System.out.println(searchDept);
 		return new ResponseEntity<List<Dept>>(searchDept, HttpStatus.OK);
 	}

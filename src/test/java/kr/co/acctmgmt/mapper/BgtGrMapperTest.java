@@ -21,11 +21,11 @@ public class BgtGrMapperTest {
 	public void findBgtGrByCoCdOrKeywordTest() {
 		
 		BgtGr bgtGr1 = BgtGr.builder()
-				.coCd(1)
+				.coCd("1")
 				.build();
 		
 		BgtGr bgtGr2 = BgtGr.builder()
-				.coCd(1)
+				.coCd("1")
 				.keyword("·ì1")
 				.build();
 		

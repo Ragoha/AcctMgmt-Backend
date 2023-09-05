@@ -29,9 +29,9 @@ public class BgtICF {
     private int bgtFg = 0;
     private String bottomNm ="";
     private Long carrAm = 0L;
-    private Long carrAm1 = 0L;;
-    private Long carrAm2 = 0L;;
-    private Long carrAm3 = 0L;;
+    private Long carrAm1 = 0L;
+    private Long carrAm2 = 0L;
+    private Long carrAm3 = 0L;
     private int empCd = 0;
     private String remDc = "";
     private String bgtTy = "";

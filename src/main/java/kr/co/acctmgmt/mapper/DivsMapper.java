@@ -2,6 +2,7 @@ package kr.co.acctmgmt.mapper;
 
 import java.util.List;
 
+import kr.co.acctmgmt.domain.Dept;
 import kr.co.acctmgmt.domain.Divs;
 
 public interface DivsMapper {
@@ -12,11 +13,11 @@ public interface DivsMapper {
 	
 	public List<Divs> getDivsList();
 	
-	public List<Divs> getDivision(String coCd);
+	public List<Divs> getDivision(Divs divs);
 	
 	public List<Divs> getDiv(Divs divs);
 	
-	public void deleteDivs(String divCd);
+	public void deleteDivs(Divs divs);
 	
 	public void updateDivs(Divs divs);
 	
@@ -24,6 +25,6 @@ public interface DivsMapper {
 	
 	public Integer getCoCd(String divCd);
 
-	public List<Divs> findDivByCoCd(String coCd);
+	public List<Divs> findDivByCoCd(Divs divs);
 	
 }

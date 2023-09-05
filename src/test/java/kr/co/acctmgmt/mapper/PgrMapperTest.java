@@ -25,15 +25,15 @@ public class PgrMapperTest {
 		
 		String coCd = "1000";
 		String pgrCd = "123";
-		List<Pgr> pgrList = pgrMapper.findPgrByCoCd(coCd);
-		System.out.println("지우기전  : " + pgrList.toString());
-		Pgr pgr = new Pgr();
-		pgr.setCoCd(coCd);
-		pgr.setPgrCd(pgrCd);
-		
-		pgrMapper.deletePgr(pgr);
-
-		System.out.println("지워졌나 ?  : " + pgrList.toString());
+//		List<Pgr> pgrList = pgrMapper.findPgrByCoCd(coCd);
+//		System.out.println("지우기전  : " + pgrList.toString());
+//		Pgr pgr = new Pgr();
+//		pgr.setCoCd(coCd);
+//		pgr.setPgrCd(pgrCd);
+//		
+//		pgrMapper.deletePgr(pgr);
+//
+//		System.out.println("지워졌나 ?  : " + pgrList.toString());
 	}
 
 ////	@Test

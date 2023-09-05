@@ -62,7 +62,7 @@ public interface BgtCDService {
 	
 	public List<BgtGr> getBgtGrSearch(String coCd, String keyword);
 
-	public void updateBgtNm(String coCd, String bgtCd, String bgtNm);
+	public void updateBgtNm(BgtCD bgtcd);
 
 	public BgtCD checkTopData(String coCd, String gisu, String tDataPath, String keyword);
 

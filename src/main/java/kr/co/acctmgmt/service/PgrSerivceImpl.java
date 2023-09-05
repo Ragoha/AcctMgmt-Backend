@@ -2,6 +2,7 @@ package kr.co.acctmgmt.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import kr.co.acctmgmt.domain.Pgr;
@@ -14,7 +15,7 @@ public class PgrSerivceImpl implements PgrService{
 	private final PgrMapper pgrMapper;
 
 	@Override
-	public List<Pgr> findPgrByCoCd(String pgr) {
+	public List<Pgr> findPgrByCoCd(Pgr pgr) {
 		return pgrMapper.findPgrByCoCd(pgr);
 	}
 
@@ -35,4 +36,15 @@ public class PgrSerivceImpl implements PgrService{
 		pgrMapper.insertPgr(pgr);
 	}
 
+
+	@Override
+	public String findPgrByNm(@Param("coCd") String coCd, @Param("pgrCd") String pgrCd) {
+		return pgrMapper.findPgrByNm(coCd, pgrCd);
+	}
+	
+	@Override
+	public List<Pgr> getPgrBy(Pgr pgr) {
+		// TODO Auto-generated method stub
+		return pgrMapper.getPgrBy(pgr);
+	}
 }
